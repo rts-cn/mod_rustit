@@ -1,0 +1,27 @@
+[package]
+name = "mod_zrapi"
+version = "0.1.0"
+edition = "2021"
+publish = ["rsproxy"]
+build = "build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+libc = "0.2.151"
+cc = "1.0"
+lazy_static="1.0"
+
+[build-dependencies]
+bindgen = {version = "0.69.1", default_features = true}
+cfg-if = "1.0"
+
+[lib]
+crate-type = ["dylib"]
+name = "mod_zrapi"
+path = "./src/mod_zrapi.rs"
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
