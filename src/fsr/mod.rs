@@ -17,7 +17,6 @@ macro_rules! ptr_not_null {
     };
 }
 
-
 pub struct CoreSession(*mut fs::switch_core_session_t);
 impl CoreSession {
     pub unsafe fn from_ptr(p: *mut fs::switch_core_session_t) -> CoreSession {
@@ -82,8 +81,12 @@ impl Event {
     pub fn string<'a>(&'a self) -> String {
         unsafe {
             let mut s: *mut c_char = std::ptr::null_mut();
-            fs::switch_event_serialize(self.0,  std::ptr::addr_of_mut!(s), fs::switch_bool_t_SWITCH_FALSE);
-            let text =  fs::ptr_to_str(s).unwrap_or(Cow::Borrowed("")).to_string();
+            fs::switch_event_serialize(
+                self.0,
+                std::ptr::addr_of_mut!(s),
+                fs::switch_bool_t_SWITCH_FALSE,
+            );
+            let text = fs::ptr_to_str(s).unwrap_or(Cow::Borrowed("")).to_string();
             libc::free(s as *mut c_void);
             text
         }
