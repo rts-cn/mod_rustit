@@ -26,6 +26,7 @@ fn main() {
         // The input header we would like to generate
         // bindings for.
         .header(headers_path_str)
+        .allowlist_file(".*freeswitch.*")
         .rustified_enum(".*")
         .derive_hash(false)
         .generate_comments(false)
