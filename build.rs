@@ -18,7 +18,7 @@ fn main() {
     // The bindgen::Builder is the main entry point
     // to bindgen, and lets you build up options for
     // the resulting bindings.
-    let bindings = bindgen::Builder::default()
+    let bindings = bindgen::Builder::default().layout_tests(false)
         // The input header we would like to generate
         // bindings for.
         .header(headers_path_str)
