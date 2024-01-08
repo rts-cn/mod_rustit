@@ -6010,150 +6010,92 @@ extern "C" {
         string: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-pub const vpx_img_fmt_VPX_IMG_FMT_NONE: vpx_img_fmt = 0;
-#[doc = "< 24 bit per pixel packed RGB"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB24: vpx_img_fmt = 1;
-#[doc = "< 32 bit per pixel packed 0RGB"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB32: vpx_img_fmt = 2;
-#[doc = "< 16 bit per pixel, 565"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB565: vpx_img_fmt = 3;
-#[doc = "< 16 bit per pixel, 555"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB555: vpx_img_fmt = 4;
-#[doc = "< UYVY packed YUV"]
-pub const vpx_img_fmt_VPX_IMG_FMT_UYVY: vpx_img_fmt = 5;
-#[doc = "< YUYV packed YUV"]
-pub const vpx_img_fmt_VPX_IMG_FMT_YUY2: vpx_img_fmt = 6;
-#[doc = "< YVYU packed YUV"]
-pub const vpx_img_fmt_VPX_IMG_FMT_YVYU: vpx_img_fmt = 7;
-#[doc = "< 24 bit per pixel packed BGR"]
-pub const vpx_img_fmt_VPX_IMG_FMT_BGR24: vpx_img_fmt = 8;
-#[doc = "< 32 bit packed BGR0"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB32_LE: vpx_img_fmt = 9;
-#[doc = "< 32 bit packed ARGB, alpha=255"]
-pub const vpx_img_fmt_VPX_IMG_FMT_ARGB: vpx_img_fmt = 10;
-#[doc = "< 32 bit packed BGRA, alpha=255"]
-pub const vpx_img_fmt_VPX_IMG_FMT_ARGB_LE: vpx_img_fmt = 11;
-#[doc = "< 16 bit per pixel, gggbbbbb rrrrrggg"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB565_LE: vpx_img_fmt = 12;
-#[doc = "< 16 bit per pixel, gggbbbbb 0rrrrrgg"]
-pub const vpx_img_fmt_VPX_IMG_FMT_RGB555_LE: vpx_img_fmt = 13;
-pub const vpx_img_fmt_VPX_IMG_FMT_YV12: vpx_img_fmt = 769;
-pub const vpx_img_fmt_VPX_IMG_FMT_I420: vpx_img_fmt = 258;
-pub const vpx_img_fmt_VPX_IMG_FMT_VPXYV12: vpx_img_fmt = 771;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_VPXI420: vpx_img_fmt = 260;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I422: vpx_img_fmt = 261;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I444: vpx_img_fmt = 262;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I440: vpx_img_fmt = 263;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_444A: vpx_img_fmt = 1286;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I42016: vpx_img_fmt = 2306;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I42216: vpx_img_fmt = 2309;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I44416: vpx_img_fmt = 2310;
-#[doc = " < planar 4:2:0 format with vpx color space"]
-pub const vpx_img_fmt_VPX_IMG_FMT_I44016: vpx_img_fmt = 2311;
-#[doc = "\\brief List of supported image formats"]
-pub type vpx_img_fmt = ::std::os::raw::c_uint;
-#[doc = "\\brief List of supported image formats"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum vpx_img_fmt {
+    VPX_IMG_FMT_NONE = 0,
+    VPX_IMG_FMT_RGB24 = 1,
+    VPX_IMG_FMT_RGB32 = 2,
+    VPX_IMG_FMT_RGB565 = 3,
+    VPX_IMG_FMT_RGB555 = 4,
+    VPX_IMG_FMT_UYVY = 5,
+    VPX_IMG_FMT_YUY2 = 6,
+    VPX_IMG_FMT_YVYU = 7,
+    VPX_IMG_FMT_BGR24 = 8,
+    VPX_IMG_FMT_RGB32_LE = 9,
+    VPX_IMG_FMT_ARGB = 10,
+    VPX_IMG_FMT_ARGB_LE = 11,
+    VPX_IMG_FMT_RGB565_LE = 12,
+    VPX_IMG_FMT_RGB555_LE = 13,
+    VPX_IMG_FMT_YV12 = 769,
+    VPX_IMG_FMT_I420 = 258,
+    VPX_IMG_FMT_VPXYV12 = 771,
+    VPX_IMG_FMT_VPXI420 = 260,
+    VPX_IMG_FMT_I422 = 261,
+    VPX_IMG_FMT_I444 = 262,
+    VPX_IMG_FMT_I440 = 263,
+    VPX_IMG_FMT_444A = 1286,
+    VPX_IMG_FMT_I42016 = 2306,
+    VPX_IMG_FMT_I42216 = 2309,
+    VPX_IMG_FMT_I44416 = 2310,
+    VPX_IMG_FMT_I44016 = 2311,
+}
 pub use self::vpx_img_fmt as vpx_img_fmt_t;
-#[doc = "< Unknown"]
-pub const vpx_color_space_VPX_CS_UNKNOWN: vpx_color_space = 0;
-#[doc = "< BT.601"]
-pub const vpx_color_space_VPX_CS_BT_601: vpx_color_space = 1;
-#[doc = "< BT.709"]
-pub const vpx_color_space_VPX_CS_BT_709: vpx_color_space = 2;
-#[doc = "< SMPTE.170"]
-pub const vpx_color_space_VPX_CS_SMPTE_170: vpx_color_space = 3;
-#[doc = "< SMPTE.240"]
-pub const vpx_color_space_VPX_CS_SMPTE_240: vpx_color_space = 4;
-#[doc = "< BT.2020"]
-pub const vpx_color_space_VPX_CS_BT_2020: vpx_color_space = 5;
-#[doc = "< Reserved"]
-pub const vpx_color_space_VPX_CS_RESERVED: vpx_color_space = 6;
-#[doc = "< sRGB"]
-pub const vpx_color_space_VPX_CS_SRGB: vpx_color_space = 7;
-#[doc = "\\brief List of supported color spaces"]
-pub type vpx_color_space = ::std::os::raw::c_uint;
-#[doc = "\\brief List of supported color spaces"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum vpx_color_space {
+    VPX_CS_UNKNOWN = 0,
+    VPX_CS_BT_601 = 1,
+    VPX_CS_BT_709 = 2,
+    VPX_CS_SMPTE_170 = 3,
+    VPX_CS_SMPTE_240 = 4,
+    VPX_CS_BT_2020 = 5,
+    VPX_CS_RESERVED = 6,
+    VPX_CS_SRGB = 7,
+}
 pub use self::vpx_color_space as vpx_color_space_t;
-#[doc = "< Y [16..235], UV [16..240]"]
-pub const vpx_color_range_VPX_CR_STUDIO_RANGE: vpx_color_range = 0;
-#[doc = "< YUV/RGB [0..255]"]
-pub const vpx_color_range_VPX_CR_FULL_RANGE: vpx_color_range = 1;
-#[doc = "\\brief List of supported color range"]
-pub type vpx_color_range = ::std::os::raw::c_uint;
-#[doc = "\\brief List of supported color range"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum vpx_color_range {
+    VPX_CR_STUDIO_RANGE = 0,
+    VPX_CR_FULL_RANGE = 1,
+}
 pub use self::vpx_color_range as vpx_color_range_t;
-#[doc = "\\brief Image Descriptor"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vpx_image {
-    #[doc = "< Image Format"]
     pub fmt: vpx_img_fmt_t,
-    #[doc = "< Color Space"]
     pub cs: vpx_color_space_t,
-    #[doc = "< Color Range"]
     pub range: vpx_color_range_t,
-    #[doc = "< Stored image width"]
     pub w: ::std::os::raw::c_uint,
-    #[doc = "< Stored image height"]
     pub h: ::std::os::raw::c_uint,
-    #[doc = "< Stored image bit-depth"]
     pub bit_depth: ::std::os::raw::c_uint,
-    #[doc = "< Displayed image width"]
     pub d_w: ::std::os::raw::c_uint,
-    #[doc = "< Displayed image height"]
     pub d_h: ::std::os::raw::c_uint,
-    #[doc = "< Intended rendering image width"]
     pub r_w: ::std::os::raw::c_uint,
-    #[doc = "< Intended rendering image height"]
     pub r_h: ::std::os::raw::c_uint,
-    #[doc = "< subsampling order, X"]
     pub x_chroma_shift: ::std::os::raw::c_uint,
-    #[doc = "< subsampling order, Y"]
     pub y_chroma_shift: ::std::os::raw::c_uint,
-    #[doc = "< pointer to the top left pixel for each plane"]
     pub planes: [*mut ::std::os::raw::c_uchar; 4usize],
-    #[doc = "< stride between rows for each plane"]
     pub stride: [::std::os::raw::c_int; 4usize],
-    #[doc = "< bits per sample (for packed formats)"]
     pub bps: ::std::os::raw::c_int,
-    #[doc = "\\brief The following member may be set by the application to associate\n data with this image."]
     pub user_priv: *mut ::std::os::raw::c_void,
-    #[doc = "< private"]
     pub img_data: *mut ::std::os::raw::c_uchar,
-    #[doc = "< private"]
     pub img_data_owner: ::std::os::raw::c_int,
-    #[doc = "< private"]
     pub self_allocd: ::std::os::raw::c_int,
-    #[doc = "< Frame buffer data associated with the image."]
     pub fb_priv: *mut ::std::os::raw::c_void,
 }
-#[doc = "\\brief Image Descriptor"]
 pub type vpx_image_t = vpx_image;
-#[doc = "\\brief Representation of a rectangle on a surface"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vpx_image_rect {
-    #[doc = "< leftmost column"]
     pub x: ::std::os::raw::c_uint,
-    #[doc = "< topmost row"]
     pub y: ::std::os::raw::c_uint,
-    #[doc = "< width"]
     pub w: ::std::os::raw::c_uint,
-    #[doc = "< height"]
     pub h: ::std::os::raw::c_uint,
 }
-#[doc = "\\brief Representation of a rectangle on a surface"]
 pub type vpx_image_rect_t = vpx_image_rect;
 extern "C" {
-    #[doc = "\\brief Open a descriptor, allocating storage for the underlying image\n\n Returns a descriptor for storing an image of the given format. The\n storage for the descriptor is allocated on the heap.\n\n \\param[in]    img       Pointer to storage for descriptor. If this parameter\n                         is NULL, the storage for the descriptor will be\n                         allocated on the heap.\n \\param[in]    fmt       Format for the image\n \\param[in]    d_w       Width of the image\n \\param[in]    d_h       Height of the image\n \\param[in]    align     Alignment, in bytes, of the image buffer and\n                         each row in the image(stride).\n\n \\return Returns a pointer to the initialized image descriptor. If the img\n         parameter is non-null, the value of the img parameter will be\n         returned."]
     pub fn vpx_img_alloc(
         img: *mut vpx_image_t,
         fmt: vpx_img_fmt_t,
@@ -6163,7 +6105,6 @@ extern "C" {
     ) -> *mut vpx_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Open a descriptor, using existing storage for the underlying image\n\n Returns a descriptor for storing an image of the given format. The\n storage for descriptor has been allocated elsewhere, and a descriptor is\n desired to \"wrap\" that storage.\n\n \\param[in]    img           Pointer to storage for descriptor. If this\n                             parameter is NULL, the storage for the descriptor\n                             will be allocated on the heap.\n \\param[in]    fmt           Format for the image\n \\param[in]    d_w           Width of the image\n \\param[in]    d_h           Height of the image\n \\param[in]    stride_align  Alignment, in bytes, of each row in the image.\n \\param[in]    img_data      Storage to use for the image\n\n \\return Returns a pointer to the initialized image descriptor. If the img\n         parameter is non-null, the value of the img parameter will be\n         returned."]
     pub fn vpx_img_wrap(
         img: *mut vpx_image_t,
         fmt: vpx_img_fmt_t,
@@ -6174,7 +6115,6 @@ extern "C" {
     ) -> *mut vpx_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the rectangle identifying the displayed portion of the image\n\n Updates the displayed rectangle (aka viewport) on the image surface to\n match the specified coordinates and size.\n\n \\param[in]    img       Image descriptor\n \\param[in]    x         leftmost column\n \\param[in]    y         topmost row\n \\param[in]    w         width\n \\param[in]    h         height\n\n \\return 0 if the requested rectangle is valid, nonzero otherwise."]
     pub fn vpx_img_set_rect(
         img: *mut vpx_image_t,
         x: ::std::os::raw::c_uint,
@@ -6184,35 +6124,42 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Flip the image vertically (top for bottom)\n\n Adjusts the image descriptor's pointers and strides to make the image\n be referenced upside-down.\n\n \\param[in]    img       Image descriptor"]
     pub fn vpx_img_flip(img: *mut vpx_image_t);
 }
 extern "C" {
-    #[doc = "\\brief Close an image descriptor\n\n Frees all allocated storage associated with an image descriptor.\n\n \\param[in]    img       Image descriptor"]
     pub fn vpx_img_free(img: *mut vpx_image_t);
 }
-#[doc = "\\brief List of supported image formats"]
 pub use self::vpx_img_fmt_t as switch_img_fmt_t;
-#[doc = "\\brief Image Descriptor"]
 pub type switch_image_t = vpx_image_t;
 pub type switch_byte_t = u8;
-pub const switch_pvt_class_t_SWITCH_PVT_PRIMARY: switch_pvt_class_t = 0;
-pub const switch_pvt_class_t_SWITCH_PVT_SECONDARY: switch_pvt_class_t = 1;
-pub type switch_pvt_class_t = ::std::os::raw::c_uint;
-pub const switch_dtmf_source_t_SWITCH_DTMF_UNKNOWN: switch_dtmf_source_t = 0;
-pub const switch_dtmf_source_t_SWITCH_DTMF_INBAND_AUDIO: switch_dtmf_source_t = 1;
-pub const switch_dtmf_source_t_SWITCH_DTMF_RTP: switch_dtmf_source_t = 2;
-pub const switch_dtmf_source_t_SWITCH_DTMF_ENDPOINT: switch_dtmf_source_t = 3;
-pub const switch_dtmf_source_t_SWITCH_DTMF_APP: switch_dtmf_source_t = 4;
-#[doc = "\\enum switch_dtmf_source_t\n\\brief DTMF sources\n<pre>\nSWITCH_DTMF_UNKNOWN             - Unknown source\nSWITCH_DTMF_INBAND_AUDIO        - From audio\nSWITCH_DTMF_RTP                 - From RTP as a telephone event\nSWITCH_DTMF_ENDPOINT            - From endpoint signaling\nSWITCH_DTMF_APP                 - From application\n</pre>"]
-pub type switch_dtmf_source_t = ::std::os::raw::c_uint;
-pub const switch_digit_action_target_t_DIGIT_TARGET_SELF: switch_digit_action_target_t = 0;
-pub const switch_digit_action_target_t_DIGIT_TARGET_PEER: switch_digit_action_target_t = 1;
-pub const switch_digit_action_target_t_DIGIT_TARGET_BOTH: switch_digit_action_target_t = 2;
-pub type switch_digit_action_target_t = ::std::os::raw::c_uint;
-pub const dtmf_flag_t_DTMF_FLAG_SKIP_PROCESS: dtmf_flag_t = 1;
-pub const dtmf_flag_t_DTMF_FLAG_SENSITIVE: dtmf_flag_t = 2;
-pub type dtmf_flag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_pvt_class_t {
+    SWITCH_PVT_PRIMARY = 0,
+    SWITCH_PVT_SECONDARY = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_dtmf_source_t {
+    SWITCH_DTMF_UNKNOWN = 0,
+    SWITCH_DTMF_INBAND_AUDIO = 1,
+    SWITCH_DTMF_RTP = 2,
+    SWITCH_DTMF_ENDPOINT = 3,
+    SWITCH_DTMF_APP = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_digit_action_target_t {
+    DIGIT_TARGET_SELF = 0,
+    DIGIT_TARGET_PEER = 1,
+    DIGIT_TARGET_BOTH = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum dtmf_flag_t {
+    DTMF_FLAG_SKIP_PROCESS = 1,
+    DTMF_FLAG_SENSITIVE = 2,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_dtmf_t {
@@ -6221,204 +6168,246 @@ pub struct switch_dtmf_t {
     pub flags: i32,
     pub source: switch_dtmf_source_t,
 }
-pub const switch_call_direction_t_SWITCH_CALL_DIRECTION_INBOUND: switch_call_direction_t = 0;
-pub const switch_call_direction_t_SWITCH_CALL_DIRECTION_OUTBOUND: switch_call_direction_t = 1;
-pub type switch_call_direction_t = ::std::os::raw::c_uint;
-pub const switch_bind_flag_enum_t_SBF_DIAL_ALEG: switch_bind_flag_enum_t = 1;
-pub const switch_bind_flag_enum_t_SBF_EXEC_ALEG: switch_bind_flag_enum_t = 2;
-pub const switch_bind_flag_enum_t_SBF_DIAL_BLEG: switch_bind_flag_enum_t = 4;
-pub const switch_bind_flag_enum_t_SBF_EXEC_BLEG: switch_bind_flag_enum_t = 8;
-pub const switch_bind_flag_enum_t_SBF_EXEC_OPPOSITE: switch_bind_flag_enum_t = 16;
-pub const switch_bind_flag_enum_t_SBF_EXEC_SAME: switch_bind_flag_enum_t = 32;
-pub const switch_bind_flag_enum_t_SBF_ONCE: switch_bind_flag_enum_t = 64;
-pub const switch_bind_flag_enum_t_SBF_EXEC_INLINE: switch_bind_flag_enum_t = 128;
-pub type switch_bind_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_call_direction_t {
+    SWITCH_CALL_DIRECTION_INBOUND = 0,
+    SWITCH_CALL_DIRECTION_OUTBOUND = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_bind_flag_enum_t {
+    SBF_DIAL_ALEG = 1,
+    SBF_EXEC_ALEG = 2,
+    SBF_DIAL_BLEG = 4,
+    SBF_EXEC_BLEG = 8,
+    SBF_EXEC_OPPOSITE = 16,
+    SBF_EXEC_SAME = 32,
+    SBF_ONCE = 64,
+    SBF_EXEC_INLINE = 128,
+}
 pub type switch_bind_flag_t = u32;
-pub const switch_dtmf_direction_t_SWITCH_DTMF_RECV: switch_dtmf_direction_t = 0;
-pub const switch_dtmf_direction_t_SWITCH_DTMF_SEND: switch_dtmf_direction_t = 1;
-pub type switch_dtmf_direction_t = ::std::os::raw::c_uint;
-pub const switch_originate_flag_enum_t_SOF_NONE: switch_originate_flag_enum_t = 0;
-pub const switch_originate_flag_enum_t_SOF_NOBLOCK: switch_originate_flag_enum_t = 1;
-pub const switch_originate_flag_enum_t_SOF_FORKED_DIAL: switch_originate_flag_enum_t = 2;
-pub const switch_originate_flag_enum_t_SOF_NO_EFFECTIVE_ANI: switch_originate_flag_enum_t = 4;
-pub const switch_originate_flag_enum_t_SOF_NO_EFFECTIVE_ANIII: switch_originate_flag_enum_t = 8;
-pub const switch_originate_flag_enum_t_SOF_NO_EFFECTIVE_CID_NUM: switch_originate_flag_enum_t = 16;
-pub const switch_originate_flag_enum_t_SOF_NO_EFFECTIVE_CID_NAME: switch_originate_flag_enum_t = 32;
-pub const switch_originate_flag_enum_t_SOF_NO_LIMITS: switch_originate_flag_enum_t = 64;
-pub type switch_originate_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_dtmf_direction_t {
+    SWITCH_DTMF_RECV = 0,
+    SWITCH_DTMF_SEND = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_originate_flag_enum_t {
+    SOF_NONE = 0,
+    SOF_NOBLOCK = 1,
+    SOF_FORKED_DIAL = 2,
+    SOF_NO_EFFECTIVE_ANI = 4,
+    SOF_NO_EFFECTIVE_ANIII = 8,
+    SOF_NO_EFFECTIVE_CID_NUM = 16,
+    SOF_NO_EFFECTIVE_CID_NAME = 32,
+    SOF_NO_LIMITS = 64,
+}
 pub type switch_originate_flag_t = u32;
-pub const switch_port_flag_enum_t_SPF_NONE: switch_port_flag_enum_t = 0;
-pub const switch_port_flag_enum_t_SPF_ODD: switch_port_flag_enum_t = 1;
-pub const switch_port_flag_enum_t_SPF_EVEN: switch_port_flag_enum_t = 2;
-pub const switch_port_flag_enum_t_SPF_ROBUST_TCP: switch_port_flag_enum_t = 4;
-pub const switch_port_flag_enum_t_SPF_ROBUST_UDP: switch_port_flag_enum_t = 8;
-pub type switch_port_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_port_flag_enum_t {
+    SPF_NONE = 0,
+    SPF_ODD = 1,
+    SPF_EVEN = 2,
+    SPF_ROBUST_TCP = 4,
+    SPF_ROBUST_UDP = 8,
+}
 pub type switch_port_flag_t = u32;
-pub const switch_eavesdrop_flag_enum_t_ED_NONE: switch_eavesdrop_flag_enum_t = 0;
-pub const switch_eavesdrop_flag_enum_t_ED_MUX_READ: switch_eavesdrop_flag_enum_t = 1;
-pub const switch_eavesdrop_flag_enum_t_ED_MUX_WRITE: switch_eavesdrop_flag_enum_t = 2;
-pub const switch_eavesdrop_flag_enum_t_ED_DTMF: switch_eavesdrop_flag_enum_t = 4;
-pub const switch_eavesdrop_flag_enum_t_ED_COPY_DISPLAY: switch_eavesdrop_flag_enum_t = 8;
-pub const switch_eavesdrop_flag_enum_t_ED_BRIDGE_READ: switch_eavesdrop_flag_enum_t = 16;
-pub const switch_eavesdrop_flag_enum_t_ED_BRIDGE_WRITE: switch_eavesdrop_flag_enum_t = 32;
-pub const switch_eavesdrop_flag_enum_t_ED_TAP_READ: switch_eavesdrop_flag_enum_t = 64;
-pub const switch_eavesdrop_flag_enum_t_ED_TAP_WRITE: switch_eavesdrop_flag_enum_t = 128;
-pub const switch_eavesdrop_flag_enum_t_ED_STEREO: switch_eavesdrop_flag_enum_t = 256;
-pub type switch_eavesdrop_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_eavesdrop_flag_enum_t {
+    ED_NONE = 0,
+    ED_MUX_READ = 1,
+    ED_MUX_WRITE = 2,
+    ED_DTMF = 4,
+    ED_COPY_DISPLAY = 8,
+    ED_BRIDGE_READ = 16,
+    ED_BRIDGE_WRITE = 32,
+    ED_TAP_READ = 64,
+    ED_TAP_WRITE = 128,
+    ED_STEREO = 256,
+}
 pub type switch_eavesdrop_flag_t = u32;
-pub const switch_core_flag_enum_t_SCF_NONE: switch_core_flag_enum_t = 0;
-pub const switch_core_flag_enum_t_SCF_USE_SQL: switch_core_flag_enum_t = 1;
-pub const switch_core_flag_enum_t_SCF_NO_NEW_OUTBOUND_SESSIONS: switch_core_flag_enum_t = 2;
-pub const switch_core_flag_enum_t_SCF_NO_NEW_INBOUND_SESSIONS: switch_core_flag_enum_t = 4;
-pub const switch_core_flag_enum_t_SCF_NO_NEW_SESSIONS: switch_core_flag_enum_t = 6;
-pub const switch_core_flag_enum_t_SCF_SHUTTING_DOWN: switch_core_flag_enum_t = 8;
-pub const switch_core_flag_enum_t_SCF_VG: switch_core_flag_enum_t = 16;
-pub const switch_core_flag_enum_t_SCF_RESTART: switch_core_flag_enum_t = 32;
-pub const switch_core_flag_enum_t_SCF_SHUTDOWN_REQUESTED: switch_core_flag_enum_t = 64;
-pub const switch_core_flag_enum_t_SCF_USE_AUTO_NAT: switch_core_flag_enum_t = 128;
-pub const switch_core_flag_enum_t_SCF_EARLY_HANGUP: switch_core_flag_enum_t = 256;
-pub const switch_core_flag_enum_t_SCF_CALIBRATE_CLOCK: switch_core_flag_enum_t = 512;
-pub const switch_core_flag_enum_t_SCF_USE_HEAVY_TIMING: switch_core_flag_enum_t = 1024;
-pub const switch_core_flag_enum_t_SCF_USE_CLOCK_RT: switch_core_flag_enum_t = 2048;
-pub const switch_core_flag_enum_t_SCF_VERBOSE_EVENTS: switch_core_flag_enum_t = 4096;
-pub const switch_core_flag_enum_t_SCF_USE_WIN32_MONOTONIC: switch_core_flag_enum_t = 8192;
-pub const switch_core_flag_enum_t_SCF_AUTO_SCHEMAS: switch_core_flag_enum_t = 16384;
-pub const switch_core_flag_enum_t_SCF_MINIMAL: switch_core_flag_enum_t = 32768;
-pub const switch_core_flag_enum_t_SCF_USE_NAT_MAPPING: switch_core_flag_enum_t = 65536;
-pub const switch_core_flag_enum_t_SCF_CLEAR_SQL: switch_core_flag_enum_t = 131072;
-pub const switch_core_flag_enum_t_SCF_THREADED_SYSTEM_EXEC: switch_core_flag_enum_t = 262144;
-pub const switch_core_flag_enum_t_SCF_SYNC_CLOCK_REQUESTED: switch_core_flag_enum_t = 524288;
-pub const switch_core_flag_enum_t_SCF_CORE_NON_SQLITE_DB_REQ: switch_core_flag_enum_t = 1048576;
-pub const switch_core_flag_enum_t_SCF_DEBUG_SQL: switch_core_flag_enum_t = 2097152;
-pub const switch_core_flag_enum_t_SCF_API_EXPANSION: switch_core_flag_enum_t = 4194304;
-pub const switch_core_flag_enum_t_SCF_SESSION_THREAD_POOL: switch_core_flag_enum_t = 8388608;
-pub const switch_core_flag_enum_t_SCF_DIALPLAN_TIMESTAMPS: switch_core_flag_enum_t = 16777216;
-pub const switch_core_flag_enum_t_SCF_CPF_SOFT_PREFIX: switch_core_flag_enum_t = 33554432;
-pub const switch_core_flag_enum_t_SCF_CPF_SOFT_LOOKUP: switch_core_flag_enum_t = 67108864;
-pub const switch_core_flag_enum_t_SCF_EVENT_CHANNEL_ENABLE_HIERARCHY_DELIVERY:
-    switch_core_flag_enum_t = 134217728;
-pub const switch_core_flag_enum_t_SCF_EVENT_CHANNEL_HIERARCHY_DELIVERY_ONCE:
-    switch_core_flag_enum_t = 268435456;
-pub const switch_core_flag_enum_t_SCF_EVENT_CHANNEL_LOG_UNDELIVERABLE_JSON:
-    switch_core_flag_enum_t = 536870912;
-pub const switch_core_flag_enum_t_SCF_LOG_DISABLE: switch_core_flag_enum_t = 1073741824;
-pub type switch_core_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_flag_enum_t {
+    SCF_NONE = 0,
+    SCF_USE_SQL = 1,
+    SCF_NO_NEW_OUTBOUND_SESSIONS = 2,
+    SCF_NO_NEW_INBOUND_SESSIONS = 4,
+    SCF_NO_NEW_SESSIONS = 6,
+    SCF_SHUTTING_DOWN = 8,
+    SCF_VG = 16,
+    SCF_RESTART = 32,
+    SCF_SHUTDOWN_REQUESTED = 64,
+    SCF_USE_AUTO_NAT = 128,
+    SCF_EARLY_HANGUP = 256,
+    SCF_CALIBRATE_CLOCK = 512,
+    SCF_USE_HEAVY_TIMING = 1024,
+    SCF_USE_CLOCK_RT = 2048,
+    SCF_VERBOSE_EVENTS = 4096,
+    SCF_USE_WIN32_MONOTONIC = 8192,
+    SCF_AUTO_SCHEMAS = 16384,
+    SCF_MINIMAL = 32768,
+    SCF_USE_NAT_MAPPING = 65536,
+    SCF_CLEAR_SQL = 131072,
+    SCF_THREADED_SYSTEM_EXEC = 262144,
+    SCF_SYNC_CLOCK_REQUESTED = 524288,
+    SCF_CORE_NON_SQLITE_DB_REQ = 1048576,
+    SCF_DEBUG_SQL = 2097152,
+    SCF_API_EXPANSION = 4194304,
+    SCF_SESSION_THREAD_POOL = 8388608,
+    SCF_DIALPLAN_TIMESTAMPS = 16777216,
+    SCF_CPF_SOFT_PREFIX = 33554432,
+    SCF_CPF_SOFT_LOOKUP = 67108864,
+    SCF_EVENT_CHANNEL_ENABLE_HIERARCHY_DELIVERY = 134217728,
+    SCF_EVENT_CHANNEL_HIERARCHY_DELIVERY_ONCE = 268435456,
+    SCF_EVENT_CHANNEL_LOG_UNDELIVERABLE_JSON = 536870912,
+    SCF_LOG_DISABLE = 1073741824,
+}
 pub type switch_core_flag_t = u32;
-pub const switch_module_interface_name_t_SWITCH_ENDPOINT_INTERFACE: switch_module_interface_name_t =
-    0;
-pub const switch_module_interface_name_t_SWITCH_TIMER_INTERFACE: switch_module_interface_name_t = 1;
-pub const switch_module_interface_name_t_SWITCH_DIALPLAN_INTERFACE: switch_module_interface_name_t =
-    2;
-pub const switch_module_interface_name_t_SWITCH_CODEC_INTERFACE: switch_module_interface_name_t = 3;
-pub const switch_module_interface_name_t_SWITCH_APPLICATION_INTERFACE:
-    switch_module_interface_name_t = 4;
-pub const switch_module_interface_name_t_SWITCH_API_INTERFACE: switch_module_interface_name_t = 5;
-pub const switch_module_interface_name_t_SWITCH_FILE_INTERFACE: switch_module_interface_name_t = 6;
-pub const switch_module_interface_name_t_SWITCH_SPEECH_INTERFACE: switch_module_interface_name_t =
-    7;
-pub const switch_module_interface_name_t_SWITCH_DIRECTORY_INTERFACE:
-    switch_module_interface_name_t = 8;
-pub const switch_module_interface_name_t_SWITCH_CHAT_INTERFACE: switch_module_interface_name_t = 9;
-pub const switch_module_interface_name_t_SWITCH_SAY_INTERFACE: switch_module_interface_name_t = 10;
-pub const switch_module_interface_name_t_SWITCH_ASR_INTERFACE: switch_module_interface_name_t = 11;
-pub const switch_module_interface_name_t_SWITCH_MANAGEMENT_INTERFACE:
-    switch_module_interface_name_t = 12;
-pub const switch_module_interface_name_t_SWITCH_LIMIT_INTERFACE: switch_module_interface_name_t =
-    13;
-pub const switch_module_interface_name_t_SWITCH_CHAT_APPLICATION_INTERFACE:
-    switch_module_interface_name_t = 14;
-pub const switch_module_interface_name_t_SWITCH_JSON_API_INTERFACE: switch_module_interface_name_t =
-    15;
-pub const switch_module_interface_name_t_SWITCH_DATABASE_INTERFACE: switch_module_interface_name_t =
-    16;
-pub type switch_module_interface_name_t = ::std::os::raw::c_uint;
-pub const switch_database_flag_enum_t_SWITCH_DATABASE_FLAG_ROW_SIZE_LIMIT:
-    switch_database_flag_enum_t = 1;
-#[doc = "\\enum switch_database_flag_t\n\\brief Database flags\n<pre>\nSWITCH_DATABASE_FLAG_ROW_SIZE_LIMIT = (1 <<  0) - Indicates that database has got row-size limit for the combined sizes of all columns.\n</pre>"]
-pub type switch_database_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_module_interface_name_t {
+    SWITCH_ENDPOINT_INTERFACE = 0,
+    SWITCH_TIMER_INTERFACE = 1,
+    SWITCH_DIALPLAN_INTERFACE = 2,
+    SWITCH_CODEC_INTERFACE = 3,
+    SWITCH_APPLICATION_INTERFACE = 4,
+    SWITCH_API_INTERFACE = 5,
+    SWITCH_FILE_INTERFACE = 6,
+    SWITCH_SPEECH_INTERFACE = 7,
+    SWITCH_DIRECTORY_INTERFACE = 8,
+    SWITCH_CHAT_INTERFACE = 9,
+    SWITCH_SAY_INTERFACE = 10,
+    SWITCH_ASR_INTERFACE = 11,
+    SWITCH_MANAGEMENT_INTERFACE = 12,
+    SWITCH_LIMIT_INTERFACE = 13,
+    SWITCH_CHAT_APPLICATION_INTERFACE = 14,
+    SWITCH_JSON_API_INTERFACE = 15,
+    SWITCH_DATABASE_INTERFACE = 16,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_database_flag_enum_t {
+    SWITCH_DATABASE_FLAG_ROW_SIZE_LIMIT = 1,
+}
 pub type switch_database_flag_t = u32;
-pub const switch_unicast_flag_enum_t_SUF_NONE: switch_unicast_flag_enum_t = 0;
-pub const switch_unicast_flag_enum_t_SUF_THREAD_RUNNING: switch_unicast_flag_enum_t = 1;
-pub const switch_unicast_flag_enum_t_SUF_READY: switch_unicast_flag_enum_t = 2;
-pub const switch_unicast_flag_enum_t_SUF_NATIVE: switch_unicast_flag_enum_t = 4;
-pub type switch_unicast_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_unicast_flag_enum_t {
+    SUF_NONE = 0,
+    SUF_THREAD_RUNNING = 1,
+    SUF_READY = 2,
+    SUF_NATIVE = 4,
+}
 pub type switch_unicast_flag_t = u32;
-pub const switch_bool_t_SWITCH_FALSE: switch_bool_t = 0;
-pub const switch_bool_t_SWITCH_TRUE: switch_bool_t = 1;
-pub type switch_bool_t = ::std::os::raw::c_uint;
-pub const switch_say_method_t_SSM_NA: switch_say_method_t = 0;
-pub const switch_say_method_t_SSM_PRONOUNCED: switch_say_method_t = 1;
-pub const switch_say_method_t_SSM_ITERATED: switch_say_method_t = 2;
-pub const switch_say_method_t_SSM_COUNTED: switch_say_method_t = 3;
-pub const switch_say_method_t_SSM_PRONOUNCED_YEAR: switch_say_method_t = 4;
-pub type switch_say_method_t = ::std::os::raw::c_uint;
-pub const switch_say_type_t_SST_NUMBER: switch_say_type_t = 0;
-pub const switch_say_type_t_SST_ITEMS: switch_say_type_t = 1;
-pub const switch_say_type_t_SST_PERSONS: switch_say_type_t = 2;
-pub const switch_say_type_t_SST_MESSAGES: switch_say_type_t = 3;
-pub const switch_say_type_t_SST_CURRENCY: switch_say_type_t = 4;
-pub const switch_say_type_t_SST_TIME_MEASUREMENT: switch_say_type_t = 5;
-pub const switch_say_type_t_SST_CURRENT_DATE: switch_say_type_t = 6;
-pub const switch_say_type_t_SST_CURRENT_TIME: switch_say_type_t = 7;
-pub const switch_say_type_t_SST_CURRENT_DATE_TIME: switch_say_type_t = 8;
-pub const switch_say_type_t_SST_TELEPHONE_NUMBER: switch_say_type_t = 9;
-pub const switch_say_type_t_SST_TELEPHONE_EXTENSION: switch_say_type_t = 10;
-pub const switch_say_type_t_SST_URL: switch_say_type_t = 11;
-pub const switch_say_type_t_SST_IP_ADDRESS: switch_say_type_t = 12;
-pub const switch_say_type_t_SST_EMAIL_ADDRESS: switch_say_type_t = 13;
-pub const switch_say_type_t_SST_POSTAL_ADDRESS: switch_say_type_t = 14;
-pub const switch_say_type_t_SST_ACCOUNT_NUMBER: switch_say_type_t = 15;
-pub const switch_say_type_t_SST_NAME_SPELLED: switch_say_type_t = 16;
-pub const switch_say_type_t_SST_NAME_PHONETIC: switch_say_type_t = 17;
-pub const switch_say_type_t_SST_SHORT_DATE_TIME: switch_say_type_t = 18;
-pub type switch_say_type_t = ::std::os::raw::c_uint;
-pub const switch_say_gender_t_SSG_MASCULINE: switch_say_gender_t = 0;
-pub const switch_say_gender_t_SSG_FEMININE: switch_say_gender_t = 1;
-pub const switch_say_gender_t_SSG_NEUTER: switch_say_gender_t = 2;
-pub const switch_say_gender_t_SSG_UTRUM: switch_say_gender_t = 3;
-pub type switch_say_gender_t = ::std::os::raw::c_uint;
-pub const switch_management_action_t_SMA_NONE: switch_management_action_t = 0;
-pub const switch_management_action_t_SMA_GET: switch_management_action_t = 1;
-pub const switch_management_action_t_SMA_SET: switch_management_action_t = 2;
-pub type switch_management_action_t = ::std::os::raw::c_uint;
-pub const switch_scheduler_flag_enum_t_SSHF_NONE: switch_scheduler_flag_enum_t = 0;
-pub const switch_scheduler_flag_enum_t_SSHF_OWN_THREAD: switch_scheduler_flag_enum_t = 1;
-pub const switch_scheduler_flag_enum_t_SSHF_FREE_ARG: switch_scheduler_flag_enum_t = 2;
-pub const switch_scheduler_flag_enum_t_SSHF_NO_DEL: switch_scheduler_flag_enum_t = 4;
-pub type switch_scheduler_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_bool_t {
+    SWITCH_FALSE = 0,
+    SWITCH_TRUE = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_say_method_t {
+    SSM_NA = 0,
+    SSM_PRONOUNCED = 1,
+    SSM_ITERATED = 2,
+    SSM_COUNTED = 3,
+    SSM_PRONOUNCED_YEAR = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_say_type_t {
+    SST_NUMBER = 0,
+    SST_ITEMS = 1,
+    SST_PERSONS = 2,
+    SST_MESSAGES = 3,
+    SST_CURRENCY = 4,
+    SST_TIME_MEASUREMENT = 5,
+    SST_CURRENT_DATE = 6,
+    SST_CURRENT_TIME = 7,
+    SST_CURRENT_DATE_TIME = 8,
+    SST_TELEPHONE_NUMBER = 9,
+    SST_TELEPHONE_EXTENSION = 10,
+    SST_URL = 11,
+    SST_IP_ADDRESS = 12,
+    SST_EMAIL_ADDRESS = 13,
+    SST_POSTAL_ADDRESS = 14,
+    SST_ACCOUNT_NUMBER = 15,
+    SST_NAME_SPELLED = 16,
+    SST_NAME_PHONETIC = 17,
+    SST_SHORT_DATE_TIME = 18,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_say_gender_t {
+    SSG_MASCULINE = 0,
+    SSG_FEMININE = 1,
+    SSG_NEUTER = 2,
+    SSG_UTRUM = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_management_action_t {
+    SMA_NONE = 0,
+    SMA_GET = 1,
+    SMA_SET = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_scheduler_flag_enum_t {
+    SSHF_NONE = 0,
+    SSHF_OWN_THREAD = 1,
+    SSHF_FREE_ARG = 2,
+    SSHF_NO_DEL = 4,
+}
 pub type switch_scheduler_flag_t = u32;
-pub const switch_media_flag_enum_t_SMF_NONE: switch_media_flag_enum_t = 0;
-pub const switch_media_flag_enum_t_SMF_REBRIDGE: switch_media_flag_enum_t = 1;
-pub const switch_media_flag_enum_t_SMF_ECHO_ALEG: switch_media_flag_enum_t = 2;
-pub const switch_media_flag_enum_t_SMF_ECHO_BLEG: switch_media_flag_enum_t = 4;
-pub const switch_media_flag_enum_t_SMF_FORCE: switch_media_flag_enum_t = 8;
-pub const switch_media_flag_enum_t_SMF_LOOP: switch_media_flag_enum_t = 16;
-pub const switch_media_flag_enum_t_SMF_HOLD_BLEG: switch_media_flag_enum_t = 32;
-pub const switch_media_flag_enum_t_SMF_IMMEDIATE: switch_media_flag_enum_t = 64;
-pub const switch_media_flag_enum_t_SMF_EXEC_INLINE: switch_media_flag_enum_t = 128;
-pub const switch_media_flag_enum_t_SMF_PRIORITY: switch_media_flag_enum_t = 256;
-pub const switch_media_flag_enum_t_SMF_REPLYONLY_A: switch_media_flag_enum_t = 512;
-pub const switch_media_flag_enum_t_SMF_REPLYONLY_B: switch_media_flag_enum_t = 1024;
-pub type switch_media_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_media_flag_enum_t {
+    SMF_NONE = 0,
+    SMF_REBRIDGE = 1,
+    SMF_ECHO_ALEG = 2,
+    SMF_ECHO_BLEG = 4,
+    SMF_FORCE = 8,
+    SMF_LOOP = 16,
+    SMF_HOLD_BLEG = 32,
+    SMF_IMMEDIATE = 64,
+    SMF_EXEC_INLINE = 128,
+    SMF_PRIORITY = 256,
+    SMF_REPLYONLY_A = 512,
+    SMF_REPLYONLY_B = 1024,
+}
 pub type switch_media_flag_t = u32;
-pub const switch_bitpack_mode_t_SWITCH_BITPACK_MODE_RFC3551: switch_bitpack_mode_t = 0;
-pub const switch_bitpack_mode_t_SWITCH_BITPACK_MODE_AAL2: switch_bitpack_mode_t = 1;
-pub type switch_bitpack_mode_t = ::std::os::raw::c_uint;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_INIT: switch_abc_type_t = 0;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_READ: switch_abc_type_t = 1;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_WRITE: switch_abc_type_t = 2;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_WRITE_REPLACE: switch_abc_type_t = 3;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_READ_REPLACE: switch_abc_type_t = 4;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_READ_PING: switch_abc_type_t = 5;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_TAP_NATIVE_READ: switch_abc_type_t = 6;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_TAP_NATIVE_WRITE: switch_abc_type_t = 7;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_CLOSE: switch_abc_type_t = 8;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_READ_VIDEO_PING: switch_abc_type_t = 9;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_WRITE_VIDEO_PING: switch_abc_type_t = 10;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_STREAM_VIDEO_PING: switch_abc_type_t = 11;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_VIDEO_PATCH: switch_abc_type_t = 12;
-pub const switch_abc_type_t_SWITCH_ABC_TYPE_READ_TEXT: switch_abc_type_t = 13;
-pub type switch_abc_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_bitpack_mode_t {
+    SWITCH_BITPACK_MODE_RFC3551 = 0,
+    SWITCH_BITPACK_MODE_AAL2 = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_abc_type_t {
+    SWITCH_ABC_TYPE_INIT = 0,
+    SWITCH_ABC_TYPE_READ = 1,
+    SWITCH_ABC_TYPE_WRITE = 2,
+    SWITCH_ABC_TYPE_WRITE_REPLACE = 3,
+    SWITCH_ABC_TYPE_READ_REPLACE = 4,
+    SWITCH_ABC_TYPE_READ_PING = 5,
+    SWITCH_ABC_TYPE_TAP_NATIVE_READ = 6,
+    SWITCH_ABC_TYPE_TAP_NATIVE_WRITE = 7,
+    SWITCH_ABC_TYPE_CLOSE = 8,
+    SWITCH_ABC_TYPE_READ_VIDEO_PING = 9,
+    SWITCH_ABC_TYPE_WRITE_VIDEO_PING = 10,
+    SWITCH_ABC_TYPE_STREAM_VIDEO_PING = 11,
+    SWITCH_ABC_TYPE_VIDEO_PATCH = 12,
+    SWITCH_ABC_TYPE_READ_TEXT = 13,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_bitpack_t {
@@ -6471,59 +6460,74 @@ pub struct switch_filenames {
 extern "C" {
     pub static mut SWITCH_GLOBAL_filenames: switch_filenames;
 }
-pub const switch_rw_t_SWITCH_RW_READ: switch_rw_t = 0;
-pub const switch_rw_t_SWITCH_RW_WRITE: switch_rw_t = 1;
-pub type switch_rw_t = ::std::os::raw::c_uint;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_NONE: switch_caller_profile_flag_enum_t = 0;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_SCREEN: switch_caller_profile_flag_enum_t =
-    1;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_HIDE_NAME:
-    switch_caller_profile_flag_enum_t = 2;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_HIDE_NUMBER:
-    switch_caller_profile_flag_enum_t = 4;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_SOFT_PREFIX:
-    switch_caller_profile_flag_enum_t = 8;
-pub const switch_caller_profile_flag_enum_t_SWITCH_CPF_SOFT_LOOKUP:
-    switch_caller_profile_flag_enum_t = 16;
-pub type switch_caller_profile_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rw_t {
+    SWITCH_RW_READ = 0,
+    SWITCH_RW_WRITE = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_caller_profile_flag_enum_t {
+    SWITCH_CPF_NONE = 0,
+    SWITCH_CPF_SCREEN = 1,
+    SWITCH_CPF_HIDE_NAME = 2,
+    SWITCH_CPF_HIDE_NUMBER = 4,
+    SWITCH_CPF_SOFT_PREFIX = 8,
+    SWITCH_CPF_SOFT_LOOKUP = 16,
+}
 pub type switch_caller_profile_flag_t = u32;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_TITLE: switch_audio_col_t = 1;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_COPYRIGHT: switch_audio_col_t = 2;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_SOFTWARE: switch_audio_col_t = 3;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_ARTIST: switch_audio_col_t = 4;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_COMMENT: switch_audio_col_t = 5;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_DATE: switch_audio_col_t = 6;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_ALBUM: switch_audio_col_t = 7;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_LICENSE: switch_audio_col_t = 8;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_TRACKNUMBER: switch_audio_col_t = 9;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_GENRE: switch_audio_col_t = 16;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_FILE_SIZE: switch_audio_col_t = 240;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_FILE_TRIMMED: switch_audio_col_t = 241;
-pub const switch_audio_col_t_SWITCH_AUDIO_COL_STR_FILE_TRIMMED_MS: switch_audio_col_t = 242;
-pub type switch_audio_col_t = ::std::os::raw::c_uint;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_RESULT: switch_xml_section_enum_t = 0;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_CONFIG: switch_xml_section_enum_t = 1;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_DIRECTORY: switch_xml_section_enum_t = 2;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_DIALPLAN: switch_xml_section_enum_t = 4;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_LANGUAGES: switch_xml_section_enum_t = 8;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_CHATPLAN: switch_xml_section_enum_t = 16;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_CHANNELS: switch_xml_section_enum_t = 32;
-pub const switch_xml_section_enum_t_SWITCH_XML_SECTION_MAX: switch_xml_section_enum_t = 32;
-pub type switch_xml_section_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_audio_col_t {
+    SWITCH_AUDIO_COL_STR_TITLE = 1,
+    SWITCH_AUDIO_COL_STR_COPYRIGHT = 2,
+    SWITCH_AUDIO_COL_STR_SOFTWARE = 3,
+    SWITCH_AUDIO_COL_STR_ARTIST = 4,
+    SWITCH_AUDIO_COL_STR_COMMENT = 5,
+    SWITCH_AUDIO_COL_STR_DATE = 6,
+    SWITCH_AUDIO_COL_STR_ALBUM = 7,
+    SWITCH_AUDIO_COL_STR_LICENSE = 8,
+    SWITCH_AUDIO_COL_STR_TRACKNUMBER = 9,
+    SWITCH_AUDIO_COL_STR_GENRE = 16,
+    SWITCH_AUDIO_COL_STR_FILE_SIZE = 240,
+    SWITCH_AUDIO_COL_STR_FILE_TRIMMED = 241,
+    SWITCH_AUDIO_COL_STR_FILE_TRIMMED_MS = 242,
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_MAX: switch_xml_section_enum_t =
+        switch_xml_section_enum_t::SWITCH_XML_SECTION_CHANNELS;
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_xml_section_enum_t {
+    SWITCH_XML_SECTION_RESULT = 0,
+    SWITCH_XML_SECTION_CONFIG = 1,
+    SWITCH_XML_SECTION_DIRECTORY = 2,
+    SWITCH_XML_SECTION_DIALPLAN = 4,
+    SWITCH_XML_SECTION_LANGUAGES = 8,
+    SWITCH_XML_SECTION_CHATPLAN = 16,
+    SWITCH_XML_SECTION_CHANNELS = 32,
+}
 pub type switch_xml_section_t = u32;
-pub const switch_vad_flag_enum_t_SWITCH_VAD_FLAG_TALKING: switch_vad_flag_enum_t = 1;
-pub const switch_vad_flag_enum_t_SWITCH_VAD_FLAG_EVENTS_TALK: switch_vad_flag_enum_t = 2;
-pub const switch_vad_flag_enum_t_SWITCH_VAD_FLAG_EVENTS_NOTALK: switch_vad_flag_enum_t = 4;
-pub const switch_vad_flag_enum_t_SWITCH_VAD_FLAG_CNG: switch_vad_flag_enum_t = 8;
-#[doc = "\\enum switch_vad_flag_t\n\\brief RTP Related Flags\n<pre>\nSWITCH_VAD_FLAG_TALKING         - Currently Talking\nSWITCH_VAD_FLAG_EVENTS_TALK     - Fire events when talking is detected\nSWITCH_VAD_FLAG_EVENTS_NOTALK   - Fire events when not talking is detected\nSWITCH_VAD_FLAG_CNG\t\t\t\t- Send CNG\n</pre>"]
-pub type switch_vad_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_vad_flag_enum_t {
+    SWITCH_VAD_FLAG_TALKING = 1,
+    SWITCH_VAD_FLAG_EVENTS_TALK = 2,
+    SWITCH_VAD_FLAG_EVENTS_NOTALK = 4,
+    SWITCH_VAD_FLAG_CNG = 8,
+}
 pub type switch_vad_flag_t = u32;
-pub const switch_vad_state_t_SWITCH_VAD_STATE_NONE: switch_vad_state_t = 0;
-pub const switch_vad_state_t_SWITCH_VAD_STATE_START_TALKING: switch_vad_state_t = 1;
-pub const switch_vad_state_t_SWITCH_VAD_STATE_TALKING: switch_vad_state_t = 2;
-pub const switch_vad_state_t_SWITCH_VAD_STATE_STOP_TALKING: switch_vad_state_t = 3;
-pub const switch_vad_state_t_SWITCH_VAD_STATE_ERROR: switch_vad_state_t = 4;
-pub type switch_vad_state_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_vad_state_t {
+    SWITCH_VAD_STATE_NONE = 0,
+    SWITCH_VAD_STATE_START_TALKING = 1,
+    SWITCH_VAD_STATE_TALKING = 2,
+    SWITCH_VAD_STATE_STOP_TALKING = 3,
+    SWITCH_VAD_STATE_ERROR = 4,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_vad_s {
@@ -6624,79 +6628,86 @@ pub struct switch_rtp_stats_t {
     pub rtcp: switch_rtcp_numbers_t,
     pub read_count: u32,
 }
-pub const switch_rtp_flush_t_SWITCH_RTP_FLUSH_ONCE: switch_rtp_flush_t = 0;
-pub const switch_rtp_flush_t_SWITCH_RTP_FLUSH_STICK: switch_rtp_flush_t = 1;
-pub const switch_rtp_flush_t_SWITCH_RTP_FLUSH_UNSTICK: switch_rtp_flush_t = 2;
-pub type switch_rtp_flush_t = ::std::os::raw::c_uint;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_NOBLOCK: switch_rtp_flag_t = 0;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_DTMF_ON: switch_rtp_flag_t = 1;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_IO: switch_rtp_flag_t = 2;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_USE_TIMER: switch_rtp_flag_t = 3;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_RTCP_PASSTHRU: switch_rtp_flag_t = 4;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_SEND: switch_rtp_flag_t = 5;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_RECV: switch_rtp_flag_t = 6;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_AUTOADJ: switch_rtp_flag_t = 7;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_RTCP_AUTOADJ: switch_rtp_flag_t = 8;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_RAW_WRITE: switch_rtp_flag_t = 9;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_GOOGLEHACK: switch_rtp_flag_t = 10;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_VAD: switch_rtp_flag_t = 11;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_BREAK: switch_rtp_flag_t = 12;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_UDPTL: switch_rtp_flag_t = 13;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_DATAWAIT: switch_rtp_flag_t = 14;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_BYTESWAP: switch_rtp_flag_t = 15;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_PASS_RFC2833: switch_rtp_flag_t = 16;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_AUTO_CNG: switch_rtp_flag_t = 17;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_SEND_RESET: switch_rtp_flag_t = 18;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_RECV_RESET: switch_rtp_flag_t = 19;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_PROXY_MEDIA: switch_rtp_flag_t = 20;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SHUTDOWN: switch_rtp_flag_t = 21;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_FLUSH: switch_rtp_flag_t = 22;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_AUTOFLUSH: switch_rtp_flag_t = 23;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_STICKY_FLUSH: switch_rtp_flag_t = 24;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_DEBUG_RTP_READ: switch_rtp_flag_t = 25;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_DEBUG_RTP_WRITE: switch_rtp_flag_t = 26;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_ESTIMATORS: switch_rtp_flag_t = 27;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_ADJ_BITRATE_CAP: switch_rtp_flag_t = 28;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_VIDEO: switch_rtp_flag_t = 29;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_ENABLE_RTCP: switch_rtp_flag_t = 30;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_RTCP_MUX: switch_rtp_flag_t = 31;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_KILL_JB: switch_rtp_flag_t = 32;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_VIDEO_BREAK: switch_rtp_flag_t = 33;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_PAUSE: switch_rtp_flag_t = 34;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_FIR: switch_rtp_flag_t = 35;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_PLI: switch_rtp_flag_t = 36;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_RESET: switch_rtp_flag_t = 37;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_MUTE: switch_rtp_flag_t = 38;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_NACK: switch_rtp_flag_t = 39;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_TMMBR: switch_rtp_flag_t = 40;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_DETECT_SSRC: switch_rtp_flag_t = 41;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_TEXT: switch_rtp_flag_t = 42;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_OLD_FIR: switch_rtp_flag_t = 43;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_PASSTHRU: switch_rtp_flag_t = 44;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_SEND_MKI: switch_rtp_flag_t = 45;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SECURE_RECV_MKI: switch_rtp_flag_t = 46;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_SRTP_HANGUP_ON_ERROR: switch_rtp_flag_t = 47;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_AUDIO_FIRE_SEND_RTCP_EVENT: switch_rtp_flag_t = 48;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_VIDEO_FIRE_SEND_RTCP_EVENT: switch_rtp_flag_t = 49;
-pub const switch_rtp_flag_t_SWITCH_RTP_FLAG_INVALID: switch_rtp_flag_t = 50;
-#[doc = "\\enum switch_rtp_flag_t\n\\brief RTP Related Flags\n<pre>\nSWITCH_RTP_FLAG_NOBLOCK       - Do not block\nSWITCH_RTP_FLAG_IO            - IO is ready\nSWITCH_RTP_FLAG_USE_TIMER     - Timeout Reads and replace with a CNG Frame\nSWITCH_RTP_FLAG_SECURE        - Secure RTP\nSWITCH_RTP_FLAG_AUTOADJ       - Auto-Adjust the dest based on the source\nSWITCH_RTP_FLAG_RAW_WRITE     - Try to forward packets unscathed\nSWITCH_RTP_FLAG_GOOGLEHACK    - Convert payload from 102 to 97\nSWITCH_RTP_FLAG_VAD           - Enable VAD\nSWITCH_RTP_FLAG_BREAK\t\t  - Stop what you are doing and return SWITCH_STATUS_BREAK\nSWITCH_RTP_FLAG_DATAWAIT\t  - Do not return from reads unless there is data even when non blocking\nSWITCH_RTP_FLAG_BUGGY_2833    - Emulate the bug in cisco equipment to allow interop\nSWITCH_RTP_FLAG_PASS_RFC2833  - Pass 2833 (ignore it)\nSWITCH_RTP_FLAG_AUTO_CNG      - Generate outbound CNG frames when idle\n</pre>"]
-pub type switch_rtp_flag_t = ::std::os::raw::c_uint;
-pub const switch_rtp_bug_flag_t_RTP_BUG_NONE: switch_rtp_bug_flag_t = 0;
-pub const switch_rtp_bug_flag_t_RTP_BUG_CISCO_SKIP_MARK_BIT_2833: switch_rtp_bug_flag_t = 1;
-pub const switch_rtp_bug_flag_t_RTP_BUG_SONUS_SEND_INVALID_TIMESTAMP_2833: switch_rtp_bug_flag_t =
-    2;
-pub const switch_rtp_bug_flag_t_RTP_BUG_IGNORE_MARK_BIT: switch_rtp_bug_flag_t = 4;
-pub const switch_rtp_bug_flag_t_RTP_BUG_SEND_LINEAR_TIMESTAMPS: switch_rtp_bug_flag_t = 8;
-pub const switch_rtp_bug_flag_t_RTP_BUG_START_SEQ_AT_ZERO: switch_rtp_bug_flag_t = 16;
-pub const switch_rtp_bug_flag_t_RTP_BUG_NEVER_SEND_MARKER: switch_rtp_bug_flag_t = 32;
-pub const switch_rtp_bug_flag_t_RTP_BUG_IGNORE_DTMF_DURATION: switch_rtp_bug_flag_t = 64;
-pub const switch_rtp_bug_flag_t_RTP_BUG_ACCEPT_ANY_PACKETS: switch_rtp_bug_flag_t = 128;
-pub const switch_rtp_bug_flag_t_RTP_BUG_GEN_ONE_GEN_ALL: switch_rtp_bug_flag_t = 256;
-pub const switch_rtp_bug_flag_t_RTP_BUG_CHANGE_SSRC_ON_MARKER: switch_rtp_bug_flag_t = 512;
-pub const switch_rtp_bug_flag_t_RTP_BUG_FLUSH_JB_ON_DTMF: switch_rtp_bug_flag_t = 1024;
-pub const switch_rtp_bug_flag_t_RTP_BUG_ACCEPT_ANY_PAYLOAD: switch_rtp_bug_flag_t = 2048;
-pub const switch_rtp_bug_flag_t_RTP_BUG_ALWAYS_AUTO_ADJUST: switch_rtp_bug_flag_t = 4096;
-pub type switch_rtp_bug_flag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_flush_t {
+    SWITCH_RTP_FLUSH_ONCE = 0,
+    SWITCH_RTP_FLUSH_STICK = 1,
+    SWITCH_RTP_FLUSH_UNSTICK = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_flag_t {
+    SWITCH_RTP_FLAG_NOBLOCK = 0,
+    SWITCH_RTP_FLAG_DTMF_ON = 1,
+    SWITCH_RTP_FLAG_IO = 2,
+    SWITCH_RTP_FLAG_USE_TIMER = 3,
+    SWITCH_RTP_FLAG_RTCP_PASSTHRU = 4,
+    SWITCH_RTP_FLAG_SECURE_SEND = 5,
+    SWITCH_RTP_FLAG_SECURE_RECV = 6,
+    SWITCH_RTP_FLAG_AUTOADJ = 7,
+    SWITCH_RTP_FLAG_RTCP_AUTOADJ = 8,
+    SWITCH_RTP_FLAG_RAW_WRITE = 9,
+    SWITCH_RTP_FLAG_GOOGLEHACK = 10,
+    SWITCH_RTP_FLAG_VAD = 11,
+    SWITCH_RTP_FLAG_BREAK = 12,
+    SWITCH_RTP_FLAG_UDPTL = 13,
+    SWITCH_RTP_FLAG_DATAWAIT = 14,
+    SWITCH_RTP_FLAG_BYTESWAP = 15,
+    SWITCH_RTP_FLAG_PASS_RFC2833 = 16,
+    SWITCH_RTP_FLAG_AUTO_CNG = 17,
+    SWITCH_RTP_FLAG_SECURE_SEND_RESET = 18,
+    SWITCH_RTP_FLAG_SECURE_RECV_RESET = 19,
+    SWITCH_RTP_FLAG_PROXY_MEDIA = 20,
+    SWITCH_RTP_FLAG_SHUTDOWN = 21,
+    SWITCH_RTP_FLAG_FLUSH = 22,
+    SWITCH_RTP_FLAG_AUTOFLUSH = 23,
+    SWITCH_RTP_FLAG_STICKY_FLUSH = 24,
+    SWITCH_RTP_FLAG_DEBUG_RTP_READ = 25,
+    SWITCH_RTP_FLAG_DEBUG_RTP_WRITE = 26,
+    SWITCH_RTP_FLAG_ESTIMATORS = 27,
+    SWITCH_RTP_FLAG_ADJ_BITRATE_CAP = 28,
+    SWITCH_RTP_FLAG_VIDEO = 29,
+    SWITCH_RTP_FLAG_ENABLE_RTCP = 30,
+    SWITCH_RTP_FLAG_RTCP_MUX = 31,
+    SWITCH_RTP_FLAG_KILL_JB = 32,
+    SWITCH_RTP_FLAG_VIDEO_BREAK = 33,
+    SWITCH_RTP_FLAG_PAUSE = 34,
+    SWITCH_RTP_FLAG_FIR = 35,
+    SWITCH_RTP_FLAG_PLI = 36,
+    SWITCH_RTP_FLAG_RESET = 37,
+    SWITCH_RTP_FLAG_MUTE = 38,
+    SWITCH_RTP_FLAG_NACK = 39,
+    SWITCH_RTP_FLAG_TMMBR = 40,
+    SWITCH_RTP_FLAG_DETECT_SSRC = 41,
+    SWITCH_RTP_FLAG_TEXT = 42,
+    SWITCH_RTP_FLAG_OLD_FIR = 43,
+    SWITCH_RTP_FLAG_PASSTHRU = 44,
+    SWITCH_RTP_FLAG_SECURE_SEND_MKI = 45,
+    SWITCH_RTP_FLAG_SECURE_RECV_MKI = 46,
+    SWITCH_RTP_FLAG_SRTP_HANGUP_ON_ERROR = 47,
+    SWITCH_RTP_FLAG_AUDIO_FIRE_SEND_RTCP_EVENT = 48,
+    SWITCH_RTP_FLAG_VIDEO_FIRE_SEND_RTCP_EVENT = 49,
+    SWITCH_RTP_FLAG_INVALID = 50,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_bug_flag_t {
+    RTP_BUG_NONE = 0,
+    RTP_BUG_CISCO_SKIP_MARK_BIT_2833 = 1,
+    RTP_BUG_SONUS_SEND_INVALID_TIMESTAMP_2833 = 2,
+    RTP_BUG_IGNORE_MARK_BIT = 4,
+    RTP_BUG_SEND_LINEAR_TIMESTAMPS = 8,
+    RTP_BUG_START_SEQ_AT_ZERO = 16,
+    RTP_BUG_NEVER_SEND_MARKER = 32,
+    RTP_BUG_IGNORE_DTMF_DURATION = 64,
+    RTP_BUG_ACCEPT_ANY_PACKETS = 128,
+    RTP_BUG_GEN_ONE_GEN_ALL = 256,
+    RTP_BUG_CHANGE_SSRC_ON_MARKER = 512,
+    RTP_BUG_FLUSH_JB_ON_DTMF = 1024,
+    RTP_BUG_ACCEPT_ANY_PAYLOAD = 2048,
+    RTP_BUG_ALWAYS_AUTO_ADJUST = 4096,
+}
 #[repr(C)]
 #[repr(align(4))]
 #[derive(Debug, Copy, Clone)]
@@ -7006,143 +7017,87 @@ pub struct audio_buffer_header_s {
     pub len: u32,
 }
 pub type audio_buffer_header_t = audio_buffer_header_s;
-pub const switch_priority_t_SWITCH_PRIORITY_NORMAL: switch_priority_t = 0;
-pub const switch_priority_t_SWITCH_PRIORITY_LOW: switch_priority_t = 1;
-pub const switch_priority_t_SWITCH_PRIORITY_HIGH: switch_priority_t = 2;
-#[doc = "\\enum switch_priority_t\n\\brief Priority Indication\n<pre>\nSWITCH_PRIORITY_NORMAL  - Normal Priority\nSWITCH_PRIORITY_LOW     - Low Priority\nSWITCH_PRIORITY_HIGH    - High Priority\n</pre>"]
-pub type switch_priority_t = ::std::os::raw::c_uint;
-pub const switch_ivr_option_enum_t_SWITCH_IVR_OPTION_NONE: switch_ivr_option_enum_t = 0;
-pub const switch_ivr_option_enum_t_SWITCH_IVR_OPTION_ASYNC: switch_ivr_option_enum_t = 1;
-pub const switch_ivr_option_enum_t_SWITCH_IVR_OPTION_FILE: switch_ivr_option_enum_t = 2;
-#[doc = "\\enum switch_ivr_option_t\n\\brief Possible options related to ivr functions\n<pre>\nSWITCH_IVR_OPTION_NONE  - nothing whatsoever\nSWITCH_IVR_OPTION_ASYNC - Asynchronous (do things in the background when applicable)\nSWITCH_IVR_OPTION_FILE  - string argument implies a filename\n</pre>"]
-pub type switch_ivr_option_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_priority_t {
+    SWITCH_PRIORITY_NORMAL = 0,
+    SWITCH_PRIORITY_LOW = 1,
+    SWITCH_PRIORITY_HIGH = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_ivr_option_enum_t {
+    SWITCH_IVR_OPTION_NONE = 0,
+    SWITCH_IVR_OPTION_ASYNC = 1,
+    SWITCH_IVR_OPTION_FILE = 2,
+}
 pub type switch_ivr_option_t = u32;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_REDIRECT_AUDIO:
-    switch_core_session_message_types_t = 0;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_TRANSMIT_TEXT:
-    switch_core_session_message_types_t = 1;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_ANSWER:
-    switch_core_session_message_types_t = 2;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_ACKNOWLEDGE_CALL:
-    switch_core_session_message_types_t = 3;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_PROGRESS:
-    switch_core_session_message_types_t = 4;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_BRIDGE:
-    switch_core_session_message_types_t = 5;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_UNBRIDGE:
-    switch_core_session_message_types_t = 6;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_TRANSFER:
-    switch_core_session_message_types_t = 7;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_RINGING:
-    switch_core_session_message_types_t = 8;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_ALERTING:
-    switch_core_session_message_types_t = 9;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_MEDIA:
-    switch_core_session_message_types_t = 10;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_3P_MEDIA:
-    switch_core_session_message_types_t = 11;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_NOMEDIA:
-    switch_core_session_message_types_t = 12;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_3P_NOMEDIA:
-    switch_core_session_message_types_t = 13;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_HOLD:
-    switch_core_session_message_types_t = 14;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_UNHOLD:
-    switch_core_session_message_types_t = 15;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_REDIRECT:
-    switch_core_session_message_types_t = 16;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_RESPOND:
-    switch_core_session_message_types_t = 17;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_BROADCAST:
-    switch_core_session_message_types_t = 18;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_MEDIA_REDIRECT:
-    switch_core_session_message_types_t = 19;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_DEFLECT:
-    switch_core_session_message_types_t = 20;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_VIDEO_REFRESH_REQ:
-    switch_core_session_message_types_t = 21;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_DISPLAY:
-    switch_core_session_message_types_t = 22;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_MEDIA_PARAMS:
-    switch_core_session_message_types_t = 23;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_TRANSCODING_NECESSARY:
-    switch_core_session_message_types_t = 24;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_AUDIO_SYNC:
-    switch_core_session_message_types_t = 25;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_VIDEO_SYNC:
-    switch_core_session_message_types_t = 26;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_REQUEST_IMAGE_MEDIA:
-    switch_core_session_message_types_t = 27;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_UUID_CHANGE:
-    switch_core_session_message_types_t = 28;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_SIMPLIFY:
-    switch_core_session_message_types_t = 29;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_DEBUG_MEDIA:
-    switch_core_session_message_types_t = 30;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_PROXY_MEDIA:
-    switch_core_session_message_types_t = 31;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC:
-    switch_core_session_message_types_t = 32;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC_COMPLETE:
-    switch_core_session_message_types_t = 33;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_PHONE_EVENT:
-    switch_core_session_message_types_t = 34;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_T38_DESCRIPTION:
-    switch_core_session_message_types_t = 35;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_UDPTL_MODE:
-    switch_core_session_message_types_t = 36;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_CLEAR_PROGRESS:
-    switch_core_session_message_types_t = 37;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_JITTER_BUFFER:
-    switch_core_session_message_types_t = 38;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_RECOVERY_REFRESH:
-    switch_core_session_message_types_t = 39;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_SIGNAL_DATA:
-    switch_core_session_message_types_t = 40;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_MESSAGE:
-    switch_core_session_message_types_t = 41;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_INFO:
-    switch_core_session_message_types_t = 42;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_AUDIO_DATA:
-    switch_core_session_message_types_t = 43;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_BLIND_TRANSFER_RESPONSE:
-    switch_core_session_message_types_t = 44;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_STUN_ERROR:
-    switch_core_session_message_types_t = 45;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_MEDIA_RENEG:
-    switch_core_session_message_types_t = 46;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_KEEPALIVE:
-    switch_core_session_message_types_t = 47;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_HARD_MUTE:
-    switch_core_session_message_types_t = 48;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_BITRATE_REQ:
-    switch_core_session_message_types_t = 49;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_BITRATE_ACK:
-    switch_core_session_message_types_t = 50;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_CODEC_DEBUG_REQ:
-    switch_core_session_message_types_t = 51;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_CODEC_SPECIFIC_REQ:
-    switch_core_session_message_types_t = 52;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_REFER_EVENT:
-    switch_core_session_message_types_t = 53;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_ANSWER_EVENT:
-    switch_core_session_message_types_t = 54;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_PROGRESS_EVENT:
-    switch_core_session_message_types_t = 55;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_RING_EVENT:
-    switch_core_session_message_types_t = 56;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_RESAMPLE_EVENT:
-    switch_core_session_message_types_t = 57;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_HEARTBEAT_EVENT:
-    switch_core_session_message_types_t = 58;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_SESSION_ID:
-    switch_core_session_message_types_t = 59;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INDICATE_PROMPT:
-    switch_core_session_message_types_t = 60;
-pub const switch_core_session_message_types_t_SWITCH_MESSAGE_INVALID:
-    switch_core_session_message_types_t = 61;
-#[doc = "\\enum switch_core_session_message_types_t\n\\brief Possible types of messages for inter-session communication\n<pre>\nSWITCH_MESSAGE_REDIRECT_AUDIO     - Indication to redirect audio to another location if possible\nSWITCH_MESSAGE_TRANSMIT_TEXT      - A text message\nSWITCH_MESSAGE_INDICATE_ANSWER    - indicate answer\nSWITCH_MESSAGE_INDICATE_PROGRESS  - indicate progress\nSWITCH_MESSAGE_INDICATE_BRIDGE    - indicate a bridge starting\nSWITCH_MESSAGE_INDICATE_UNBRIDGE  - indicate a bridge ending\nSWITCH_MESSAGE_INDICATE_TRANSFER  - indicate a transfer is taking place\nSWITCH_MESSAGE_INDICATE_MEDIA\t  - indicate media is required\nSWITCH_MESSAGE_INDICATE_NOMEDIA\t  - indicate no-media is required\nSWITCH_MESSAGE_INDICATE_HOLD      - indicate hold\nSWITCH_MESSAGE_INDICATE_UNHOLD    - indicate unhold\nSWITCH_MESSAGE_INDICATE_REDIRECT  - indicate redirect\nSWITCH_MESSAGE_INDICATE_RESPOND    - indicate reject\nSWITCH_MESSAGE_INDICATE_BROADCAST - indicate media broadcast\nSWITCH_MESSAGE_INDICATE_MEDIA_REDIRECT - indicate media broadcast\nSWITCH_MESSAGE_INDICATE_DEFLECT - indicate deflect\nSWITCH_MESSAGE_INDICATE_VIDEO_REFRESH_REQ - indicate video refresh request\n</pre>"]
-pub type switch_core_session_message_types_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_session_message_types_t {
+    SWITCH_MESSAGE_REDIRECT_AUDIO = 0,
+    SWITCH_MESSAGE_TRANSMIT_TEXT = 1,
+    SWITCH_MESSAGE_INDICATE_ANSWER = 2,
+    SWITCH_MESSAGE_INDICATE_ACKNOWLEDGE_CALL = 3,
+    SWITCH_MESSAGE_INDICATE_PROGRESS = 4,
+    SWITCH_MESSAGE_INDICATE_BRIDGE = 5,
+    SWITCH_MESSAGE_INDICATE_UNBRIDGE = 6,
+    SWITCH_MESSAGE_INDICATE_TRANSFER = 7,
+    SWITCH_MESSAGE_INDICATE_RINGING = 8,
+    SWITCH_MESSAGE_INDICATE_ALERTING = 9,
+    SWITCH_MESSAGE_INDICATE_MEDIA = 10,
+    SWITCH_MESSAGE_INDICATE_3P_MEDIA = 11,
+    SWITCH_MESSAGE_INDICATE_NOMEDIA = 12,
+    SWITCH_MESSAGE_INDICATE_3P_NOMEDIA = 13,
+    SWITCH_MESSAGE_INDICATE_HOLD = 14,
+    SWITCH_MESSAGE_INDICATE_UNHOLD = 15,
+    SWITCH_MESSAGE_INDICATE_REDIRECT = 16,
+    SWITCH_MESSAGE_INDICATE_RESPOND = 17,
+    SWITCH_MESSAGE_INDICATE_BROADCAST = 18,
+    SWITCH_MESSAGE_INDICATE_MEDIA_REDIRECT = 19,
+    SWITCH_MESSAGE_INDICATE_DEFLECT = 20,
+    SWITCH_MESSAGE_INDICATE_VIDEO_REFRESH_REQ = 21,
+    SWITCH_MESSAGE_INDICATE_DISPLAY = 22,
+    SWITCH_MESSAGE_INDICATE_MEDIA_PARAMS = 23,
+    SWITCH_MESSAGE_INDICATE_TRANSCODING_NECESSARY = 24,
+    SWITCH_MESSAGE_INDICATE_AUDIO_SYNC = 25,
+    SWITCH_MESSAGE_INDICATE_VIDEO_SYNC = 26,
+    SWITCH_MESSAGE_INDICATE_REQUEST_IMAGE_MEDIA = 27,
+    SWITCH_MESSAGE_INDICATE_UUID_CHANGE = 28,
+    SWITCH_MESSAGE_INDICATE_SIMPLIFY = 29,
+    SWITCH_MESSAGE_INDICATE_DEBUG_MEDIA = 30,
+    SWITCH_MESSAGE_INDICATE_PROXY_MEDIA = 31,
+    SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC = 32,
+    SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC_COMPLETE = 33,
+    SWITCH_MESSAGE_INDICATE_PHONE_EVENT = 34,
+    SWITCH_MESSAGE_INDICATE_T38_DESCRIPTION = 35,
+    SWITCH_MESSAGE_INDICATE_UDPTL_MODE = 36,
+    SWITCH_MESSAGE_INDICATE_CLEAR_PROGRESS = 37,
+    SWITCH_MESSAGE_INDICATE_JITTER_BUFFER = 38,
+    SWITCH_MESSAGE_INDICATE_RECOVERY_REFRESH = 39,
+    SWITCH_MESSAGE_INDICATE_SIGNAL_DATA = 40,
+    SWITCH_MESSAGE_INDICATE_MESSAGE = 41,
+    SWITCH_MESSAGE_INDICATE_INFO = 42,
+    SWITCH_MESSAGE_INDICATE_AUDIO_DATA = 43,
+    SWITCH_MESSAGE_INDICATE_BLIND_TRANSFER_RESPONSE = 44,
+    SWITCH_MESSAGE_INDICATE_STUN_ERROR = 45,
+    SWITCH_MESSAGE_INDICATE_MEDIA_RENEG = 46,
+    SWITCH_MESSAGE_INDICATE_KEEPALIVE = 47,
+    SWITCH_MESSAGE_INDICATE_HARD_MUTE = 48,
+    SWITCH_MESSAGE_INDICATE_BITRATE_REQ = 49,
+    SWITCH_MESSAGE_INDICATE_BITRATE_ACK = 50,
+    SWITCH_MESSAGE_INDICATE_CODEC_DEBUG_REQ = 51,
+    SWITCH_MESSAGE_INDICATE_CODEC_SPECIFIC_REQ = 52,
+    SWITCH_MESSAGE_REFER_EVENT = 53,
+    SWITCH_MESSAGE_ANSWER_EVENT = 54,
+    SWITCH_MESSAGE_PROGRESS_EVENT = 55,
+    SWITCH_MESSAGE_RING_EVENT = 56,
+    SWITCH_MESSAGE_RESAMPLE_EVENT = 57,
+    SWITCH_MESSAGE_HEARTBEAT_EVENT = 58,
+    SWITCH_MESSAGE_INDICATE_SESSION_ID = 59,
+    SWITCH_MESSAGE_INDICATE_PROMPT = 60,
+    SWITCH_MESSAGE_INVALID = 61,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_t38_options_t {
@@ -7162,308 +7117,331 @@ pub struct switch_t38_options_t {
     pub local_port: u16,
     pub sdp_o_line: *const ::std::os::raw::c_char,
 }
-pub const switch_stack_t_SWITCH_STACK_BOTTOM: switch_stack_t = 1;
-pub const switch_stack_t_SWITCH_STACK_TOP: switch_stack_t = 2;
-pub const switch_stack_t_SWITCH_STACK_UNSHIFT: switch_stack_t = 4;
-pub const switch_stack_t_SWITCH_STACK_PUSH: switch_stack_t = 8;
-#[doc = "\\enum switch_stack_t\n\\brief Expression of how to stack a list\n<pre>\nSWITCH_STACK_BOTTOM - Stack on the bottom\nSWITCH_STACK_TOP\t- Stack on the top\n</pre>"]
-pub type switch_stack_t = ::std::os::raw::c_uint;
-pub const switch_status_t_SWITCH_STATUS_SUCCESS: switch_status_t = 0;
-pub const switch_status_t_SWITCH_STATUS_FALSE: switch_status_t = 1;
-pub const switch_status_t_SWITCH_STATUS_TIMEOUT: switch_status_t = 2;
-pub const switch_status_t_SWITCH_STATUS_RESTART: switch_status_t = 3;
-pub const switch_status_t_SWITCH_STATUS_INTR: switch_status_t = 4;
-pub const switch_status_t_SWITCH_STATUS_NOTIMPL: switch_status_t = 5;
-pub const switch_status_t_SWITCH_STATUS_MEMERR: switch_status_t = 6;
-pub const switch_status_t_SWITCH_STATUS_NOOP: switch_status_t = 7;
-pub const switch_status_t_SWITCH_STATUS_RESAMPLE: switch_status_t = 8;
-pub const switch_status_t_SWITCH_STATUS_GENERR: switch_status_t = 9;
-pub const switch_status_t_SWITCH_STATUS_INUSE: switch_status_t = 10;
-pub const switch_status_t_SWITCH_STATUS_BREAK: switch_status_t = 11;
-pub const switch_status_t_SWITCH_STATUS_SOCKERR: switch_status_t = 12;
-pub const switch_status_t_SWITCH_STATUS_MORE_DATA: switch_status_t = 13;
-pub const switch_status_t_SWITCH_STATUS_NOTFOUND: switch_status_t = 14;
-pub const switch_status_t_SWITCH_STATUS_UNLOAD: switch_status_t = 15;
-pub const switch_status_t_SWITCH_STATUS_NOUNLOAD: switch_status_t = 16;
-pub const switch_status_t_SWITCH_STATUS_IGNORE: switch_status_t = 17;
-pub const switch_status_t_SWITCH_STATUS_TOO_SMALL: switch_status_t = 18;
-pub const switch_status_t_SWITCH_STATUS_FOUND: switch_status_t = 19;
-pub const switch_status_t_SWITCH_STATUS_CONTINUE: switch_status_t = 20;
-pub const switch_status_t_SWITCH_STATUS_TERM: switch_status_t = 21;
-pub const switch_status_t_SWITCH_STATUS_NOT_INITALIZED: switch_status_t = 22;
-pub const switch_status_t_SWITCH_STATUS_TOO_LATE: switch_status_t = 23;
-pub const switch_status_t_SWITCH_STATUS_XBREAK: switch_status_t = 35;
-pub const switch_status_t_SWITCH_STATUS_WINBREAK: switch_status_t = 730035;
-#[doc = "\\enum switch_status_t\n\\brief Common return values\n<pre>\nSWITCH_STATUS_SUCCESS\t- General Success (common return value for most functions)\nSWITCH_STATUS_FALSE\t\t- General Falsehood\nSWITCH_STATUS_TIMEOUT\t- A Timeout has occured\nSWITCH_STATUS_RESTART\t- An indication to restart the previous operation\nSWITCH_STATUS_TERM\t\t- An indication to terminate\nSWITCH_STATUS_NOTIMPL\t- An indication that requested resource is not impelemented\nSWITCH_STATUS_MEMERR\t- General memory error\nSWITCH_STATUS_NOOP\t\t- NOTHING\nSWITCH_STATUS_RESAMPLE\t- An indication that a resample has occured\nSWITCH_STATUS_GENERR\t- A general Error\nSWITCH_STATUS_INUSE\t\t- An indication that requested resource is in use\nSWITCH_STATUS_BREAK     - A non-fatal break of an operation\nSWITCH_STATUS_SOCKERR   - A socket error\nSWITCH_STATUS_MORE_DATA - Need More Data\nSWITCH_STATUS_NOTFOUND  - Not Found\nSWITCH_STATUS_UNLOAD    - Unload\nSWITCH_STATUS_NOUNLOAD  - Never Unload\n</pre>"]
-pub type switch_status_t = ::std::os::raw::c_uint;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG10: switch_log_level_t = 110;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG9: switch_log_level_t = 109;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG8: switch_log_level_t = 108;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG7: switch_log_level_t = 107;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG6: switch_log_level_t = 106;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG5: switch_log_level_t = 105;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG4: switch_log_level_t = 104;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG3: switch_log_level_t = 103;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG2: switch_log_level_t = 102;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG1: switch_log_level_t = 101;
-pub const switch_log_level_t_SWITCH_LOG_DEBUG: switch_log_level_t = 7;
-pub const switch_log_level_t_SWITCH_LOG_INFO: switch_log_level_t = 6;
-pub const switch_log_level_t_SWITCH_LOG_NOTICE: switch_log_level_t = 5;
-pub const switch_log_level_t_SWITCH_LOG_WARNING: switch_log_level_t = 4;
-pub const switch_log_level_t_SWITCH_LOG_ERROR: switch_log_level_t = 3;
-pub const switch_log_level_t_SWITCH_LOG_CRIT: switch_log_level_t = 2;
-pub const switch_log_level_t_SWITCH_LOG_ALERT: switch_log_level_t = 1;
-pub const switch_log_level_t_SWITCH_LOG_CONSOLE: switch_log_level_t = 0;
-pub const switch_log_level_t_SWITCH_LOG_DISABLE: switch_log_level_t = -1;
-pub const switch_log_level_t_SWITCH_LOG_INVALID: switch_log_level_t = 64;
-pub const switch_log_level_t_SWITCH_LOG_UNINIT: switch_log_level_t = 1000;
-#[doc = "\\enum switch_log_level_t\n\\brief Log Level Enumeration\n<pre>\nSWITCH_LOG_DEBUG            - Debug\nSWITCH_LOG_INFO             - Info\nSWITCH_LOG_NOTICE           - Notice\nSWITCH_LOG_WARNING          - Warning\nSWITCH_LOG_ERROR            - Error\nSWITCH_LOG_CRIT             - Critical\nSWITCH_LOG_ALERT            - Alert\nSWITCH_LOG_CONSOLE          - Console\n</pre>"]
-pub type switch_log_level_t = ::std::os::raw::c_int;
-pub const switch_text_channel_t_SWITCH_CHANNEL_ID_LOG: switch_text_channel_t = 0;
-pub const switch_text_channel_t_SWITCH_CHANNEL_ID_LOG_CLEAN: switch_text_channel_t = 1;
-pub const switch_text_channel_t_SWITCH_CHANNEL_ID_EVENT: switch_text_channel_t = 2;
-pub const switch_text_channel_t_SWITCH_CHANNEL_ID_SESSION: switch_text_channel_t = 3;
-#[doc = "\\enum switch_text_channel_t\n\\brief A target to write log/debug info to\n<pre>\nSWITCH_CHANNEL_ID_LOG\t\t\t- Write to the currently defined log\nSWITCH_CHANNEL_ID_LOG_CLEAN\t\t- Write to the currently defined log with no extra file/line/date information\nSWITCH_CHANNEL_ID_EVENT\t\t\t- Write to the event engine as a LOG event\n</pre>"]
-pub type switch_text_channel_t = ::std::os::raw::c_uint;
-pub const switch_core_session_message_flag_enum_t_SCSMF_DYNAMIC:
-    switch_core_session_message_flag_enum_t = 1;
-pub const switch_core_session_message_flag_enum_t_SCSMF_FREE_STRING_REPLY:
-    switch_core_session_message_flag_enum_t = 2;
-pub const switch_core_session_message_flag_enum_t_SCSMF_FREE_POINTER_REPLY:
-    switch_core_session_message_flag_enum_t = 4;
-pub type switch_core_session_message_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_stack_t {
+    SWITCH_STACK_BOTTOM = 1,
+    SWITCH_STACK_TOP = 2,
+    SWITCH_STACK_UNSHIFT = 4,
+    SWITCH_STACK_PUSH = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_status_t {
+    SWITCH_STATUS_SUCCESS = 0,
+    SWITCH_STATUS_FALSE = 1,
+    SWITCH_STATUS_TIMEOUT = 2,
+    SWITCH_STATUS_RESTART = 3,
+    SWITCH_STATUS_INTR = 4,
+    SWITCH_STATUS_NOTIMPL = 5,
+    SWITCH_STATUS_MEMERR = 6,
+    SWITCH_STATUS_NOOP = 7,
+    SWITCH_STATUS_RESAMPLE = 8,
+    SWITCH_STATUS_GENERR = 9,
+    SWITCH_STATUS_INUSE = 10,
+    SWITCH_STATUS_BREAK = 11,
+    SWITCH_STATUS_SOCKERR = 12,
+    SWITCH_STATUS_MORE_DATA = 13,
+    SWITCH_STATUS_NOTFOUND = 14,
+    SWITCH_STATUS_UNLOAD = 15,
+    SWITCH_STATUS_NOUNLOAD = 16,
+    SWITCH_STATUS_IGNORE = 17,
+    SWITCH_STATUS_TOO_SMALL = 18,
+    SWITCH_STATUS_FOUND = 19,
+    SWITCH_STATUS_CONTINUE = 20,
+    SWITCH_STATUS_TERM = 21,
+    SWITCH_STATUS_NOT_INITALIZED = 22,
+    SWITCH_STATUS_TOO_LATE = 23,
+    SWITCH_STATUS_XBREAK = 35,
+    SWITCH_STATUS_WINBREAK = 730035,
+}
+#[repr(i32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_log_level_t {
+    SWITCH_LOG_DEBUG10 = 110,
+    SWITCH_LOG_DEBUG9 = 109,
+    SWITCH_LOG_DEBUG8 = 108,
+    SWITCH_LOG_DEBUG7 = 107,
+    SWITCH_LOG_DEBUG6 = 106,
+    SWITCH_LOG_DEBUG5 = 105,
+    SWITCH_LOG_DEBUG4 = 104,
+    SWITCH_LOG_DEBUG3 = 103,
+    SWITCH_LOG_DEBUG2 = 102,
+    SWITCH_LOG_DEBUG1 = 101,
+    SWITCH_LOG_DEBUG = 7,
+    SWITCH_LOG_INFO = 6,
+    SWITCH_LOG_NOTICE = 5,
+    SWITCH_LOG_WARNING = 4,
+    SWITCH_LOG_ERROR = 3,
+    SWITCH_LOG_CRIT = 2,
+    SWITCH_LOG_ALERT = 1,
+    SWITCH_LOG_CONSOLE = 0,
+    SWITCH_LOG_DISABLE = -1,
+    SWITCH_LOG_INVALID = 64,
+    SWITCH_LOG_UNINIT = 1000,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_text_channel_t {
+    SWITCH_CHANNEL_ID_LOG = 0,
+    SWITCH_CHANNEL_ID_LOG_CLEAN = 1,
+    SWITCH_CHANNEL_ID_EVENT = 2,
+    SWITCH_CHANNEL_ID_SESSION = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_session_message_flag_enum_t {
+    SCSMF_DYNAMIC = 1,
+    SCSMF_FREE_STRING_REPLY = 2,
+    SCSMF_FREE_POINTER_REPLY = 4,
+}
 pub type switch_core_session_message_flag_t = u32;
-#[doc = " \\brief A core session representing a call and all of it's resources"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_session {
     _unused: [u8; 0],
 }
 pub type switch_core_session_t = switch_core_session;
-pub const switch_channel_callstate_t_CCS_DOWN: switch_channel_callstate_t = 0;
-pub const switch_channel_callstate_t_CCS_DIALING: switch_channel_callstate_t = 1;
-pub const switch_channel_callstate_t_CCS_RINGING: switch_channel_callstate_t = 2;
-pub const switch_channel_callstate_t_CCS_EARLY: switch_channel_callstate_t = 3;
-pub const switch_channel_callstate_t_CCS_ACTIVE: switch_channel_callstate_t = 4;
-pub const switch_channel_callstate_t_CCS_HELD: switch_channel_callstate_t = 5;
-pub const switch_channel_callstate_t_CCS_RING_WAIT: switch_channel_callstate_t = 6;
-pub const switch_channel_callstate_t_CCS_HANGUP: switch_channel_callstate_t = 7;
-pub const switch_channel_callstate_t_CCS_UNHELD: switch_channel_callstate_t = 8;
-pub type switch_channel_callstate_t = ::std::os::raw::c_uint;
-pub const switch_device_state_t_SDS_DOWN: switch_device_state_t = 0;
-pub const switch_device_state_t_SDS_RINGING: switch_device_state_t = 1;
-pub const switch_device_state_t_SDS_ACTIVE: switch_device_state_t = 2;
-pub const switch_device_state_t_SDS_ACTIVE_MULTI: switch_device_state_t = 3;
-pub const switch_device_state_t_SDS_HELD: switch_device_state_t = 4;
-pub const switch_device_state_t_SDS_UNHELD: switch_device_state_t = 5;
-pub const switch_device_state_t_SDS_HANGUP: switch_device_state_t = 6;
-pub type switch_device_state_t = ::std::os::raw::c_uint;
-pub const switch_channel_state_t_CS_NEW: switch_channel_state_t = 0;
-pub const switch_channel_state_t_CS_INIT: switch_channel_state_t = 1;
-pub const switch_channel_state_t_CS_ROUTING: switch_channel_state_t = 2;
-pub const switch_channel_state_t_CS_SOFT_EXECUTE: switch_channel_state_t = 3;
-pub const switch_channel_state_t_CS_EXECUTE: switch_channel_state_t = 4;
-pub const switch_channel_state_t_CS_EXCHANGE_MEDIA: switch_channel_state_t = 5;
-pub const switch_channel_state_t_CS_PARK: switch_channel_state_t = 6;
-pub const switch_channel_state_t_CS_CONSUME_MEDIA: switch_channel_state_t = 7;
-pub const switch_channel_state_t_CS_HIBERNATE: switch_channel_state_t = 8;
-pub const switch_channel_state_t_CS_RESET: switch_channel_state_t = 9;
-pub const switch_channel_state_t_CS_HANGUP: switch_channel_state_t = 10;
-pub const switch_channel_state_t_CS_REPORTING: switch_channel_state_t = 11;
-pub const switch_channel_state_t_CS_DESTROY: switch_channel_state_t = 12;
-pub const switch_channel_state_t_CS_NONE: switch_channel_state_t = 13;
-#[doc = "\\enum switch_channel_state_t\n\\brief Channel States (these are the defaults, CS_SOFT_EXECUTE, CS_EXCHANGE_MEDIA, and CS_CONSUME_MEDIA are often overridden by specific apps)\n<pre>\nCS_NEW       - Channel is newly created.\nCS_INIT      - Channel has been initialized.\nCS_ROUTING   - Channel is looking for an extension to execute.\nCS_SOFT_EXECUTE  - Channel is ready to execute from 3rd party control.\nCS_EXECUTE   - Channel is executing it's dialplan.\nCS_EXCHANGE_MEDIA  - Channel is exchanging media with another channel.\nCS_PARK      - Channel is accepting media awaiting commands.\nCS_CONSUME_MEDIA\t\t - Channel is consuming all media and dropping it.\nCS_HIBERNATE - Channel is in a sleep state.\nCS_RESET \t - Channel is in a reset state.\nCS_HANGUP    - Channel is flagged for hangup and ready to end.\nCS_REPORTING - Channel is ready to collect call detail.\nCS_DESTROY      - Channel is ready to be destroyed and out of the state machine.\n</pre>"]
-pub type switch_channel_state_t = ::std::os::raw::c_uint;
-pub const switch_ring_ready_t_SWITCH_RING_READY_NONE: switch_ring_ready_t = 0;
-pub const switch_ring_ready_t_SWITCH_RING_READY_RINGING: switch_ring_ready_t = 1;
-pub const switch_ring_ready_t_SWITCH_RING_READY_QUEUED: switch_ring_ready_t = 2;
-pub type switch_ring_ready_t = ::std::os::raw::c_uint;
-pub const switch_channel_cap_t_CC_MEDIA_ACK: switch_channel_cap_t = 1;
-pub const switch_channel_cap_t_CC_BYPASS_MEDIA: switch_channel_cap_t = 2;
-pub const switch_channel_cap_t_CC_PROXY_MEDIA: switch_channel_cap_t = 3;
-pub const switch_channel_cap_t_CC_JITTERBUFFER: switch_channel_cap_t = 4;
-pub const switch_channel_cap_t_CC_FS_RTP: switch_channel_cap_t = 5;
-pub const switch_channel_cap_t_CC_QUEUEABLE_DTMF_DELAY: switch_channel_cap_t = 6;
-pub const switch_channel_cap_t_CC_IO_OVERRIDE: switch_channel_cap_t = 7;
-pub const switch_channel_cap_t_CC_RTP_RTT: switch_channel_cap_t = 8;
-pub const switch_channel_cap_t_CC_MSRP: switch_channel_cap_t = 9;
-pub const switch_channel_cap_t_CC_MUTE_VIA_MEDIA_STREAM: switch_channel_cap_t = 10;
-pub const switch_channel_cap_t_CC_FLAG_MAX: switch_channel_cap_t = 11;
-#[doc = "\\enum switch_channel_flag_t\n\\brief Channel Flags\n\n<pre>\nCF_ANSWERED\t\t\t- Channel is answered\nCF_OUTBOUND\t\t\t- Channel is an outbound channel\nCF_EARLY_MEDIA\t\t- Channel is ready for audio before answer\nCF_ORIGINATOR\t\t- Channel is an originator\nCF_TRANSFER\t\t\t- Channel is being transfered\nCF_ACCEPT_CNG\t\t- Channel will accept CNG frames\nCF_REDIRECT \t\t- Channel is being redirected\nCF_BRIDGED\t\t\t- Channel in a bridge\nCF_HOLD\t\t\t\t- Channel is on hold\nCF_HOLD_BLEG        - B leg is on hold\nCF_SERVICE\t\t\t- Channel has a service thread\nCF_TAGGED\t\t\t- Channel is tagged\nCF_WINNER\t\t\t- Channel is the winner\nCF_REUSE_CALLER_PROFILE - Channel reuse caller profile\nCF_CONTROLLED\t\t- Channel is under control\nCF_PROXY_MODE\t\t- Channel has no media\nCF_SUSPEND\t\t\t- Suspend i/o\nCF_EVENT_PARSE\t\t- Suspend control events\nCF_GEN_RINGBACK\t\t- Channel is generating it's own ringback\nCF_RING_READY\t\t- Channel is ready to send ringback\nCF_BREAK\t\t\t- Channel should stop what it's doing\nCF_BROADCAST\t\t- Channel is broadcasting\nCF_UNICAST\t\t\t- Channel has a unicast connection\nCF_VIDEO\t\t\t- Channel has video\nCF_EVENT_LOCK\t\t- Don't parse events\nCF_RESET\t\t\t- Tell extension parser to reset\nCF_ORIGINATING\t\t- Channel is originating\nCF_STOP_BROADCAST\t- Signal to stop broadcast\n\nCF_AUDIO_PAUSE      - Audio is not ready to read/write\nCF_VIDEO_PAUSE      - Video is not ready to read/write\n\nCF_MEDIA_SET        - Session has read codec assigned\n\n</pre>"]
-pub type switch_channel_cap_t = ::std::os::raw::c_uint;
-pub const switch_channel_flag_t_CF_ANSWERED: switch_channel_flag_t = 1;
-pub const switch_channel_flag_t_CF_OUTBOUND: switch_channel_flag_t = 2;
-pub const switch_channel_flag_t_CF_EARLY_MEDIA: switch_channel_flag_t = 3;
-pub const switch_channel_flag_t_CF_BRIDGE_ORIGINATOR: switch_channel_flag_t = 4;
-pub const switch_channel_flag_t_CF_UUID_BRIDGE_ORIGINATOR: switch_channel_flag_t = 5;
-pub const switch_channel_flag_t_CF_TRANSFER: switch_channel_flag_t = 6;
-pub const switch_channel_flag_t_CF_ACCEPT_CNG: switch_channel_flag_t = 7;
-pub const switch_channel_flag_t_CF_REDIRECT: switch_channel_flag_t = 8;
-pub const switch_channel_flag_t_CF_BRIDGED: switch_channel_flag_t = 9;
-pub const switch_channel_flag_t_CF_HOLD: switch_channel_flag_t = 10;
-pub const switch_channel_flag_t_CF_HOLD_BLEG: switch_channel_flag_t = 11;
-pub const switch_channel_flag_t_CF_SERVICE: switch_channel_flag_t = 12;
-pub const switch_channel_flag_t_CF_TAGGED: switch_channel_flag_t = 13;
-pub const switch_channel_flag_t_CF_WINNER: switch_channel_flag_t = 14;
-pub const switch_channel_flag_t_CF_REUSE_CALLER_PROFILE: switch_channel_flag_t = 15;
-pub const switch_channel_flag_t_CF_CONTROLLED: switch_channel_flag_t = 16;
-pub const switch_channel_flag_t_CF_PROXY_MODE: switch_channel_flag_t = 17;
-pub const switch_channel_flag_t_CF_PROXY_OFF: switch_channel_flag_t = 18;
-pub const switch_channel_flag_t_CF_SUSPEND: switch_channel_flag_t = 19;
-pub const switch_channel_flag_t_CF_EVENT_PARSE: switch_channel_flag_t = 20;
-pub const switch_channel_flag_t_CF_GEN_RINGBACK: switch_channel_flag_t = 21;
-pub const switch_channel_flag_t_CF_RING_READY: switch_channel_flag_t = 22;
-pub const switch_channel_flag_t_CF_BREAK: switch_channel_flag_t = 23;
-pub const switch_channel_flag_t_CF_BROADCAST: switch_channel_flag_t = 24;
-pub const switch_channel_flag_t_CF_UNICAST: switch_channel_flag_t = 25;
-pub const switch_channel_flag_t_CF_VIDEO: switch_channel_flag_t = 26;
-pub const switch_channel_flag_t_CF_EVENT_LOCK: switch_channel_flag_t = 27;
-pub const switch_channel_flag_t_CF_EVENT_LOCK_PRI: switch_channel_flag_t = 28;
-pub const switch_channel_flag_t_CF_RESET: switch_channel_flag_t = 29;
-pub const switch_channel_flag_t_CF_ORIGINATING: switch_channel_flag_t = 30;
-pub const switch_channel_flag_t_CF_STOP_BROADCAST: switch_channel_flag_t = 31;
-pub const switch_channel_flag_t_CF_PROXY_MEDIA: switch_channel_flag_t = 32;
-pub const switch_channel_flag_t_CF_INNER_BRIDGE: switch_channel_flag_t = 33;
-pub const switch_channel_flag_t_CF_REQ_MEDIA: switch_channel_flag_t = 34;
-pub const switch_channel_flag_t_CF_VERBOSE_EVENTS: switch_channel_flag_t = 35;
-pub const switch_channel_flag_t_CF_PAUSE_BUGS: switch_channel_flag_t = 36;
-pub const switch_channel_flag_t_CF_DIVERT_EVENTS: switch_channel_flag_t = 37;
-pub const switch_channel_flag_t_CF_BLOCK_STATE: switch_channel_flag_t = 38;
-pub const switch_channel_flag_t_CF_FS_RTP: switch_channel_flag_t = 39;
-pub const switch_channel_flag_t_CF_REPORTING: switch_channel_flag_t = 40;
-pub const switch_channel_flag_t_CF_PARK: switch_channel_flag_t = 41;
-pub const switch_channel_flag_t_CF_TIMESTAMP_SET: switch_channel_flag_t = 42;
-pub const switch_channel_flag_t_CF_ORIGINATOR: switch_channel_flag_t = 43;
-pub const switch_channel_flag_t_CF_XFER_ZOMBIE: switch_channel_flag_t = 44;
-pub const switch_channel_flag_t_CF_MEDIA_ACK: switch_channel_flag_t = 45;
-pub const switch_channel_flag_t_CF_THREAD_SLEEPING: switch_channel_flag_t = 46;
-pub const switch_channel_flag_t_CF_DISABLE_RINGBACK: switch_channel_flag_t = 47;
-pub const switch_channel_flag_t_CF_NOT_READY: switch_channel_flag_t = 48;
-pub const switch_channel_flag_t_CF_SIGNAL_BRIDGE_TTL: switch_channel_flag_t = 49;
-pub const switch_channel_flag_t_CF_MEDIA_BRIDGE_TTL: switch_channel_flag_t = 50;
-pub const switch_channel_flag_t_CF_BYPASS_MEDIA_AFTER_BRIDGE: switch_channel_flag_t = 51;
-pub const switch_channel_flag_t_CF_LEG_HOLDING: switch_channel_flag_t = 52;
-pub const switch_channel_flag_t_CF_BROADCAST_DROP_MEDIA: switch_channel_flag_t = 53;
-pub const switch_channel_flag_t_CF_EARLY_HANGUP: switch_channel_flag_t = 54;
-pub const switch_channel_flag_t_CF_MEDIA_SET: switch_channel_flag_t = 55;
-pub const switch_channel_flag_t_CF_CONSUME_ON_ORIGINATE: switch_channel_flag_t = 56;
-pub const switch_channel_flag_t_CF_PASSTHRU_PTIME_MISMATCH: switch_channel_flag_t = 57;
-pub const switch_channel_flag_t_CF_BRIDGE_NOWRITE: switch_channel_flag_t = 58;
-pub const switch_channel_flag_t_CF_RECOVERED: switch_channel_flag_t = 59;
-pub const switch_channel_flag_t_CF_JITTERBUFFER: switch_channel_flag_t = 60;
-pub const switch_channel_flag_t_CF_JITTERBUFFER_PLC: switch_channel_flag_t = 61;
-pub const switch_channel_flag_t_CF_DIALPLAN: switch_channel_flag_t = 62;
-pub const switch_channel_flag_t_CF_BLEG: switch_channel_flag_t = 63;
-pub const switch_channel_flag_t_CF_BLOCK_BROADCAST_UNTIL_MEDIA: switch_channel_flag_t = 64;
-pub const switch_channel_flag_t_CF_CNG_PLC: switch_channel_flag_t = 65;
-pub const switch_channel_flag_t_CF_ATTENDED_TRANSFER: switch_channel_flag_t = 66;
-pub const switch_channel_flag_t_CF_LAZY_ATTENDED_TRANSFER: switch_channel_flag_t = 67;
-pub const switch_channel_flag_t_CF_SIGNAL_DATA: switch_channel_flag_t = 68;
-pub const switch_channel_flag_t_CF_SIMPLIFY: switch_channel_flag_t = 69;
-pub const switch_channel_flag_t_CF_ZOMBIE_EXEC: switch_channel_flag_t = 70;
-pub const switch_channel_flag_t_CF_INTERCEPT: switch_channel_flag_t = 71;
-pub const switch_channel_flag_t_CF_INTERCEPTED: switch_channel_flag_t = 72;
-pub const switch_channel_flag_t_CF_VIDEO_REFRESH_REQ: switch_channel_flag_t = 73;
-pub const switch_channel_flag_t_CF_MANUAL_VID_REFRESH: switch_channel_flag_t = 74;
-pub const switch_channel_flag_t_CF_MANUAL_MEDIA_PARAMS: switch_channel_flag_t = 75;
-pub const switch_channel_flag_t_CF_SERVICE_AUDIO: switch_channel_flag_t = 76;
-pub const switch_channel_flag_t_CF_SERVICE_VIDEO: switch_channel_flag_t = 77;
-pub const switch_channel_flag_t_CF_CHANNEL_SWAP: switch_channel_flag_t = 78;
-pub const switch_channel_flag_t_CF_DEVICE_LEG: switch_channel_flag_t = 79;
-pub const switch_channel_flag_t_CF_FINAL_DEVICE_LEG: switch_channel_flag_t = 80;
-pub const switch_channel_flag_t_CF_PICKUP: switch_channel_flag_t = 81;
-pub const switch_channel_flag_t_CF_CONFIRM_BLIND_TRANSFER: switch_channel_flag_t = 82;
-pub const switch_channel_flag_t_CF_NO_PRESENCE: switch_channel_flag_t = 83;
-pub const switch_channel_flag_t_CF_CONFERENCE: switch_channel_flag_t = 84;
-pub const switch_channel_flag_t_CF_CONFERENCE_ADV: switch_channel_flag_t = 85;
-pub const switch_channel_flag_t_CF_RECOVERING: switch_channel_flag_t = 86;
-pub const switch_channel_flag_t_CF_RECOVERING_BRIDGE: switch_channel_flag_t = 87;
-pub const switch_channel_flag_t_CF_TRACKED: switch_channel_flag_t = 88;
-pub const switch_channel_flag_t_CF_TRACKABLE: switch_channel_flag_t = 89;
-pub const switch_channel_flag_t_CF_NO_CDR: switch_channel_flag_t = 90;
-pub const switch_channel_flag_t_CF_EARLY_OK: switch_channel_flag_t = 91;
-pub const switch_channel_flag_t_CF_MEDIA_TRANS: switch_channel_flag_t = 92;
-pub const switch_channel_flag_t_CF_HOLD_ON_BRIDGE: switch_channel_flag_t = 93;
-pub const switch_channel_flag_t_CF_SECURE: switch_channel_flag_t = 94;
-pub const switch_channel_flag_t_CF_LIBERAL_DTMF: switch_channel_flag_t = 95;
-pub const switch_channel_flag_t_CF_SLA_BARGE: switch_channel_flag_t = 96;
-pub const switch_channel_flag_t_CF_SLA_BARGING: switch_channel_flag_t = 97;
-pub const switch_channel_flag_t_CF_PROTO_HOLD: switch_channel_flag_t = 98;
-pub const switch_channel_flag_t_CF_HOLD_LOCK: switch_channel_flag_t = 99;
-pub const switch_channel_flag_t_CF_VIDEO_POSSIBLE: switch_channel_flag_t = 100;
-pub const switch_channel_flag_t_CF_NOTIMER_DURING_BRIDGE: switch_channel_flag_t = 101;
-pub const switch_channel_flag_t_CF_PASS_RFC2833: switch_channel_flag_t = 102;
-pub const switch_channel_flag_t_CF_T38_PASSTHRU: switch_channel_flag_t = 103;
-pub const switch_channel_flag_t_CF_DROP_DTMF: switch_channel_flag_t = 104;
-pub const switch_channel_flag_t_CF_REINVITE: switch_channel_flag_t = 105;
-pub const switch_channel_flag_t_CF_NOSDP_REINVITE: switch_channel_flag_t = 106;
-pub const switch_channel_flag_t_CF_AUTOFLUSH_DURING_BRIDGE: switch_channel_flag_t = 107;
-pub const switch_channel_flag_t_CF_RTP_NOTIMER_DURING_BRIDGE: switch_channel_flag_t = 108;
-pub const switch_channel_flag_t_CF_AVPF: switch_channel_flag_t = 109;
-pub const switch_channel_flag_t_CF_AVPF_MOZ: switch_channel_flag_t = 110;
-pub const switch_channel_flag_t_CF_ICE: switch_channel_flag_t = 111;
-pub const switch_channel_flag_t_CF_DTLS: switch_channel_flag_t = 112;
-pub const switch_channel_flag_t_CF_VERBOSE_SDP: switch_channel_flag_t = 113;
-pub const switch_channel_flag_t_CF_DTLS_OK: switch_channel_flag_t = 114;
-pub const switch_channel_flag_t_CF_3PCC: switch_channel_flag_t = 115;
-pub const switch_channel_flag_t_CF_VIDEO_PASSIVE: switch_channel_flag_t = 116;
-pub const switch_channel_flag_t_CF_NOVIDEO: switch_channel_flag_t = 117;
-pub const switch_channel_flag_t_CF_VIDEO_BITRATE_UNMANAGABLE: switch_channel_flag_t = 118;
-pub const switch_channel_flag_t_CF_VIDEO_ECHO: switch_channel_flag_t = 119;
-pub const switch_channel_flag_t_CF_VIDEO_BLANK: switch_channel_flag_t = 120;
-pub const switch_channel_flag_t_CF_VIDEO_WRITING: switch_channel_flag_t = 121;
-pub const switch_channel_flag_t_CF_SLA_INTERCEPT: switch_channel_flag_t = 122;
-pub const switch_channel_flag_t_CF_VIDEO_BREAK: switch_channel_flag_t = 123;
-pub const switch_channel_flag_t_CF_AUDIO_PAUSE_READ: switch_channel_flag_t = 124;
-pub const switch_channel_flag_t_CF_AUDIO_PAUSE_WRITE: switch_channel_flag_t = 125;
-pub const switch_channel_flag_t_CF_VIDEO_PAUSE_READ: switch_channel_flag_t = 126;
-pub const switch_channel_flag_t_CF_VIDEO_PAUSE_WRITE: switch_channel_flag_t = 127;
-pub const switch_channel_flag_t_CF_BYPASS_MEDIA_AFTER_HOLD: switch_channel_flag_t = 128;
-pub const switch_channel_flag_t_CF_HANGUP_HELD: switch_channel_flag_t = 129;
-pub const switch_channel_flag_t_CF_CONFERENCE_RESET_MEDIA: switch_channel_flag_t = 130;
-pub const switch_channel_flag_t_CF_VIDEO_DECODED_READ: switch_channel_flag_t = 131;
-pub const switch_channel_flag_t_CF_VIDEO_DEBUG_READ: switch_channel_flag_t = 132;
-pub const switch_channel_flag_t_CF_VIDEO_DEBUG_WRITE: switch_channel_flag_t = 133;
-pub const switch_channel_flag_t_CF_NO_RECOVER: switch_channel_flag_t = 134;
-pub const switch_channel_flag_t_CF_VIDEO_READY: switch_channel_flag_t = 135;
-pub const switch_channel_flag_t_CF_VIDEO_MIRROR_INPUT: switch_channel_flag_t = 136;
-pub const switch_channel_flag_t_CF_VIDEO_READ_FILE_ATTACHED: switch_channel_flag_t = 137;
-pub const switch_channel_flag_t_CF_VIDEO_WRITE_FILE_ATTACHED: switch_channel_flag_t = 138;
-pub const switch_channel_flag_t_CF_3P_MEDIA_REQUESTED: switch_channel_flag_t = 139;
-pub const switch_channel_flag_t_CF_3P_NOMEDIA_REQUESTED: switch_channel_flag_t = 140;
-pub const switch_channel_flag_t_CF_3P_NOMEDIA_REQUESTED_BLEG: switch_channel_flag_t = 141;
-pub const switch_channel_flag_t_CF_IMAGE_SDP: switch_channel_flag_t = 142;
-pub const switch_channel_flag_t_CF_VIDEO_SDP_RECVD: switch_channel_flag_t = 143;
-pub const switch_channel_flag_t_CF_TEXT_SDP_RECVD: switch_channel_flag_t = 144;
-pub const switch_channel_flag_t_CF_HAS_TEXT: switch_channel_flag_t = 145;
-pub const switch_channel_flag_t_CF_TEXT_POSSIBLE: switch_channel_flag_t = 146;
-pub const switch_channel_flag_t_CF_TEXT_PASSIVE: switch_channel_flag_t = 147;
-pub const switch_channel_flag_t_CF_TEXT_ECHO: switch_channel_flag_t = 148;
-pub const switch_channel_flag_t_CF_TEXT_ACTIVE: switch_channel_flag_t = 149;
-pub const switch_channel_flag_t_CF_TEXT_IDLE: switch_channel_flag_t = 150;
-pub const switch_channel_flag_t_CF_TEXT_LINE_BASED: switch_channel_flag_t = 151;
-pub const switch_channel_flag_t_CF_QUEUE_TEXT_EVENTS: switch_channel_flag_t = 152;
-pub const switch_channel_flag_t_CF_FIRE_TEXT_EVENTS: switch_channel_flag_t = 153;
-pub const switch_channel_flag_t_CF_MSRP: switch_channel_flag_t = 154;
-pub const switch_channel_flag_t_CF_MSRPS: switch_channel_flag_t = 155;
-pub const switch_channel_flag_t_CF_WANT_MSRP: switch_channel_flag_t = 156;
-pub const switch_channel_flag_t_CF_WANT_MSRPS: switch_channel_flag_t = 157;
-pub const switch_channel_flag_t_CF_RTT: switch_channel_flag_t = 158;
-pub const switch_channel_flag_t_CF_WANT_RTT: switch_channel_flag_t = 159;
-pub const switch_channel_flag_t_CF_AUDIO: switch_channel_flag_t = 160;
-pub const switch_channel_flag_t_CF_AWAITING_STREAM_CHANGE: switch_channel_flag_t = 161;
-pub const switch_channel_flag_t_CF_PROCESSING_STREAM_CHANGE: switch_channel_flag_t = 162;
-pub const switch_channel_flag_t_CF_STREAM_CHANGED: switch_channel_flag_t = 163;
-pub const switch_channel_flag_t_CF_ARRANGED_BRIDGE: switch_channel_flag_t = 164;
-pub const switch_channel_flag_t_CF_STATE_REPEAT: switch_channel_flag_t = 165;
-pub const switch_channel_flag_t_CF_WANT_DTLSv1_2: switch_channel_flag_t = 166;
-pub const switch_channel_flag_t_CF_RFC7329_COMPAT: switch_channel_flag_t = 167;
-pub const switch_channel_flag_t_CF_REATTACHED: switch_channel_flag_t = 168;
-pub const switch_channel_flag_t_CF_VIDEO_READ_TAPPED: switch_channel_flag_t = 169;
-pub const switch_channel_flag_t_CF_VIDEO_WRITE_TAPPED: switch_channel_flag_t = 170;
-pub const switch_channel_flag_t_CF_DEVICES_CHANGED: switch_channel_flag_t = 171;
-pub const switch_channel_flag_t_CF_FLAG_MAX: switch_channel_flag_t = 172;
-pub type switch_channel_flag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_channel_callstate_t {
+    CCS_DOWN = 0,
+    CCS_DIALING = 1,
+    CCS_RINGING = 2,
+    CCS_EARLY = 3,
+    CCS_ACTIVE = 4,
+    CCS_HELD = 5,
+    CCS_RING_WAIT = 6,
+    CCS_HANGUP = 7,
+    CCS_UNHELD = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_device_state_t {
+    SDS_DOWN = 0,
+    SDS_RINGING = 1,
+    SDS_ACTIVE = 2,
+    SDS_ACTIVE_MULTI = 3,
+    SDS_HELD = 4,
+    SDS_UNHELD = 5,
+    SDS_HANGUP = 6,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_channel_state_t {
+    CS_NEW = 0,
+    CS_INIT = 1,
+    CS_ROUTING = 2,
+    CS_SOFT_EXECUTE = 3,
+    CS_EXECUTE = 4,
+    CS_EXCHANGE_MEDIA = 5,
+    CS_PARK = 6,
+    CS_CONSUME_MEDIA = 7,
+    CS_HIBERNATE = 8,
+    CS_RESET = 9,
+    CS_HANGUP = 10,
+    CS_REPORTING = 11,
+    CS_DESTROY = 12,
+    CS_NONE = 13,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_ring_ready_t {
+    SWITCH_RING_READY_NONE = 0,
+    SWITCH_RING_READY_RINGING = 1,
+    SWITCH_RING_READY_QUEUED = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_channel_cap_t {
+    CC_MEDIA_ACK = 1,
+    CC_BYPASS_MEDIA = 2,
+    CC_PROXY_MEDIA = 3,
+    CC_JITTERBUFFER = 4,
+    CC_FS_RTP = 5,
+    CC_QUEUEABLE_DTMF_DELAY = 6,
+    CC_IO_OVERRIDE = 7,
+    CC_RTP_RTT = 8,
+    CC_MSRP = 9,
+    CC_MUTE_VIA_MEDIA_STREAM = 10,
+    CC_FLAG_MAX = 11,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_channel_flag_t {
+    CF_ANSWERED = 1,
+    CF_OUTBOUND = 2,
+    CF_EARLY_MEDIA = 3,
+    CF_BRIDGE_ORIGINATOR = 4,
+    CF_UUID_BRIDGE_ORIGINATOR = 5,
+    CF_TRANSFER = 6,
+    CF_ACCEPT_CNG = 7,
+    CF_REDIRECT = 8,
+    CF_BRIDGED = 9,
+    CF_HOLD = 10,
+    CF_HOLD_BLEG = 11,
+    CF_SERVICE = 12,
+    CF_TAGGED = 13,
+    CF_WINNER = 14,
+    CF_REUSE_CALLER_PROFILE = 15,
+    CF_CONTROLLED = 16,
+    CF_PROXY_MODE = 17,
+    CF_PROXY_OFF = 18,
+    CF_SUSPEND = 19,
+    CF_EVENT_PARSE = 20,
+    CF_GEN_RINGBACK = 21,
+    CF_RING_READY = 22,
+    CF_BREAK = 23,
+    CF_BROADCAST = 24,
+    CF_UNICAST = 25,
+    CF_VIDEO = 26,
+    CF_EVENT_LOCK = 27,
+    CF_EVENT_LOCK_PRI = 28,
+    CF_RESET = 29,
+    CF_ORIGINATING = 30,
+    CF_STOP_BROADCAST = 31,
+    CF_PROXY_MEDIA = 32,
+    CF_INNER_BRIDGE = 33,
+    CF_REQ_MEDIA = 34,
+    CF_VERBOSE_EVENTS = 35,
+    CF_PAUSE_BUGS = 36,
+    CF_DIVERT_EVENTS = 37,
+    CF_BLOCK_STATE = 38,
+    CF_FS_RTP = 39,
+    CF_REPORTING = 40,
+    CF_PARK = 41,
+    CF_TIMESTAMP_SET = 42,
+    CF_ORIGINATOR = 43,
+    CF_XFER_ZOMBIE = 44,
+    CF_MEDIA_ACK = 45,
+    CF_THREAD_SLEEPING = 46,
+    CF_DISABLE_RINGBACK = 47,
+    CF_NOT_READY = 48,
+    CF_SIGNAL_BRIDGE_TTL = 49,
+    CF_MEDIA_BRIDGE_TTL = 50,
+    CF_BYPASS_MEDIA_AFTER_BRIDGE = 51,
+    CF_LEG_HOLDING = 52,
+    CF_BROADCAST_DROP_MEDIA = 53,
+    CF_EARLY_HANGUP = 54,
+    CF_MEDIA_SET = 55,
+    CF_CONSUME_ON_ORIGINATE = 56,
+    CF_PASSTHRU_PTIME_MISMATCH = 57,
+    CF_BRIDGE_NOWRITE = 58,
+    CF_RECOVERED = 59,
+    CF_JITTERBUFFER = 60,
+    CF_JITTERBUFFER_PLC = 61,
+    CF_DIALPLAN = 62,
+    CF_BLEG = 63,
+    CF_BLOCK_BROADCAST_UNTIL_MEDIA = 64,
+    CF_CNG_PLC = 65,
+    CF_ATTENDED_TRANSFER = 66,
+    CF_LAZY_ATTENDED_TRANSFER = 67,
+    CF_SIGNAL_DATA = 68,
+    CF_SIMPLIFY = 69,
+    CF_ZOMBIE_EXEC = 70,
+    CF_INTERCEPT = 71,
+    CF_INTERCEPTED = 72,
+    CF_VIDEO_REFRESH_REQ = 73,
+    CF_MANUAL_VID_REFRESH = 74,
+    CF_MANUAL_MEDIA_PARAMS = 75,
+    CF_SERVICE_AUDIO = 76,
+    CF_SERVICE_VIDEO = 77,
+    CF_CHANNEL_SWAP = 78,
+    CF_DEVICE_LEG = 79,
+    CF_FINAL_DEVICE_LEG = 80,
+    CF_PICKUP = 81,
+    CF_CONFIRM_BLIND_TRANSFER = 82,
+    CF_NO_PRESENCE = 83,
+    CF_CONFERENCE = 84,
+    CF_CONFERENCE_ADV = 85,
+    CF_RECOVERING = 86,
+    CF_RECOVERING_BRIDGE = 87,
+    CF_TRACKED = 88,
+    CF_TRACKABLE = 89,
+    CF_NO_CDR = 90,
+    CF_EARLY_OK = 91,
+    CF_MEDIA_TRANS = 92,
+    CF_HOLD_ON_BRIDGE = 93,
+    CF_SECURE = 94,
+    CF_LIBERAL_DTMF = 95,
+    CF_SLA_BARGE = 96,
+    CF_SLA_BARGING = 97,
+    CF_PROTO_HOLD = 98,
+    CF_HOLD_LOCK = 99,
+    CF_VIDEO_POSSIBLE = 100,
+    CF_NOTIMER_DURING_BRIDGE = 101,
+    CF_PASS_RFC2833 = 102,
+    CF_T38_PASSTHRU = 103,
+    CF_DROP_DTMF = 104,
+    CF_REINVITE = 105,
+    CF_NOSDP_REINVITE = 106,
+    CF_AUTOFLUSH_DURING_BRIDGE = 107,
+    CF_RTP_NOTIMER_DURING_BRIDGE = 108,
+    CF_AVPF = 109,
+    CF_AVPF_MOZ = 110,
+    CF_ICE = 111,
+    CF_DTLS = 112,
+    CF_VERBOSE_SDP = 113,
+    CF_DTLS_OK = 114,
+    CF_3PCC = 115,
+    CF_VIDEO_PASSIVE = 116,
+    CF_NOVIDEO = 117,
+    CF_VIDEO_BITRATE_UNMANAGABLE = 118,
+    CF_VIDEO_ECHO = 119,
+    CF_VIDEO_BLANK = 120,
+    CF_VIDEO_WRITING = 121,
+    CF_SLA_INTERCEPT = 122,
+    CF_VIDEO_BREAK = 123,
+    CF_AUDIO_PAUSE_READ = 124,
+    CF_AUDIO_PAUSE_WRITE = 125,
+    CF_VIDEO_PAUSE_READ = 126,
+    CF_VIDEO_PAUSE_WRITE = 127,
+    CF_BYPASS_MEDIA_AFTER_HOLD = 128,
+    CF_HANGUP_HELD = 129,
+    CF_CONFERENCE_RESET_MEDIA = 130,
+    CF_VIDEO_DECODED_READ = 131,
+    CF_VIDEO_DEBUG_READ = 132,
+    CF_VIDEO_DEBUG_WRITE = 133,
+    CF_NO_RECOVER = 134,
+    CF_VIDEO_READY = 135,
+    CF_VIDEO_MIRROR_INPUT = 136,
+    CF_VIDEO_READ_FILE_ATTACHED = 137,
+    CF_VIDEO_WRITE_FILE_ATTACHED = 138,
+    CF_3P_MEDIA_REQUESTED = 139,
+    CF_3P_NOMEDIA_REQUESTED = 140,
+    CF_3P_NOMEDIA_REQUESTED_BLEG = 141,
+    CF_IMAGE_SDP = 142,
+    CF_VIDEO_SDP_RECVD = 143,
+    CF_TEXT_SDP_RECVD = 144,
+    CF_HAS_TEXT = 145,
+    CF_TEXT_POSSIBLE = 146,
+    CF_TEXT_PASSIVE = 147,
+    CF_TEXT_ECHO = 148,
+    CF_TEXT_ACTIVE = 149,
+    CF_TEXT_IDLE = 150,
+    CF_TEXT_LINE_BASED = 151,
+    CF_QUEUE_TEXT_EVENTS = 152,
+    CF_FIRE_TEXT_EVENTS = 153,
+    CF_MSRP = 154,
+    CF_MSRPS = 155,
+    CF_WANT_MSRP = 156,
+    CF_WANT_MSRPS = 157,
+    CF_RTT = 158,
+    CF_WANT_RTT = 159,
+    CF_AUDIO = 160,
+    CF_AWAITING_STREAM_CHANGE = 161,
+    CF_PROCESSING_STREAM_CHANGE = 162,
+    CF_STREAM_CHANGED = 163,
+    CF_ARRANGED_BRIDGE = 164,
+    CF_STATE_REPEAT = 165,
+    CF_WANT_DTLSv1_2 = 166,
+    CF_RFC7329_COMPAT = 167,
+    CF_REATTACHED = 168,
+    CF_VIDEO_READ_TAPPED = 169,
+    CF_VIDEO_WRITE_TAPPED = 170,
+    CF_DEVICES_CHANGED = 171,
+    CF_FLAG_MAX = 172,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_vid_params_s {
@@ -7482,411 +7460,451 @@ pub struct switch_fps_s {
     pub samples: ::std::os::raw::c_int,
 }
 pub type switch_fps_t = switch_fps_s;
-pub const switch_channel_app_flag_t_CF_APP_TAGGED: switch_channel_app_flag_t = 1;
-pub const switch_channel_app_flag_t_CF_APP_T38: switch_channel_app_flag_t = 2;
-pub const switch_channel_app_flag_t_CF_APP_T38_REQ: switch_channel_app_flag_t = 4;
-pub const switch_channel_app_flag_t_CF_APP_T38_FAIL: switch_channel_app_flag_t = 8;
-pub const switch_channel_app_flag_t_CF_APP_T38_NEGOTIATED: switch_channel_app_flag_t = 16;
-pub const switch_channel_app_flag_t_CF_APP_T38_POSSIBLE: switch_channel_app_flag_t = 32;
-pub type switch_channel_app_flag_t = ::std::os::raw::c_uint;
-pub const switch_frame_flag_enum_t_SFF_NONE: switch_frame_flag_enum_t = 0;
-pub const switch_frame_flag_enum_t_SFF_CNG: switch_frame_flag_enum_t = 1;
-pub const switch_frame_flag_enum_t_SFF_RAW_RTP: switch_frame_flag_enum_t = 2;
-pub const switch_frame_flag_enum_t_SFF_RTP_HEADER: switch_frame_flag_enum_t = 4;
-pub const switch_frame_flag_enum_t_SFF_PLC: switch_frame_flag_enum_t = 8;
-pub const switch_frame_flag_enum_t_SFF_RFC2833: switch_frame_flag_enum_t = 16;
-pub const switch_frame_flag_enum_t_SFF_PROXY_PACKET: switch_frame_flag_enum_t = 32;
-pub const switch_frame_flag_enum_t_SFF_DYNAMIC: switch_frame_flag_enum_t = 64;
-pub const switch_frame_flag_enum_t_SFF_UDPTL_PACKET: switch_frame_flag_enum_t = 128;
-pub const switch_frame_flag_enum_t_SFF_NOT_AUDIO: switch_frame_flag_enum_t = 256;
-pub const switch_frame_flag_enum_t_SFF_RTCP: switch_frame_flag_enum_t = 512;
-pub const switch_frame_flag_enum_t_SFF_MARKER: switch_frame_flag_enum_t = 1024;
-pub const switch_frame_flag_enum_t_SFF_WAIT_KEY_FRAME: switch_frame_flag_enum_t = 2048;
-pub const switch_frame_flag_enum_t_SFF_RAW_RTP_PARSE_FRAME: switch_frame_flag_enum_t = 4096;
-pub const switch_frame_flag_enum_t_SFF_PICTURE_RESET: switch_frame_flag_enum_t = 8192;
-pub const switch_frame_flag_enum_t_SFF_SAME_IMAGE: switch_frame_flag_enum_t = 16384;
-pub const switch_frame_flag_enum_t_SFF_USE_VIDEO_TIMESTAMP: switch_frame_flag_enum_t = 32768;
-pub const switch_frame_flag_enum_t_SFF_ENCODED: switch_frame_flag_enum_t = 65536;
-pub const switch_frame_flag_enum_t_SFF_TEXT_LINE_BREAK: switch_frame_flag_enum_t = 131072;
-pub const switch_frame_flag_enum_t_SFF_IS_KEYFRAME: switch_frame_flag_enum_t = 262144;
-pub const switch_frame_flag_enum_t_SFF_EXTERNAL: switch_frame_flag_enum_t = 524288;
-#[doc = "\\enum switch_frame_flag_t\n\\brief Frame Flags\n\n<pre>\nSFF_CNG        = (1 <<  0) - Frame represents comfort noise\nSFF_RAW_RTP    = (1 <<  1) - Frame has raw rtp accessible\nSFF_RTP_HEADER = (1 <<  2) - Get the rtp header from the frame header\nSFF_PLC        = (1 <<  3) - Frame has generated PLC data\nSFF_RFC2833    = (1 <<  4) - Frame has rfc2833 dtmf data\nSFF_DYNAMIC    = (1 <<  5) - Frame is dynamic and should be freed\nSFF_MARKER     = (1 << 11) - Frame flag has Marker set, only set by encoder\nSFF_WAIT_KEY_FRAME = (1 << 12) - Need a key from before could decode, or force generate a key frame on encode\n</pre>"]
-pub type switch_frame_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_channel_app_flag_t {
+    CF_APP_TAGGED = 1,
+    CF_APP_T38 = 2,
+    CF_APP_T38_REQ = 4,
+    CF_APP_T38_FAIL = 8,
+    CF_APP_T38_NEGOTIATED = 16,
+    CF_APP_T38_POSSIBLE = 32,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_frame_flag_enum_t {
+    SFF_NONE = 0,
+    SFF_CNG = 1,
+    SFF_RAW_RTP = 2,
+    SFF_RTP_HEADER = 4,
+    SFF_PLC = 8,
+    SFF_RFC2833 = 16,
+    SFF_PROXY_PACKET = 32,
+    SFF_DYNAMIC = 64,
+    SFF_UDPTL_PACKET = 128,
+    SFF_NOT_AUDIO = 256,
+    SFF_RTCP = 512,
+    SFF_MARKER = 1024,
+    SFF_WAIT_KEY_FRAME = 2048,
+    SFF_RAW_RTP_PARSE_FRAME = 4096,
+    SFF_PICTURE_RESET = 8192,
+    SFF_SAME_IMAGE = 16384,
+    SFF_USE_VIDEO_TIMESTAMP = 32768,
+    SFF_ENCODED = 65536,
+    SFF_TEXT_LINE_BREAK = 131072,
+    SFF_IS_KEYFRAME = 262144,
+    SFF_EXTERNAL = 524288,
+}
 pub type switch_frame_flag_t = u32;
-pub const switch_application_flag_enum_t_SAF_NONE: switch_application_flag_enum_t = 0;
-pub const switch_application_flag_enum_t_SAF_SUPPORT_NOMEDIA: switch_application_flag_enum_t = 1;
-pub const switch_application_flag_enum_t_SAF_ROUTING_EXEC: switch_application_flag_enum_t = 2;
-pub const switch_application_flag_enum_t_SAF_MEDIA_TAP: switch_application_flag_enum_t = 4;
-pub const switch_application_flag_enum_t_SAF_ZOMBIE_EXEC: switch_application_flag_enum_t = 8;
-pub const switch_application_flag_enum_t_SAF_NO_LOOPBACK: switch_application_flag_enum_t = 16;
-pub const switch_application_flag_enum_t_SAF_SUPPORT_TEXT_ONLY: switch_application_flag_enum_t = 32;
-pub type switch_application_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_application_flag_enum_t {
+    SAF_NONE = 0,
+    SAF_SUPPORT_NOMEDIA = 1,
+    SAF_ROUTING_EXEC = 2,
+    SAF_MEDIA_TAP = 4,
+    SAF_ZOMBIE_EXEC = 8,
+    SAF_NO_LOOPBACK = 16,
+    SAF_SUPPORT_TEXT_ONLY = 32,
+}
 pub type switch_application_flag_t = u32;
-pub const switch_chat_application_flag_enum_t_SCAF_NONE: switch_chat_application_flag_enum_t = 0;
-pub type switch_chat_application_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_chat_application_flag_enum_t {
+    SCAF_NONE = 0,
+}
 pub type switch_chat_application_flag_t = u32;
-pub const switch_signal_t_SWITCH_SIG_NONE: switch_signal_t = 0;
-pub const switch_signal_t_SWITCH_SIG_KILL: switch_signal_t = 1;
-pub const switch_signal_t_SWITCH_SIG_XFER: switch_signal_t = 2;
-pub const switch_signal_t_SWITCH_SIG_BREAK: switch_signal_t = 3;
-#[doc = "\\enum switch_signal_t\n\\brief Signals to send to channels\n<pre>\nSWITCH_SIG_KILL - Kill the channel\nSWITCH_SIG_XFER - Stop the current io but leave it viable\n</pre>"]
-pub type switch_signal_t = ::std::os::raw::c_uint;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_ENCODE: switch_codec_flag_enum_t = 1;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_DECODE: switch_codec_flag_enum_t = 2;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_SILENCE_START: switch_codec_flag_enum_t = 4;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_SILENCE_STOP: switch_codec_flag_enum_t = 8;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_SILENCE: switch_codec_flag_enum_t = 16;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_FREE_POOL: switch_codec_flag_enum_t = 32;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_AAL2: switch_codec_flag_enum_t = 64;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_PASSTHROUGH: switch_codec_flag_enum_t = 128;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_READY: switch_codec_flag_enum_t = 256;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_HAS_ADJ_BITRATE: switch_codec_flag_enum_t =
-    16384;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_HAS_PLC: switch_codec_flag_enum_t = 32768;
-pub const switch_codec_flag_enum_t_SWITCH_CODEC_FLAG_VIDEO_PATCHING: switch_codec_flag_enum_t =
-    65536;
-#[doc = "\\enum switch_codec_flag_t\n\\brief Codec related flags\n<pre>\nSWITCH_CODEC_FLAG_ENCODE =\t\t\t(1 <<  0) - Codec can encode\nSWITCH_CODEC_FLAG_DECODE =\t\t\t(1 <<  1) - Codec can decode\nSWITCH_CODEC_FLAG_SILENCE_START =\t(1 <<  2) - Start period of silence\nSWITCH_CODEC_FLAG_SILENCE_STOP =\t(1 <<  3) - End period of silence\nSWITCH_CODEC_FLAG_SILENCE =\t\t\t(1 <<  4) - Silence\nSWITCH_CODEC_FLAG_FREE_POOL =\t\t(1 <<  5) - Free codec's pool on destruction\nSWITCH_CODEC_FLAG_AAL2 =\t\t\t(1 <<  6) - USE AAL2 Bitpacking\nSWITCH_CODEC_FLAG_PASSTHROUGH =\t\t(1 <<  7) - Passthrough only\n</pre>"]
-pub type switch_codec_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_signal_t {
+    SWITCH_SIG_NONE = 0,
+    SWITCH_SIG_KILL = 1,
+    SWITCH_SIG_XFER = 2,
+    SWITCH_SIG_BREAK = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_codec_flag_enum_t {
+    SWITCH_CODEC_FLAG_ENCODE = 1,
+    SWITCH_CODEC_FLAG_DECODE = 2,
+    SWITCH_CODEC_FLAG_SILENCE_START = 4,
+    SWITCH_CODEC_FLAG_SILENCE_STOP = 8,
+    SWITCH_CODEC_FLAG_SILENCE = 16,
+    SWITCH_CODEC_FLAG_FREE_POOL = 32,
+    SWITCH_CODEC_FLAG_AAL2 = 64,
+    SWITCH_CODEC_FLAG_PASSTHROUGH = 128,
+    SWITCH_CODEC_FLAG_READY = 256,
+    SWITCH_CODEC_FLAG_HAS_ADJ_BITRATE = 16384,
+    SWITCH_CODEC_FLAG_HAS_PLC = 32768,
+    SWITCH_CODEC_FLAG_VIDEO_PATCHING = 65536,
+}
 pub type switch_codec_flag_t = u32;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_NONE: switch_speech_flag_enum_t = 0;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_HASTEXT: switch_speech_flag_enum_t = 1;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_PEEK: switch_speech_flag_enum_t = 2;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_FREE_POOL: switch_speech_flag_enum_t = 4;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_BLOCKING: switch_speech_flag_enum_t = 8;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_PAUSE: switch_speech_flag_enum_t = 16;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_OPEN: switch_speech_flag_enum_t = 32;
-pub const switch_speech_flag_enum_t_SWITCH_SPEECH_FLAG_DONE: switch_speech_flag_enum_t = 64;
-#[doc = "\\enum switch_speech_flag_t\n\\brief Speech related flags\n<pre>\nSWITCH_SPEECH_FLAG_HASTEXT =\t\t(1 <<  0) - Interface is has text to read.\nSWITCH_SPEECH_FLAG_PEEK =\t\t\t(1 <<  1) - Read data but do not erase it.\nSWITCH_SPEECH_FLAG_FREE_POOL =\t\t(1 <<  2) - Free interface's pool on destruction.\nSWITCH_SPEECH_FLAG_BLOCKING =       (1 <<  3) - Indicate that a blocking call is desired\nSWITCH_SPEECH_FLAG_PAUSE = \t\t\t(1 <<  4) - Pause toggle for playback\n</pre>"]
-pub type switch_speech_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_speech_flag_enum_t {
+    SWITCH_SPEECH_FLAG_NONE = 0,
+    SWITCH_SPEECH_FLAG_HASTEXT = 1,
+    SWITCH_SPEECH_FLAG_PEEK = 2,
+    SWITCH_SPEECH_FLAG_FREE_POOL = 4,
+    SWITCH_SPEECH_FLAG_BLOCKING = 8,
+    SWITCH_SPEECH_FLAG_PAUSE = 16,
+    SWITCH_SPEECH_FLAG_OPEN = 32,
+    SWITCH_SPEECH_FLAG_DONE = 64,
+}
 pub type switch_speech_flag_t = u32;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_NONE: switch_asr_flag_enum_t = 0;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_DATA: switch_asr_flag_enum_t = 1;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_FREE_POOL: switch_asr_flag_enum_t = 2;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_CLOSED: switch_asr_flag_enum_t = 4;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_FIRE_EVENTS: switch_asr_flag_enum_t = 8;
-pub const switch_asr_flag_enum_t_SWITCH_ASR_FLAG_AUTO_RESUME: switch_asr_flag_enum_t = 16;
-#[doc = "\\enum switch_asr_flag_t\n\\brief Asr related flags\n<pre>\nSWITCH_ASR_FLAG_DATA =\t\t\t(1 <<  0) - Interface has data\nSWITCH_ASR_FLAG_FREE_POOL =\t\t(1 <<  1) - Pool needs to be freed\nSWITCH_ASR_FLAG_CLOSED = \t\t(1 <<  2) - Interface has been closed\nSWITCH_ASR_FLAG_FIRE_EVENTS =\t(1 <<  3) - Fire all speech events\nSWITCH_ASR_FLAG_AUTO_RESUME =   (1 <<  4) - Auto Resume\n</pre>"]
-pub type switch_asr_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_asr_flag_enum_t {
+    SWITCH_ASR_FLAG_NONE = 0,
+    SWITCH_ASR_FLAG_DATA = 1,
+    SWITCH_ASR_FLAG_FREE_POOL = 2,
+    SWITCH_ASR_FLAG_CLOSED = 4,
+    SWITCH_ASR_FLAG_FIRE_EVENTS = 8,
+    SWITCH_ASR_FLAG_AUTO_RESUME = 16,
+}
 pub type switch_asr_flag_t = u32;
-pub const switch_directory_flag_enum_t_SWITCH_DIRECTORY_FLAG_FREE_POOL:
-    switch_directory_flag_enum_t = 1;
-#[doc = "\\enum switch_directory_flag_t\n\\brief Directory Handle related flags\n<pre>\nSWITCH_DIRECTORY_FLAG_FREE_POOL =\t\t(1 <<  0) - Free interface's pool on destruction.\n</pre>"]
-pub type switch_directory_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_directory_flag_enum_t {
+    SWITCH_DIRECTORY_FLAG_FREE_POOL = 1,
+}
 pub type switch_directory_flag_t = u32;
-pub const switch_codec_type_t_SWITCH_CODEC_TYPE_AUDIO: switch_codec_type_t = 0;
-pub const switch_codec_type_t_SWITCH_CODEC_TYPE_VIDEO: switch_codec_type_t = 1;
-pub const switch_codec_type_t_SWITCH_CODEC_TYPE_T38: switch_codec_type_t = 2;
-pub const switch_codec_type_t_SWITCH_CODEC_TYPE_APP: switch_codec_type_t = 3;
-#[doc = "\\enum switch_codec_type_t\n\\brief Codec types\n<pre>\nSWITCH_CODEC_TYPE_AUDIO - Audio Codec\nSWITCH_CODEC_TYPE_VIDEO - Video Codec\nSWITCH_CODEC_TYPE_T38   - T38 Codec\nSWITCH_CODEC_TYPE_APP   - Application Codec\n</pre>"]
-pub type switch_codec_type_t = ::std::os::raw::c_uint;
-pub const switch_media_type_t_SWITCH_MEDIA_TYPE_AUDIO: switch_media_type_t = 0;
-pub const switch_media_type_t_SWITCH_MEDIA_TYPE_VIDEO: switch_media_type_t = 1;
-pub const switch_media_type_t_SWITCH_MEDIA_TYPE_TEXT: switch_media_type_t = 2;
-pub type switch_media_type_t = ::std::os::raw::c_uint;
-pub const switch_timer_flag_enum_t_SWITCH_TIMER_FLAG_FREE_POOL: switch_timer_flag_enum_t = 1;
-#[doc = "\\enum switch_timer_flag_t\n\\brief Timer related flags\n<pre>\nSWITCH_TIMER_FLAG_FREE_POOL =\t\t(1 <<  0) - Free timer's pool on destruction\n</pre>"]
-pub type switch_timer_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_codec_type_t {
+    SWITCH_CODEC_TYPE_AUDIO = 0,
+    SWITCH_CODEC_TYPE_VIDEO = 1,
+    SWITCH_CODEC_TYPE_T38 = 2,
+    SWITCH_CODEC_TYPE_APP = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_media_type_t {
+    SWITCH_MEDIA_TYPE_AUDIO = 0,
+    SWITCH_MEDIA_TYPE_VIDEO = 1,
+    SWITCH_MEDIA_TYPE_TEXT = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_timer_flag_enum_t {
+    SWITCH_TIMER_FLAG_FREE_POOL = 1,
+}
 pub type switch_timer_flag_t = u32;
-pub const switch_media_bug_flag_enum_t_SMBF_BOTH: switch_media_bug_flag_enum_t = 0;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_STREAM: switch_media_bug_flag_enum_t = 1;
-pub const switch_media_bug_flag_enum_t_SMBF_WRITE_STREAM: switch_media_bug_flag_enum_t = 2;
-pub const switch_media_bug_flag_enum_t_SMBF_WRITE_REPLACE: switch_media_bug_flag_enum_t = 4;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_REPLACE: switch_media_bug_flag_enum_t = 8;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_PING: switch_media_bug_flag_enum_t = 16;
-pub const switch_media_bug_flag_enum_t_SMBF_STEREO: switch_media_bug_flag_enum_t = 32;
-pub const switch_media_bug_flag_enum_t_SMBF_ANSWER_REQ: switch_media_bug_flag_enum_t = 64;
-pub const switch_media_bug_flag_enum_t_SMBF_BRIDGE_REQ: switch_media_bug_flag_enum_t = 128;
-pub const switch_media_bug_flag_enum_t_SMBF_THREAD_LOCK: switch_media_bug_flag_enum_t = 256;
-pub const switch_media_bug_flag_enum_t_SMBF_PRUNE: switch_media_bug_flag_enum_t = 512;
-pub const switch_media_bug_flag_enum_t_SMBF_NO_PAUSE: switch_media_bug_flag_enum_t = 1024;
-pub const switch_media_bug_flag_enum_t_SMBF_STEREO_SWAP: switch_media_bug_flag_enum_t = 2048;
-pub const switch_media_bug_flag_enum_t_SMBF_LOCK: switch_media_bug_flag_enum_t = 4096;
-pub const switch_media_bug_flag_enum_t_SMBF_TAP_NATIVE_READ: switch_media_bug_flag_enum_t = 8192;
-pub const switch_media_bug_flag_enum_t_SMBF_TAP_NATIVE_WRITE: switch_media_bug_flag_enum_t = 16384;
-pub const switch_media_bug_flag_enum_t_SMBF_ONE_ONLY: switch_media_bug_flag_enum_t = 32768;
-pub const switch_media_bug_flag_enum_t_SMBF_MASK: switch_media_bug_flag_enum_t = 65536;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_VIDEO_PING: switch_media_bug_flag_enum_t = 131072;
-pub const switch_media_bug_flag_enum_t_SMBF_WRITE_VIDEO_PING: switch_media_bug_flag_enum_t = 262144;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_VIDEO_STREAM: switch_media_bug_flag_enum_t =
-    524288;
-pub const switch_media_bug_flag_enum_t_SMBF_WRITE_VIDEO_STREAM: switch_media_bug_flag_enum_t =
-    1048576;
-pub const switch_media_bug_flag_enum_t_SMBF_VIDEO_PATCH: switch_media_bug_flag_enum_t = 2097152;
-pub const switch_media_bug_flag_enum_t_SMBF_SPY_VIDEO_STREAM: switch_media_bug_flag_enum_t =
-    4194304;
-pub const switch_media_bug_flag_enum_t_SMBF_SPY_VIDEO_STREAM_BLEG: switch_media_bug_flag_enum_t =
-    8388608;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_VIDEO_PATCH: switch_media_bug_flag_enum_t =
-    16777216;
-pub const switch_media_bug_flag_enum_t_SMBF_READ_TEXT_STREAM: switch_media_bug_flag_enum_t =
-    33554432;
-pub const switch_media_bug_flag_enum_t_SMBF_FIRST: switch_media_bug_flag_enum_t = 67108864;
-pub const switch_media_bug_flag_enum_t_SMBF_PAUSE: switch_media_bug_flag_enum_t = 134217728;
-#[doc = "\\enum switch_timer_flag_t\n\\brief Timer related flags\n<pre>\nSMBF_READ_STREAM - Include the Read Stream\nSMBF_WRITE_STREAM - Include the Write Stream\nSMBF_WRITE_REPLACE - Replace the Write Stream\nSMBF_READ_REPLACE - Replace the Read Stream\nSMBF_STEREO - Record in stereo\nSMBF_ANSWER_REQ - Don't record until the channel is answered\nSMBF_BRIDGE_REQ - Don't record until the channel is bridged\nSMBF_THREAD_LOCK - Only let the same thread who created the bug remove it.\nSMBF_PRUNE -\nSMBF_NO_PAUSE -\nSMBF_STEREO_SWAP - Record in stereo: Write Stream - left channel, Read Stream - right channel\n</pre>"]
-pub type switch_media_bug_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_media_bug_flag_enum_t {
+    SMBF_BOTH = 0,
+    SMBF_READ_STREAM = 1,
+    SMBF_WRITE_STREAM = 2,
+    SMBF_WRITE_REPLACE = 4,
+    SMBF_READ_REPLACE = 8,
+    SMBF_READ_PING = 16,
+    SMBF_STEREO = 32,
+    SMBF_ANSWER_REQ = 64,
+    SMBF_BRIDGE_REQ = 128,
+    SMBF_THREAD_LOCK = 256,
+    SMBF_PRUNE = 512,
+    SMBF_NO_PAUSE = 1024,
+    SMBF_STEREO_SWAP = 2048,
+    SMBF_LOCK = 4096,
+    SMBF_TAP_NATIVE_READ = 8192,
+    SMBF_TAP_NATIVE_WRITE = 16384,
+    SMBF_ONE_ONLY = 32768,
+    SMBF_MASK = 65536,
+    SMBF_READ_VIDEO_PING = 131072,
+    SMBF_WRITE_VIDEO_PING = 262144,
+    SMBF_READ_VIDEO_STREAM = 524288,
+    SMBF_WRITE_VIDEO_STREAM = 1048576,
+    SMBF_VIDEO_PATCH = 2097152,
+    SMBF_SPY_VIDEO_STREAM = 4194304,
+    SMBF_SPY_VIDEO_STREAM_BLEG = 8388608,
+    SMBF_READ_VIDEO_PATCH = 16777216,
+    SMBF_READ_TEXT_STREAM = 33554432,
+    SMBF_FIRST = 67108864,
+    SMBF_PAUSE = 134217728,
+}
 pub type switch_media_bug_flag_t = u32;
-pub const switch_file_flag_enum_t_SWITCH_FILE_FLAG_READ: switch_file_flag_enum_t = 1;
-pub const switch_file_flag_enum_t_SWITCH_FILE_FLAG_WRITE: switch_file_flag_enum_t = 2;
-pub const switch_file_flag_enum_t_SWITCH_FILE_FLAG_FREE_POOL: switch_file_flag_enum_t = 4;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DATA_SHORT: switch_file_flag_enum_t = 8;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DATA_INT: switch_file_flag_enum_t = 16;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DATA_FLOAT: switch_file_flag_enum_t = 32;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DATA_DOUBLE: switch_file_flag_enum_t = 64;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DATA_RAW: switch_file_flag_enum_t = 128;
-pub const switch_file_flag_enum_t_SWITCH_FILE_PAUSE: switch_file_flag_enum_t = 256;
-pub const switch_file_flag_enum_t_SWITCH_FILE_NATIVE: switch_file_flag_enum_t = 512;
-pub const switch_file_flag_enum_t_SWITCH_FILE_SEEK: switch_file_flag_enum_t = 1024;
-pub const switch_file_flag_enum_t_SWITCH_FILE_OPEN: switch_file_flag_enum_t = 2048;
-pub const switch_file_flag_enum_t_SWITCH_FILE_CALLBACK: switch_file_flag_enum_t = 4096;
-pub const switch_file_flag_enum_t_SWITCH_FILE_DONE: switch_file_flag_enum_t = 8192;
-pub const switch_file_flag_enum_t_SWITCH_FILE_BUFFER_DONE: switch_file_flag_enum_t = 16384;
-pub const switch_file_flag_enum_t_SWITCH_FILE_WRITE_APPEND: switch_file_flag_enum_t = 32768;
-pub const switch_file_flag_enum_t_SWITCH_FILE_WRITE_OVER: switch_file_flag_enum_t = 65536;
-pub const switch_file_flag_enum_t_SWITCH_FILE_NOMUX: switch_file_flag_enum_t = 131072;
-pub const switch_file_flag_enum_t_SWITCH_FILE_BREAK_ON_CHANGE: switch_file_flag_enum_t = 262144;
-pub const switch_file_flag_enum_t_SWITCH_FILE_FLAG_VIDEO: switch_file_flag_enum_t = 524288;
-pub const switch_file_flag_enum_t_SWITCH_FILE_FLAG_VIDEO_EOF: switch_file_flag_enum_t = 1048576;
-pub const switch_file_flag_enum_t_SWITCH_FILE_PRE_CLOSED: switch_file_flag_enum_t = 2097152;
-#[doc = "\\enum switch_file_flag_t\n\\brief File flags\n<pre>\nSWITCH_FILE_FLAG_READ =         (1 <<  0) - Open for read\nSWITCH_FILE_FLAG_WRITE =        (1 <<  1) - Open for write\nSWITCH_FILE_FLAG_FREE_POOL =    (1 <<  2) - Free file handle's pool on destruction\nSWITCH_FILE_DATA_SHORT =        (1 <<  3) - Read data in shorts\nSWITCH_FILE_DATA_INT =          (1 <<  4) - Read data in ints\nSWITCH_FILE_DATA_FLOAT =        (1 <<  5) - Read data in floats\nSWITCH_FILE_DATA_DOUBLE =       (1 <<  6) - Read data in doubles\nSWITCH_FILE_DATA_RAW =          (1 <<  7) - Read data as is\nSWITCH_FILE_PAUSE =             (1 <<  8) - Pause\nSWITCH_FILE_NATIVE =            (1 <<  9) - File is in native format (no transcoding)\nSWITCH_FILE_SEEK = \t\t\t\t(1 << 10) - File has done a seek\nSWITCH_FILE_OPEN =              (1 << 11) - File is open\n</pre>"]
-pub type switch_file_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_file_flag_enum_t {
+    SWITCH_FILE_FLAG_READ = 1,
+    SWITCH_FILE_FLAG_WRITE = 2,
+    SWITCH_FILE_FLAG_FREE_POOL = 4,
+    SWITCH_FILE_DATA_SHORT = 8,
+    SWITCH_FILE_DATA_INT = 16,
+    SWITCH_FILE_DATA_FLOAT = 32,
+    SWITCH_FILE_DATA_DOUBLE = 64,
+    SWITCH_FILE_DATA_RAW = 128,
+    SWITCH_FILE_PAUSE = 256,
+    SWITCH_FILE_NATIVE = 512,
+    SWITCH_FILE_SEEK = 1024,
+    SWITCH_FILE_OPEN = 2048,
+    SWITCH_FILE_CALLBACK = 4096,
+    SWITCH_FILE_DONE = 8192,
+    SWITCH_FILE_BUFFER_DONE = 16384,
+    SWITCH_FILE_WRITE_APPEND = 32768,
+    SWITCH_FILE_WRITE_OVER = 65536,
+    SWITCH_FILE_NOMUX = 131072,
+    SWITCH_FILE_BREAK_ON_CHANGE = 262144,
+    SWITCH_FILE_FLAG_VIDEO = 524288,
+    SWITCH_FILE_FLAG_VIDEO_EOF = 1048576,
+    SWITCH_FILE_PRE_CLOSED = 2097152,
+}
 pub type switch_file_flag_t = u32;
-pub const switch_io_flag_enum_t_SWITCH_IO_FLAG_NONE: switch_io_flag_enum_t = 0;
-pub const switch_io_flag_enum_t_SWITCH_IO_FLAG_NOBLOCK: switch_io_flag_enum_t = 1;
-pub const switch_io_flag_enum_t_SWITCH_IO_FLAG_SINGLE_READ: switch_io_flag_enum_t = 2;
-pub const switch_io_flag_enum_t_SWITCH_IO_FLAG_FORCE: switch_io_flag_enum_t = 4;
-pub const switch_io_flag_enum_t_SWITCH_IO_FLAG_QUEUED: switch_io_flag_enum_t = 8;
-pub type switch_io_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_io_flag_enum_t {
+    SWITCH_IO_FLAG_NONE = 0,
+    SWITCH_IO_FLAG_NOBLOCK = 1,
+    SWITCH_IO_FLAG_SINGLE_READ = 2,
+    SWITCH_IO_FLAG_FORCE = 4,
+    SWITCH_IO_FLAG_QUEUED = 8,
+}
 pub type switch_io_flag_t = u32;
-pub const switch_event_types_t_SWITCH_EVENT_CUSTOM: switch_event_types_t = 0;
-pub const switch_event_types_t_SWITCH_EVENT_CLONE: switch_event_types_t = 1;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_CREATE: switch_event_types_t = 2;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_DESTROY: switch_event_types_t = 3;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_STATE: switch_event_types_t = 4;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_CALLSTATE: switch_event_types_t = 5;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_ANSWER: switch_event_types_t = 6;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_HANGUP: switch_event_types_t = 7;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_HANGUP_COMPLETE: switch_event_types_t = 8;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_EXECUTE: switch_event_types_t = 9;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_EXECUTE_COMPLETE: switch_event_types_t = 10;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_HOLD: switch_event_types_t = 11;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_UNHOLD: switch_event_types_t = 12;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_BRIDGE: switch_event_types_t = 13;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_UNBRIDGE: switch_event_types_t = 14;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_PROGRESS: switch_event_types_t = 15;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_PROGRESS_MEDIA: switch_event_types_t = 16;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_OUTGOING: switch_event_types_t = 17;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_PARK: switch_event_types_t = 18;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_UNPARK: switch_event_types_t = 19;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_APPLICATION: switch_event_types_t = 20;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_ORIGINATE: switch_event_types_t = 21;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_UUID: switch_event_types_t = 22;
-pub const switch_event_types_t_SWITCH_EVENT_API: switch_event_types_t = 23;
-pub const switch_event_types_t_SWITCH_EVENT_LOG: switch_event_types_t = 24;
-pub const switch_event_types_t_SWITCH_EVENT_INBOUND_CHAN: switch_event_types_t = 25;
-pub const switch_event_types_t_SWITCH_EVENT_OUTBOUND_CHAN: switch_event_types_t = 26;
-pub const switch_event_types_t_SWITCH_EVENT_STARTUP: switch_event_types_t = 27;
-pub const switch_event_types_t_SWITCH_EVENT_SHUTDOWN: switch_event_types_t = 28;
-pub const switch_event_types_t_SWITCH_EVENT_PUBLISH: switch_event_types_t = 29;
-pub const switch_event_types_t_SWITCH_EVENT_UNPUBLISH: switch_event_types_t = 30;
-pub const switch_event_types_t_SWITCH_EVENT_TALK: switch_event_types_t = 31;
-pub const switch_event_types_t_SWITCH_EVENT_NOTALK: switch_event_types_t = 32;
-pub const switch_event_types_t_SWITCH_EVENT_SESSION_CRASH: switch_event_types_t = 33;
-pub const switch_event_types_t_SWITCH_EVENT_MODULE_LOAD: switch_event_types_t = 34;
-pub const switch_event_types_t_SWITCH_EVENT_MODULE_UNLOAD: switch_event_types_t = 35;
-pub const switch_event_types_t_SWITCH_EVENT_DTMF: switch_event_types_t = 36;
-pub const switch_event_types_t_SWITCH_EVENT_MESSAGE: switch_event_types_t = 37;
-pub const switch_event_types_t_SWITCH_EVENT_PRESENCE_IN: switch_event_types_t = 38;
-pub const switch_event_types_t_SWITCH_EVENT_NOTIFY_IN: switch_event_types_t = 39;
-pub const switch_event_types_t_SWITCH_EVENT_PRESENCE_OUT: switch_event_types_t = 40;
-pub const switch_event_types_t_SWITCH_EVENT_PRESENCE_PROBE: switch_event_types_t = 41;
-pub const switch_event_types_t_SWITCH_EVENT_MESSAGE_WAITING: switch_event_types_t = 42;
-pub const switch_event_types_t_SWITCH_EVENT_MESSAGE_QUERY: switch_event_types_t = 43;
-pub const switch_event_types_t_SWITCH_EVENT_ROSTER: switch_event_types_t = 44;
-pub const switch_event_types_t_SWITCH_EVENT_CODEC: switch_event_types_t = 45;
-pub const switch_event_types_t_SWITCH_EVENT_BACKGROUND_JOB: switch_event_types_t = 46;
-pub const switch_event_types_t_SWITCH_EVENT_DETECTED_SPEECH: switch_event_types_t = 47;
-pub const switch_event_types_t_SWITCH_EVENT_DETECTED_TONE: switch_event_types_t = 48;
-pub const switch_event_types_t_SWITCH_EVENT_PRIVATE_COMMAND: switch_event_types_t = 49;
-pub const switch_event_types_t_SWITCH_EVENT_HEARTBEAT: switch_event_types_t = 50;
-pub const switch_event_types_t_SWITCH_EVENT_TRAP: switch_event_types_t = 51;
-pub const switch_event_types_t_SWITCH_EVENT_ADD_SCHEDULE: switch_event_types_t = 52;
-pub const switch_event_types_t_SWITCH_EVENT_DEL_SCHEDULE: switch_event_types_t = 53;
-pub const switch_event_types_t_SWITCH_EVENT_EXE_SCHEDULE: switch_event_types_t = 54;
-pub const switch_event_types_t_SWITCH_EVENT_RE_SCHEDULE: switch_event_types_t = 55;
-pub const switch_event_types_t_SWITCH_EVENT_RELOADXML: switch_event_types_t = 56;
-pub const switch_event_types_t_SWITCH_EVENT_NOTIFY: switch_event_types_t = 57;
-pub const switch_event_types_t_SWITCH_EVENT_PHONE_FEATURE: switch_event_types_t = 58;
-pub const switch_event_types_t_SWITCH_EVENT_PHONE_FEATURE_SUBSCRIBE: switch_event_types_t = 59;
-pub const switch_event_types_t_SWITCH_EVENT_SEND_MESSAGE: switch_event_types_t = 60;
-pub const switch_event_types_t_SWITCH_EVENT_RECV_MESSAGE: switch_event_types_t = 61;
-pub const switch_event_types_t_SWITCH_EVENT_REQUEST_PARAMS: switch_event_types_t = 62;
-pub const switch_event_types_t_SWITCH_EVENT_CHANNEL_DATA: switch_event_types_t = 63;
-pub const switch_event_types_t_SWITCH_EVENT_GENERAL: switch_event_types_t = 64;
-pub const switch_event_types_t_SWITCH_EVENT_COMMAND: switch_event_types_t = 65;
-pub const switch_event_types_t_SWITCH_EVENT_SESSION_HEARTBEAT: switch_event_types_t = 66;
-pub const switch_event_types_t_SWITCH_EVENT_CLIENT_DISCONNECTED: switch_event_types_t = 67;
-pub const switch_event_types_t_SWITCH_EVENT_SERVER_DISCONNECTED: switch_event_types_t = 68;
-pub const switch_event_types_t_SWITCH_EVENT_SEND_INFO: switch_event_types_t = 69;
-pub const switch_event_types_t_SWITCH_EVENT_RECV_INFO: switch_event_types_t = 70;
-pub const switch_event_types_t_SWITCH_EVENT_RECV_RTCP_MESSAGE: switch_event_types_t = 71;
-pub const switch_event_types_t_SWITCH_EVENT_SEND_RTCP_MESSAGE: switch_event_types_t = 72;
-pub const switch_event_types_t_SWITCH_EVENT_CALL_SECURE: switch_event_types_t = 73;
-pub const switch_event_types_t_SWITCH_EVENT_NAT: switch_event_types_t = 74;
-pub const switch_event_types_t_SWITCH_EVENT_RECORD_START: switch_event_types_t = 75;
-pub const switch_event_types_t_SWITCH_EVENT_RECORD_STOP: switch_event_types_t = 76;
-pub const switch_event_types_t_SWITCH_EVENT_PLAYBACK_START: switch_event_types_t = 77;
-pub const switch_event_types_t_SWITCH_EVENT_PLAYBACK_STOP: switch_event_types_t = 78;
-pub const switch_event_types_t_SWITCH_EVENT_CALL_UPDATE: switch_event_types_t = 79;
-pub const switch_event_types_t_SWITCH_EVENT_FAILURE: switch_event_types_t = 80;
-pub const switch_event_types_t_SWITCH_EVENT_SOCKET_DATA: switch_event_types_t = 81;
-pub const switch_event_types_t_SWITCH_EVENT_MEDIA_BUG_START: switch_event_types_t = 82;
-pub const switch_event_types_t_SWITCH_EVENT_MEDIA_BUG_STOP: switch_event_types_t = 83;
-pub const switch_event_types_t_SWITCH_EVENT_CONFERENCE_DATA_QUERY: switch_event_types_t = 84;
-pub const switch_event_types_t_SWITCH_EVENT_CONFERENCE_DATA: switch_event_types_t = 85;
-pub const switch_event_types_t_SWITCH_EVENT_CALL_SETUP_REQ: switch_event_types_t = 86;
-pub const switch_event_types_t_SWITCH_EVENT_CALL_SETUP_RESULT: switch_event_types_t = 87;
-pub const switch_event_types_t_SWITCH_EVENT_CALL_DETAIL: switch_event_types_t = 88;
-pub const switch_event_types_t_SWITCH_EVENT_DEVICE_STATE: switch_event_types_t = 89;
-pub const switch_event_types_t_SWITCH_EVENT_TEXT: switch_event_types_t = 90;
-pub const switch_event_types_t_SWITCH_EVENT_SHUTDOWN_REQUESTED: switch_event_types_t = 91;
-pub const switch_event_types_t_SWITCH_EVENT_ALL: switch_event_types_t = 92;
-#[doc = "\\enum switch_event_types_t\n\\brief Built-in Events\n\n<pre>\nSWITCH_EVENT_CUSTOM\t\t\t\t- A custom event\nSWITCH_EVENT_CLONE\t\t\t\t- A cloned event\nSWITCH_EVENT_CHANNEL_CREATE\t\t- A channel has been created\nSWITCH_EVENT_CHANNEL_DESTROY\t- A channel has been destroyed\nSWITCH_EVENT_CHANNEL_STATE\t\t- A channel has changed state\nSWITCH_EVENT_CHANNEL_CALLSTATE\t- A channel has changed call state\nSWITCH_EVENT_CHANNEL_ANSWER\t\t- A channel has been answered\nSWITCH_EVENT_CHANNEL_HANGUP\t\t- A channel has been hungup\nSWITCH_EVENT_CHANNEL_HANGUP_COMPLETE\t- A channel has completed the hangup\nSWITCH_EVENT_CHANNEL_EXECUTE\t- A channel has executed a module's application\nSWITCH_EVENT_CHANNEL_EXECUTE_COMPLETE\t- A channel has finshed executing a module's application\nSWITCH_EVENT_CHANNEL_HOLD\t\t- A channel has been put on hold\nSWITCH_EVENT_CHANNEL_UNHOLD\t\t- A channel has been unheld\nSWITCH_EVENT_CHANNEL_BRIDGE     - A channel has bridged to another channel\nSWITCH_EVENT_CHANNEL_UNBRIDGE   - A channel has unbridged from another channel\nSWITCH_EVENT_CHANNEL_PROGRESS\t- A channel has started ringing\nSWITCH_EVENT_CHANNEL_PROGRESS_MEDIA\t- A channel has started early media\nSWITCH_EVENT_CHANNEL_OUTGOING\t- A channel has been unparked\nSWITCH_EVENT_CHANNEL_PARK \t\t- A channel has been parked\nSWITCH_EVENT_CHANNEL_UNPARK \t- A channel has been unparked\nSWITCH_EVENT_CHANNEL_APPLICATION- A channel has called and event from an application\nSWITCH_EVENT_CHANNEL_ORIGINATE  - A channel has been originated\nSWITCH_EVENT_CHANNEL_UUID       - A channel has changed uuid\nSWITCH_EVENT_API\t\t\t\t- An API call has been executed\nSWITCH_EVENT_LOG\t\t\t\t- A LOG event has been triggered\nSWITCH_EVENT_INBOUND_CHAN\t\t- A new inbound channel has been created\nSWITCH_EVENT_OUTBOUND_CHAN\t\t- A new outbound channel has been created\nSWITCH_EVENT_STARTUP\t\t\t- The system has been started\nSWITCH_EVENT_SHUTDOWN\t\t\t- The system has been shutdown\nSWITCH_EVENT_PUBLISH\t\t\t- Publish\nSWITCH_EVENT_UNPUBLISH\t\t\t- UnPublish\nSWITCH_EVENT_TALK\t\t\t\t- Talking Detected\nSWITCH_EVENT_NOTALK\t\t\t\t- Not Talking Detected\nSWITCH_EVENT_SESSION_CRASH\t\t- Session Crashed\nSWITCH_EVENT_MODULE_LOAD\t\t- Module was loaded\nSWITCH_EVENT_MODULE_UNLOAD\t\t- Module was unloaded\nSWITCH_EVENT_DTMF\t\t\t\t- DTMF was sent\nSWITCH_EVENT_MESSAGE\t\t\t- A Basic Message\nSWITCH_EVENT_PRESENCE_IN\t\t- Presence in\nSWITCH_EVENT_NOTIFY_IN\t\t\t- Received incoming NOTIFY from gateway subscription\nSWITCH_EVENT_PRESENCE_OUT\t\t- Presence out\nSWITCH_EVENT_PRESENCE_PROBE\t\t- Presence probe\nSWITCH_EVENT_MESSAGE_WAITING\t- A message is waiting\nSWITCH_EVENT_MESSAGE_QUERY\t\t- A query for MESSAGE_WAITING events\nSWITCH_EVENT_ROSTER\t\t\t\t- ?\nSWITCH_EVENT_CODEC\t\t\t\t- Codec Change\nSWITCH_EVENT_BACKGROUND_JOB\t\t- Background Job\nSWITCH_EVENT_DETECTED_SPEECH\t- Detected Speech\nSWITCH_EVENT_DETECTED_TONE      - Detected Tone\nSWITCH_EVENT_PRIVATE_COMMAND\t- A private command event\nSWITCH_EVENT_HEARTBEAT\t\t\t- Machine is alive\nSWITCH_EVENT_TRAP\t\t\t\t- Error Trap\nSWITCH_EVENT_ADD_SCHEDULE\t\t- Something has been scheduled\nSWITCH_EVENT_DEL_SCHEDULE\t\t- Something has been unscheduled\nSWITCH_EVENT_EXE_SCHEDULE\t\t- Something scheduled has been executed\nSWITCH_EVENT_RE_SCHEDULE\t\t- Something scheduled has been rescheduled\nSWITCH_EVENT_RELOADXML\t\t\t- XML registry has been reloaded\nSWITCH_EVENT_NOTIFY\t\t\t\t- Notification\nSWITCH_EVENT_PHONE_FEATURE\t\t- Notification (DND/CFWD/etc)\nSWITCH_EVENT_PHONE_FEATURE_SUBSCRIBE - Phone feature subscription\nSWITCH_EVENT_SEND_MESSAGE\t\t- Message\nSWITCH_EVENT_RECV_MESSAGE\t\t- Message\nSWITCH_EVENT_REQUEST_PARAMS\nSWITCH_EVENT_CHANNEL_DATA\nSWITCH_EVENT_GENERAL\nSWITCH_EVENT_COMMAND\nSWITCH_EVENT_SESSION_HEARTBEAT\nSWITCH_EVENT_CLIENT_DISCONNECTED\nSWITCH_EVENT_SERVER_DISCONNECTED\nSWITCH_EVENT_SEND_INFO\nSWITCH_EVENT_RECV_INFO\nSWITCH_EVENT_RECV_RTCP_MESSAGE\nSWITCH_EVENT_SEND_RTCP_MESSAGE\nSWITCH_EVENT_CALL_SECURE\nSWITCH_EVENT_NAT            \t- NAT Management (new/del/status)\nSWITCH_EVENT_RECORD_START\nSWITCH_EVENT_RECORD_STOP\nSWITCH_EVENT_PLAYBACK_START\nSWITCH_EVENT_PLAYBACK_STOP\nSWITCH_EVENT_CALL_UPDATE\nSWITCH_EVENT_FAILURE            - A failure occurred which might impact the normal functioning of the switch\nSWITCH_EVENT_SOCKET_DATA\nSWITCH_EVENT_MEDIA_BUG_START\nSWITCH_EVENT_MEDIA_BUG_STOP\nSWITCH_EVENT_CONFERENCE_DATA_QUERY\nSWITCH_EVENT_CONFERENCE_DATA\nSWITCH_EVENT_CALL_SETUP_REQ\nSWITCH_EVENT_CALL_SETUP_RESULT\nSWITCH_EVENT_CALL_DETAIL\nSWITCH_EVENT_DEVICE_STATE\nSWITCH_EVENT_SHUTDOWN_REQUESTED\t\t- Shutdown of the system has been requested\nSWITCH_EVENT_ALL\t\t\t\t- All events at once\n</pre>\n"]
-pub type switch_event_types_t = ::std::os::raw::c_uint;
-pub const switch_input_type_t_SWITCH_INPUT_TYPE_DTMF: switch_input_type_t = 0;
-pub const switch_input_type_t_SWITCH_INPUT_TYPE_EVENT: switch_input_type_t = 1;
-pub type switch_input_type_t = ::std::os::raw::c_uint;
-pub const switch_call_cause_t_SWITCH_CAUSE_NONE: switch_call_cause_t = 0;
-pub const switch_call_cause_t_SWITCH_CAUSE_UNALLOCATED_NUMBER: switch_call_cause_t = 1;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_ROUTE_TRANSIT_NET: switch_call_cause_t = 2;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_ROUTE_DESTINATION: switch_call_cause_t = 3;
-pub const switch_call_cause_t_SWITCH_CAUSE_CHANNEL_UNACCEPTABLE: switch_call_cause_t = 6;
-pub const switch_call_cause_t_SWITCH_CAUSE_CALL_AWARDED_DELIVERED: switch_call_cause_t = 7;
-pub const switch_call_cause_t_SWITCH_CAUSE_NORMAL_CLEARING: switch_call_cause_t = 16;
-pub const switch_call_cause_t_SWITCH_CAUSE_USER_BUSY: switch_call_cause_t = 17;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_USER_RESPONSE: switch_call_cause_t = 18;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_ANSWER: switch_call_cause_t = 19;
-pub const switch_call_cause_t_SWITCH_CAUSE_SUBSCRIBER_ABSENT: switch_call_cause_t = 20;
-pub const switch_call_cause_t_SWITCH_CAUSE_CALL_REJECTED: switch_call_cause_t = 21;
-pub const switch_call_cause_t_SWITCH_CAUSE_NUMBER_CHANGED: switch_call_cause_t = 22;
-pub const switch_call_cause_t_SWITCH_CAUSE_REDIRECTION_TO_NEW_DESTINATION: switch_call_cause_t = 23;
-pub const switch_call_cause_t_SWITCH_CAUSE_EXCHANGE_ROUTING_ERROR: switch_call_cause_t = 25;
-pub const switch_call_cause_t_SWITCH_CAUSE_DESTINATION_OUT_OF_ORDER: switch_call_cause_t = 27;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_NUMBER_FORMAT: switch_call_cause_t = 28;
-pub const switch_call_cause_t_SWITCH_CAUSE_FACILITY_REJECTED: switch_call_cause_t = 29;
-pub const switch_call_cause_t_SWITCH_CAUSE_RESPONSE_TO_STATUS_ENQUIRY: switch_call_cause_t = 30;
-pub const switch_call_cause_t_SWITCH_CAUSE_NORMAL_UNSPECIFIED: switch_call_cause_t = 31;
-pub const switch_call_cause_t_SWITCH_CAUSE_NORMAL_CIRCUIT_CONGESTION: switch_call_cause_t = 34;
-pub const switch_call_cause_t_SWITCH_CAUSE_NETWORK_OUT_OF_ORDER: switch_call_cause_t = 38;
-pub const switch_call_cause_t_SWITCH_CAUSE_NORMAL_TEMPORARY_FAILURE: switch_call_cause_t = 41;
-pub const switch_call_cause_t_SWITCH_CAUSE_SWITCH_CONGESTION: switch_call_cause_t = 42;
-pub const switch_call_cause_t_SWITCH_CAUSE_ACCESS_INFO_DISCARDED: switch_call_cause_t = 43;
-pub const switch_call_cause_t_SWITCH_CAUSE_REQUESTED_CHAN_UNAVAIL: switch_call_cause_t = 44;
-pub const switch_call_cause_t_SWITCH_CAUSE_PRE_EMPTED: switch_call_cause_t = 45;
-pub const switch_call_cause_t_SWITCH_CAUSE_FACILITY_NOT_SUBSCRIBED: switch_call_cause_t = 50;
-pub const switch_call_cause_t_SWITCH_CAUSE_OUTGOING_CALL_BARRED: switch_call_cause_t = 52;
-pub const switch_call_cause_t_SWITCH_CAUSE_INCOMING_CALL_BARRED: switch_call_cause_t = 54;
-pub const switch_call_cause_t_SWITCH_CAUSE_BEARERCAPABILITY_NOTAUTH: switch_call_cause_t = 57;
-pub const switch_call_cause_t_SWITCH_CAUSE_BEARERCAPABILITY_NOTAVAIL: switch_call_cause_t = 58;
-pub const switch_call_cause_t_SWITCH_CAUSE_SERVICE_UNAVAILABLE: switch_call_cause_t = 63;
-pub const switch_call_cause_t_SWITCH_CAUSE_BEARERCAPABILITY_NOTIMPL: switch_call_cause_t = 65;
-pub const switch_call_cause_t_SWITCH_CAUSE_CHAN_NOT_IMPLEMENTED: switch_call_cause_t = 66;
-pub const switch_call_cause_t_SWITCH_CAUSE_FACILITY_NOT_IMPLEMENTED: switch_call_cause_t = 69;
-pub const switch_call_cause_t_SWITCH_CAUSE_SERVICE_NOT_IMPLEMENTED: switch_call_cause_t = 79;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_CALL_REFERENCE: switch_call_cause_t = 81;
-pub const switch_call_cause_t_SWITCH_CAUSE_INCOMPATIBLE_DESTINATION: switch_call_cause_t = 88;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_MSG_UNSPECIFIED: switch_call_cause_t = 95;
-pub const switch_call_cause_t_SWITCH_CAUSE_MANDATORY_IE_MISSING: switch_call_cause_t = 96;
-pub const switch_call_cause_t_SWITCH_CAUSE_MESSAGE_TYPE_NONEXIST: switch_call_cause_t = 97;
-pub const switch_call_cause_t_SWITCH_CAUSE_WRONG_MESSAGE: switch_call_cause_t = 98;
-pub const switch_call_cause_t_SWITCH_CAUSE_IE_NONEXIST: switch_call_cause_t = 99;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_IE_CONTENTS: switch_call_cause_t = 100;
-pub const switch_call_cause_t_SWITCH_CAUSE_WRONG_CALL_STATE: switch_call_cause_t = 101;
-pub const switch_call_cause_t_SWITCH_CAUSE_RECOVERY_ON_TIMER_EXPIRE: switch_call_cause_t = 102;
-pub const switch_call_cause_t_SWITCH_CAUSE_MANDATORY_IE_LENGTH_ERROR: switch_call_cause_t = 103;
-pub const switch_call_cause_t_SWITCH_CAUSE_PROTOCOL_ERROR: switch_call_cause_t = 111;
-pub const switch_call_cause_t_SWITCH_CAUSE_INTERWORKING: switch_call_cause_t = 127;
-pub const switch_call_cause_t_SWITCH_CAUSE_SUCCESS: switch_call_cause_t = 142;
-pub const switch_call_cause_t_SWITCH_CAUSE_ORIGINATOR_CANCEL: switch_call_cause_t = 487;
-pub const switch_call_cause_t_SWITCH_CAUSE_CRASH: switch_call_cause_t = 700;
-pub const switch_call_cause_t_SWITCH_CAUSE_SYSTEM_SHUTDOWN: switch_call_cause_t = 701;
-pub const switch_call_cause_t_SWITCH_CAUSE_LOSE_RACE: switch_call_cause_t = 702;
-pub const switch_call_cause_t_SWITCH_CAUSE_MANAGER_REQUEST: switch_call_cause_t = 703;
-pub const switch_call_cause_t_SWITCH_CAUSE_BLIND_TRANSFER: switch_call_cause_t = 800;
-pub const switch_call_cause_t_SWITCH_CAUSE_ATTENDED_TRANSFER: switch_call_cause_t = 801;
-pub const switch_call_cause_t_SWITCH_CAUSE_ALLOTTED_TIMEOUT: switch_call_cause_t = 802;
-pub const switch_call_cause_t_SWITCH_CAUSE_USER_CHALLENGE: switch_call_cause_t = 803;
-pub const switch_call_cause_t_SWITCH_CAUSE_MEDIA_TIMEOUT: switch_call_cause_t = 804;
-pub const switch_call_cause_t_SWITCH_CAUSE_PICKED_OFF: switch_call_cause_t = 805;
-pub const switch_call_cause_t_SWITCH_CAUSE_USER_NOT_REGISTERED: switch_call_cause_t = 806;
-pub const switch_call_cause_t_SWITCH_CAUSE_PROGRESS_TIMEOUT: switch_call_cause_t = 807;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_GATEWAY: switch_call_cause_t = 808;
-pub const switch_call_cause_t_SWITCH_CAUSE_GATEWAY_DOWN: switch_call_cause_t = 809;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_URL: switch_call_cause_t = 810;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_PROFILE: switch_call_cause_t = 811;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_PICKUP: switch_call_cause_t = 812;
-pub const switch_call_cause_t_SWITCH_CAUSE_SRTP_READ_ERROR: switch_call_cause_t = 813;
-pub const switch_call_cause_t_SWITCH_CAUSE_BOWOUT: switch_call_cause_t = 814;
-pub const switch_call_cause_t_SWITCH_CAUSE_BUSY_EVERYWHERE: switch_call_cause_t = 815;
-pub const switch_call_cause_t_SWITCH_CAUSE_DECLINE: switch_call_cause_t = 816;
-pub const switch_call_cause_t_SWITCH_CAUSE_DOES_NOT_EXIST_ANYWHERE: switch_call_cause_t = 817;
-pub const switch_call_cause_t_SWITCH_CAUSE_NOT_ACCEPTABLE: switch_call_cause_t = 818;
-pub const switch_call_cause_t_SWITCH_CAUSE_UNWANTED: switch_call_cause_t = 819;
-pub const switch_call_cause_t_SWITCH_CAUSE_NO_IDENTITY: switch_call_cause_t = 820;
-pub const switch_call_cause_t_SWITCH_CAUSE_BAD_IDENTITY_INFO: switch_call_cause_t = 821;
-pub const switch_call_cause_t_SWITCH_CAUSE_UNSUPPORTED_CERTIFICATE: switch_call_cause_t = 822;
-pub const switch_call_cause_t_SWITCH_CAUSE_INVALID_IDENTITY: switch_call_cause_t = 823;
-pub const switch_call_cause_t_SWITCH_CAUSE_STALE_DATE: switch_call_cause_t = 824;
-pub const switch_call_cause_t_SWITCH_CAUSE_REJECT_ALL: switch_call_cause_t = 825;
-pub type switch_call_cause_t = ::std::os::raw::c_uint;
-pub const switch_session_ctl_t_SCSC_PAUSE_INBOUND: switch_session_ctl_t = 0;
-pub const switch_session_ctl_t_SCSC_PAUSE_OUTBOUND: switch_session_ctl_t = 1;
-pub const switch_session_ctl_t_SCSC_PAUSE_ALL: switch_session_ctl_t = 2;
-pub const switch_session_ctl_t_SCSC_HUPALL: switch_session_ctl_t = 3;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN: switch_session_ctl_t = 4;
-pub const switch_session_ctl_t_SCSC_CHECK_RUNNING: switch_session_ctl_t = 5;
-pub const switch_session_ctl_t_SCSC_LOGLEVEL: switch_session_ctl_t = 6;
-pub const switch_session_ctl_t_SCSC_SPS: switch_session_ctl_t = 7;
-pub const switch_session_ctl_t_SCSC_LAST_SPS: switch_session_ctl_t = 8;
-pub const switch_session_ctl_t_SCSC_RECLAIM: switch_session_ctl_t = 9;
-pub const switch_session_ctl_t_SCSC_MAX_SESSIONS: switch_session_ctl_t = 10;
-pub const switch_session_ctl_t_SCSC_SYNC_CLOCK: switch_session_ctl_t = 11;
-pub const switch_session_ctl_t_SCSC_MAX_DTMF_DURATION: switch_session_ctl_t = 12;
-pub const switch_session_ctl_t_SCSC_MIN_DTMF_DURATION: switch_session_ctl_t = 13;
-pub const switch_session_ctl_t_SCSC_DEFAULT_DTMF_DURATION: switch_session_ctl_t = 14;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN_ELEGANT: switch_session_ctl_t = 15;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN_ASAP: switch_session_ctl_t = 16;
-pub const switch_session_ctl_t_SCSC_CANCEL_SHUTDOWN: switch_session_ctl_t = 17;
-pub const switch_session_ctl_t_SCSC_SEND_SIGHUP: switch_session_ctl_t = 18;
-pub const switch_session_ctl_t_SCSC_DEBUG_LEVEL: switch_session_ctl_t = 19;
-pub const switch_session_ctl_t_SCSC_FLUSH_DB_HANDLES: switch_session_ctl_t = 20;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN_NOW: switch_session_ctl_t = 21;
-pub const switch_session_ctl_t_SCSC_REINCARNATE_NOW: switch_session_ctl_t = 22;
-pub const switch_session_ctl_t_SCSC_CALIBRATE_CLOCK: switch_session_ctl_t = 23;
-pub const switch_session_ctl_t_SCSC_SAVE_HISTORY: switch_session_ctl_t = 24;
-pub const switch_session_ctl_t_SCSC_CRASH: switch_session_ctl_t = 25;
-pub const switch_session_ctl_t_SCSC_MIN_IDLE_CPU: switch_session_ctl_t = 26;
-pub const switch_session_ctl_t_SCSC_VERBOSE_EVENTS: switch_session_ctl_t = 27;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN_CHECK: switch_session_ctl_t = 28;
-pub const switch_session_ctl_t_SCSC_PAUSE_INBOUND_CHECK: switch_session_ctl_t = 29;
-pub const switch_session_ctl_t_SCSC_PAUSE_OUTBOUND_CHECK: switch_session_ctl_t = 30;
-pub const switch_session_ctl_t_SCSC_PAUSE_CHECK: switch_session_ctl_t = 31;
-pub const switch_session_ctl_t_SCSC_READY_CHECK: switch_session_ctl_t = 32;
-pub const switch_session_ctl_t_SCSC_THREADED_SYSTEM_EXEC: switch_session_ctl_t = 33;
-pub const switch_session_ctl_t_SCSC_SYNC_CLOCK_WHEN_IDLE: switch_session_ctl_t = 34;
-pub const switch_session_ctl_t_SCSC_DEBUG_SQL: switch_session_ctl_t = 35;
-pub const switch_session_ctl_t_SCSC_SQL: switch_session_ctl_t = 36;
-pub const switch_session_ctl_t_SCSC_API_EXPANSION: switch_session_ctl_t = 37;
-pub const switch_session_ctl_t_SCSC_RECOVER: switch_session_ctl_t = 38;
-pub const switch_session_ctl_t_SCSC_SPS_PEAK: switch_session_ctl_t = 39;
-pub const switch_session_ctl_t_SCSC_SPS_PEAK_FIVEMIN: switch_session_ctl_t = 40;
-pub const switch_session_ctl_t_SCSC_SESSIONS_PEAK: switch_session_ctl_t = 41;
-pub const switch_session_ctl_t_SCSC_SESSIONS_PEAK_FIVEMIN: switch_session_ctl_t = 42;
-pub const switch_session_ctl_t_SCSC_MDNS_RESOLVE: switch_session_ctl_t = 43;
-pub const switch_session_ctl_t_SCSC_SHUTDOWN_CAUSE: switch_session_ctl_t = 44;
-pub type switch_session_ctl_t = ::std::os::raw::c_uint;
-pub const switch_state_handler_flag_t_SSH_FLAG_STICKY: switch_state_handler_flag_t = 1;
-pub const switch_state_handler_flag_t_SSH_FLAG_PRE_EXEC: switch_state_handler_flag_t = 2;
-pub type switch_state_handler_flag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_event_types_t {
+    SWITCH_EVENT_CUSTOM = 0,
+    SWITCH_EVENT_CLONE = 1,
+    SWITCH_EVENT_CHANNEL_CREATE = 2,
+    SWITCH_EVENT_CHANNEL_DESTROY = 3,
+    SWITCH_EVENT_CHANNEL_STATE = 4,
+    SWITCH_EVENT_CHANNEL_CALLSTATE = 5,
+    SWITCH_EVENT_CHANNEL_ANSWER = 6,
+    SWITCH_EVENT_CHANNEL_HANGUP = 7,
+    SWITCH_EVENT_CHANNEL_HANGUP_COMPLETE = 8,
+    SWITCH_EVENT_CHANNEL_EXECUTE = 9,
+    SWITCH_EVENT_CHANNEL_EXECUTE_COMPLETE = 10,
+    SWITCH_EVENT_CHANNEL_HOLD = 11,
+    SWITCH_EVENT_CHANNEL_UNHOLD = 12,
+    SWITCH_EVENT_CHANNEL_BRIDGE = 13,
+    SWITCH_EVENT_CHANNEL_UNBRIDGE = 14,
+    SWITCH_EVENT_CHANNEL_PROGRESS = 15,
+    SWITCH_EVENT_CHANNEL_PROGRESS_MEDIA = 16,
+    SWITCH_EVENT_CHANNEL_OUTGOING = 17,
+    SWITCH_EVENT_CHANNEL_PARK = 18,
+    SWITCH_EVENT_CHANNEL_UNPARK = 19,
+    SWITCH_EVENT_CHANNEL_APPLICATION = 20,
+    SWITCH_EVENT_CHANNEL_ORIGINATE = 21,
+    SWITCH_EVENT_CHANNEL_UUID = 22,
+    SWITCH_EVENT_API = 23,
+    SWITCH_EVENT_LOG = 24,
+    SWITCH_EVENT_INBOUND_CHAN = 25,
+    SWITCH_EVENT_OUTBOUND_CHAN = 26,
+    SWITCH_EVENT_STARTUP = 27,
+    SWITCH_EVENT_SHUTDOWN = 28,
+    SWITCH_EVENT_PUBLISH = 29,
+    SWITCH_EVENT_UNPUBLISH = 30,
+    SWITCH_EVENT_TALK = 31,
+    SWITCH_EVENT_NOTALK = 32,
+    SWITCH_EVENT_SESSION_CRASH = 33,
+    SWITCH_EVENT_MODULE_LOAD = 34,
+    SWITCH_EVENT_MODULE_UNLOAD = 35,
+    SWITCH_EVENT_DTMF = 36,
+    SWITCH_EVENT_MESSAGE = 37,
+    SWITCH_EVENT_PRESENCE_IN = 38,
+    SWITCH_EVENT_NOTIFY_IN = 39,
+    SWITCH_EVENT_PRESENCE_OUT = 40,
+    SWITCH_EVENT_PRESENCE_PROBE = 41,
+    SWITCH_EVENT_MESSAGE_WAITING = 42,
+    SWITCH_EVENT_MESSAGE_QUERY = 43,
+    SWITCH_EVENT_ROSTER = 44,
+    SWITCH_EVENT_CODEC = 45,
+    SWITCH_EVENT_BACKGROUND_JOB = 46,
+    SWITCH_EVENT_DETECTED_SPEECH = 47,
+    SWITCH_EVENT_DETECTED_TONE = 48,
+    SWITCH_EVENT_PRIVATE_COMMAND = 49,
+    SWITCH_EVENT_HEARTBEAT = 50,
+    SWITCH_EVENT_TRAP = 51,
+    SWITCH_EVENT_ADD_SCHEDULE = 52,
+    SWITCH_EVENT_DEL_SCHEDULE = 53,
+    SWITCH_EVENT_EXE_SCHEDULE = 54,
+    SWITCH_EVENT_RE_SCHEDULE = 55,
+    SWITCH_EVENT_RELOADXML = 56,
+    SWITCH_EVENT_NOTIFY = 57,
+    SWITCH_EVENT_PHONE_FEATURE = 58,
+    SWITCH_EVENT_PHONE_FEATURE_SUBSCRIBE = 59,
+    SWITCH_EVENT_SEND_MESSAGE = 60,
+    SWITCH_EVENT_RECV_MESSAGE = 61,
+    SWITCH_EVENT_REQUEST_PARAMS = 62,
+    SWITCH_EVENT_CHANNEL_DATA = 63,
+    SWITCH_EVENT_GENERAL = 64,
+    SWITCH_EVENT_COMMAND = 65,
+    SWITCH_EVENT_SESSION_HEARTBEAT = 66,
+    SWITCH_EVENT_CLIENT_DISCONNECTED = 67,
+    SWITCH_EVENT_SERVER_DISCONNECTED = 68,
+    SWITCH_EVENT_SEND_INFO = 69,
+    SWITCH_EVENT_RECV_INFO = 70,
+    SWITCH_EVENT_RECV_RTCP_MESSAGE = 71,
+    SWITCH_EVENT_SEND_RTCP_MESSAGE = 72,
+    SWITCH_EVENT_CALL_SECURE = 73,
+    SWITCH_EVENT_NAT = 74,
+    SWITCH_EVENT_RECORD_START = 75,
+    SWITCH_EVENT_RECORD_STOP = 76,
+    SWITCH_EVENT_PLAYBACK_START = 77,
+    SWITCH_EVENT_PLAYBACK_STOP = 78,
+    SWITCH_EVENT_CALL_UPDATE = 79,
+    SWITCH_EVENT_FAILURE = 80,
+    SWITCH_EVENT_SOCKET_DATA = 81,
+    SWITCH_EVENT_MEDIA_BUG_START = 82,
+    SWITCH_EVENT_MEDIA_BUG_STOP = 83,
+    SWITCH_EVENT_CONFERENCE_DATA_QUERY = 84,
+    SWITCH_EVENT_CONFERENCE_DATA = 85,
+    SWITCH_EVENT_CALL_SETUP_REQ = 86,
+    SWITCH_EVENT_CALL_SETUP_RESULT = 87,
+    SWITCH_EVENT_CALL_DETAIL = 88,
+    SWITCH_EVENT_DEVICE_STATE = 89,
+    SWITCH_EVENT_TEXT = 90,
+    SWITCH_EVENT_SHUTDOWN_REQUESTED = 91,
+    SWITCH_EVENT_ALL = 92,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_input_type_t {
+    SWITCH_INPUT_TYPE_DTMF = 0,
+    SWITCH_INPUT_TYPE_EVENT = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_call_cause_t {
+    SWITCH_CAUSE_NONE = 0,
+    SWITCH_CAUSE_UNALLOCATED_NUMBER = 1,
+    SWITCH_CAUSE_NO_ROUTE_TRANSIT_NET = 2,
+    SWITCH_CAUSE_NO_ROUTE_DESTINATION = 3,
+    SWITCH_CAUSE_CHANNEL_UNACCEPTABLE = 6,
+    SWITCH_CAUSE_CALL_AWARDED_DELIVERED = 7,
+    SWITCH_CAUSE_NORMAL_CLEARING = 16,
+    SWITCH_CAUSE_USER_BUSY = 17,
+    SWITCH_CAUSE_NO_USER_RESPONSE = 18,
+    SWITCH_CAUSE_NO_ANSWER = 19,
+    SWITCH_CAUSE_SUBSCRIBER_ABSENT = 20,
+    SWITCH_CAUSE_CALL_REJECTED = 21,
+    SWITCH_CAUSE_NUMBER_CHANGED = 22,
+    SWITCH_CAUSE_REDIRECTION_TO_NEW_DESTINATION = 23,
+    SWITCH_CAUSE_EXCHANGE_ROUTING_ERROR = 25,
+    SWITCH_CAUSE_DESTINATION_OUT_OF_ORDER = 27,
+    SWITCH_CAUSE_INVALID_NUMBER_FORMAT = 28,
+    SWITCH_CAUSE_FACILITY_REJECTED = 29,
+    SWITCH_CAUSE_RESPONSE_TO_STATUS_ENQUIRY = 30,
+    SWITCH_CAUSE_NORMAL_UNSPECIFIED = 31,
+    SWITCH_CAUSE_NORMAL_CIRCUIT_CONGESTION = 34,
+    SWITCH_CAUSE_NETWORK_OUT_OF_ORDER = 38,
+    SWITCH_CAUSE_NORMAL_TEMPORARY_FAILURE = 41,
+    SWITCH_CAUSE_SWITCH_CONGESTION = 42,
+    SWITCH_CAUSE_ACCESS_INFO_DISCARDED = 43,
+    SWITCH_CAUSE_REQUESTED_CHAN_UNAVAIL = 44,
+    SWITCH_CAUSE_PRE_EMPTED = 45,
+    SWITCH_CAUSE_FACILITY_NOT_SUBSCRIBED = 50,
+    SWITCH_CAUSE_OUTGOING_CALL_BARRED = 52,
+    SWITCH_CAUSE_INCOMING_CALL_BARRED = 54,
+    SWITCH_CAUSE_BEARERCAPABILITY_NOTAUTH = 57,
+    SWITCH_CAUSE_BEARERCAPABILITY_NOTAVAIL = 58,
+    SWITCH_CAUSE_SERVICE_UNAVAILABLE = 63,
+    SWITCH_CAUSE_BEARERCAPABILITY_NOTIMPL = 65,
+    SWITCH_CAUSE_CHAN_NOT_IMPLEMENTED = 66,
+    SWITCH_CAUSE_FACILITY_NOT_IMPLEMENTED = 69,
+    SWITCH_CAUSE_SERVICE_NOT_IMPLEMENTED = 79,
+    SWITCH_CAUSE_INVALID_CALL_REFERENCE = 81,
+    SWITCH_CAUSE_INCOMPATIBLE_DESTINATION = 88,
+    SWITCH_CAUSE_INVALID_MSG_UNSPECIFIED = 95,
+    SWITCH_CAUSE_MANDATORY_IE_MISSING = 96,
+    SWITCH_CAUSE_MESSAGE_TYPE_NONEXIST = 97,
+    SWITCH_CAUSE_WRONG_MESSAGE = 98,
+    SWITCH_CAUSE_IE_NONEXIST = 99,
+    SWITCH_CAUSE_INVALID_IE_CONTENTS = 100,
+    SWITCH_CAUSE_WRONG_CALL_STATE = 101,
+    SWITCH_CAUSE_RECOVERY_ON_TIMER_EXPIRE = 102,
+    SWITCH_CAUSE_MANDATORY_IE_LENGTH_ERROR = 103,
+    SWITCH_CAUSE_PROTOCOL_ERROR = 111,
+    SWITCH_CAUSE_INTERWORKING = 127,
+    SWITCH_CAUSE_SUCCESS = 142,
+    SWITCH_CAUSE_ORIGINATOR_CANCEL = 487,
+    SWITCH_CAUSE_CRASH = 700,
+    SWITCH_CAUSE_SYSTEM_SHUTDOWN = 701,
+    SWITCH_CAUSE_LOSE_RACE = 702,
+    SWITCH_CAUSE_MANAGER_REQUEST = 703,
+    SWITCH_CAUSE_BLIND_TRANSFER = 800,
+    SWITCH_CAUSE_ATTENDED_TRANSFER = 801,
+    SWITCH_CAUSE_ALLOTTED_TIMEOUT = 802,
+    SWITCH_CAUSE_USER_CHALLENGE = 803,
+    SWITCH_CAUSE_MEDIA_TIMEOUT = 804,
+    SWITCH_CAUSE_PICKED_OFF = 805,
+    SWITCH_CAUSE_USER_NOT_REGISTERED = 806,
+    SWITCH_CAUSE_PROGRESS_TIMEOUT = 807,
+    SWITCH_CAUSE_INVALID_GATEWAY = 808,
+    SWITCH_CAUSE_GATEWAY_DOWN = 809,
+    SWITCH_CAUSE_INVALID_URL = 810,
+    SWITCH_CAUSE_INVALID_PROFILE = 811,
+    SWITCH_CAUSE_NO_PICKUP = 812,
+    SWITCH_CAUSE_SRTP_READ_ERROR = 813,
+    SWITCH_CAUSE_BOWOUT = 814,
+    SWITCH_CAUSE_BUSY_EVERYWHERE = 815,
+    SWITCH_CAUSE_DECLINE = 816,
+    SWITCH_CAUSE_DOES_NOT_EXIST_ANYWHERE = 817,
+    SWITCH_CAUSE_NOT_ACCEPTABLE = 818,
+    SWITCH_CAUSE_UNWANTED = 819,
+    SWITCH_CAUSE_NO_IDENTITY = 820,
+    SWITCH_CAUSE_BAD_IDENTITY_INFO = 821,
+    SWITCH_CAUSE_UNSUPPORTED_CERTIFICATE = 822,
+    SWITCH_CAUSE_INVALID_IDENTITY = 823,
+    SWITCH_CAUSE_STALE_DATE = 824,
+    SWITCH_CAUSE_REJECT_ALL = 825,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_session_ctl_t {
+    SCSC_PAUSE_INBOUND = 0,
+    SCSC_PAUSE_OUTBOUND = 1,
+    SCSC_PAUSE_ALL = 2,
+    SCSC_HUPALL = 3,
+    SCSC_SHUTDOWN = 4,
+    SCSC_CHECK_RUNNING = 5,
+    SCSC_LOGLEVEL = 6,
+    SCSC_SPS = 7,
+    SCSC_LAST_SPS = 8,
+    SCSC_RECLAIM = 9,
+    SCSC_MAX_SESSIONS = 10,
+    SCSC_SYNC_CLOCK = 11,
+    SCSC_MAX_DTMF_DURATION = 12,
+    SCSC_MIN_DTMF_DURATION = 13,
+    SCSC_DEFAULT_DTMF_DURATION = 14,
+    SCSC_SHUTDOWN_ELEGANT = 15,
+    SCSC_SHUTDOWN_ASAP = 16,
+    SCSC_CANCEL_SHUTDOWN = 17,
+    SCSC_SEND_SIGHUP = 18,
+    SCSC_DEBUG_LEVEL = 19,
+    SCSC_FLUSH_DB_HANDLES = 20,
+    SCSC_SHUTDOWN_NOW = 21,
+    SCSC_REINCARNATE_NOW = 22,
+    SCSC_CALIBRATE_CLOCK = 23,
+    SCSC_SAVE_HISTORY = 24,
+    SCSC_CRASH = 25,
+    SCSC_MIN_IDLE_CPU = 26,
+    SCSC_VERBOSE_EVENTS = 27,
+    SCSC_SHUTDOWN_CHECK = 28,
+    SCSC_PAUSE_INBOUND_CHECK = 29,
+    SCSC_PAUSE_OUTBOUND_CHECK = 30,
+    SCSC_PAUSE_CHECK = 31,
+    SCSC_READY_CHECK = 32,
+    SCSC_THREADED_SYSTEM_EXEC = 33,
+    SCSC_SYNC_CLOCK_WHEN_IDLE = 34,
+    SCSC_DEBUG_SQL = 35,
+    SCSC_SQL = 36,
+    SCSC_API_EXPANSION = 37,
+    SCSC_RECOVER = 38,
+    SCSC_SPS_PEAK = 39,
+    SCSC_SPS_PEAK_FIVEMIN = 40,
+    SCSC_SESSIONS_PEAK = 41,
+    SCSC_SESSIONS_PEAK_FIVEMIN = 42,
+    SCSC_MDNS_RESOLVE = 43,
+    SCSC_SHUTDOWN_CAUSE = 44,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_state_handler_flag_t {
+    SSH_FLAG_STICKY = 1,
+    SSH_FLAG_PRE_EXEC = 2,
+}
 pub type switch_os_socket_t = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7910,11 +7928,8 @@ pub struct switch_rtcp {
     _unused: [u8; 0],
 }
 pub type switch_rtcp_t = switch_rtcp;
-#[doc = " \\brief A message object designed to allow unlike technologies to exchange data"]
 pub type switch_core_session_message_t = switch_core_session_message;
-#[doc = " \\brief An event Header"]
 pub type switch_event_header_t = switch_event_header;
-#[doc = " \\brief Representation of an event"]
 pub type switch_event_t = switch_event;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7934,11 +7949,8 @@ pub struct switch_loadable_module {
     _unused: [u8; 0],
 }
 pub type switch_loadable_module_t = switch_loadable_module;
-#[doc = " \\brief An abstraction of a data frame"]
 pub type switch_frame_t = switch_frame;
-#[doc = " \\brief An abstraction of a rtcp frame"]
 pub type switch_rtcp_frame_t = switch_rtcp_frame;
-#[doc = " \\brief A channel"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_channel {
@@ -7951,24 +7963,15 @@ pub struct switch_sql_queue_manager {
     _unused: [u8; 0],
 }
 pub type switch_sql_queue_manager_t = switch_sql_queue_manager;
-#[doc = " an abstract representation of a file handle (some parameters based on compat with libsndfile)"]
 pub type switch_file_handle_t = switch_file_handle;
-#[doc = " \\brief Call Specific Data"]
 pub type switch_caller_profile_t = switch_caller_profile;
-#[doc = " \\brief An Abstract Representation of a dialplan extension"]
 pub type switch_caller_extension_t = switch_caller_extension;
-#[doc = " \\brief An Abstract Representation of a dialplan Application"]
 pub type switch_caller_application_t = switch_caller_application;
 pub type switch_state_handler_table_t = switch_state_handler_table;
-#[doc = " \\brief Abstract handler to a timer module"]
 pub type switch_timer_t = switch_timer;
-#[doc = " an abstract handle to a codec module"]
 pub type switch_codec_t = switch_codec;
-#[doc = " \\brief A generic object to pass as a thread's session object to allow mutiple arguements and a pool"]
 pub type switch_core_thread_session_t = switch_core_thread_session;
-#[doc = " \\brief A table of settings and callbacks that define a paticular implementation of a codec"]
 pub type switch_codec_implementation_t = switch_codec_implementation;
-#[doc = " @defgroup switch_buffer Buffer Routines\n @ingroup core1\n The purpose of this module is to make a plain buffering interface that can be used for read/write buffers\n throughout the application.  The first implementation was done to provide the functionality and the interface\n and I think it can be optimized under the hood as we go using bucket brigades and/or ring buffering techniques.\n @{"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_buffer {
@@ -7976,7 +7979,6 @@ pub struct switch_buffer {
 }
 pub type switch_buffer_t = switch_buffer;
 pub type switch_codec_settings_t = switch_codec_settings;
-#[doc = " an abstract handle of a fmtp parsed by codec"]
 pub type switch_codec_fmtp_t = switch_codec_fmtp;
 pub type switch_coredb_handle_t = switch_coredb_handle;
 #[repr(C)]
@@ -7985,45 +7987,25 @@ pub struct switch_odbc_handle {
     _unused: [u8; 0],
 }
 pub type switch_odbc_handle_t = switch_odbc_handle;
-#[doc = " an abstract representation of a database interface."]
 pub type switch_database_interface_handle_t = switch_database_interface_handle;
-#[doc = " \\brief A table of i/o routines that an endpoint interface can implement"]
 pub type switch_io_routines_t = switch_io_routines;
-#[doc = " an abstract representation of a tts speech interface."]
 pub type switch_speech_handle_t = switch_speech_handle;
-#[doc = " an abstract representation of an asr speech interface."]
 pub type switch_asr_handle_t = switch_asr_handle;
-#[doc = " an abstract representation of a directory interface."]
 pub type switch_directory_handle_t = switch_directory_handle;
-#[doc = " \\brief The abstraction of a loadable module"]
 pub type switch_loadable_module_interface_t = switch_loadable_module_interface;
-#[doc = " \\brief Abstraction of an module endpoint interface\nThis is the glue between the abstract idea of a \"channel\" and what is really going on under the\nhood.\t Each endpoint module fills out one of these tables and makes it available when a channel\nis created of it's paticular type."]
 pub type switch_endpoint_interface_t = switch_endpoint_interface;
-#[doc = " \\brief A table of functions that a timer module implements"]
 pub type switch_timer_interface_t = switch_timer_interface;
-#[doc = " \\brief Abstract interface to a dialplan module"]
 pub type switch_dialplan_interface_t = switch_dialplan_interface;
-#[doc = " \\brief Top level module interface to implement a series of codec implementations"]
 pub type switch_codec_interface_t = switch_codec_interface;
-#[doc = " \\brief A module interface to implement an application"]
 pub type switch_application_interface_t = switch_application_interface;
-#[doc = " \\brief A module interface to implement a chat application"]
 pub type switch_chat_application_interface_t = switch_chat_application_interface;
-#[doc = " \\brief A module interface to implement an api function"]
 pub type switch_api_interface_t = switch_api_interface;
-#[doc = " \\brief A module interface to implement a json api function"]
 pub type switch_json_api_interface_t = switch_json_api_interface;
-#[doc = " \\brief Abstract interface to a file format module"]
 pub type switch_file_interface_t = switch_file_interface;
-#[doc = " \\brief Abstract interface to a speech module"]
 pub type switch_speech_interface_t = switch_speech_interface;
-#[doc = " \\brief Abstract interface to an asr module"]
 pub type switch_asr_interface_t = switch_asr_interface;
-#[doc = " \\brief Abstract interface to a directory module"]
 pub type switch_directory_interface_t = switch_directory_interface;
-#[doc = " \\brief Abstract interface to a chat module"]
 pub type switch_chat_interface_t = switch_chat_interface;
-#[doc = " \\brief Abstract interface to a management module"]
 pub type switch_management_interface_t = switch_management_interface;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8031,16 +8013,13 @@ pub struct switch_core_port_allocator {
     _unused: [u8; 0],
 }
 pub type switch_core_port_allocator_t = switch_core_port_allocator;
-#[doc = " \\brief An audio bug"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_media_bug {
     _unused: [u8; 0],
 }
 pub type switch_media_bug_t = switch_media_bug;
-#[doc = " \\brief Abstract interface to a limit module"]
 pub type switch_limit_interface_t = switch_limit_interface;
-#[doc = " \\brief Abstract interface to a database module"]
 pub type switch_database_interface_t = switch_database_interface;
 pub type hashtable_destructor_t =
     ::std::option::Option<unsafe extern "C" fn(ptr: *mut ::std::os::raw::c_void)>;
@@ -8149,23 +8128,31 @@ pub type switch_core_codec_video_encode_func_t = ::std::option::Option<
 pub type switch_core_codec_video_decode_func_t = ::std::option::Option<
     unsafe extern "C" fn(codec: *mut switch_codec_t, frame: *mut switch_frame_t) -> switch_status_t,
 >;
-pub const switch_codec_control_command_t_SCC_VIDEO_GEN_KEYFRAME: switch_codec_control_command_t = 0;
-pub const switch_codec_control_command_t_SCC_VIDEO_BANDWIDTH: switch_codec_control_command_t = 1;
-pub const switch_codec_control_command_t_SCC_VIDEO_RESET: switch_codec_control_command_t = 2;
-pub const switch_codec_control_command_t_SCC_AUDIO_PACKET_LOSS: switch_codec_control_command_t = 3;
-pub const switch_codec_control_command_t_SCC_AUDIO_ADJUST_BITRATE: switch_codec_control_command_t =
-    4;
-pub const switch_codec_control_command_t_SCC_AUDIO_VAD: switch_codec_control_command_t = 5;
-pub const switch_codec_control_command_t_SCC_DEBUG: switch_codec_control_command_t = 6;
-pub const switch_codec_control_command_t_SCC_CODEC_SPECIFIC: switch_codec_control_command_t = 7;
-pub type switch_codec_control_command_t = ::std::os::raw::c_uint;
-pub const switch_codec_control_type_t_SCCT_NONE: switch_codec_control_type_t = 0;
-pub const switch_codec_control_type_t_SCCT_STRING: switch_codec_control_type_t = 1;
-pub const switch_codec_control_type_t_SCCT_INT: switch_codec_control_type_t = 2;
-pub type switch_codec_control_type_t = ::std::os::raw::c_uint;
-pub const switch_io_type_t_SWITCH_IO_READ: switch_io_type_t = 0;
-pub const switch_io_type_t_SWITCH_IO_WRITE: switch_io_type_t = 1;
-pub type switch_io_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_codec_control_command_t {
+    SCC_VIDEO_GEN_KEYFRAME = 0,
+    SCC_VIDEO_BANDWIDTH = 1,
+    SCC_VIDEO_RESET = 2,
+    SCC_AUDIO_PACKET_LOSS = 3,
+    SCC_AUDIO_ADJUST_BITRATE = 4,
+    SCC_AUDIO_VAD = 5,
+    SCC_DEBUG = 6,
+    SCC_CODEC_SPECIFIC = 7,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_codec_control_type_t {
+    SCCT_NONE = 0,
+    SCCT_STRING = 1,
+    SCCT_INT = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_io_type_t {
+    SWITCH_IO_READ = 0,
+    SWITCH_IO_WRITE = 1,
+}
 pub type switch_core_codec_control_func_t = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut switch_codec_t,
@@ -8221,7 +8208,6 @@ pub type switch_hash_delete_callback_t = ::std::option::Option<
         pData: *mut ::std::os::raw::c_void,
     ) -> switch_bool_t,
 >;
-#[doc = "\\defgroup sched1 Scheduler\n\\ingroup core1\n\\{"]
 pub type switch_scheduler_task_t = switch_scheduler_task;
 pub type switch_scheduler_func_t =
     ::std::option::Option<unsafe extern "C" fn(task: *mut switch_scheduler_task_t)>;
@@ -8279,11 +8265,13 @@ pub type switch_read_frame_callback_function_t = ::std::option::Option<
         user_data: *mut ::std::os::raw::c_void,
     ) -> switch_status_t,
 >;
-#[doc = " \\brief Abstract interface to a say module"]
 pub type switch_say_interface_t = switch_say_interface;
-pub const dm_match_type_t_DM_MATCH_POSITIVE: dm_match_type_t = 0;
-pub const dm_match_type_t_DM_MATCH_NEGATIVE: dm_match_type_t = 1;
-pub type dm_match_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum dm_match_type_t {
+    DM_MATCH_POSITIVE = 0,
+    DM_MATCH_NEGATIVE = 1,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_ivr_dmachine {
@@ -8398,14 +8386,20 @@ pub type switch_module_load_t = ::std::option::Option<
 pub type switch_module_runtime_t = ::std::option::Option<unsafe extern "C" fn() -> switch_status_t>;
 pub type switch_module_shutdown_t =
     ::std::option::Option<unsafe extern "C" fn() -> switch_status_t>;
-pub const switch_thread_priority_t_SWITCH_PRI_LOW: switch_thread_priority_t = 1;
-pub const switch_thread_priority_t_SWITCH_PRI_NORMAL: switch_thread_priority_t = 10;
-pub const switch_thread_priority_t_SWITCH_PRI_IMPORTANT: switch_thread_priority_t = 50;
-pub const switch_thread_priority_t_SWITCH_PRI_REALTIME: switch_thread_priority_t = 99;
-pub type switch_thread_priority_t = ::std::os::raw::c_uint;
-pub const switch_module_flag_enum_t_SMODF_NONE: switch_module_flag_enum_t = 0;
-pub const switch_module_flag_enum_t_SMODF_GLOBAL_SYMBOLS: switch_module_flag_enum_t = 1;
-pub type switch_module_flag_enum_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_thread_priority_t {
+    SWITCH_PRI_LOW = 1,
+    SWITCH_PRI_NORMAL = 10,
+    SWITCH_PRI_IMPORTANT = 50,
+    SWITCH_PRI_REALTIME = 99,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_module_flag_enum_t {
+    SMODF_NONE = 0,
+    SMODF_GLOBAL_SYMBOLS = 1,
+}
 pub type switch_module_flag_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -8424,7 +8418,6 @@ pub type switch_modulename_callback_func_t = ::std::option::Option<
     ) -> ::std::os::raw::c_int,
 >;
 pub type switch_slin_data_t = switch_slin_data;
-#[doc = " \\brief A digit stream parser object"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_ivr_digit_stream_parser {
@@ -8457,27 +8450,34 @@ pub struct switch_live_array_s {
     _unused: [u8; 0],
 }
 pub type switch_live_array_t = switch_live_array_s;
-pub const switch_sdp_type_t_SDP_TYPE_REQUEST: switch_sdp_type_t = 0;
-pub const switch_sdp_type_t_SDP_TYPE_RESPONSE: switch_sdp_type_t = 1;
-pub type switch_sdp_type_t = ::std::os::raw::c_uint;
-pub const switch_rtp_crypto_key_type_t_AEAD_AES_256_GCM_8: switch_rtp_crypto_key_type_t = 0;
-pub const switch_rtp_crypto_key_type_t_AEAD_AES_256_GCM: switch_rtp_crypto_key_type_t = 1;
-pub const switch_rtp_crypto_key_type_t_AEAD_AES_128_GCM_8: switch_rtp_crypto_key_type_t = 2;
-pub const switch_rtp_crypto_key_type_t_AEAD_AES_128_GCM: switch_rtp_crypto_key_type_t = 3;
-pub const switch_rtp_crypto_key_type_t_AES_CM_256_HMAC_SHA1_80: switch_rtp_crypto_key_type_t = 4;
-pub const switch_rtp_crypto_key_type_t_AES_CM_192_HMAC_SHA1_80: switch_rtp_crypto_key_type_t = 5;
-pub const switch_rtp_crypto_key_type_t_AES_CM_128_HMAC_SHA1_80: switch_rtp_crypto_key_type_t = 6;
-pub const switch_rtp_crypto_key_type_t_AES_CM_256_HMAC_SHA1_32: switch_rtp_crypto_key_type_t = 7;
-pub const switch_rtp_crypto_key_type_t_AES_CM_192_HMAC_SHA1_32: switch_rtp_crypto_key_type_t = 8;
-pub const switch_rtp_crypto_key_type_t_AES_CM_128_HMAC_SHA1_32: switch_rtp_crypto_key_type_t = 9;
-pub const switch_rtp_crypto_key_type_t_AES_CM_128_NULL_AUTH: switch_rtp_crypto_key_type_t = 10;
-pub const switch_rtp_crypto_key_type_t_CRYPTO_INVALID: switch_rtp_crypto_key_type_t = 11;
-pub type switch_rtp_crypto_key_type_t = ::std::os::raw::c_uint;
-pub const switch_rtp_crypto_key_param_method_type_t_CRYPTO_KEY_PARAM_METHOD_INLINE:
-    switch_rtp_crypto_key_param_method_type_t = 0;
-pub const switch_rtp_crypto_key_param_method_type_t_CRYPTO_KEY_PARAM_METHOD_INVALID:
-    switch_rtp_crypto_key_param_method_type_t = 1;
-pub type switch_rtp_crypto_key_param_method_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_sdp_type_t {
+    SDP_TYPE_REQUEST = 0,
+    SDP_TYPE_RESPONSE = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_crypto_key_type_t {
+    AEAD_AES_256_GCM_8 = 0,
+    AEAD_AES_256_GCM = 1,
+    AEAD_AES_128_GCM_8 = 2,
+    AEAD_AES_128_GCM = 3,
+    AES_CM_256_HMAC_SHA1_80 = 4,
+    AES_CM_192_HMAC_SHA1_80 = 5,
+    AES_CM_128_HMAC_SHA1_80 = 6,
+    AES_CM_256_HMAC_SHA1_32 = 7,
+    AES_CM_192_HMAC_SHA1_32 = 8,
+    AES_CM_128_HMAC_SHA1_32 = 9,
+    AES_CM_128_NULL_AUTH = 10,
+    CRYPTO_INVALID = 11,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_crypto_key_param_method_type_t {
+    CRYPTO_KEY_PARAM_METHOD_INLINE = 0,
+    CRYPTO_KEY_PARAM_METHOD_INVALID = 1,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct payload_map_s {
@@ -8507,26 +8507,35 @@ pub struct payload_map_s {
     pub next: *mut payload_map_s,
 }
 pub type payload_map_t = payload_map_s;
-pub const switch_media_flow_t_SWITCH_MEDIA_FLOW_SENDRECV: switch_media_flow_t = 0;
-pub const switch_media_flow_t_SWITCH_MEDIA_FLOW_SENDONLY: switch_media_flow_t = 1;
-pub const switch_media_flow_t_SWITCH_MEDIA_FLOW_RECVONLY: switch_media_flow_t = 2;
-pub const switch_media_flow_t_SWITCH_MEDIA_FLOW_INACTIVE: switch_media_flow_t = 3;
-pub const switch_media_flow_t_SWITCH_MEDIA_FLOW_DISABLED: switch_media_flow_t = 4;
-pub type switch_media_flow_t = ::std::os::raw::c_uint;
-pub const switch_core_media_ice_type_t_ICE_GOOGLE_JINGLE: switch_core_media_ice_type_t = 1;
-pub const switch_core_media_ice_type_t_ICE_VANILLA: switch_core_media_ice_type_t = 2;
-pub const switch_core_media_ice_type_t_ICE_CONTROLLED: switch_core_media_ice_type_t = 4;
-pub const switch_core_media_ice_type_t_ICE_LITE: switch_core_media_ice_type_t = 8;
-pub type switch_core_media_ice_type_t = ::std::os::raw::c_uint;
-pub const switch_poll_t_SWITCH_POLL_READ: switch_poll_t = 1;
-pub const switch_poll_t_SWITCH_POLL_WRITE: switch_poll_t = 2;
-pub const switch_poll_t_SWITCH_POLL_ERROR: switch_poll_t = 4;
-pub const switch_poll_t_SWITCH_POLL_HUP: switch_poll_t = 8;
-pub const switch_poll_t_SWITCH_POLL_RDNORM: switch_poll_t = 16;
-pub const switch_poll_t_SWITCH_POLL_RDBAND: switch_poll_t = 32;
-pub const switch_poll_t_SWITCH_POLL_PRI: switch_poll_t = 64;
-pub const switch_poll_t_SWITCH_POLL_INVALID: switch_poll_t = 128;
-pub type switch_poll_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_media_flow_t {
+    SWITCH_MEDIA_FLOW_SENDRECV = 0,
+    SWITCH_MEDIA_FLOW_SENDONLY = 1,
+    SWITCH_MEDIA_FLOW_RECVONLY = 2,
+    SWITCH_MEDIA_FLOW_INACTIVE = 3,
+    SWITCH_MEDIA_FLOW_DISABLED = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_ice_type_t {
+    ICE_GOOGLE_JINGLE = 1,
+    ICE_VANILLA = 2,
+    ICE_CONTROLLED = 4,
+    ICE_LITE = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_poll_t {
+    SWITCH_POLL_READ = 1,
+    SWITCH_POLL_WRITE = 2,
+    SWITCH_POLL_ERROR = 4,
+    SWITCH_POLL_HUP = 8,
+    SWITCH_POLL_RDNORM = 16,
+    SWITCH_POLL_RDBAND = 32,
+    SWITCH_POLL_PRI = 64,
+    SWITCH_POLL_INVALID = 128,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_waitlist_s {
@@ -8553,19 +8562,28 @@ pub struct switch_frame_buffer_s {
     _unused: [u8; 0],
 }
 pub type switch_frame_buffer_t = switch_frame_buffer_s;
-pub const switch_video_read_flag_t_SVR_BLOCK: switch_video_read_flag_t = 1;
-pub const switch_video_read_flag_t_SVR_FLUSH: switch_video_read_flag_t = 2;
-pub const switch_video_read_flag_t_SVR_CHECK: switch_video_read_flag_t = 4;
-pub type switch_video_read_flag_t = ::std::os::raw::c_uint;
-pub const switch_vid_spy_fmt_t_SPY_LOWER_RIGHT_SMALL: switch_vid_spy_fmt_t = 0;
-pub const switch_vid_spy_fmt_t_SPY_LOWER_RIGHT_LARGE: switch_vid_spy_fmt_t = 1;
-pub const switch_vid_spy_fmt_t_SPY_DUAL_CROP: switch_vid_spy_fmt_t = 2;
-pub type switch_vid_spy_fmt_t = ::std::os::raw::c_uint;
-pub const switch_file_command_t_SCFC_FLUSH_AUDIO: switch_file_command_t = 0;
-pub const switch_file_command_t_SCFC_PAUSE_READ: switch_file_command_t = 1;
-pub const switch_file_command_t_SCFC_PAUSE_WRITE: switch_file_command_t = 2;
-pub const switch_file_command_t_SCFC_RESUME_WRITE: switch_file_command_t = 3;
-pub type switch_file_command_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_video_read_flag_t {
+    SVR_BLOCK = 1,
+    SVR_FLUSH = 2,
+    SVR_CHECK = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_vid_spy_fmt_t {
+    SPY_LOWER_RIGHT_SMALL = 0,
+    SPY_LOWER_RIGHT_LARGE = 1,
+    SPY_DUAL_CROP = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_file_command_t {
+    SCFC_FLUSH_AUDIO = 0,
+    SCFC_PAUSE_READ = 1,
+    SCFC_PAUSE_WRITE = 2,
+    SCFC_RESUME_WRITE = 3,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_rtp_text_factory_s {
@@ -8584,19 +8602,24 @@ pub struct switch_chromakey_s {
     _unused: [u8; 0],
 }
 pub type switch_chromakey_t = switch_chromakey_s;
-pub const switch_video_encode_speed_t_SWITCH_VIDEO_ENCODE_SPEED_DEFAULT:
-    switch_video_encode_speed_t = 0;
-pub const switch_video_encode_speed_t_SWITCH_VIDEO_ENCODE_SPEED_FAST: switch_video_encode_speed_t =
-    0;
-pub const switch_video_encode_speed_t_SWITCH_VIDEO_ENCODE_SPEED_MEDIUM:
-    switch_video_encode_speed_t = 1;
-pub const switch_video_encode_speed_t_SWITCH_VIDEO_ENCODE_SPEED_SLOW: switch_video_encode_speed_t =
-    2;
-pub type switch_video_encode_speed_t = ::std::os::raw::c_uint;
-pub const switch_video_profile_t_SWITCH_VIDEO_PROFILE_BASELINE: switch_video_profile_t = 0;
-pub const switch_video_profile_t_SWITCH_VIDEO_PROFILE_MAIN: switch_video_profile_t = 1;
-pub const switch_video_profile_t_SWITCH_VIDEO_PROFILE_HIGH: switch_video_profile_t = 2;
-pub type switch_video_profile_t = ::std::os::raw::c_uint;
+impl switch_video_encode_speed_t {
+    pub const SWITCH_VIDEO_ENCODE_SPEED_FAST: switch_video_encode_speed_t =
+        switch_video_encode_speed_t::SWITCH_VIDEO_ENCODE_SPEED_DEFAULT;
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_video_encode_speed_t {
+    SWITCH_VIDEO_ENCODE_SPEED_DEFAULT = 0,
+    SWITCH_VIDEO_ENCODE_SPEED_MEDIUM = 1,
+    SWITCH_VIDEO_ENCODE_SPEED_SLOW = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_video_profile_t {
+    SWITCH_VIDEO_PROFILE_BASELINE = 0,
+    SWITCH_VIDEO_PROFILE_MAIN = 1,
+    SWITCH_VIDEO_PROFILE_HIGH = 2,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_mm_s {
@@ -9309,18 +9332,15 @@ extern "C" {
     pub fn switch_thread_self() -> switch_thread_id_t;
 }
 extern "C" {
-    #[doc = " \\brief Compare two thread ids\n  \\param tid1 1st Thread ID to compare\n  \\param tid2 2nd Thread ID to compare"]
     pub fn switch_thread_equal(
         tid1: switch_thread_id_t,
         tid2: switch_thread_id_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Clear all memory in the pool and run all the cleanups. This also destroys all\n subpools.\n @param pool The pool to clear\n @remark This does not actually free the memory, it just allows the pool\n         to re-use this memory for the next allocation.\n @see fspr_pool_destroy()"]
     pub fn switch_pool_clear(pool: *mut switch_memory_pool_t);
 }
 extern "C" {
-    #[doc = " @defgroup switch_string String Handling funcions\n @ingroup switch_apr\n @{"]
     pub fn switch_snprintf(
         buf: *mut ::std::os::raw::c_char,
         len: switch_size_t,
@@ -9351,7 +9371,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " The default hash function.\n @param key pointer to the key.\n @param klen the key length.\n"]
     pub fn switch_hashfunc_default(
         key: *const ::std::os::raw::c_char,
         klen: *mut switch_ssize_t,
@@ -9363,53 +9382,36 @@ extern "C" {
         klen: *mut switch_ssize_t,
     ) -> ::std::os::raw::c_uint;
 }
-#[doc = " number of microseconds since 00:00:00 january 1, 1970 UTC"]
 pub type switch_time_t = i64;
-#[doc = " number of microseconds in the interval"]
 pub type switch_interval_time_t = i64;
-#[doc = " a structure similar to ANSI struct tm with the following differences:\n  - tm_usec isn't an ANSI field\n  - tm_gmtoff isn't an ANSI field (it's a bsdism)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_time_exp_t {
-    #[doc = " microseconds past tm_sec"]
     pub tm_usec: i32,
-    #[doc = " (0-61) seconds past tm_min"]
     pub tm_sec: i32,
-    #[doc = " (0-59) minutes past tm_hour"]
     pub tm_min: i32,
-    #[doc = " (0-23) hours past midnight"]
     pub tm_hour: i32,
-    #[doc = " (1-31) day of the month"]
     pub tm_mday: i32,
-    #[doc = " (0-11) month of the year"]
     pub tm_mon: i32,
-    #[doc = " year since 1900"]
     pub tm_year: i32,
-    #[doc = " (0-6) days since sunday"]
     pub tm_wday: i32,
-    #[doc = " (0-365) days since jan 1"]
     pub tm_yday: i32,
-    #[doc = " daylight saving time"]
     pub tm_isdst: i32,
-    #[doc = " seconds east of UTC"]
     pub tm_gmtoff: i32,
 }
 extern "C" {
     pub fn switch_time_make(sec: switch_time_t, usec: i32) -> switch_time_t;
 }
 extern "C" {
-    #[doc = " @return the current time"]
     pub fn switch_time_now() -> switch_time_t;
 }
 extern "C" {
-    #[doc = " Convert time value from human readable format to a numeric fspr_time_t that\n always represents GMT\n @param result the resulting imploded time\n @param input the input exploded time"]
     pub fn switch_time_exp_gmt_get(
         result: *mut switch_time_t,
         input: *mut switch_time_exp_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " formats the exploded time according to the format specified\n @param s string to write to\n @param retsize The length of the returned string\n @param max The maximum length of the string\n @param format The format for the time string\n @param tm The time to convert"]
     pub fn switch_strftime(
         s: *mut ::std::os::raw::c_char,
         retsize: *mut switch_size_t,
@@ -9419,7 +9421,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " formats the exploded time according to the format specified (does not validate format string)\n @param s string to write to\n @param retsize The length of the returned string\n @param max The maximum length of the string\n @param format The format for the time string\n @param tm The time to convert"]
     pub fn switch_strftime_nocheck(
         s: *mut ::std::os::raw::c_char,
         retsize: *mut switch_size_t,
@@ -9429,35 +9430,30 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " switch_rfc822_date formats dates in the RFC822\n format in an efficient manner.  It is a fixed length\n format which requires the indicated amount of storage,\n including the trailing NUL terminator.\n @param date_str String to write to.\n @param t the time to convert"]
     pub fn switch_rfc822_date(
         date_str: *mut ::std::os::raw::c_char,
         t: switch_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " convert a time to its human readable components in GMT timezone\n @param result the exploded time\n @param input the time to explode"]
     pub fn switch_time_exp_gmt(
         result: *mut switch_time_exp_t,
         input: switch_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Convert time value from human readable format to a numeric fspr_time_t\n e.g. elapsed usec since epoch\n @param result the resulting imploded time\n @param input the input exploded time"]
     pub fn switch_time_exp_get(
         result: *mut switch_time_t,
         input: *mut switch_time_exp_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " convert a time to its human readable components in local timezone\n @param result the exploded time\n @param input the time to explode"]
     pub fn switch_time_exp_lt(
         result: *mut switch_time_exp_t,
         input: switch_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " convert a time to its human readable components in a specific timezone with offset\n @param result the exploded time\n @param input the time to explode"]
     pub fn switch_time_exp_tz(
         result: *mut switch_time_exp_t,
         input: switch_time_t,
@@ -9465,7 +9461,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Sleep for the specified number of micro-seconds.\n @param t desired amount of time to sleep.\n @warning May sleep for longer than the specified time."]
     pub fn switch_sleep(t: switch_interval_time_t);
 }
 extern "C" {
@@ -9476,10 +9471,8 @@ extern "C" {
 pub struct fspr_thread_mutex_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque thread-local mutex structure"]
 pub type switch_mutex_t = fspr_thread_mutex_t;
 extern "C" {
-    #[doc = " Create and initialize a mutex that can be used to synchronize threads.\n @param lock the memory address where the newly created mutex will be\n        stored.\n @param flags Or'ed value of:\n <PRE>\n           SWITCH_THREAD_MUTEX_DEFAULT   platform-optimal lock behavior.\n           SWITCH_THREAD_MUTEX_NESTED    enable nested (recursive) locks.\n           SWITCH_THREAD_MUTEX_UNNESTED  disable nested locks (non-recursive).\n </PRE>\n @param pool the pool from which to allocate the mutex.\n @warning Be cautious in using SWITCH_THREAD_MUTEX_DEFAULT.  While this is the\n most optimial mutex based on a given platform's performance charateristics,\n it will behave as either a nested or an unnested lock."]
     pub fn switch_mutex_init(
         lock: *mut *mut switch_mutex_t,
         flags: ::std::os::raw::c_uint,
@@ -9487,44 +9480,34 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Destroy the mutex and free the memory associated with the lock.\n @param lock the mutex to destroy."]
     pub fn switch_mutex_destroy(lock: *mut switch_mutex_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Acquire the lock for the given mutex. If the mutex is already locked,\n the current thread will be put to sleep until the lock becomes available.\n @param lock the mutex on which to acquire the lock."]
     pub fn switch_mutex_lock(lock: *mut switch_mutex_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Release the lock for the given mutex.\n @param lock the mutex from which to release the lock."]
     pub fn switch_mutex_unlock(lock: *mut switch_mutex_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Attempt to acquire the lock for the given mutex. If the mutex has already\n been acquired, the call returns immediately with APR_EBUSY. Note: it\n is important that the APR_STATUS_IS_EBUSY(s) macro be used to determine\n if the return value was APR_EBUSY, for portability reasons.\n @param lock the mutex on which to attempt the lock acquiring."]
     pub fn switch_mutex_trylock(lock: *mut switch_mutex_t) -> switch_status_t;
 }
 pub type switch_atomic_t = u32;
 extern "C" {
-    #[doc = " Some architectures require atomic operations internal structures to be\n initialized before use.\n @param pool The memory pool to use when initializing the structures."]
     pub fn switch_atomic_init(pool: *mut switch_memory_pool_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Uses an atomic operation to read the uint32 value at the location specified\n by mem.\n @param mem The location of memory which stores the value to read."]
     pub fn switch_atomic_read(mem: *mut switch_atomic_t) -> u32;
 }
 extern "C" {
-    #[doc = " Uses an atomic operation to set a uint32 value at a specified location of\n memory.\n @param mem The location of memory to set.\n @param val The uint32 value to set at the memory location."]
     pub fn switch_atomic_set(mem: *mut switch_atomic_t, val: u32);
 }
 extern "C" {
-    #[doc = " Uses an atomic operation to add the uint32 value to the value at the\n specified location of memory.\n @param mem The location of the value to add to.\n @param val The uint32 value to add to the value at the memory location."]
     pub fn switch_atomic_add(mem: *mut switch_atomic_t, val: u32);
 }
 extern "C" {
-    #[doc = " Uses an atomic operation to increment the value at the specified memroy\n location.\n @param mem The location of the value to increment."]
     pub fn switch_atomic_inc(mem: *mut switch_atomic_t);
 }
 extern "C" {
-    #[doc = " Uses an atomic operation to decrement the value at the specified memroy\n location.\n @param mem The location of the value to decrement."]
     pub fn switch_atomic_dec(mem: *mut switch_atomic_t) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
@@ -9532,7 +9515,6 @@ extern "C" {
 pub struct fspr_thread_rwlock_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque structure used for the rwlock"]
 pub type switch_thread_rwlock_t = fspr_thread_rwlock_t;
 extern "C" {
     pub fn switch_thread_rwlock_create(
@@ -9574,24 +9556,20 @@ extern "C" {
 pub struct fspr_thread_cond_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque structure for thread condition variables"]
 pub type switch_thread_cond_t = fspr_thread_cond_t;
 extern "C" {
-    #[doc = " Create and initialize a condition variable that can be used to signal\n and schedule threads in a single process.\n @param cond the memory address where the newly created condition variable\n        will be stored.\n @param pool the pool from which to allocate the mutex."]
     pub fn switch_thread_cond_create(
         cond: *mut *mut switch_thread_cond_t,
         pool: *mut switch_memory_pool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Put the active calling thread to sleep until signaled to wake up. Each\n condition variable must be associated with a mutex, and that mutex must\n be locked before  calling this function, or the behavior will be\n undefined. As the calling thread is put to sleep, the given mutex\n will be simultaneously released; and as this thread wakes up the lock\n is again simultaneously acquired.\n @param cond the condition variable on which to block.\n @param mutex the mutex that must be locked upon entering this function,\n        is released while the thread is asleep, and is again acquired before\n        returning from this function."]
     pub fn switch_thread_cond_wait(
         cond: *mut switch_thread_cond_t,
         mutex: *mut switch_mutex_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Put the active calling thread to sleep until signaled to wake up or\n the timeout is reached. Each condition variable must be associated\n with a mutex, and that mutex must be locked before calling this\n function, or the behavior will be undefined. As the calling thread\n is put to sleep, the given mutex will be simultaneously released;\n and as this thread wakes up the lock is again simultaneously acquired.\n @param cond the condition variable on which to block.\n @param mutex the mutex that must be locked upon entering this function,\n        is released while the thread is asleep, and is again acquired before\n        returning from this function.\n @param timeout The amount of time in microseconds to wait. This is\n        a maximum, not a minimum. If the condition is signaled, we\n        will wake up before this time, otherwise the error APR_TIMEUP\n        is returned."]
     pub fn switch_thread_cond_timedwait(
         cond: *mut switch_thread_cond_t,
         mutex: *mut switch_mutex_t,
@@ -9599,40 +9577,32 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Signals a single thread, if one exists, that is blocking on the given\n condition variable. That thread is then scheduled to wake up and acquire\n the associated mutex. Although it is not required, if predictable scheduling\n is desired, that mutex must be locked while calling this function.\n @param cond the condition variable on which to produce the signal."]
     pub fn switch_thread_cond_signal(cond: *mut switch_thread_cond_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Signals all threads blocking on the given condition variable.\n Each thread that was signaled is then scheduled to wake up and acquire\n the associated mutex. This will happen in a serialized manner.\n @param cond the condition variable on which to produce the broadcast."]
     pub fn switch_thread_cond_broadcast(cond: *mut switch_thread_cond_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Destroy the condition variable and free the associated memory.\n @param cond the condition variable to destroy."]
     pub fn switch_thread_cond_destroy(cond: *mut switch_thread_cond_t) -> switch_status_t;
 }
-#[doc = " we represent a UUID as a block of 16 bytes."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_uuid_t {
     pub data: [::std::os::raw::c_uchar; 16usize],
 }
 extern "C" {
-    #[doc = " Format a UUID into a string, following the standard format\n @param buffer The buffer to place the formatted UUID string into. It must\n               be at least APR_UUID_FORMATTED_LENGTH + 1 bytes long to hold\n               the formatted UUID and a null terminator\n @param uuid The UUID to format"]
     pub fn switch_uuid_format(buffer: *mut ::std::os::raw::c_char, uuid: *const switch_uuid_t);
 }
 extern "C" {
-    #[doc = " Generate and return a (new) UUID\n @param uuid The resulting UUID"]
     pub fn switch_uuid_get(uuid: *mut switch_uuid_t);
 }
 extern "C" {
-    #[doc = " Parse a standard-format string into a UUID\n @param uuid The resulting UUID\n @param uuid_str The formatted UUID"]
     pub fn switch_uuid_parse(
         uuid: *mut switch_uuid_t,
         uuid_str: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " MD5 in one step\n @param digest The final MD5 digest\n @param input The message block to use\n @param inputLen The length of the message block"]
     pub fn switch_md5(
         digest: *mut ::std::os::raw::c_uchar,
         input: *const ::std::os::raw::c_void,
@@ -9651,10 +9621,8 @@ extern "C" {
 pub struct switch_apr_queue_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque structure used for queue API"]
 pub type switch_queue_t = switch_apr_queue_t;
 extern "C" {
-    #[doc = " create a FIFO queue\n @param queue The new queue\n @param queue_capacity maximum size of the queue\n @param pool a pool to allocate queue from"]
     pub fn switch_queue_create(
         queue: *mut *mut switch_queue_t,
         queue_capacity: ::std::os::raw::c_uint,
@@ -9662,14 +9630,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " pop/get an object from the queue, blocking if the queue is already empty\n\n @param queue the queue\n @param data the data\n @returns APR_EINTR the blocking was interrupted (try again)\n @returns APR_EOF if the queue has been terminated\n @returns APR_SUCCESS on a successfull pop"]
     pub fn switch_queue_pop(
         queue: *mut switch_queue_t,
         data: *mut *mut ::std::os::raw::c_void,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " pop/get an object from the queue, blocking if the queue is already empty\n\n @param queue the queue\n @param data the data\n @param timeout The amount of time in microseconds to wait. This is\n        a maximum, not a minimum. If the condition is signaled, we\n        will wake up before this time, otherwise the error APR_TIMEUP\n        is returned.\n @returns APR_TIMEUP the request timed out\n @returns APR_EINTR the blocking was interrupted (try again)\n @returns APR_EOF if the queue has been terminated\n @returns APR_SUCCESS on a successfull pop"]
     pub fn switch_queue_pop_timeout(
         queue: *mut switch_queue_t,
         data: *mut *mut ::std::os::raw::c_void,
@@ -9677,18 +9643,15 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " push/add a object to the queue, blocking if the queue is already full\n\n @param queue the queue\n @param data the data\n @returns APR_EINTR the blocking was interrupted (try again)\n @returns APR_EOF the queue has been terminated\n @returns APR_SUCCESS on a successfull push"]
     pub fn switch_queue_push(
         queue: *mut switch_queue_t,
         data: *mut ::std::os::raw::c_void,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " returns the size of the queue.\n\n @warning this is not threadsafe, and is intended for reporting/monitoring\n of the queue.\n @param queue the queue\n @returns the size of the queue"]
     pub fn switch_queue_size(queue: *mut switch_queue_t) -> ::std::os::raw::c_uint;
 }
 extern "C" {
-    #[doc = " pop/get an object to the queue, returning immediatly if the queue is empty\n\n @param queue the queue\n @param data the data\n @returns APR_EINTR the blocking operation was interrupted (try again)\n @returns APR_EAGAIN the queue is empty\n @returns APR_EOF the queue has been terminated\n @returns APR_SUCCESS on a successfull push"]
     pub fn switch_queue_trypop(
         queue: *mut switch_queue_t,
         data: *mut *mut ::std::os::raw::c_void,
@@ -9701,7 +9664,6 @@ extern "C" {
     pub fn switch_queue_term(queue: *mut switch_queue_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " push/add a object to the queue, returning immediatly if the queue is full\n\n @param queue the queue\n @param data the data\n @returns APR_EINTR the blocking operation was interrupted (try again)\n @returns APR_EAGAIN the queue is full\n @returns APR_EOF the queue has been terminated\n @returns APR_SUCCESS on a successfull push"]
     pub fn switch_queue_trypush(
         queue: *mut switch_queue_t,
         data: *mut ::std::os::raw::c_void,
@@ -9712,12 +9674,10 @@ extern "C" {
 pub struct fspr_file_t {
     _unused: [u8; 0],
 }
-#[doc = " Structure for referencing files."]
 pub type switch_file_t = fspr_file_t;
 pub type switch_fileperms_t = i32;
 pub type switch_seek_where_t = ::std::os::raw::c_int;
 extern "C" {
-    #[doc = " Open the specified file.\n @param newf The opened file descriptor.\n @param fname The full path to the file (using / on all systems)\n @param flag Or'ed value of:\n <PRE>\n         SWITCH_FOPEN_READ\t\t\t\topen for reading\n         SWITCH_FOPEN_WRITE\t\t\t\topen for writing\n         SWITCH_FOPEN_CREATE\t\t\t\tcreate the file if not there\n         SWITCH_FOPEN_APPEND\t\t\t\tfile ptr is set to end prior to all writes\n         SWITCH_FOPEN_TRUNCATE\t\t\tset length to zero if file exists\n         SWITCH_FOPEN_BINARY\t\t\t\tnot a text file (This flag is ignored on\n\t\t\t\t\t\t\t\t\t\t\tUNIX because it has no meaning)\n         SWITCH_FOPEN_BUFFERED\t\t\tbuffer the data.  Default is non-buffered\n         SWITCH_FOPEN_EXCL\t\t\t\treturn error if APR_CREATE and file exists\n         SWITCH_FOPEN_DELONCLOSE\t\t\tdelete the file after closing.\n         SWITCH_FOPEN_XTHREAD\t\t\t\tPlatform dependent tag to open the file\n\t\t\t\t\t\t\t\t\t\t\tfor use across multiple threads\n         SWITCH_FOPEN_SHARELOCK\t\t\tPlatform dependent support for higher\n\t\t\t\t\t\t\t\t\t\t\tlevel locked read/write access to support\n\t\t\t\t\t\t\t\t\t\t\twrites across process/machines\n         SWITCH_FOPEN_NOCLEANUP\t\t\tDo not register a cleanup with the pool\n\t\t\t\t\t\t\t\t\t\t\tpassed in on the <EM>pool</EM> argument (see below).\n\t\t\t\t\t\t\t\t\t\t\tThe fspr_os_file_t handle in fspr_file_t will not\n\t\t\t\t\t\t\t\t\t\t\tbe closed when the pool is destroyed.\n         SWITCH_FOPEN_SENDFILE_ENABLED\tOpen with appropriate platform semantics\n\t\t\t\t\t\t\t\t\t\t\tfor sendfile operations.  Advisory only,\n\t\t\t\t\t\t\t\t\t\t\tfspr_socket_sendfile does not check this flag.\n </PRE>\n @param perm Access permissions for file.\n @param pool The pool to use.\n @remark If perm is SWITCH_FPROT_OS_DEFAULT and the file is being created,\n appropriate default permissions will be used."]
     pub fn switch_file_open(
         newf: *mut *mut switch_file_t,
         fname: *const ::std::os::raw::c_char,
@@ -9742,7 +9702,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Close the specified file.\n @param thefile The file descriptor to close."]
     pub fn switch_file_close(thefile: *mut switch_file_t) -> switch_status_t;
 }
 extern "C" {
@@ -9755,7 +9714,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Delete the specified file.\n @param path The full path to the file (using / on all systems)\n @param pool The pool to use.\n @remark If the file is open, it won't be removed until all\n instances are closed."]
     pub fn switch_file_remove(
         path: *const ::std::os::raw::c_char,
         pool: *mut switch_memory_pool_t,
@@ -9769,7 +9727,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Read data from the specified file.\n @param thefile The file descriptor to read from.\n @param buf The buffer to store the data to.\n @param nbytes On entry, the number of bytes to read; on exit, the number\n of bytes read.\n\n @remark fspr_file_read will read up to the specified number of\n bytes, but never more.  If there isn't enough data to fill that\n number of bytes, all of the available data is read.  The third\n argument is modified to reflect the number of bytes read.  If a\n char was put back into the stream via ungetc, it will be the first\n character returned.\n\n @remark It is not possible for both bytes to be read and an APR_EOF\n or other error to be returned.  APR_EINTR is never returned."]
     pub fn switch_file_read(
         thefile: *mut switch_file_t,
         buf: *mut ::std::os::raw::c_void,
@@ -9777,7 +9734,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Write data to the specified file.\n @param thefile The file descriptor to write to.\n @param buf The buffer which contains the data.\n @param nbytes On entry, the number of bytes to write; on exit, the number\n               of bytes written.\n\n @remark fspr_file_write will write up to the specified number of\n bytes, but never more.  If the OS cannot write that many bytes, it\n will write as many as it can.  The third argument is modified to\n reflect the * number of bytes written.\n\n @remark It is possible for both bytes to be written and an error to\n be returned.  APR_EINTR is never returned."]
     pub fn switch_file_write(
         thefile: *mut switch_file_t,
         buf: *const ::std::os::raw::c_void,
@@ -9815,7 +9771,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Create a new directory on the file system.\n @param path the path for the directory to be created. (use / on all systems)\n @param perm Permissions for the new direcoty.\n @param pool the pool to use."]
     pub fn switch_dir_make(
         path: *const ::std::os::raw::c_char,
         perm: switch_fileperms_t,
@@ -9823,7 +9778,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Creates a new directory on the file system, but behaves like\n 'mkdir -p'. Creates intermediate directories as required. No error\n will be reported if PATH already exists.\n @param path the path for the directory to be created. (use / on all systems)\n @param perm Permissions for the new direcoty.\n @param pool the pool to use."]
     pub fn switch_dir_make_recursive(
         path: *const ::std::os::raw::c_char,
         perm: switch_fileperms_t,
@@ -9839,15 +9793,10 @@ pub type switch_dir_t = switch_dir;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_array_header_t {
-    #[doc = " The pool the array is allocated out of"]
     pub pool: *mut switch_memory_pool_t,
-    #[doc = " The amount of memory allocated for each element of the array"]
     pub elt_size: ::std::os::raw::c_int,
-    #[doc = " The number of active elements in the array"]
     pub nelts: ::std::os::raw::c_int,
-    #[doc = " The number of elements allocated in the array"]
     pub nalloc: ::std::os::raw::c_int,
-    #[doc = " The elements in the array"]
     pub elts: *mut ::std::os::raw::c_char,
 }
 extern "C" {
@@ -9875,16 +9824,13 @@ extern "C" {
 pub struct fspr_thread_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque Thread structure."]
 pub type switch_thread_t = fspr_thread_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fspr_threadattr_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque Thread attributes structure."]
 pub type switch_threadattr_t = fspr_threadattr_t;
-#[doc = " The prototype for any APR thread worker functions.\n typedef void *(SWITCH_THREAD_FUNC *switch_thread_start_t)(switch_thread_t*, void*);"]
 pub type switch_thread_start_t = ::std::option::Option<
     unsafe extern "C" fn(
         arg1: *mut switch_thread_t,
@@ -9904,19 +9850,16 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Create and initialize a new threadattr variable\n @param new_attr The newly created threadattr.\n @param pool The pool to use"]
     pub fn switch_threadattr_create(
         new_attr: *mut *mut switch_threadattr_t,
         pool: *mut switch_memory_pool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Set if newly created threads should be created in detached state.\n @param attr The threadattr to affect\n @param on Non-zero if detached threads should be created."]
     pub fn switch_threadattr_detach_set(attr: *mut switch_threadattr_t, on: i32)
         -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Create a new thread of execution\n @param new_thread The newly created thread handle.\n @param attr The threadattr to use to determine how to create the thread\n @param func The function to start the new thread in\n @param data Any data to be passed to the starting function\n @param cont The pool to use"]
     pub fn switch_thread_create(
         new_thread: *mut *mut switch_thread_t,
         attr: *mut switch_threadattr_t,
@@ -9930,24 +9873,21 @@ extern "C" {
 pub struct fspr_socket_t {
     _unused: [u8; 0],
 }
-#[doc = " A structure to represent sockets"]
 pub type switch_socket_t = fspr_socket_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fspr_sockaddr_t {
     _unused: [u8; 0],
 }
-#[doc = " Freeswitch's socket address type, used to ensure protocol independence"]
 pub type switch_sockaddr_t = fspr_sockaddr_t;
-#[doc = "< no longer allow read request"]
-pub const switch_shutdown_how_e_SWITCH_SHUTDOWN_READ: switch_shutdown_how_e = 0;
-#[doc = "< no longer allow write requests"]
-pub const switch_shutdown_how_e_SWITCH_SHUTDOWN_WRITE: switch_shutdown_how_e = 1;
-#[doc = "< no longer allow read or write requests"]
-pub const switch_shutdown_how_e_SWITCH_SHUTDOWN_READWRITE: switch_shutdown_how_e = 2;
-pub type switch_shutdown_how_e = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_shutdown_how_e {
+    SWITCH_SHUTDOWN_READ = 0,
+    SWITCH_SHUTDOWN_WRITE = 1,
+    SWITCH_SHUTDOWN_READWRITE = 2,
+}
 extern "C" {
-    #[doc = " Create a socket.\n @param new_sock The new socket that has been set up.\n @param family The address family of the socket (e.g., SWITCH_INET).\n @param type The type of the socket (e.g., SOCK_STREAM).\n @param protocol The protocol of the socket (e.g., SWITCH_PROTO_TCP).\n @param pool The pool to use"]
     pub fn switch_socket_create(
         new_sock: *mut *mut switch_socket_t,
         family: ::std::os::raw::c_int,
@@ -9957,29 +9897,24 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Shutdown either reading, writing, or both sides of a socket.\n @param sock The socket to close\n @param how How to shutdown the socket.  One of:\n <PRE>\n            SWITCH_SHUTDOWN_READ         no longer allow read requests\n            SWITCH_SHUTDOWN_WRITE        no longer allow write requests\n            SWITCH_SHUTDOWN_READWRITE    no longer allow read or write requests\n </PRE>\n @see switch_shutdown_how_e\n @remark This does not actually close the socket descriptor, it just\n      controls which calls are still valid on the socket."]
     pub fn switch_socket_shutdown(
         sock: *mut switch_socket_t,
         how: switch_shutdown_how_e,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Close a socket.\n @param sock The socket to close"]
     pub fn switch_socket_close(sock: *mut switch_socket_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Bind the socket to its associated port\n @param sock The socket to bind\n @param sa The socket address to bind to\n @remark This may be where we will find out if there is any other process\n      using the selected port."]
     pub fn switch_socket_bind(
         sock: *mut switch_socket_t,
         sa: *mut switch_sockaddr_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Listen to a bound socket for connections.\n @param sock The socket to listen on\n @param backlog The number of outstanding connections allowed in the sockets\n                listen queue.  If this value is less than zero, the listen\n                queue size is set to zero."]
     pub fn switch_socket_listen(sock: *mut switch_socket_t, backlog: i32) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Accept a new connection request\n @param new_sock A copy of the socket that is connected to the socket that\n                 made the connection request.  This is the socket which should\n                 be used for all future communication.\n @param sock The socket we are listening on.\n @param pool The pool for the new socket."]
     pub fn switch_socket_accept(
         new_sock: *mut *mut switch_socket_t,
         sock: *mut switch_socket_t,
@@ -9987,14 +9922,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Issue a connection request to a socket either on the same machine\n or a different one.\n @param sock The socket we wish to use for our side of the connection\n @param sa The address of the machine we wish to connect to."]
     pub fn switch_socket_connect(
         sock: *mut switch_socket_t,
         sa: *mut switch_sockaddr_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Get socket fd for the switch socket passed\n @param sock The socket we wish to have fd"]
     pub fn switch_socket_fd_get(sock: *mut switch_socket_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -10030,7 +9963,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Create fspr_sockaddr_t from hostname, address family, and port.\n @param sa The new fspr_sockaddr_t.\n @param hostname The hostname or numeric address string to resolve/parse, or\n               NULL to build an address that corresponds to 0.0.0.0 or ::\n @param family The address family to use, or SWITCH_UNSPEC if the system should\n               decide.\n @param port The port number.\n @param flags Special processing flags:\n <PRE>\n       APR_IPV4_ADDR_OK          first query for IPv4 addresses; only look\n                                 for IPv6 addresses if the first query failed;\n                                 only valid if family is APR_UNSPEC and hostname\n                                 isn't NULL; mutually exclusive with\n                                 APR_IPV6_ADDR_OK\n       APR_IPV6_ADDR_OK          first query for IPv6 addresses; only look\n                                 for IPv4 addresses if the first query failed;\n                                 only valid if family is APR_UNSPEC and hostname\n                                 isn't NULL and APR_HAVE_IPV6; mutually exclusive\n                                 with APR_IPV4_ADDR_OK\n </PRE>\n @param pool The pool for the fspr_sockaddr_t and associated storage."]
     pub fn switch_sockaddr_info_get(
         sa: *mut *mut switch_sockaddr_t,
         hostname: *const ::std::os::raw::c_char,
@@ -10055,7 +9987,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Send data over a network.\n @param sock The socket to send the data over.\n @param buf The buffer which contains the data to be sent.\n @param len On entry, the number of bytes to send; on exit, the number\n            of bytes sent.\n @remark\n <PRE>\n This functions acts like a blocking write by default.  To change\n this behavior, use fspr_socket_timeout_set() or the APR_SO_NONBLOCK\n socket option.\n\n It is possible for both bytes to be sent and an error to be returned.\n\n APR_EINTR is never returned.\n </PRE>"]
     pub fn switch_socket_send(
         sock: *mut switch_socket_t,
         buf: *const ::std::os::raw::c_char,
@@ -10063,7 +9994,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " @param sock The socket to send from\n @param where The fspr_sockaddr_t describing where to send the data\n @param flags The flags to use\n @param buf  The data to send\n @param len  The length of the data to send"]
     pub fn switch_socket_sendto(
         sock: *mut switch_socket_t,
         where_: *mut switch_sockaddr_t,
@@ -10080,7 +10010,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " @param from The fspr_sockaddr_t to fill in the recipient info\n @param sock The socket to use\n @param flags The flags to use\n @param buf  The buffer to use\n @param len  The length of the available buffer\n"]
     pub fn switch_socket_recvfrom(
         from: *mut switch_sockaddr_t,
         sock: *mut switch_socket_t,
@@ -10096,7 +10025,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Read data from a network.\n @param sock The socket to read the data from.\n @param buf The buffer to store the data in.\n @param len On entry, the number of bytes to receive; on exit, the number\n            of bytes received.\n @remark\n <PRE>\n This functions acts like a blocking read by default.  To change\n this behavior, use fspr_socket_timeout_set() or the APR_SO_NONBLOCK\n socket option.\n The number of bytes actually received is stored in argument 3.\n\n It is possible for both bytes to be received and an APR_EOF or\n other error to be returned.\n\n APR_EINTR is never returned.\n </PRE>"]
     pub fn switch_socket_recv(
         sock: *mut switch_socket_t,
         buf: *mut ::std::os::raw::c_char,
@@ -10104,25 +10032,21 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Setup socket options for the specified socket\n @param sock The socket to set up.\n @param opt The option we would like to configure.  One of:\n <PRE>\n            APR_SO_DEBUG      --  turn on debugging information\n            APR_SO_KEEPALIVE  --  keep connections active\n            APR_SO_LINGER     --  lingers on close if data is present\n            APR_SO_NONBLOCK   --  Turns blocking on/off for socket\n                                  When this option is enabled, use\n                                  the APR_STATUS_IS_EAGAIN() macro to\n                                  see if a send or receive function\n                                  could not transfer data without\n                                  blocking.\n            APR_SO_REUSEADDR  --  The rules used in validating addresses\n                                  supplied to bind should allow reuse\n                                  of local addresses.\n            APR_SO_SNDBUF     --  Set the SendBufferSize\n            APR_SO_RCVBUF     --  Set the ReceiveBufferSize\n </PRE>\n @param on Value for the option."]
     pub fn switch_socket_opt_set(sock: *mut switch_socket_t, opt: i32, on: i32) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Query socket timeout for the specified socket\n @param sock The socket to query\n @param t Socket timeout returned from the query.\n <PRE>\n   t > 0  -- read and write calls return APR_TIMEUP if specified time\n             elapsess with no data read or written\n   t == 0 -- read and write calls never block\n   t < 0  -- read and write calls block\n </PRE>"]
     pub fn switch_socket_timeout_get(
         sock: *mut switch_socket_t,
         t: *mut switch_interval_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Setup socket timeout for the specified socket\n @param sock The socket to set up.\n @param t Value for the timeout.\n <PRE>\n   t > 0  -- read and write calls return APR_TIMEUP if specified time\n             elapsess with no data read or written\n   t == 0 -- read and write calls never block\n   t < 0  -- read and write calls block\n </PRE>"]
     pub fn switch_socket_timeout_set(
         sock: *mut switch_socket_t,
         t: switch_interval_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Join a Multicast Group\n @param sock The socket to join a multicast group\n @param join The address of the multicast group to join\n @param iface Address of the interface to use.  If NULL is passed, the\n              default multicast interface will be used. (OS Dependent)\n @param source Source Address to accept transmissions from (non-NULL\n               implies Source-Specific Multicast)"]
     pub fn switch_mcast_join(
         sock: *mut switch_socket_t,
         join: *mut switch_sockaddr_t,
@@ -10131,7 +10055,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Set the Multicast Time to Live (ttl) for a multicast transmission.\n @param sock The socket to set the multicast ttl\n @param ttl Time to live to Assign. 0-255, default=1\n @remark If the TTL is 0, packets will only be seen by sockets on the local machine,\n     and only when multicast loopback is enabled."]
     pub fn switch_mcast_hops(sock: *mut switch_socket_t, ttl: u8) -> switch_status_t;
 }
 extern "C" {
@@ -10143,50 +10066,38 @@ extern "C" {
         iface: *mut switch_sockaddr_t,
     ) -> switch_status_t;
 }
-#[doc = "< nothing here"]
-pub const switch_pollset_type_t_SWITCH_NO_DESC: switch_pollset_type_t = 0;
-#[doc = "< descriptor refers to a socket"]
-pub const switch_pollset_type_t_SWITCH_POLL_SOCKET: switch_pollset_type_t = 1;
-#[doc = "< descriptor refers to a file"]
-pub const switch_pollset_type_t_SWITCH_POLL_FILE: switch_pollset_type_t = 2;
-#[doc = "< descriptor is the last one in the list"]
-pub const switch_pollset_type_t_SWITCH_POLL_LASTDESC: switch_pollset_type_t = 3;
-#[doc = " @}"]
-pub type switch_pollset_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_pollset_type_t {
+    SWITCH_NO_DESC = 0,
+    SWITCH_POLL_SOCKET = 1,
+    SWITCH_POLL_FILE = 2,
+    SWITCH_POLL_LASTDESC = 3,
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_descriptor_t {
-    #[doc = "< file"]
     pub f: *mut switch_file_t,
-    #[doc = "< socket"]
     pub s: *mut switch_socket_t,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct switch_pollfd {
-    #[doc = "< associated pool"]
     pub p: *mut switch_memory_pool_t,
     pub desc_type: switch_pollset_type_t,
-    #[doc = "< requested events"]
     pub reqevents: i16,
-    #[doc = "< returned events"]
     pub rtnevents: i16,
-    #[doc = "< @see fspr_descriptor"]
     pub desc: switch_descriptor_t,
-    #[doc = "< allows app to associate context"]
     pub client_data: *mut ::std::os::raw::c_void,
 }
-#[doc = " @defgroup fspr_poll Poll Routines\n @ingroup switch_apr\n @{\n/\n/** Poll descriptor set."]
 pub type switch_pollfd_t = switch_pollfd;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fspr_pollset_t {
     _unused: [u8; 0],
 }
-#[doc = " Opaque structure used for pollset API"]
 pub type switch_pollset_t = fspr_pollset_t;
 extern "C" {
-    #[doc = " Setup a pollset object\n @param pollset  The pointer in which to return the newly created object\n @param size The maximum number of descriptors that this pollset can hold\n @param pool The pool from which to allocate the pollset\n @param flags Optional flags to modify the operation of the pollset.\n\n @remark If flags equals APR_POLLSET_THREADSAFE, then a pollset is\n created on which it is safe to make concurrent calls to\n fspr_pollset_add(), fspr_pollset_remove() and fspr_pollset_poll() from\n separate threads.  This feature is only supported on some\n platforms; the fspr_pollset_create() call will fail with\n APR_ENOTIMPL on platforms where it is not supported."]
     pub fn switch_pollset_create(
         pollset: *mut *mut switch_pollset_t,
         size: u32,
@@ -10195,21 +10106,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Add a socket or file descriptor to a pollset\n @param pollset The pollset to which to add the descriptor\n @param descriptor The descriptor to add\n @remark If you set client_data in the descriptor, that value\n         will be returned in the client_data field whenever this\n         descriptor is signalled in fspr_pollset_poll().\n @remark If the pollset has been created with APR_POLLSET_THREADSAFE\n         and thread T1 is blocked in a call to fspr_pollset_poll() for\n         this same pollset that is being modified via fspr_pollset_add()\n         in thread T2, the currently executing fspr_pollset_poll() call in\n         T1 will either: (1) automatically include the newly added descriptor\n         in the set of descriptors it is watching or (2) return immediately\n         with APR_EINTR.  Option (1) is recommended, but option (2) is\n         allowed for implementations where option (1) is impossible\n         or impractical."]
     pub fn switch_pollset_add(
         pollset: *mut switch_pollset_t,
         descriptor: *const switch_pollfd_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Remove a descriptor from a pollset\n @param pollset The pollset from which to remove the descriptor\n @param descriptor The descriptor to remove\n @remark If the pollset has been created with APR_POLLSET_THREADSAFE\n         and thread T1 is blocked in a call to fspr_pollset_poll() for\n         this same pollset that is being modified via fspr_pollset_remove()\n         in thread T2, the currently executing fspr_pollset_poll() call in\n         T1 will either: (1) automatically exclude the newly added descriptor\n         in the set of descriptors it is watching or (2) return immediately\n         with APR_EINTR.  Option (1) is recommended, but option (2) is\n         allowed for implementations where option (1) is impossible\n         or impractical."]
     pub fn switch_pollset_remove(
         pollset: *mut switch_pollset_t,
         descriptor: *const switch_pollfd_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Poll the sockets in the poll structure\n @param aprset The poll structure we will be using.\n @param numsock The number of sockets we are polling\n @param nsds The number of sockets signalled.\n @param timeout The amount of time in microseconds to wait.  This is\n                a maximum, not a minimum.  If a socket is signalled, we\n                will wake up before this time.  A negative number means\n                wait until a socket is signalled.\n @remark The number of sockets signalled is returned in the third argument.\n         This is a blocking call, and it will not return until either a\n         socket has been signalled, or the timeout has expired."]
     pub fn switch_poll(
         aprset: *mut switch_pollfd_t,
         numsock: i32,
@@ -10218,7 +10126,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Block for activity on the descriptor(s) in a pollset\n @param pollset The pollset to use\n @param timeout Timeout in microseconds\n @param num Number of signalled descriptors (output parameter)\n @param descriptors Array of signalled descriptors (output parameter)"]
     pub fn switch_pollset_poll(
         pollset: *mut switch_pollset_t,
         timeout: switch_interval_time_t,
@@ -10227,7 +10134,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Create a set of file descriptors to poll from a socket\n\\param poll the polfd to create\n\\param sock the socket to add\n\\param flags the flags to modify the behaviour\n\\param pool the memory pool to use\n\\return SWITCH_STATUS_SUCCESS when successful"]
     pub fn switch_socket_create_pollset(
         poll: *mut *mut switch_pollfd_t,
         sock: *mut switch_socket_t,
@@ -10239,7 +10145,6 @@ extern "C" {
     pub fn switch_interval_time_from_timeval(tvp: *mut timeval) -> switch_interval_time_t;
 }
 extern "C" {
-    #[doc = "\\brief Create a pollfd out of a socket\n\\param pollfd the pollfd to create\n\\param sock the socket to add\n\\param flags the flags to modify the behaviour\n\\param client_data custom user data\n\\param pool the memory pool to use\n\\return SWITCH_STATUS_SUCCESS when successful"]
     pub fn switch_socket_create_pollfd(
         pollfd: *mut *mut switch_pollfd_t,
         sock: *mut switch_socket_t,
@@ -10276,7 +10181,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Create an anonymous pipe.\n @param in The file descriptor to use as input to the pipe.\n @param out The file descriptor to use as output from the pipe.\n @param pool The pool to operate on."]
     pub fn switch_file_pipe_create(
         in_: *mut *mut switch_file_t,
         out: *mut *mut switch_file_t,
@@ -10284,35 +10188,30 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Get the timeout value for a pipe or manipulate the blocking state.\n @param thepipe The pipe we are getting a timeout for.\n @param timeout The current timeout value in microseconds."]
     pub fn switch_file_pipe_timeout_get(
         thepipe: *mut switch_file_t,
         timeout: *mut switch_interval_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Set the timeout value for a pipe or manipulate the blocking state.\n @param thepipe The pipe we are setting a timeout on.\n @param timeout The timeout value in microseconds.  Values < 0 mean wait\n        forever, 0 means do not wait at all."]
     pub fn switch_file_pipe_timeout_set(
         thepipe: *mut switch_file_t,
         timeout: switch_interval_time_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " stop the current thread\n @param thd The thread to stop\n @param retval The return value to pass back to any thread that cares"]
     pub fn switch_thread_exit(
         thd: *mut switch_thread_t,
         retval: switch_status_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " block until the desired thread stops executing.\n @param retval The return value from the dead thread.\n @param thd The thread to join"]
     pub fn switch_thread_join(
         retval: *mut switch_status_t,
         thd: *mut switch_thread_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " Return a human readable string describing the specified error.\n @param statcode The error code the get a string for.\n @param buf A buffer to hold the error string.\n @bufsize Size of the buffer to hold the string."]
     pub fn switch_strerror(
         statcode: switch_status_t,
         buf: *mut ::std::os::raw::c_char,
@@ -10340,7 +10239,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " This routine is a variant of the \"sprintf()\" from the\n standard C library.  The resulting string is written into memory\n obtained from malloc() so that there is never a possiblity of buffer\n overflow.  This routine also implement some additional formatting\n options that are useful for constructing SQL statements.\n\n The strings returned by this routine should be freed by calling\n free().\n\n All of the usual printf formatting options apply.  In addition, there\n is a \"%q\" option.  %q works like %s in that it substitutes a null-terminated\n string from the argument list.  But %q also doubles every '\\'' character.\n %q is designed for use inside a string literal.  By doubling each '\\''\n character it escapes that character and allows it to be inserted into\n the string.\n\n For example, so some string variable contains text as follows:\n\n      char *zText = \"It's a happy day!\";\n\n We can use this text in an SQL statement as follows:\n\n      char *z = switch_mprintf(\"INSERT INTO TABLES('%q')\", zText);\n      switch_core_db_exec(db, z, callback1, 0, 0);\n      free(z);\n\n Because the %q format string is used, the '\\'' character in zText\n is escaped and the SQL generated is as follows:\n\n      INSERT INTO table1 VALUES('It''s a happy day!')\n\n This is correct.  Had we used %s instead of %q, the generated SQL\n would have looked like this:\n\n      INSERT INTO table1 VALUES('It's a happy day!');\n\n This second example is an SQL syntax error.  As a general rule you\n should always use %q instead of %s when inserting text into a string\n literal."]
     pub fn switch_mprintf(
         zFormat: *const ::std::os::raw::c_char,
         ...
@@ -10365,7 +10263,6 @@ extern "C" {
 pub struct sqlite3 {
     _unused: [u8; 0],
 }
-#[doc = " @defgroup switch_sqlite_top Brought To You By SQLite\n @ingroup FREESWITCH\n @{\n/\n/**\n @defgroup switch_core_db Database Routines\n @ingroup switch_sqlite_top\n @{\n/\n/**\n Each open database is represented by an instance of the\n following opaque structure."]
 pub type switch_core_db_t = sqlite3;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10396,47 +10293,39 @@ pub type switch_core_db_err_callback_func_t = ::std::option::Option<
 pub type switch_core_db_destructor_type_t =
     ::std::option::Option<unsafe extern "C" fn(arg1: *mut ::std::os::raw::c_void)>;
 extern "C" {
-    #[doc = " A function to close the database.\n\n Call this function with a pointer to a structure that was previously\n returned from switch_core_db_open() and the corresponding database will by closed.\n\n All SQL statements prepared using switch_core_db_prepare()\n must be deallocated using switch_core_db_finalize() before\n this routine is called. Otherwise, SWITCH_CORE_DB_BUSY is returned and the\n database connection remains open."]
     pub fn switch_core_db_close(db: *mut switch_core_db_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Open the database file \"filename\".  The \"filename\" is UTF-8\n encoded.  A switch_core_db_t* handle is returned in *Db, even\n if an error occurs. If the database is opened (or created) successfully,\n then SWITCH_CORE_DB_OK is returned. Otherwise an error code is returned. The\n switch_core_db_errmsg() routine can be used to obtain\n an English language description of the error.\n\n If the database file does not exist, then a new database is created.\n The encoding for the database is UTF-8.\n\n Whether or not an error occurs when it is opened, resources associated\n with the switch_core_db_t* handle should be released by passing it to\n switch_core_db_close() when it is no longer required."]
     pub fn switch_core_db_open(
         filename: *const ::std::os::raw::c_char,
         ppDb: *mut *mut switch_core_db_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "Same as switch_core_db_open() but additionally allows SQLITE_OPEN_URI"]
     pub fn switch_core_db_open_v2(
         filename: *const ::std::os::raw::c_char,
         ppDb: *mut *mut switch_core_db_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " ^Strings returned by sqlite3_column_text() and sqlite3_column_text16(),\n even empty strings, are always zero-terminated.  ^The return\n value from sqlite3_column_blob() for a zero-length BLOB is a NULL pointer.\n\n ^The object returned by [sqlite3_column_value()] is an\n [unprotected sqlite3_value] object.  An unprotected sqlite3_value object\n may only be used with [sqlite3_bind_value()] and [sqlite3_result_value()].\n If the [unprotected sqlite3_value] object returned by\n [sqlite3_column_value()] is used in any other way, including calls\n to routines like [sqlite3_value_int()], [sqlite3_value_text()],\n or [sqlite3_value_bytes()], then the behavior is undefined.\n\n These routines attempt to convert the value where appropriate.  ^For\n example, if the internal representation is FLOAT and a text result\n is requested, [sqlite3_snprintf()] is used internally to perform the\n conversion automatically.  ^(The following table details the conversions\n that are applied:\n\n    Internal Type    Requested Type     Conversion\n    -------------    --------------    --------------------------\n       NULL             INTEGER         Result is 0\n       NULL             FLOAT           Result is 0.0\n       NULL             TEXT            Result is a NULL pointer\n       NULL             BLOB            Result is a NULL pointer\n       INTEGER          FLOAT           Convert from integer to float\n       INTEGER          TEXT            ASCII rendering of the integer\n       INTEGER          BLOB            Same as INTEGER->TEXT\n       FLOAT            INTEGER         [CAST] to INTEGER\n       FLOAT            TEXT            ASCII rendering of the float\n       FLOAT            BLOB            [CAST] to BLOB\n       TEXT             INTEGER         [CAST] to INTEGER\n       TEXT             FLOAT           [CAST] to REAL\n       TEXT             BLOB            No change\n       BLOB             INTEGER         [CAST] to INTEGER\n       BLOB             FLOAT           [CAST] to REAL\n       BLOB             TEXT            Add a zero terminator if needed\n\n  Return the value as UTF-8 text."]
     pub fn switch_core_db_column_text(
         stmt: *mut switch_core_db_stmt_t,
         iCol: ::std::os::raw::c_int,
     ) -> *const ::std::os::raw::c_uchar;
 }
 extern "C" {
-    #[doc = " The first parameter is a compiled SQL statement. This function returns\n the column heading for the Nth column of that statement, where N is the\n second function parameter.  The string returned is UTF-8."]
     pub fn switch_core_db_column_name(
         stmt: *mut switch_core_db_stmt_t,
         N: ::std::os::raw::c_int,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " Return the number of columns in the result set returned by the compiled\n SQL statement. This routine returns 0 if pStmt is an SQL statement\n that does not return data (for example an UPDATE)."]
     pub fn switch_core_db_column_count(pStmt: *mut switch_core_db_stmt_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Return a pointer to a UTF-8 encoded string describing in english the\n error condition for the most recent switch_core_db_* API call. The returned\n string is always terminated by an 0x00 byte.\n\n The string \"not an error\" is returned when the most recent API call was\n successful."]
     pub fn switch_core_db_errmsg(db: *mut switch_core_db_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " A function to executes one or more statements of SQL.\n\n If one or more of the SQL statements are queries, then\n the callback function specified by the 3rd parameter is\n invoked once for each row of the query result.  This callback\n should normally return 0.  If the callback returns a non-zero\n value then the query is aborted, all subsequent SQL statements\n are skipped and the switch_core_db_exec() function returns the SWITCH_CORE_DB_ABORT.\n\n The 4th parameter is an arbitrary pointer that is passed\n to the callback function as its first parameter.\n\n The 2nd parameter to the callback function is the number of\n columns in the query result.  The 3rd parameter to the callback\n is an array of strings holding the values for each column.\n The 4th parameter to the callback is an array of strings holding\n the names of each column.\n\n The callback function may be NULL, even for queries.  A NULL\n callback is not an error.  It just means that no callback\n will be invoked.\n\n If an error occurs while parsing or evaluating the SQL (but\n not while executing the callback) then an appropriate error\n message is written into memory obtained from malloc() and\n *errmsg is made to point to that message.  The calling function\n is responsible for freeing the memory that holds the error\n message.   Use switch_core_db_free() for this.  If errmsg==NULL,\n then no error message is ever written.\n\n The return value is is SWITCH_CORE_DB_OK if there are no errors and\n some other return code if there is an error.  The particular\n return value depends on the type of error.\n\n If the query could not be executed because a database file is\n locked or busy, then this function returns SWITCH_CORE_DB_BUSY.  (This\n behavior can be modified somewhat using the sswitch_core_db_busy_handler()\n and switch_core_db_busy_timeout() functions below.)"]
     pub fn switch_core_db_exec(
         db: *mut switch_core_db_t,
         sql: *const ::std::os::raw::c_char,
@@ -10446,11 +10335,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " This function is called to delete a compiled\n SQL statement obtained by a previous call to switch_core_db_prepare().\n If the statement was executed successfully, or\n not executed at all, then SWITCH_CORE_DB_OK is returned. If execution of the\n statement failed then an error code is returned.\n\n This routine can be called at any point during the execution of the\n virtual machine.  If the virtual machine has not completed execution\n when this routine is called, that is like encountering an error or\n an interrupt.  (See switch_core_db_interrupt().)  Incomplete updates may be\n rolled back and transactions cancelled,  depending on the circumstances,\n and the result code returned will be SWITCH_CORE_DB_ABORT."]
     pub fn switch_core_db_finalize(pStmt: *mut switch_core_db_stmt_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " To execute an SQL query, it must first be compiled into a byte-code\n program using the following routine.\n\n The first parameter \"db\" is an SQLite database handle. The second\n parameter \"zSql\" is the statement to be compiled, encoded as\n UTF-8. If the next parameter, \"nBytes\", is less\n than zero, then zSql is read up to the first nul terminator.  If\n \"nBytes\" is not less than zero, then it is the length of the string zSql\n in bytes (not characters).\n\n *pzTail is made to point to the first byte past the end of the first\n SQL statement in zSql.  This routine only compiles the first statement\n in zSql, so *pzTail is left pointing to what remains uncompiled.\n\n *ppStmt is left pointing to a compiled SQL statement that can be\n executed using switch_core_db_step().  Or if there is an error, *ppStmt may be\n set to NULL.  If the input text contained no SQL (if the input is and\n empty string or a comment) then *ppStmt is set to NULL.\n\n On success, SWITCH_CORE_DB_OK is returned.  Otherwise an error code is returned."]
     pub fn switch_core_db_prepare(
         db: *mut switch_core_db_t,
         zSql: *const ::std::os::raw::c_char,
@@ -10460,15 +10347,12 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " After an SQL query has been compiled with a call to either\n switch_core_db_prepare(), then this function must be\n called one or more times to execute the statement.\n\n The return value will be either SWITCH_CORE_DB_BUSY, SWITCH_CORE_DB_DONE,\n SWITCH_CORE_DB_ROW, SWITCH_CORE_DB_ERROR, or SWITCH_CORE_DB_MISUSE.\n\n SWITCH_CORE_DB_BUSY means that the database engine attempted to open\n a locked database and there is no busy callback registered.\n Call switch_core_db_step() again to retry the open.\n\n SWITCH_CORE_DB_DONE means that the statement has finished executing\n successfully.  switch_core_db_step() should not be called again on this virtual\n machine.\n\n If the SQL statement being executed returns any data, then\n SWITCH_CORE_DB_ROW is returned each time a new row of data is ready\n for processing by the caller. The values may be accessed using\n the switch_core_db_column_*() functions described below. switch_core_db_step()\n is called again to retrieve the next row of data.\n\n SWITCH_CORE_DB_ERROR means that a run-time error (such as a constraint\n violation) has occurred.  switch_core_db_step() should not be called again on\n the VM. More information may be found by calling switch_core_db_errmsg().\n\n SWITCH_CORE_DB_MISUSE means that the this routine was called inappropriately.\n Perhaps it was called on a virtual machine that had already been\n finalized or on one that had previously returned SWITCH_CORE_DB_ERROR or\n SWITCH_CORE_DB_DONE.  Or it could be the case the the same database connection\n is being used simulataneously by two or more threads."]
     pub fn switch_core_db_step(stmt: *mut switch_core_db_stmt_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " The switch_core_db_reset() function is called to reset a compiled SQL\n statement obtained by a previous call to switch_core_db_prepare()\n back to it's initial state, ready to be re-executed.\n Any SQL statement variables that had values bound to them using\n the switch_core_db_bind_*() API retain their values."]
     pub fn switch_core_db_reset(pStmt: *mut switch_core_db_stmt_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " In the SQL strings input to switch_core_db_prepare(),\n one or more literals can be replace by parameters \"?\" or \":AAA\" or\n \"$VVV\" where AAA is an identifer and VVV is a variable name according\n to the syntax rules of the TCL programming language.\n The value of these parameters (also called \"host parameter names\") can\n be set using the routines listed below.\n\n In every case, the first parameter is a pointer to the sqlite3_stmt\n structure returned from switch_core_db_prepare().  The second parameter is the\n index of the parameter.  The first parameter as an index of 1.  For\n named parameters (\":AAA\" or \"$VVV\") you can use\n switch_core_db_bind_parameter_index() to get the correct index value given\n the parameters name.  If the same named parameter occurs more than\n once, it is assigned the same index each time.\n\n The switch_core_db_bind_* routine must be called before switch_core_db_step() after\n an switch_core_db_prepare() or sqlite3_reset().  Unbound parameterss are\n interpreted as NULL."]
     pub fn switch_core_db_bind_int(
         pStmt: *mut switch_core_db_stmt_t,
         i: ::std::os::raw::c_int,
@@ -10476,7 +10360,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " In the SQL strings input to switch_core_db_prepare(),\n one or more literals can be replace by parameters \"?\" or \":AAA\" or\n \"$VVV\" where AAA is an identifer and VVV is a variable name according\n to the syntax rules of the TCL programming language.\n The value of these parameters (also called \"host parameter names\") can\n be set using the routines listed below.\n\n In every case, the first parameter is a pointer to the sqlite3_stmt\n structure returned from switch_core_db_prepare().  The second parameter is the\n index of the parameter.  The first parameter as an index of 1.  For\n named parameters (\":AAA\" or \"$VVV\") you can use\n switch_core_db_bind_parameter_index() to get the correct index value given\n the parameters name.  If the same named parameter occurs more than\n once, it is assigned the same index each time.\n\n The switch_core_db_bind_* routine must be called before switch_core_db_step() after\n an switch_core_db_prepare() or sqlite3_reset().  Unbound parameterss are\n interpreted as NULL."]
     pub fn switch_core_db_bind_int64(
         pStmt: *mut switch_core_db_stmt_t,
         i: ::std::os::raw::c_int,
@@ -10484,7 +10367,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " In the SQL strings input to switch_core_db_prepare(),\n one or more literals can be replace by parameters \"?\" or \":AAA\" or\n \"$VVV\" where AAA is an identifer and VVV is a variable name according\n to the syntax rules of the TCL programming language.\n The value of these parameters (also called \"host parameter names\") can\n be set using the routines listed below.\n\n In every case, the first parameter is a pointer to the sqlite3_stmt\n structure returned from switch_core_db_prepare().  The second parameter is the\n index of the parameter.  The first parameter as an index of 1.  For\n named parameters (\":AAA\" or \"$VVV\") you can use\n switch_core_db_bind_parameter_index() to get the correct index value given\n the parameters name.  If the same named parameter occurs more than\n once, it is assigned the same index each time.\n\n The fifth parameter to switch_core_db_bind_blob(), switch_core_db_bind_text(), and\n switch_core_db_bind_text16() is a destructor used to dispose of the BLOB or\n text after SQLite has finished with it.  If the fifth argument is the\n special value SQLITE_STATIC, then the library assumes that the information\n is in static, unmanaged space and does not need to be freed.  If the\n fifth argument has the value SQLITE_TRANSIENT, then SQLite makes its\n own private copy of the data.\n\n The switch_core_db_bind_* routine must be called before switch_core_db_step() after\n an switch_core_db_prepare() or sqlite3_reset().  Unbound parameterss are\n interpreted as NULL."]
     pub fn switch_core_db_bind_text(
         pStmt: *mut switch_core_db_stmt_t,
         i: ::std::os::raw::c_int,
@@ -10494,7 +10376,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " In the SQL strings input to switch_core_db_prepare(),\n one or more literals can be replace by parameters \"?\" or \":AAA\" or\n \"$VVV\" where AAA is an identifer and VVV is a variable name according\n to the syntax rules of the TCL programming language.\n The value of these parameters (also called \"host parameter names\") can\n be set using the routines listed below.\n\n In every case, the first parameter is a pointer to the sqlite3_stmt\n structure returned from switch_core_db_prepare().  The second parameter is the\n index of the parameter.  The first parameter as an index of 1.  For\n named parameters (\":AAA\" or \"$VVV\") you can use\n sqlite3_bind_parameter_index() to get the correct index value given\n the parameters name.  If the same named parameter occurs more than\n once, it is assigned the same index each time.\n\n The sqlite3_bind_* routine must be called before switch_core_db_step() after\n an switch_core_db_prepare() or switch_core_db_reset().  Unbound parameterss are\n interpreted as NULL."]
     pub fn switch_core_db_bind_double(
         pStmt: *mut switch_core_db_stmt_t,
         i: ::std::os::raw::c_int,
@@ -10502,11 +10383,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Each entry in a table has a unique integer key.  (The key is\n the value of the INTEGER PRIMARY KEY column if there is such a column,\n otherwise the key is generated at random.  The unique key is always\n available as the ROWID, OID, or _ROWID_ column.)  The following routine\n returns the integer key of the most recent insert in the database.\n\n This function is similar to the mysql_insert_id() function from MySQL."]
     pub fn switch_core_db_last_insert_rowid(db: *mut switch_core_db_t) -> i64;
 }
 extern "C" {
-    #[doc = " This next routine is really just a wrapper around switch_core_db_exec().\n Instead of invoking a user-supplied callback for each row of the\n result, this routine remembers each row of the result in memory\n obtained from malloc(), then returns all of the result after the\n query has finished.\n\n As an example, suppose the query result where this table:\n\n        Name        | Age\n        -----------------------\n        Alice       | 43\n        Bob         | 28\n        Cindy       | 21\n\n If the 3rd argument were &azResult then after the function returns\n azResult will contain the following data:\n\n        azResult[0] = \"Name\";\n        azResult[1] = \"Age\";\n        azResult[2] = \"Alice\";\n        azResult[3] = \"43\";\n        azResult[4] = \"Bob\";\n        azResult[5] = \"28\";\n        azResult[6] = \"Cindy\";\n        azResult[7] = \"21\";\n\n Notice that there is an extra row of data containing the column\n headers.  But the *nrow return value is still 3.  *ncolumn is\n set to 2.  In general, the number of values inserted into azResult\n will be ((*nrow) + 1)*(*ncolumn).\n\n After the calling function has finished using the result, it should\n pass the result data pointer to switch_core_db_free_table() in order to\n release the memory that was malloc-ed.  Because of the way the\n malloc() happens, the calling function must not try to call\n free() directly.  Only switch_core_db_free_table() is able to release\n the memory properly and safely.\n\n The return value of this routine is the same as from switch_core_db_exec()."]
     pub fn switch_core_db_get_table(
         db: *mut switch_core_db_t,
         sql: *const ::std::os::raw::c_char,
@@ -10517,26 +10396,21 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Call this routine to free the memory that sqlite3_get_table() allocated."]
     pub fn switch_core_db_free_table(result: *mut *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = " Call this routine to free the memory that switch_core_db_get_table() allocated."]
     pub fn switch_core_db_free(z: *mut ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = " Call this routine to find the number of rows changed by the last statement."]
     pub fn switch_core_db_changes(db: *mut switch_core_db_t) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " Call this routine to load an external extension"]
     pub fn switch_core_db_load_extension(
         db: *mut switch_core_db_t,
         extension: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = " @} */\n/** @} */\n/**\n This routine is a variant of the \"sprintf()\" from the\n standard C library.  The resulting string is written into memory\n obtained from malloc() so that there is never a possiblity of buffer\n overflow.  This routine also implement some additional formatting\n options that are useful for constructing SQL statements.\n\n The strings returned by this routine should be freed by calling\n switch_core_db_free().\n\n All of the usual printf formatting options apply.  In addition, there\n is a \"%q\" option.  %q works like %s in that it substitutes a null-terminated\n string from the argument list.  But %q also doubles every '\\'' character.\n %q is designed for use inside a string literal.  By doubling each '\\''\n character it escapes that character and allows it to be inserted into\n the string.\n\n For example, so some string variable contains text as follows:\n\n      char *zText = \"It's a happy day!\";\n\n We can use this text in an SQL statement as follows:\n\n      char *z = switch_core_db_mprintf(\"INSERT INTO TABLES('%q')\", zText);\n      switch_core_db_exec(db, z, callback1, 0, 0);\n      switch_core_db_free(z);\n\n Because the %q format string is used, the '\\'' character in zText\n is escaped and the SQL generated is as follows:\n\n      INSERT INTO table1 VALUES('It''s a happy day!')\n\n This is correct.  Had we used %s instead of %q, the generated SQL\n would have looked like this:\n\n      INSERT INTO table1 VALUES('It's a happy day!');\n\n This second example is an SQL syntax error.  As a general rule you\n should always use %q instead of %s when inserting text into a string\n literal."]
     pub fn switch_sql_concat() -> *mut ::std::os::raw::c_char;
 }
 pub type switch_dso_func_t = ::std::option::Option<unsafe extern "C" fn() -> ::std::os::raw::c_int>;
@@ -10571,7 +10445,6 @@ extern "C" {
 pub struct real_pcre {
     _unused: [u8; 0],
 }
-#[doc = " @defgroup switch_regex Regular Expressions\n @ingroup FREESWITCH\n @{"]
 pub type switch_regex_t = real_pcre;
 extern "C" {
     pub fn switch_regex_compile(
@@ -10616,14 +10489,12 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Function to evaluate an expression against a string\n\\param target The string to find a match in\n\\param expression The regular expression to run against the string\n\\return Boolean if a match was found or not"]
     pub fn switch_regex_match(
         target: *const ::std::os::raw::c_char,
         expression: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Function to evaluate an expression against a string\n\\param target The string to find a match in\n\\param expression The regular expression to run against the string\n\\param partial_match If non-zero returns SUCCESS if the target is a partial match, on successful return, this is set to non-zero if the match was partial and zero if it was a full match\n\\return Boolean if a match was found or not"]
     pub fn switch_regex_match_partial(
         target: *const ::std::os::raw::c_char,
         expression: *const ::std::os::raw::c_char,
@@ -10778,47 +10649,39 @@ pub struct dtls_fp_s {
     pub str_: [::std::os::raw::c_char; 192usize],
 }
 pub type dtls_fingerprint_t = dtls_fp_s;
-pub const dtls_type_t_DTLS_TYPE_CLIENT: dtls_type_t = 1;
-pub const dtls_type_t_DTLS_TYPE_SERVER: dtls_type_t = 2;
-pub const dtls_type_t_DTLS_TYPE_RTP: dtls_type_t = 4;
-pub const dtls_type_t_DTLS_TYPE_RTCP: dtls_type_t = 8;
-pub type dtls_type_t = ::std::os::raw::c_uint;
-pub const dtls_state_t_DS_OFF: dtls_state_t = 0;
-pub const dtls_state_t_DS_HANDSHAKE: dtls_state_t = 1;
-pub const dtls_state_t_DS_SETUP: dtls_state_t = 2;
-pub const dtls_state_t_DS_READY: dtls_state_t = 3;
-pub const dtls_state_t_DS_FAIL: dtls_state_t = 4;
-pub const dtls_state_t_DS_INVALID: dtls_state_t = 5;
-pub type dtls_state_t = ::std::os::raw::c_uint;
-#[doc = " \\brief A message object designed to allow unlike technologies to exchange data"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum dtls_type_t {
+    DTLS_TYPE_CLIENT = 1,
+    DTLS_TYPE_SERVER = 2,
+    DTLS_TYPE_RTP = 4,
+    DTLS_TYPE_RTCP = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum dtls_state_t {
+    DS_OFF = 0,
+    DS_HANDSHAKE = 1,
+    DS_SETUP = 2,
+    DS_READY = 3,
+    DS_FAIL = 4,
+    DS_INVALID = 5,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_session_message {
-    #[doc = " uuid of the sender (for replies)"]
     pub from: *mut ::std::os::raw::c_char,
-    #[doc = " enumeration of the type of message"]
     pub message_id: switch_core_session_message_types_t,
-    #[doc = " optional numeric arg"]
     pub numeric_arg: ::std::os::raw::c_int,
-    #[doc = " optional string arg"]
     pub string_arg: *const ::std::os::raw::c_char,
-    #[doc = " optional string arg"]
     pub string_arg_size: switch_size_t,
-    #[doc = " optional arbitrary pointer arg"]
     pub pointer_arg: *mut ::std::os::raw::c_void,
-    #[doc = " optional arbitrary pointer arg's size"]
     pub pointer_arg_size: switch_size_t,
-    #[doc = " optional numeric reply"]
     pub numeric_reply: ::std::os::raw::c_int,
-    #[doc = " optional string reply"]
     pub string_reply: *mut ::std::os::raw::c_char,
-    #[doc = " optional string reply"]
     pub string_reply_size: switch_size_t,
-    #[doc = " optional arbitrary pointer reply"]
     pub pointer_reply: *mut ::std::os::raw::c_void,
-    #[doc = " optional arbitrary pointer reply's size"]
     pub pointer_reply_size: switch_size_t,
-    #[doc = " message flags"]
     pub flags: switch_core_session_message_flag_t,
     pub _file: *const ::std::os::raw::c_char,
     pub _func: *const ::std::os::raw::c_char,
@@ -10826,17 +10689,12 @@ pub struct switch_core_session_message {
     pub string_array_arg: [*const ::std::os::raw::c_char; 10usize],
     pub delivery_time: time_t,
 }
-#[doc = " \\brief A generic object to pass as a thread's session object to allow mutiple arguements and a pool"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_thread_session {
-    #[doc = " status of the thread"]
     pub running: ::std::os::raw::c_int,
-    #[doc = " mutex"]
     pub mutex: *mut switch_mutex_t,
-    #[doc = " array of void pointers to pass mutiple data objects"]
     pub objs: [*mut ::std::os::raw::c_void; 128usize],
-    #[doc = " a pointer to a memory pool if the thread has it's own pool"]
     pub input_callback: switch_input_callback_function_t,
     pub pool: *mut switch_memory_pool_t,
 }
@@ -10846,7 +10704,6 @@ pub struct switch_core_runtime {
     _unused: [u8; 0],
 }
 extern "C" {
-    #[doc = "\\defgroup mb1 Media Bugs\n\\ingroup core1\n\\{"]
     pub fn switch_core_screen_size(x: *mut ::std::os::raw::c_int, y: *mut ::std::os::raw::c_int);
 }
 extern "C" {
@@ -10914,7 +10771,6 @@ extern "C" {
     ) -> switch_vid_spy_fmt_t;
 }
 extern "C" {
-    #[doc = "\\brief Add a media bug to the session\n\\param session the session to add the bug to\n\\param function user defined module/function/reason identifying this bug\n\\param target user defined identification of the target of the bug\n\\param callback a callback for events\n\\param user_data arbitrary user data\n\\param stop_time absolute time at which the bug is automatically removed (or 0)\n\\param flags flags to choose the stream\n\\param new_bug pointer to assign new bug to\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_add(
         session: *mut switch_core_session_t,
         function: *const ::std::os::raw::c_char,
@@ -10927,11 +10783,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Pause a media bug on the session\n\\param session the session to pause the bug on sets CF_PAUSE_BUGS flag"]
     pub fn switch_core_media_bug_pause(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Resume a media bug on the session\n\\param session the session to resume the bug on, clears CF_PAUSE_BUGS flag"]
     pub fn switch_core_media_bug_resume(session: *mut switch_core_session_t);
 }
 extern "C" {
@@ -10942,13 +10796,11 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Obtain private data from a media bug\n\\param bug the bug to get the data from\n\\return the private data"]
     pub fn switch_core_media_bug_get_user_data(
         bug: *mut switch_media_bug_t,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Obtain a replace frame from a media bug\n\\param bug the bug to get the data from"]
     pub fn switch_core_media_bug_get_write_replace_frame(
         bug: *mut switch_media_bug_t,
     ) -> *mut switch_frame_t;
@@ -10969,14 +10821,12 @@ extern "C" {
     ) -> *mut switch_frame_t;
 }
 extern "C" {
-    #[doc = "\\brief Set a return replace frame\n\\param bug the bug to set the frame on\n\\param frame the frame to set"]
     pub fn switch_core_media_bug_set_write_replace_frame(
         bug: *mut switch_media_bug_t,
         frame: *mut switch_frame_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Obtain a replace frame from a media bug\n\\param bug the bug to get the data from"]
     pub fn switch_core_media_bug_get_read_replace_frame(
         bug: *mut switch_media_bug_t,
     ) -> *mut switch_frame_t;
@@ -10988,7 +10838,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Obtain the session from a media bug\n\\param bug the bug to get the data from"]
     pub fn switch_core_media_bug_get_session(
         bug: *mut switch_media_bug_t,
     ) -> *mut switch_core_session_t;
@@ -11011,7 +10860,6 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Test for the existance of a flag on an media bug\n\\param bug the object to test\n\\param flag the or'd list of flags to test\n\\return true value if the object has the flags defined"]
     pub fn switch_core_media_bug_test_flag(bug: *mut switch_media_bug_t, flag: u32) -> u32;
 }
 extern "C" {
@@ -11021,7 +10869,6 @@ extern "C" {
     pub fn switch_core_media_bug_clear_flag(bug: *mut switch_media_bug_t, flag: u32) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set a return replace frame\n\\param bug the bug to set the frame on\n\\param frame the frame to set"]
     pub fn switch_core_media_bug_set_read_replace_frame(
         bug: *mut switch_media_bug_t,
         frame: *mut switch_frame_t,
@@ -11031,7 +10878,6 @@ extern "C" {
     pub fn switch_core_cpu_count() -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Remove a media bug from the session\n\\param session the session to remove the bug from\n\\param bug bug to remove\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_remove(
         session: *mut switch_core_session_t,
         bug: *mut *mut switch_media_bug_t,
@@ -11041,21 +10887,18 @@ extern "C" {
     pub fn switch_core_media_bug_prune(session: *mut switch_core_session_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Remove media bug callback\n\\param bug bug to remove\n\\param callback callback to remove\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_remove_callback(
         session: *mut switch_core_session_t,
         callback: switch_media_bug_callback_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Close and destroy a media bug\n\\param bug bug to remove\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_close(
         bug: *mut *mut switch_media_bug_t,
         destroy: switch_bool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Remove all media bugs from the session\n\\param session the session to remove the bugs from\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_remove_all_function(
         session: *mut switch_core_session_t,
         function: *const ::std::os::raw::c_char,
@@ -11081,7 +10924,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Read a frame from the bug\n\\param bug the bug to read from\n\\param frame the frame to write the data to\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_media_bug_read(
         bug: *mut switch_media_bug_t,
         frame: *mut switch_frame_t,
@@ -11089,11 +10931,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Flush the read and write buffers for the bug\n\\param bug the bug to flush the read and write buffers on"]
     pub fn switch_core_media_bug_flush(bug: *mut switch_media_bug_t);
 }
 extern "C" {
-    #[doc = "\\brief Flush the read/write buffers for all media bugs on the session\n\\param session the session to flush the read/write buffers for all media bugs on the session"]
     pub fn switch_core_media_bug_flush_all(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
@@ -11103,7 +10943,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Initilize the port allocator\n\\param start the starting port\n\\param end the ending port\n\\param flags flags to change allocator behaviour (e.g. only even/odd portnumbers)\n\\param new_allocator new pointer for the return value\n\\return SWITCH_STATUS_SUCCESS if the operation was a success"]
     pub fn switch_core_port_allocator_new(
         ip: *const ::std::os::raw::c_char,
         start: switch_port_t,
@@ -11113,29 +10952,24 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get a port from the port allocator\n\\param alloc the allocator object\n\\param port_ptr a pointer to the port\n\\return SUCCESS"]
     pub fn switch_core_port_allocator_request_port(
         alloc: *mut switch_core_port_allocator_t,
         port_ptr: *mut switch_port_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Return unused port to the port allocator\n\\param alloc the allocator object\n\\param port the port\n\\return SUCCESS"]
     pub fn switch_core_port_allocator_free_port(
         alloc: *mut switch_core_port_allocator_t,
         port: switch_port_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief destroythe port allocator\n\\param alloc the allocator object"]
     pub fn switch_core_port_allocator_destroy(alloc: *mut *mut switch_core_port_allocator_t);
 }
 extern "C" {
-    #[doc = "\\}"]
     pub fn switch_core_test_flag(flag: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\defgroup ss Startup/Shutdown\n\\ingroup core1\n\\{\n*!\n\\brief Initilize the core\n\\param console optional FILE stream for output\n\\param flags core flags\n\\param err a pointer to set any errors to\n\\note to be called at application startup\n*/"]
     pub fn switch_core_init(
         flags: switch_core_flag_t,
         console: switch_bool_t,
@@ -11143,7 +10977,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Initilize the core and load modules\n\\param console optional FILE stream for output\n\\param flags core flags\n\\param err a pointer to set any errors to\n\\note to be called at application startup instead of switch_core_init.  Includes module loading."]
     pub fn switch_core_init_and_modload(
         flags: switch_core_flag_t,
         console: switch_bool_t,
@@ -11151,19 +10984,15 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set/Get Session Limit\n\\param new_limit new value (if > 0)\n\\return the current session limit"]
     pub fn switch_core_session_limit(new_limit: u32) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set/Get Session Rate Limit\n\\param new_limit new value (if > 0)\n\\return the current session rate limit"]
     pub fn switch_core_sessions_per_second(new_limit: u32) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Destroy the core\n\\note to be called at application shutdown"]
     pub fn switch_core_destroy() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\defgroup rwl Read/Write Locking\n\\ingroup core1\n\\{"]
     pub fn switch_core_session_io_read_lock(session: *mut switch_core_session_t)
         -> switch_status_t;
 }
@@ -11190,23 +11019,19 @@ extern "C" {
     pub fn switch_core_session_rwunlock(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\defgroup sh State Handlers\n\\ingroup core1\n\\{\n*!\n\\brief Add a global state handler\n\\param state_handler a state handler to add\n\\return the current index/priority of this handler\n*/"]
     pub fn switch_core_add_state_handler(
         state_handler: *const switch_state_handler_table_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Remove a global state handler\n\\param state_handler the state handler to remove"]
     pub fn switch_core_remove_state_handler(state_handler: *const switch_state_handler_table_t);
 }
 extern "C" {
-    #[doc = "\\brief Access a state handler\n\\param index the desired index to access\n\\return the desired state handler table or NULL when it does not exist."]
     pub fn switch_core_get_state_handler(
         index: ::std::os::raw::c_int,
     ) -> *const switch_state_handler_table_t;
 }
 extern "C" {
-    #[doc = "\\}"]
     pub fn switch_core_memory_pool_tag(
         pool: *mut switch_memory_pool_t,
         tag: *const ::std::os::raw::c_char,
@@ -11248,11 +11073,9 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Start the session's state machine\n\\param session the session on which to start the state machine"]
     pub fn switch_core_session_run(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief determine if the session's state machine is running\n\\param session the session on which to check"]
     pub fn switch_core_session_running(
         session: *mut switch_core_session_t,
     ) -> ::std::os::raw::c_uint;
@@ -11325,7 +11148,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief printf-style style printing routine.  The data is output to a string allocated from the session\n\\param session a session to use for allocation\n\\param fmt The format of the string\n\\param ... The arguments to use while printing the data\n\\return The new string"]
     pub fn switch_core_session_sprintf(
         session: *mut switch_core_session_t,
         fmt: *const ::std::os::raw::c_char,
@@ -11340,7 +11162,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief printf-style style printing routine.  The data is output to a string allocated from the pool\n\\param pool a pool to use for allocation\n\\param fmt The format of the string\n\\param ... The arguments to use while printing the data\n\\return The new string"]
     pub fn switch_core_sprintf(
         pool: *mut switch_memory_pool_t,
         fmt: *const ::std::os::raw::c_char,
@@ -11355,13 +11176,11 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the memory pool from a session\n\\param session the session to retrieve the pool from\n\\return the session's pool\n\\note to be used sparingly"]
     pub fn switch_core_session_get_pool(
         session: *mut switch_core_session_t,
     ) -> *mut switch_memory_pool_t;
 }
 extern "C" {
-    #[doc = "\\}"]
     pub fn switch_core_session_request_xml(
         endpoint_interface: *mut switch_endpoint_interface_t,
         pool: *mut *mut switch_memory_pool_t,
@@ -11369,7 +11188,6 @@ extern "C" {
     ) -> *mut switch_core_session_t;
 }
 extern "C" {
-    #[doc = "\\defgroup sessm Session Creation / Management\n\\ingroup core1\n\\{\n*!\n\\brief Allocate and return a new session from the core\n\\param endpoint_interface the endpoint interface the session is to be based on\n\\param pool the pool to use for the allocation (a new one will be used if NULL)\n\\return the newly created session\n*/"]
     pub fn switch_core_session_request_uuid(
         endpoint_interface: *mut switch_endpoint_interface_t,
         direction: switch_call_direction_t,
@@ -11411,21 +11229,18 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Provide the total number of sessions\n\\return the total number of allocated sessions"]
     pub fn switch_core_session_count() -> u32;
 }
 extern "C" {
     pub fn switch_core_session_get_id(session: *mut switch_core_session_t) -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Provide the current session_id\n\\return the total number of allocated sessions since core startup"]
     pub fn switch_core_session_id() -> switch_size_t;
 }
 extern "C" {
     pub fn switch_core_session_id_dec() -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Allocate and return a new session from the core based on a given endpoint module name\n\\param endpoint_name the name of the endpoint module\n\\param pool the pool to use\n\\return the newly created session"]
     pub fn switch_core_session_request_by_name(
         endpoint_name: *const ::std::os::raw::c_char,
         direction: switch_call_direction_t,
@@ -11433,7 +11248,6 @@ extern "C" {
     ) -> *mut switch_core_session_t;
 }
 extern "C" {
-    #[doc = "\\brief Launch the session thread (state machine) on a given session\n\\param session the session to activate the state machine on\n\\return SWITCH_STATUS_SUCCESS if the thread was launched"]
     pub fn switch_core_session_thread_launch(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
@@ -11454,13 +11268,11 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a pointer to the channel object associated with a given session\n\\param session the session to retrieve from\n\\return a pointer to the channel object"]
     pub fn switch_core_session_get_channel(
         session: *mut switch_core_session_t,
     ) -> *mut switch_channel_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal a session's state machine thread that a state change has occured"]
     pub fn switch_core_session_get_mutex(
         session: *mut switch_core_session_t,
     ) -> *mut switch_mutex_t;
@@ -11474,26 +11286,22 @@ extern "C" {
     pub fn switch_core_session_signal_state_change(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the unique identifier from a session\n\\param session the session to retrieve the uuid from\n\\return a string representing the uuid"]
     pub fn switch_core_session_get_uuid(
         session: *mut switch_core_session_t,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the unique external identifier from a session\n\\param session the session to retrieve the uuid from\n\\return a string representing the uuid"]
     pub fn switch_core_session_get_external_id(
         session: *mut switch_core_session_t,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Sets the log level for a session\n\\param session the session to set the log level on\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_session_set_loglevel(
         session: *mut switch_core_session_t,
         loglevel: switch_log_level_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get the log level for a session\n\\param session the session to get the log level from\n\\return the log level"]
     pub fn switch_core_session_get_loglevel(
         session: *mut switch_core_session_t,
     ) -> switch_log_level_t;
@@ -11550,7 +11358,6 @@ extern "C" {
     pub fn switch_core_session_raw_read(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the unique identifier from the core\n\\return a string representing the uuid"]
     pub fn switch_core_get_uuid() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -11570,7 +11377,6 @@ extern "C" {
     ) -> *mut switch_core_session_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a global variable from the core\n\\param varname the name of the variable\n\\return the value of the desired variable"]
     pub fn switch_core_get_variable(
         varname: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
@@ -11596,7 +11402,6 @@ extern "C" {
     pub fn switch_core_get_domain(dup: switch_bool_t) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Add a global variable to the core\n\\param varname the name of the variable\n\\param value the value of the variable\n\\     If \\p value is NULL, then \\p varname is deleted."]
     pub fn switch_core_set_variable(
         varname: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_char,
@@ -11606,7 +11411,6 @@ extern "C" {
     pub fn switch_core_get_variables(event: *mut *mut switch_event_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Conditionally add a global variable to the core\n\\param varname the name of the variable\n\\param value the value of the variable\n\\param val2 the value of the variable to verify against\n\\     If the global did not exist and val2==\"\", add global with value, return true\n\\     If the global exists with the value of val2, replace it, return true\n\\     If the global exists with a value other than val2, return false"]
     pub fn switch_core_set_var_conditional(
         varname: *const ::std::os::raw::c_char,
         value: *const ::std::os::raw::c_char,
@@ -11617,15 +11421,16 @@ extern "C" {
     pub fn switch_core_dump_variables(stream: *mut switch_stream_handle_t);
 }
 extern "C" {
-    #[doc = "\\brief Hangup all sessions\n\\param cause the hangup cause to apply to the hungup channels"]
     pub fn switch_core_session_hupall(cause: switch_call_cause_t);
 }
-pub const switch_hup_type_t_SHT_NONE: switch_hup_type_t = 0;
-pub const switch_hup_type_t_SHT_UNANSWERED: switch_hup_type_t = 1;
-pub const switch_hup_type_t_SHT_ANSWERED: switch_hup_type_t = 2;
-pub type switch_hup_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_hup_type_t {
+    SHT_NONE = 0,
+    SHT_UNANSWERED = 1,
+    SHT_ANSWERED = 2,
+}
 extern "C" {
-    #[doc = "\\brief Hangup all sessions which match a specific channel variable\n\\param var_name The variable name to look for\n\\param var_val The value to look for\n\\param cause the hangup cause to apply to the hungup channels"]
     pub fn switch_core_session_hupall_matching_var_ans(
         var_name: *const ::std::os::raw::c_char,
         var_val: *const ::std::os::raw::c_char,
@@ -11643,7 +11448,6 @@ extern "C" {
     pub fn switch_core_session_findall() -> *mut switch_console_callback_match_t;
 }
 extern "C" {
-    #[doc = "\\brief Hangup all sessions which match specific channel variable(s)\n\\param var_name The variable name to look for\n\\param var_val The value to look for\n\\param cause the hangup cause to apply to the hungup channels"]
     pub fn switch_core_session_hupall_matching_vars_ans(
         vars: *mut switch_event_t,
         cause: switch_call_cause_t,
@@ -11651,14 +11455,12 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Hangup all sessions that belong to an endpoint\n\\param endpoint_interface The endpoint interface\n\\param cause the hangup cause to apply to the hungup channels"]
     pub fn switch_core_session_hupall_endpoint(
         endpoint_interface: *const switch_endpoint_interface_t,
         cause: switch_call_cause_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Get the session's partner (the session its bridged to)\n\\param session The session we're searching with\n\\param partner [out] The session's partner, or NULL if it wasnt found\n\\return SWITCH_STATUS_SUCCESS or SWITCH_STATUS_FALSE if this session isn't bridged"]
     pub fn switch_core_session_perform_get_partner(
         session: *mut switch_core_session_t,
         partner: *mut *mut switch_core_session_t,
@@ -11668,14 +11470,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Send a message to another session using it's uuid\n\\param uuid_str the unique id of the session you want to send a message to\n\\param message the switch_core_session_message_t object to send\n\\return the status returned by the message handler"]
     pub fn switch_core_session_message_send(
         uuid_str: *const ::std::os::raw::c_char,
         message: *mut switch_core_session_message_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue a message on a session\n\\param session the session to queue the message to\n\\param message the message to queue\n\\return SWITCH_STATUS_SUCCESS if the message was queued"]
     pub fn switch_core_session_queue_message(
         session: *mut switch_core_session_t,
         message: *mut switch_core_session_message_t,
@@ -11697,34 +11497,29 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief pass an indication message on a session\n\\param session the session to pass the message across\n\\param indication the indication message to pass\n\\return SWITCH_STATUS_SUCCESS if the message was passed"]
     pub fn switch_core_session_pass_indication(
         session: *mut switch_core_session_t,
         indication: switch_core_session_message_types_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue an indication message on a session\n\\param session the session to queue the message to\n\\param indication the indication message to queue\n\\return SWITCH_STATUS_SUCCESS if the message was queued"]
     pub fn switch_core_session_queue_indication(
         session: *mut switch_core_session_t,
         indication: switch_core_session_message_types_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief DE-Queue an message on a given session\n\\param session the session to de-queue the message on\n\\param message the de-queued message\n\\return SWITCH_STATUS_SUCCESS if the message was de-queued"]
     pub fn switch_core_session_dequeue_message(
         session: *mut switch_core_session_t,
         message: *mut *mut switch_core_session_message_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Flush a message queue on a given session\n\\param session the session to de-queue the message on\n\\return SWITCH_STATUS_SUCCESS if the message was de-queued"]
     pub fn switch_core_session_flush_message(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue an event on another session using its uuid\n\\param uuid_str the unique id of the session you want to send a message to\n\\param event the event to send\n\\return the status returned by the message handler"]
     pub fn switch_core_session_event_send(
         uuid_str: *const ::std::os::raw::c_char,
         event: *mut *mut switch_event_t,
@@ -11736,7 +11531,6 @@ extern "C" {
     ) -> *mut switch_app_log_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute an application on a session\n\\param session the current session\n\\param application_interface the interface of the application to execute\n\\param arg application arguments\n\\warning Has to be called from the session's thread\n\\return the application's return value"]
     pub fn switch_core_session_exec(
         session: *mut switch_core_session_t,
         application_interface: *const switch_application_interface_t,
@@ -11747,7 +11541,6 @@ extern "C" {
     pub fn switch_core_session_video_reset(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Execute an application on a session\n\\param session the current session\n\\param app the application's name\n\\param arg application arguments\n\\param flags pointer to a flags variable to set the applications flags to\n\\return the application's return value"]
     pub fn switch_core_session_execute_application_get_flags(
         session: *mut switch_core_session_t,
         app: *const ::std::os::raw::c_char,
@@ -11775,7 +11568,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Run a dialplan and execute an extension\n\\param session the current session\n\\param exten the interface of the application to execute\n\\param arg application arguments\n\\note It does not change the channel back to CS_ROUTING, it manually calls the dialplan and executes the applications\n\\warning Has to be called from the session's thread\n\\return the application's return value"]
     pub fn switch_core_session_execute_exten(
         session: *mut switch_core_session_t,
         exten: *const ::std::os::raw::c_char,
@@ -11784,21 +11576,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Send an event to a session translating it to it's native message format\n\\param session the session to receive the event\n\\param event the event to receive\n\\return the status returned by the handler"]
     pub fn switch_core_session_receive_event(
         session: *mut switch_core_session_t,
         event: *mut *mut switch_event_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve private user data from a session\n\\param session the session to retrieve from\n\\return a pointer to the private data"]
     pub fn switch_core_session_get_private_class(
         session: *mut switch_core_session_t,
         index: switch_pvt_class_t,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Add private user data to a session\n\\param session the session to add used data to\n\\param private_info the used data to add\n\\return SWITCH_STATUS_SUCCESS if data is added"]
     pub fn switch_core_session_set_private_class(
         session: *mut switch_core_session_t,
         private_info: *mut ::std::os::raw::c_void,
@@ -11806,21 +11595,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Add a logical stream to a session\n\\param session the session to add the stream to\n\\param private_info an optional pointer to private data for the new stream\n\\return the stream id of the new stream"]
     pub fn switch_core_session_add_stream(
         session: *mut switch_core_session_t,
         private_info: *mut ::std::os::raw::c_void,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Retreive a logical stream from a session\n\\param session the session to add the stream to\n\\param index the index to retrieve\n\\return the stream"]
     pub fn switch_core_session_get_stream(
         session: *mut switch_core_session_t,
         index: ::std::os::raw::c_int,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Determine the number of logical streams a session has\n\\param session the session to query\n\\return the total number of logical streams"]
     pub fn switch_core_session_get_stream_count(
         session: *mut switch_core_session_t,
     ) -> ::std::os::raw::c_int;
@@ -11831,7 +11617,6 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Launch a thread designed to exist within the scope of a given session\n\\param session a session to allocate the thread from\n\\param func a function to execute in the thread\n\\param obj an arguement"]
     pub fn switch_core_session_launch_thread(
         session: *mut switch_core_session_t,
         func: ::std::option::Option<
@@ -11844,11 +11629,9 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Signal a thread using a thread session to terminate\n\\param session the session to indicate to"]
     pub fn switch_core_thread_session_end(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Launch a service thread on a session to drop inbound data\n\\param session the session the launch thread on"]
     pub fn switch_core_service_session_av(
         session: *mut switch_core_session_t,
         audio: switch_bool_t,
@@ -11856,7 +11639,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Request an outgoing session spawned from an existing session using a desired endpoing module\n\\param session the originating session\n\\param var_event switch_event_t containing paramaters\n\\param endpoint_name the name of the module to use for the new session\n\\param caller_profile the originator's caller profile\n\\param new_session a NULL pointer to aim at the newly created session\n\\param pool optional existing memory pool to donate to the session\n\\param flags flags to use\n\\return the cause code of the attempted call"]
     pub fn switch_core_session_outgoing_channel(
         session: *mut switch_core_session_t,
         var_event: *mut switch_event_t,
@@ -11869,7 +11651,6 @@ extern "C" {
     ) -> switch_call_cause_t;
 }
 extern "C" {
-    #[doc = "\\brief Receive a message on a given session\n\\param session the session to receive the message from\n\\param message the message to recieve\n\\return the status returned by the message handler"]
     pub fn switch_core_session_perform_receive_message(
         session: *mut switch_core_session_t,
         message: *mut switch_core_session_message_t,
@@ -11879,21 +11660,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue an event on a given session\n\\param session the session to queue the message on\n\\param event the event to queue\n\\return the status returned by the message handler"]
     pub fn switch_core_session_queue_event(
         session: *mut switch_core_session_t,
         event: *mut *mut switch_event_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Indicate the number of waiting events on a session\n\\param session the session to check\n\\return the number of events"]
     pub fn switch_core_session_event_count(session: *mut switch_core_session_t) -> u32;
 }
 extern "C" {
     pub fn switch_core_session_messages_waiting(session: *mut switch_core_session_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief DE-Queue an event on a given session\n\\param session the session to de-queue the message on\n\\param event the de-queued event\n\\param force force the dequeue\n\\return the  SWITCH_STATUS_SUCCESS if the event was de-queued"]
     pub fn switch_core_session_dequeue_event(
         session: *mut switch_core_session_t,
         event: *mut *mut switch_event_t,
@@ -11901,7 +11679,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue a private event on a given session\n\\param session the session to queue the message on\n\\param event the event to queue\n\\param priority event has high priority\n\\return the status returned by the message handler"]
     pub fn switch_core_session_queue_private_event(
         session: *mut switch_core_session_t,
         event: *mut *mut switch_event_t,
@@ -11909,22 +11686,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Indicate the number of waiting private events on a session\n\\param session the session to check\n\\return the number of events"]
     pub fn switch_core_session_private_event_count(session: *mut switch_core_session_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief DE-Queue a private event on a given session\n\\param session the session to de-queue the message on\n\\param event the de-queued event\n\\return the  SWITCH_STATUS_SUCCESS if the event was de-queued"]
     pub fn switch_core_session_dequeue_private_event(
         session: *mut switch_core_session_t,
         event: *mut *mut switch_event_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Flush the private event queue of a session\n\\param session the session to flush\n\\return SWITCH_STATUS_SUCCESS if the events have been flushed"]
     pub fn switch_core_session_flush_private_events(session: *mut switch_core_session_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Read a frame from a session\n\\param session the session to read from\n\\param frame a NULL pointer to a frame to aim at the newly read frame\n\\param flags I/O flags to modify behavior (i.e. non blocking)\n\\param stream_id which logical media channel to use\n\\return SWITCH_STATUS_SUCCESS a the frame was read"]
     pub fn switch_core_session_read_frame(
         session: *mut switch_core_session_t,
         frame: *mut *mut switch_frame_t,
@@ -11947,7 +11720,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Read a video frame from a session\n\\param session the session to read from\n\\param frame a NULL pointer to a frame to aim at the newly read frame\n\\param flags I/O flags to modify behavior (i.e. non blocking)\n\\param stream_id which logical media channel to use\n\\return SWITCH_STATUS_SUCCESS a if the frame was read"]
     pub fn switch_core_session_read_video_frame(
         session: *mut switch_core_session_t,
         frame: *mut *mut switch_frame_t,
@@ -11956,7 +11728,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write a video frame to a session\n\\param session the session to write to\n\\param frame a pointer to a frame to write\n\\param flags I/O flags to modify behavior (i.e. non blocking)\n\\param stream_id which logical media channel to use\n\\return SWITCH_STATUS_SUCCESS a if the frame was written"]
     pub fn switch_core_session_write_video_frame(
         session: *mut switch_core_session_t,
         frame: *mut switch_frame_t,
@@ -11997,7 +11768,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Reset the buffers and resampler on a session\n\\param session the session to reset\n\\param flush_dtmf flush all queued dtmf events too"]
     pub fn switch_core_session_reset(
         session: *mut switch_core_session_t,
         flush_dtmf: switch_bool_t,
@@ -12005,7 +11775,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Reset the buffers and resampler on a session, fail if can not lock codec mutexes\n\\param session the session to reset\n\\param flush_dtmf flush all queued dtmf events too\n\\return SWITCH_STATUS_SUCCESS if the session was reset"]
     pub fn switch_core_session_try_reset(
         session: *mut switch_core_session_t,
         flush_dtmf: switch_bool_t,
@@ -12013,7 +11782,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write a frame to a session\n\\param session the session to write to\n\\param frame the frame to write\n\\param flags I/O flags to modify behavior (i.e. non blocking)\n\\param stream_id which logical media channel to use\n\\return SWITCH_STATUS_SUCCESS a the frame was written"]
     pub fn switch_core_session_write_frame(
         session: *mut switch_core_session_t,
         frame: *mut switch_frame_t,
@@ -12031,46 +11799,39 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Send DTMF to a session\n\\param session session to send DTMF to\n\\param dtmf dtmf to send to the session\n\\return SWITCH_STATUS_SUCCESS if the dtmf was written"]
     pub fn switch_core_session_send_dtmf(
         session: *mut switch_core_session_t,
         dtmf: *const switch_dtmf_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Send DTMF to a session\n\\param session session to send DTMF to\n\\param dtmf_string string to send to the session\n\\return SWITCH_STATUS_SUCCESS if the dtmf was written"]
     pub fn switch_core_session_send_dtmf_string(
         session: *mut switch_core_session_t,
         dtmf_string: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief RECV DTMF on a session\n\\param session session to recv DTMF from\n\\param dtmf string to recv from the session\n\\return SWITCH_STATUS_SUCCESS if the dtmf is ok to queue"]
     pub fn switch_core_session_recv_dtmf(
         session: *mut switch_core_session_t,
         dtmf: *const switch_dtmf_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\defgroup hashf Hash Functions\n\\ingroup core1\n\\{\n*!\n\\brief Initialize a hash table\n\\param hash a NULL pointer to a hash table to aim at the new hash\n\\param pool the pool to use for the new hash\n\\return SWITCH_STATUS_SUCCESS if the hash is created\n*/"]
     pub fn switch_core_hash_init_case(
         hash: *mut *mut switch_hash_t,
         case_sensitive: switch_bool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an existing hash table\n\\param hash the hash to destroy\n\\return SWITCH_STATUS_SUCCESS if the hash is destroyed"]
     pub fn switch_core_hash_destroy(hash: *mut *mut switch_hash_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Insert data into a hash with an auto-generated key based on the data pointer\n\\param hash the hash to add data to\n\\param data unique pointer to add\n\\return SWITCH_STATUS_SUCCESS if the data is added"]
     pub fn switch_core_hash_insert_pointer(
         hash: *mut switch_hash_t,
         data: *const ::std::os::raw::c_void,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Insert data into a hash and set flags so the value is automatically freed on delete\n\\param hash the hash to add data to\n\\param key the name of the key to add the data to\n\\param data the data to add\n\\return SWITCH_STATUS_SUCCESS if the data is added\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_auto_free(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12078,7 +11839,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Insert strdup(str) into a hash and set flags so the value is automatically freed on delete\n\\param hash the hash to add str to\n\\param key the name of the key to add the str to\n\\param str string to strdup and add\n\\return SWITCH_STATUS_SUCCESS if the data is added\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_dup_auto_free(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12086,7 +11846,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Insert data into a hash\n\\param hash the hash to add data to\n\\param key the name of the key to add the data to\n\\param data the data to add\n\\return SWITCH_STATUS_SUCCESS if the data is added\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_destructor(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12095,7 +11854,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Allocate memory and insert into a hash\n\\param hash the hash to add data to\n\\param key the name of the key to add the data to\n\\param size the size in bytes to allocate\n\\return pointer to the allocated memory\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_alloc_destructor(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12104,7 +11862,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Insert strdup(str) into a hash\n\\param hash the hash to add str to\n\\param key the name of the key to add the str to\n\\param str string to strdup and add\n\\return SWITCH_STATUS_SUCCESS if the data is added\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_dup_destructor(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12113,7 +11870,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Insert data into a hash\n\\param hash the hash to add data to\n\\param key the name of the key to add the data to\n\\param data the data to add\n\\param mutex optional mutex to lock\n\\return SWITCH_STATUS_SUCCESS if the data is added\n\\note the string key must be a constant or a dynamic string"]
     pub fn switch_core_hash_insert_locked(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12122,7 +11878,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve data from a given hash\n\\param hash the hash to retrieve from\n\\param key the key to retrieve\n\\param mutex optional rwlock to wrlock\n\\return a pointer to the data held in the key"]
     pub fn switch_core_hash_insert_wrlock(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12131,14 +11886,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Delete data from a hash based on desired key\n\\param hash the hash to delete from\n\\param key the key from which to delete the data\n\\return The value stored if the data is deleted otherwise NULL"]
     pub fn switch_core_hash_delete(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Delete data from a hash based on desired key\n\\param hash the hash to delete from\n\\param key the key from which to delete the data\n\\param mutex optional mutex to lock\n\\return a pointer to the deleted data"]
     pub fn switch_core_hash_delete_locked(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12146,7 +11899,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Delete data from a hash based on desired key\n\\param hash the hash to delete from\n\\param key the key from which to delete the data\n\\param mutex optional rwlock to wrlock\n\\return a pointer to the deleted data"]
     pub fn switch_core_hash_delete_wrlock(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12154,7 +11906,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Delete data from a hash based on callback function\n\\param hash the hash to delete from\n\\param callback the function to call which returns SWITCH_TRUE to delete, SWITCH_FALSE to preserve\n\\return SWITCH_STATUS_SUCCESS if any data is deleted"]
     pub fn switch_core_hash_delete_multi(
         hash: *mut switch_hash_t,
         callback: switch_hash_delete_callback_t,
@@ -12162,14 +11913,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve data from a given hash\n\\param hash the hash to retrieve from\n\\param key the key to retrieve\n\\return a pointer to the data held in the key"]
     pub fn switch_core_hash_find(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve data from a given hash\n\\param hash the hash to retrieve from\n\\param key the key to retrieve\n\\param mutex optional mutex to lock\n\\return a pointer to the data held in the key"]
     pub fn switch_core_hash_find_locked(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12177,7 +11926,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve data from a given hash\n\\param hash the hash to retrieve from\n\\param key the key to retrieve\n\\param mutex optional rwlock to rdlock\n\\return a pointer to the data held in the key"]
     pub fn switch_core_hash_find_rdlock(
         hash: *mut switch_hash_t,
         key: *const ::std::os::raw::c_char,
@@ -12185,22 +11933,18 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Gets the first element of a hashtable\n\\param deprecate_me [deprecated] NULL\n\\param hash the hashtable to use\n\\return The element, or NULL if it wasn't found"]
     pub fn switch_core_hash_first_iter(
         hash: *mut switch_hash_t,
         hi: *mut switch_hash_index_t,
     ) -> *mut switch_hash_index_t;
 }
 extern "C" {
-    #[doc = "\\brief tells if a hash is empty\n\\param hash the hashtable\n\\return TRUE or FALSE depending on if the hash is empty"]
     pub fn switch_core_hash_empty(hash: *mut switch_hash_t) -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief Gets the next element of a hashtable\n\\param hi The current element\n\\return The next element, or NULL if there are no more"]
     pub fn switch_core_hash_next(hi: *mut *mut switch_hash_index_t) -> *mut switch_hash_index_t;
 }
 extern "C" {
-    #[doc = "\\brief Gets the key and value of the current hash element\n\\param hi The current element\n\\param key [out] the key\n\\param klen [out] the key's size\n\\param val [out] the value"]
     pub fn switch_core_hash_this(
         hi: *mut switch_hash_index_t,
         key: *mut *const ::std::os::raw::c_void,
@@ -12240,7 +11984,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\defgroup timer Timer Functions\n\\ingroup core1\n\\{\n*!\n\\brief Request a timer handle using given time module\n\\param timer a timer object to allocate to\n\\param timer_name the name of the timer module to use\n\\param interval desired interval\n\\param samples the number of samples to increment on each cycle\n\\param pool the memory pool to use for allocation\n\\return\n*/"]
     pub fn switch_core_timer_init(
         timer: *mut switch_timer_t,
         timer_name: *const ::std::os::raw::c_char,
@@ -12253,25 +11996,21 @@ extern "C" {
     pub fn switch_time_calibrate_clock();
 }
 extern "C" {
-    #[doc = "\\brief Wait for one cycle on an existing timer\n\\param timer the timer to wait on\n\\return the newest sample count"]
     pub fn switch_core_timer_next(timer: *mut switch_timer_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Step the timer one step\n\\param timer the timer to wait on\n\\return the newest sample count"]
     pub fn switch_core_timer_step(timer: *mut switch_timer_t) -> switch_status_t;
 }
 extern "C" {
     pub fn switch_core_timer_sync(timer: *mut switch_timer_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Check if the current step has been exceeded\n\\param timer the timer to wait on\n\\param step increment timer if a tick was detected\n\\return the newest sample count"]
     pub fn switch_core_timer_check(
         timer: *mut switch_timer_t,
         step: switch_bool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an allocated timer\n\\param timer timer to destroy\n\\return SWITCH_STATUS_SUCCESS after destruction"]
     pub fn switch_core_timer_destroy(timer: *mut switch_timer_t) -> switch_status_t;
 }
 extern "C" {
@@ -12309,7 +12048,6 @@ extern "C" {
     pub fn switch_core_codec_reset(codec: *mut switch_codec_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Encode data using a codec handle\n\\param codec the codec handle to use\n\\param other_codec the codec handle of the last codec used\n\\param decoded_data the raw data\n\\param decoded_data_len then length of the raw buffer\n\\param decoded_rate the rate of the decoded data\n\\param encoded_data the buffer to write the encoded data to\n\\param encoded_data_len the size of the encoded_data buffer\n\\param encoded_rate the new rate of the encoded data\n\\param flag flags to exchange\n\\return SWITCH_STATUS_SUCCESS if the data was encoded\n\\note encoded_data_len will be rewritten to the in-use size of encoded_data"]
     pub fn switch_core_codec_encode(
         codec: *mut switch_codec_t,
         other_codec: *mut switch_codec_t,
@@ -12323,7 +12061,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Decode data using a codec handle\n\\param codec the codec handle to use\n\\param other_codec the codec handle of the last codec used\n\\param encoded_data the buffer to read the encoded data from\n\\param encoded_data_len the size of the encoded_data buffer\n\\param encoded_rate the rate of the encoded data\n\\param decoded_data the raw data buffer\n\\param decoded_data_len then length of the raw buffer\n\\param decoded_rate the new rate of the decoded data\n\\param flag flags to exchange\n\\return SWITCH_STATUS_SUCCESS if the data was decoded\n\\note decoded_data_len will be rewritten to the in-use size of decoded_data"]
     pub fn switch_core_codec_decode(
         codec: *mut switch_codec_t,
         other_codec: *mut switch_codec_t,
@@ -12337,14 +12074,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Encode video data using a codec handle\n\\param codec the codec handle to use\n\\param frame the frame to encode"]
     pub fn switch_core_codec_encode_video(
         codec: *mut switch_codec_t,
         frame: *mut switch_frame_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief send control data using a codec handle\n\\param codec the codec handle to use\n\\param cmd the command to send\n\\param ctype the type of the arguement\n\\param cmd_data a void pointer to the data matching the passed type\n\\param atype the type of the extra arguement\n\\param cmd_arg a void pointer to the data matching the passed type\n\\param rtype the type of the response if any\n\\param ret_data a void pointer to a pointer of return data\n\\return SWITCH_STATUS_SUCCESS if the command was received"]
     pub fn switch_core_codec_control(
         codec: *mut switch_codec_t,
         cmd: switch_codec_control_command_t,
@@ -12357,25 +12092,21 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Decode video data using a codec handle\n\\param codec the codec handle to use\n\\param frame the frame to be decoded\n\\param img the new image in I420 format, allocated by the codec\n\\param flag flags to exchange\n\\return SWITCH_STATUS_SUCCESS if the data was decoded, and a non-NULL img"]
     pub fn switch_core_codec_decode_video(
         codec: *mut switch_codec_t,
         frame: *mut switch_frame_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an initalized codec handle\n\\param codec the codec handle to destroy\n\\return SWITCH_STATUS_SUCCESS if the codec was destroyed"]
     pub fn switch_core_codec_destroy(codec: *mut switch_codec_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign the read codec to a given session\n\\param session session to add the codec to\n\\param codec the codec to add\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_session_set_read_codec(
         session: *mut switch_core_session_t,
         codec: *mut switch_codec_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign the original read codec to a given session.  This is the read codec used by an endpoint.\n\\param session session to add the codec to\n\\param codec the codec to add\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_session_set_real_read_codec(
         session: *mut switch_core_session_t,
         codec: *mut switch_codec_t,
@@ -12430,76 +12161,64 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the read codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_read_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the effevtive read codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_effective_read_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign the write codec to a given session\n\\param session session to add the codec to\n\\param codec the codec to add\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_session_set_write_codec(
         session: *mut switch_core_session_t,
         codec: *mut switch_codec_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the write codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_write_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the effevtive write codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_effective_write_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign the video_read codec to a given session\n\\param session session to add the codec to\n\\param codec the codec to add\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_session_set_video_read_codec(
         session: *mut switch_core_session_t,
         codec: *mut switch_codec_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the video_read codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_video_read_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign the video_write codec to a given session\n\\param session session to add the codec to\n\\param codec the codec to add\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_session_set_video_write_codec(
         session: *mut switch_core_session_t,
         codec: *mut switch_codec_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the video_write codec from a given session\n\\param session session to retrieve from\n\\return a pointer to the codec"]
     pub fn switch_core_session_get_video_write_codec(
         session: *mut switch_core_session_t,
     ) -> *mut switch_codec_t;
 }
 extern "C" {
-    #[doc = "\\}\n\\defgroup db Database Functions\n\\ingroup core1\n\\{\n*!\n\\brief Open a core db (SQLite) file\n\\param filename the path to the db file to open\n\\return the db handle\n*/"]
     pub fn switch_core_db_open_file(
         filename: *const ::std::os::raw::c_char,
     ) -> *mut switch_core_db_t;
 }
 extern "C" {
-    #[doc = "\\brief Open a core db (SQLite) in-memory\n\\param uri to the db to open\n\\return the db handle"]
     pub fn switch_core_db_open_in_memory(
         uri: *const ::std::os::raw::c_char,
     ) -> *mut switch_core_db_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute a sql stmt until it is accepted\n\\param db the db handle\n\\param sql the sql to execute\n\\param retries the number of retries to use\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_core_db_persistant_execute(
         db: *mut switch_core_db_t,
         sql: *mut ::std::os::raw::c_char,
@@ -12514,7 +12233,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief perform a test query then perform a reactive query if the first one fails\n\\param db the db handle\n\\param test_sql the test sql\n\\param drop_sql the drop sql\n\\param reactive_sql the reactive sql"]
     pub fn switch_core_db_test_reactive(
         db: *mut switch_core_db_t,
         test_sql: *mut ::std::os::raw::c_char,
@@ -12523,7 +12241,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\defgroup Media File Functions\n\\ingroup core1\n\\{"]
     pub fn switch_core_perform_file_open(
         file: *const ::std::os::raw::c_char,
         func: *const ::std::os::raw::c_char,
@@ -12537,7 +12254,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Read media from a file handle\n\\param fh the file handle to read from (must be initilized by you memset all 0 for read, fill in channels and rate for write)\n\\param data the buffer to read the data to\n\\param len the max size of the buffer\n\\return SWITCH_STATUS_SUCCESS with len adjusted to the bytes read if successful"]
     pub fn switch_core_file_read(
         fh: *mut switch_file_handle_t,
         data: *mut ::std::os::raw::c_void,
@@ -12545,7 +12261,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write media to a file handle\n\\param fh the file handle to write to\n\\param data the buffer to write\n\\param len the amount of data to write from the buffer\n\\return SWITCH_STATUS_SUCCESS with len adjusted to the bytes written if successful"]
     pub fn switch_core_file_write(
         fh: *mut switch_file_handle_t,
         data: *mut ::std::os::raw::c_void,
@@ -12553,7 +12268,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write media to a file handle\n\\param fh the file handle to write to\n\\param data the buffer to write\n\\param len the amount of data to write from the buffer\n\\return SWITCH_STATUS_SUCCESS with len adjusted to the bytes written if successful"]
     pub fn switch_core_file_write_video(
         fh: *mut switch_file_handle_t,
         frame: *mut switch_frame_t,
@@ -12567,7 +12281,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Seek a position in a file\n\\param fh the file handle to seek\n\\param cur_pos the current position in the file\n\\param samples the amount of samples to seek from the beginning of the file\n\\param whence the indicator (see traditional seek)\n\\return SWITCH_STATUS_SUCCESS with cur_pos adjusted to new position"]
     pub fn switch_core_file_seek(
         fh: *mut switch_file_handle_t,
         cur_pos: *mut ::std::os::raw::c_uint,
@@ -12576,7 +12289,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set metadata to the desired string\n\\param fh the file handle to set data to\n\\param col the enum of the col name\n\\param string the string to add\n\\return SWITCH_STATUS_SUCCESS with cur_pos adjusted to new position"]
     pub fn switch_core_file_set_string(
         fh: *mut switch_file_handle_t,
         col: switch_audio_col_t,
@@ -12584,7 +12296,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief get metadata of the desired string\n\\param fh the file handle to get data from\n\\param col the enum of the col name\n\\param string pointer to the string to fetch\n\\return SWITCH_STATUS_SUCCESS with cur_pos adjusted to new position"]
     pub fn switch_core_file_get_string(
         fh: *mut switch_file_handle_t,
         col: switch_audio_col_t,
@@ -12592,11 +12303,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Pre close an open file handle, then can get file size etc., no more wirte to the file\n\\param fh the file handle to close\n\\return SWITCH_STATUS_SUCCESS if the file handle was pre closed"]
     pub fn switch_core_file_pre_close(fh: *mut switch_file_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Duplicates a file handle using another pool\n\\param oldfh the file handle to duplicate\n\\param newfh pointer to assign new file handle to\n\\param pool the pool to use (NULL for new pool)\n\\return SWITCH_STATUS_SUCCESS if the file handle was duplicated"]
     pub fn switch_core_file_handle_dup(
         oldfh: *mut switch_file_handle_t,
         newfh: *mut *mut switch_file_handle_t,
@@ -12604,7 +12313,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Close an open file handle\n\\param fh the file handle to close\n\\return SWITCH_STATUS_SUCCESS if the file handle was closed"]
     pub fn switch_core_file_close(fh: *mut switch_file_handle_t) -> switch_status_t;
 }
 extern "C" {
@@ -12624,7 +12332,6 @@ extern "C" {
     ) -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\defgroup speech ASR/TTS Functions\n\\ingroup core1\n\\{\n*!\n\\brief Open a speech handle\n\\param sh a speech handle to use\n\\param module_name the speech module to use\n\\param voice_name the desired voice name\n\\param rate the sampling rate\n\\param interval the sampling interval\n\\param flags tts flags\n\\param pool the pool to use (NULL for new pool)\n\\return SWITCH_STATUS_SUCCESS if the handle is opened\n*/"]
     pub fn switch_core_speech_open(
         sh: *mut switch_speech_handle_t,
         module_name: *const ::std::os::raw::c_char,
@@ -12637,7 +12344,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Feed text to the TTS module\n\\param sh the speech handle to feed\n\\param text the buffer to write\n\\param flags flags in/out for fine tuning\n\\return SWITCH_STATUS_SUCCESS with len adjusted to the bytes written if successful"]
     pub fn switch_core_speech_feed_tts(
         sh: *mut switch_speech_handle_t,
         text: *const ::std::os::raw::c_char,
@@ -12645,11 +12351,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Flush TTS audio on a given handle\n\\param sh the speech handle"]
     pub fn switch_core_speech_flush_tts(sh: *mut switch_speech_handle_t);
 }
 extern "C" {
-    #[doc = "\\brief Set a text parameter on a TTS handle\n\\param sh the speech handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_speech_text_param_tts(
         sh: *mut switch_speech_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12657,7 +12361,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set a numeric parameter on a TTS handle\n\\param sh the speech handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_speech_numeric_param_tts(
         sh: *mut switch_speech_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12665,7 +12368,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set a float parameter on a TTS handle\n\\param sh the speech handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_speech_float_param_tts(
         sh: *mut switch_speech_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12673,7 +12375,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Read rendered audio from the TTS module\n\\param sh the speech handle to read\n\\param data the buffer to read to\n\\param datalen the max size / written size of the data\n\\param rate the rate of the read audio\n\\param flags flags in/out for fine tuning\n\\return SWITCH_STATUS_SUCCESS with len adjusted to the bytes written if successful"]
     pub fn switch_core_speech_read_tts(
         sh: *mut switch_speech_handle_t,
         data: *mut ::std::os::raw::c_void,
@@ -12682,14 +12383,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Close an open speech handle\n\\param sh the speech handle to close\n\\param flags flags in/out for fine tuning\n\\return SWITCH_STATUS_SUCCESS if the file handle was closed"]
     pub fn switch_core_speech_close(
         sh: *mut switch_speech_handle_t,
         flags: *mut switch_speech_flag_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Open an asr handle\n\\param ah the asr handle to open\n\\param module_name the name of the asr module\n\\param codec the preferred codec\n\\param rate the preferred rate\n\\param dest the destination address\n\\param flags flags to influence behaviour\n\\param pool the pool to use (NULL for new pool)\n\\return SWITCH_STATUS_SUCCESS if the asr handle was opened"]
     pub fn switch_core_asr_open(
         ah: *mut switch_asr_handle_t,
         module_name: *const ::std::os::raw::c_char,
@@ -12701,14 +12400,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Close an asr handle\n\\param ah the handle to close\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_close(
         ah: *mut switch_asr_handle_t,
         flags: *mut switch_asr_flag_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Feed audio data to an asr handle\n\\param ah the handle to feed data to\n\\param data a pointer to the data\n\\param len the size in bytes of the data\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_feed(
         ah: *mut switch_asr_handle_t,
         data: *mut ::std::os::raw::c_void,
@@ -12717,7 +12414,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Feed DTMF to an asr handle\n\\param ah the handle to feed data to\n\\param dtmf a string of DTMF digits\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_feed_dtmf(
         ah: *mut switch_asr_handle_t,
         dtmf: *const switch_dtmf_t,
@@ -12725,14 +12421,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Check an asr handle for results\n\\param ah the handle to check\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_check_results(
         ah: *mut switch_asr_handle_t,
         flags: *mut switch_asr_flag_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get results from an asr handle\n\\param ah the handle to get results from\n\\param xmlstr a pointer to dynamically allocate an xml result string to\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_get_results(
         ah: *mut switch_asr_handle_t,
         xmlstr: *mut *mut ::std::os::raw::c_char,
@@ -12740,7 +12434,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get result headers from an asr handle\n\\param ah the handle to get results from\n\\param headers a pointer to dynamically allocate an switch_event_t result to\n\\param flags flags to influence behaviour\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_get_result_headers(
         ah: *mut switch_asr_handle_t,
         headers: *mut *mut switch_event_t,
@@ -12748,7 +12441,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Load a grammar to an asr handle\n\\param ah the handle to load to\n\\param grammar the grammar text, file path, or URI\n\\param name the grammar name\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_load_grammar(
         ah: *mut switch_asr_handle_t,
         grammar: *const ::std::os::raw::c_char,
@@ -12756,44 +12448,36 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Unload a grammar from an asr handle\n\\param ah the handle to unload the grammar from\n\\param name the name of the grammar to unload\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_unload_grammar(
         ah: *mut switch_asr_handle_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Enable a grammar from an asr handle\n\\param ah the handle to enable the grammar from\n\\param name the name of the grammar to enable\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_enable_grammar(
         ah: *mut switch_asr_handle_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Disable a grammar from an asr handle\n\\param ah the handle to disable the grammar from\n\\param name the name of the grammar to disable\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_disable_grammar(
         ah: *mut switch_asr_handle_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Disable all grammars from an asr handle\n\\param ah the handle to disable the grammars from\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_disable_all_grammars(ah: *mut switch_asr_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Pause detection on an asr handle\n\\param ah the handle to pause\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_pause(ah: *mut switch_asr_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Resume detection on an asr handle\n\\param ah the handle to resume\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_resume(ah: *mut switch_asr_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Start input timers on an asr handle\n\\param ah the handle to start timers on\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_core_asr_start_input_timers(ah: *mut switch_asr_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set a text parameter on an asr handle\n\\param sh the asr handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_asr_text_param(
         ah: *mut switch_asr_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12801,7 +12485,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set a numeric parameter on an asr handle\n\\param sh the asr handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_asr_numeric_param(
         ah: *mut switch_asr_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12809,7 +12492,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set a float parameter on an asr handle\n\\param sh the asr handle\n\\param param the parameter\n\\param val the value"]
     pub fn switch_core_asr_float_param(
         ah: *mut switch_asr_handle_t,
         param: *mut ::std::os::raw::c_char,
@@ -12817,7 +12499,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\defgroup dir Directory Service Functions\n\\ingroup core1\n\\{\n*!\n\\brief Open a directory handle\n\\param dh a directory handle to use\n\\param module_name the directory module to use\n\\param source the source of the db (ip, hostname, path etc)\n\\param dsn the username or designation of the lookup\n\\param passwd the password\n\\param pool the pool to use (NULL for new pool)\n\\return SWITCH_STATUS_SUCCESS if the handle is opened\n*/"]
     pub fn switch_core_directory_open(
         dh: *mut switch_directory_handle_t,
         module_name: *mut ::std::os::raw::c_char,
@@ -12828,7 +12509,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Query a directory handle\n\\param dh a directory handle to use\n\\param base the base to query against\n\\param query a string of filters or query data\n\\return SWITCH_STATUS_SUCCESS if the query is successful"]
     pub fn switch_core_directory_query(
         dh: *mut switch_directory_handle_t,
         base: *mut ::std::os::raw::c_char,
@@ -12836,11 +12516,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Obtain the next record in a lookup\n\\param dh a directory handle to use\n\\return SWITCH_STATUS_SUCCESS if another record exists"]
     pub fn switch_core_directory_next(dh: *mut switch_directory_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Obtain the next name/value pair in the current record\n\\param dh a directory handle to use\n\\param var a pointer to pointer of the name to fill in\n\\param val a pointer to pointer of the value to fill in\n\\return SWITCH_STATUS_SUCCESS if an item exists"]
     pub fn switch_core_directory_next_pair(
         dh: *mut switch_directory_handle_t,
         var: *mut *mut ::std::os::raw::c_char,
@@ -12848,34 +12526,27 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Close an open directory handle\n\\param dh a directory handle to close\n\\return SWITCH_STATUS_SUCCESS if handle was closed"]
     pub fn switch_core_directory_close(dh: *mut switch_directory_handle_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\defgroup misc Misc\n\\ingroup core1\n\\{\n*!\n\\brief Retrieve a FILE stream of a given text channel name\n\\param channel text channel enumeration\n\\return a FILE stream\n*/"]
     pub fn switch_core_data_channel(channel: switch_text_channel_t) -> *mut FILE;
 }
 extern "C" {
-    #[doc = "\\brief Determines if the core is ready to take calls\n\\return SWITCH_TRUE or SWITCH_FALSE"]
     pub fn switch_core_ready() -> switch_bool_t;
 }
 extern "C" {
     pub fn switch_core_running() -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief Determines if the core is ready to take inbound calls\n\\return SWITCH_TRUE or SWITCH_FALSE"]
     pub fn switch_core_ready_inbound() -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief Determines if the core is ready to place outbound calls\n\\return SWITCH_TRUE or SWITCH_FALSE"]
     pub fn switch_core_ready_outbound() -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief return core flags\n\\return core flags"]
     pub fn switch_core_flags() -> switch_core_flag_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute a management operation.\n\\param relative_oid the relative oid of the operation.\n\\param action the action to perform.\n\\param data input/output string.\n\\param datalen size in bytes of data.\n\\return SUCCESS on sucess."]
     pub fn switch_core_management_exec(
         relative_oid: *mut ::std::os::raw::c_char,
         action: switch_management_action_t,
@@ -12884,11 +12555,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Switch on the privilege awareness for the process and request required privileges\n\\return 0 on success"]
     pub fn switch_core_set_process_privileges() -> i32;
 }
 extern "C" {
-    #[doc = "\\brief Set the maximum priority the process can obtain\n\\return 0 on success"]
     pub fn set_normal_priority() -> i32;
 }
 extern "C" {
@@ -12901,44 +12570,36 @@ extern "C" {
     pub fn set_low_priority() -> i32;
 }
 extern "C" {
-    #[doc = "\\brief Change user and/or group of the running process\n\\param user name of the user to switch to (or NULL)\n\\param group name of the group to switch to (or NULL)\n\\return 0 on success, -1 otherwise\n\nSeveral possible combinations:\n- user only (group NULL): switch to user and his primary group (and supplementary groups, if supported)\n- user and group: switch to user and specified group (only)\n- group only (user NULL): switch group only"]
     pub fn change_user_group(
         user: *const ::std::os::raw::c_char,
         group: *const ::std::os::raw::c_char,
     ) -> i32;
 }
 extern "C" {
-    #[doc = "\\brief Run endlessly until the system is shutdown\n\\param bg divert console to the background"]
     pub fn switch_core_runtime_loop(bg: ::std::os::raw::c_int);
 }
 extern "C" {
-    #[doc = "\\brief Set the output console to the desired file\n\\param console the file path"]
     pub fn switch_core_set_console(console: *const ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Breakdown a number of milliseconds into various time spec\n\\param total_ms a number of milliseconds\n\\param duration an object to store the results"]
     pub fn switch_core_measure_time(
         total_ms: switch_time_t,
         duration: *mut switch_core_time_duration_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Number of microseconds the system has been up\n\\return a number of microseconds"]
     pub fn switch_core_uptime() -> switch_time_t;
 }
 extern "C" {
-    #[doc = "\\brief send a control message to the core\n\\param cmd the command\n\\param val the command arguement (if needed)\n\\return 0 on success nonzero on error"]
     pub fn switch_core_session_ctl(
         cmd: switch_session_ctl_t,
         val: *mut ::std::os::raw::c_void,
     ) -> i32;
 }
 extern "C" {
-    #[doc = "\\brief Get the output console\n\\return the FILE stream"]
     pub fn switch_core_get_console() -> *mut FILE;
 }
 extern "C" {
-    #[doc = "\\brief Launch a thread"]
     pub fn switch_core_launch_thread(
         func: ::std::option::Option<
             unsafe extern "C" fn(
@@ -12951,18 +12612,15 @@ extern "C" {
     ) -> *mut switch_thread_t;
 }
 extern "C" {
-    #[doc = "\\brief Initiate Globals"]
     pub fn switch_core_set_globals();
 }
 extern "C" {
-    #[doc = "\\brief Checks if 2 sessions are using the same endpoint module\n\\param a the first session\n\\param b the second session\n\\return TRUE or FALSE"]
     pub fn switch_core_session_compare(
         a: *mut switch_core_session_t,
         b: *mut switch_core_session_t,
     ) -> u8;
 }
 extern "C" {
-    #[doc = "\\brief Checks if a session is using a specific endpoint\n\\param session the session\n\\param endpoint_interface interface of the endpoint to check\n\\return TRUE or FALSE"]
     pub fn switch_core_session_check_interface(
         session: *mut switch_core_session_t,
         endpoint_interface: *const switch_endpoint_interface_t,
@@ -13013,7 +12671,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Get the current epoch time in microseconds\n\\return the current epoch time in microseconds"]
     pub fn switch_micro_time_now() -> switch_time_t;
 }
 extern "C" {
@@ -13041,7 +12698,6 @@ extern "C" {
     pub fn switch_time_sync();
 }
 extern "C" {
-    #[doc = "\\brief Get the current epoch time\n\\param [out] (optional) The current epoch time\n\\return The current epoch time"]
     pub fn switch_epoch_time_now(t: *mut time_t) -> time_t;
 }
 extern "C" {
@@ -13177,22 +12833,26 @@ extern "C" {
 extern "C" {
     pub fn switch_core_sqldb_resume();
 }
-#[doc = "\\}"]
 pub type switch_core_db_event_callback_func_t = ::std::option::Option<
     unsafe extern "C" fn(
         pArg: *mut ::std::os::raw::c_void,
         event: *mut switch_event_t,
     ) -> ::std::os::raw::c_int,
 >;
-pub const cache_db_flag_t_CDF_INUSE: cache_db_flag_t = 1;
-pub const cache_db_flag_t_CDF_PRUNE: cache_db_flag_t = 2;
-pub const cache_db_flag_t_CDF_NONEXPIRING: cache_db_flag_t = 4;
-pub type cache_db_flag_t = ::std::os::raw::c_uint;
-pub const switch_cache_db_handle_type_t_SCDB_TYPE_CORE_DB: switch_cache_db_handle_type_t = 0;
-pub const switch_cache_db_handle_type_t_SCDB_TYPE_ODBC: switch_cache_db_handle_type_t = 1;
-pub const switch_cache_db_handle_type_t_SCDB_TYPE_DATABASE_INTERFACE:
-    switch_cache_db_handle_type_t = 2;
-pub type switch_cache_db_handle_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum cache_db_flag_t {
+    CDF_INUSE = 1,
+    CDF_PRUNE = 2,
+    CDF_NONEXPIRING = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_cache_db_handle_type_t {
+    SCDB_TYPE_CORE_DB = 0,
+    SCDB_TYPE_ODBC = 1,
+    SCDB_TYPE_DATABASE_INTERFACE = 2,
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_cache_db_native_handle_t {
@@ -13241,15 +12901,12 @@ extern "C" {
     ) -> switch_cache_db_handle_type_t;
 }
 extern "C" {
-    #[doc = "\\brief Returns the handle to the pool, immediately available for other\nthreads to use.\n\\param [in] The handle"]
     pub fn switch_cache_db_dismiss_db_handle(dbh: *mut *mut switch_cache_db_handle_t);
 }
 extern "C" {
-    #[doc = "\\brief Returns the handle to the pool, handle is NOT available to\nother threads until the allocating thread actually terminates.\n\\param [in] The handle"]
     pub fn switch_cache_db_release_db_handle(dbh: *mut *mut switch_cache_db_handle_t);
 }
 extern "C" {
-    #[doc = "\\brief Gets a new cached handle from the pool, potentially creating a new connection.\nThe connection is bound to the thread until it (the thread) terminates unless\nyou dismiss rather than release.\n\\param [out] dbh The handle\n\\param [in] type - ODBC or SQLLITE\n\\param [in] connection_options (userid, password, etc)"]
     pub fn _switch_cache_db_get_db_handle(
         dbh: *mut *mut switch_cache_db_handle_t,
         type_: switch_cache_db_handle_type_t,
@@ -13279,7 +12936,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Executes the create schema sql\n\\param [in] dbh The handle\n\\param [in] sql - sql to run\n\\param [out] err - Error if it exists"]
     pub fn switch_cache_db_create_schema(
         dbh: *mut switch_cache_db_handle_t,
         sql: *mut ::std::os::raw::c_char,
@@ -13287,7 +12943,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Executes the sql and returns the result as a string\n\\param [in] dbh The handle\n\\param [in] sql - sql to run\n\\param [out] str - buffer for result\n\\param [in] len - length of str buffer\n\\param [out] err - Error if it exists"]
     pub fn switch_cache_db_execute_sql2str(
         dbh: *mut switch_cache_db_handle_t,
         sql: *mut ::std::os::raw::c_char,
@@ -13297,7 +12952,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Executes the sql\n\\param [in] dbh The handle\n\\param [in] sql - sql to run\n\\param [out] err - Error if it exists"]
     pub fn switch_cache_db_execute_sql(
         dbh: *mut switch_cache_db_handle_t,
         sql: *mut ::std::os::raw::c_char,
@@ -13305,7 +12959,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Executes the sql and uses callback for row-by-row processing\n\\param [in] dbh The handle\n\\param [in] sql - sql to run\n\\param [in] callback - function pointer to callback\n\\param [in] pdata - data to pass to callback\n\\param [out] err - Error if it exists"]
     pub fn switch_cache_db_execute_sql_callback(
         dbh: *mut switch_cache_db_handle_t,
         sql: *const ::std::os::raw::c_char,
@@ -13315,7 +12968,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Executes the sql and uses callback for row-by-row processing\n\\param [in] dbh The handle\n\\param [in] sql - sql to run\n\\param [in] callback - function pointer to callback\n\\param [in] err_callback - function pointer to callback when error occurs\n\\param [in] pdata - data to pass to callback\n\\param [out] err - Error if it exists"]
     pub fn switch_cache_db_execute_sql_callback_err(
         dbh: *mut switch_cache_db_handle_t,
         sql: *const ::std::os::raw::c_char,
@@ -13326,20 +12978,17 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get the affected rows of the last performed query\n\\param [in] dbh The handle\n\\param [out] the number of affected rows"]
     pub fn switch_cache_db_affected_rows(
         dbh: *mut switch_cache_db_handle_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief load an external extension to db\n\\param [in] dbh The handle\n\\param [out] the path to the extension"]
     pub fn switch_cache_db_load_extension(
         dbh: *mut switch_cache_db_handle_t,
         extension: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Provides some feedback as to the status of the db connection pool\n\\param [in] stream stream for status"]
     pub fn switch_cache_db_status(stream: *mut switch_stream_handle_t);
 }
 extern "C" {
@@ -13391,11 +13040,9 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Returns error if no suitable database interface found to serve core db dsn."]
     pub fn switch_core_check_core_db_dsn() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Returns error if no suitable database interface found for a dsn."]
     pub fn switch_database_available(dsn: *mut ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
@@ -13441,7 +13088,6 @@ extern "C" {
     pub fn switch_core_max_audio_channels(limit: u32) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Add user registration\n\\param [in] user\n\\param [in] realm\n\\param [in] token\n\\param [in] url - a freeswitch dial string\n\\param [in] expires\n\\param [in] network_ip\n\\param [in] network_port\n\\param [in] network_proto - one of tls, tcp, udp\n\\param [in] metadata - generic metadata supplied by module\n\\param [out] err - Error if it exists"]
     pub fn switch_core_add_registration(
         user: *const ::std::os::raw::c_char,
         realm: *const ::std::os::raw::c_char,
@@ -13455,7 +13101,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Delete user registration\n\\param [in] user\n\\param [in] realm\n\\param [in] token\n\\param [out] err - Error if it exists"]
     pub fn switch_core_del_registration(
         user: *const ::std::os::raw::c_char,
         realm: *const ::std::os::raw::c_char,
@@ -13463,15 +13108,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Expire user registrations\n\\param [in] force delete all registrations\n\\param [out] err - Error if it exists"]
     pub fn switch_core_expire_registration(force: ::std::os::raw::c_int) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Get RTP port range start value\n\\param[in] void\n\\param[out] RTP port range start value"]
     pub fn switch_core_get_rtp_port_range_start_port() -> u16;
 }
 extern "C" {
-    #[doc = "\\brief Get RTP port range end value\n\\param[in] void\n\\param[out] RTP port range end value"]
     pub fn switch_core_get_rtp_port_range_end_port() -> u16;
 }
 extern "C" {
@@ -13756,23 +13398,15 @@ extern "C" {
 extern "C" {
     pub fn switch_core_get_event_channel_key_separator() -> *const ::std::os::raw::c_char;
 }
-#[doc = "\\defgroup log Logger Routines\n\\ingroup core1\n\\{\n*! \\brief Log Data\n*/"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_log_node_t {
-    #[doc = " The complete log message"]
     pub data: *mut ::std::os::raw::c_char,
-    #[doc = " The file where the message originated"]
     pub file: [::std::os::raw::c_char; 80usize],
-    #[doc = " The line number where the message originated"]
     pub line: u32,
-    #[doc = " The function where the message originated"]
     pub func: [::std::os::raw::c_char; 80usize],
-    #[doc = " The log level of the message"]
     pub level: switch_log_level_t,
-    #[doc = " The time when the log line was sent"]
     pub timestamp: switch_time_t,
-    #[doc = " A pointer to where the actual content of the message starts (skipping past the preformatted portion)"]
     pub content: *mut ::std::os::raw::c_char,
     pub userdata: *mut ::std::os::raw::c_char,
     pub channel: switch_text_channel_t,
@@ -13781,14 +13415,12 @@ pub struct switch_log_node_t {
     pub sequence: i64,
     pub meta: *mut cJSON,
 }
-#[doc = "\\{\n*! \\brief JSON Log formatting data item\n*/"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_log_json_format_item_t {
     pub name: *const ::std::os::raw::c_char,
     pub value: *const ::std::os::raw::c_char,
 }
-#[doc = "\\{\n*! \\brief JSON Log formatting data\n*/"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_log_json_format_t {
@@ -13815,7 +13447,6 @@ pub type switch_log_function_t = ::std::option::Option<
     ) -> switch_status_t,
 >;
 extern "C" {
-    #[doc = "\\brief Convert a log node to JSON object.  Destroy JSON object when finished.\n\\param node the node\n\\param log_level the log level\n\\param json_format the output format definition\n\\param char_vars optional channel variables to add to logs"]
     pub fn switch_log_node_to_json(
         node: *const switch_log_node_t,
         log_level: ::std::os::raw::c_int,
@@ -13824,18 +13455,15 @@ extern "C" {
     ) -> *mut cJSON;
 }
 extern "C" {
-    #[doc = "\\brief Initilize the logging engine\n\\param pool the memory pool to use\n\\note to be called at application startup by the core"]
     pub fn switch_log_init(
         pool: *mut switch_memory_pool_t,
         colorize: switch_bool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Shut down the logging engine\n\\note to be called at application termination by the core"]
     pub fn switch_log_shutdown() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write log data to the logging engine\n\\param channel the log channel to write to\n\\param file the current file\n\\param func the current function\n\\param line the current line\n\\param userdata ununsed\n\\param level the current log level\n\\param fmt desired format\n\\param ... variable args\n\\note there are channel macros to supply the first 4 parameters (SWITCH_CHANNEL_LOG, SWITCH_CHANNEL_LOG_CLEAN, ...)\n\\see switch_types.h"]
     pub fn switch_log_printf(
         channel: switch_text_channel_t,
         file: *const ::std::os::raw::c_char,
@@ -13848,7 +13476,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Write log data to the logging engine\n\\param channel the log channel to write to\n\\param file the current file\n\\param func the current function\n\\param line the current line\n\\param userdata ununsed\n\\param level the current log level\n\\param fmt desired format\n\\param ap variable args\n\\note there are channel macros to supply the first 4 parameters (SWITCH_CHANNEL_LOG, SWITCH_CHANNEL_LOG_CLEAN, ...)\n\\see switch_types.h"]
     pub fn switch_log_vprintf(
         channel: switch_text_channel_t,
         file: *const ::std::os::raw::c_char,
@@ -13861,7 +13488,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Write log data to the logging engine w/ optional JSON metadata\n\\param channel the log channel to write to\n\\param file the current file\n\\param func the current function\n\\param line the current line\n\\param userdata ununsed\n\\param level the current log level\n\\param meta log metadata - consumed by this function\n\\param fmt desired format\n\\param ... variable args\n\\note there are channel macros to supply the first 4 parameters (SWITCH_CHANNEL_LOG, SWITCH_CHANNEL_LOG_CLEAN, ...)\n\\see switch_types.h"]
     pub fn switch_log_meta_printf(
         channel: switch_text_channel_t,
         file: *const ::std::os::raw::c_char,
@@ -13875,7 +13501,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Write log data to the logging engine w/ optional JSON metadata\n\\param channel the log channel to write to\n\\param file the current file\n\\param func the current function\n\\param line the current line\n\\param userdata ununsed\n\\param level the current log level\n\\param meta log metadata - consumed by this function\n\\param fmt desired format\n\\param ap variable args\n\\note there are channel macros to supply the first 4 parameters (SWITCH_CHANNEL_LOG, SWITCH_CHANNEL_LOG_CLEAN, ...)\n\\see switch_types.h"]
     pub fn switch_log_meta_vprintf(
         channel: switch_text_channel_t,
         file: *const ::std::os::raw::c_char,
@@ -13889,7 +13514,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Shut down  the logging engine\n\\note to be called at application termination by the core"]
     pub fn switch_log_bind_logger(
         function: switch_log_function_t,
         level: switch_log_level_t,
@@ -13900,11 +13524,9 @@ extern "C" {
     pub fn switch_log_unbind_logger(function: switch_log_function_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Return the name of the specified log level\n\\param level the level\n\\return the name of the log level"]
     pub fn switch_log_level2str(level: switch_log_level_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Return the level number of the specified log level name\n\\param str the name of the level\n\\return the log level"]
     pub fn switch_log_str2level(str_: *const ::std::os::raw::c_char) -> switch_log_level_t;
 }
 extern "C" {
@@ -13916,29 +13538,20 @@ extern "C" {
 extern "C" {
     pub fn switch_log_node_free(pnode: *mut *mut switch_log_node_t);
 }
-#[doc = "\\defgroup resamp Audio Resample Functions\n\\ingroup core1\n\\{\n/\n/*! \\brief An audio resampling handle"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_audio_resampler_t {
-    #[doc = " a pointer to store the resampler object"]
     pub resampler: *mut ::std::os::raw::c_void,
-    #[doc = " the rate to resample from in hz"]
     pub from_rate: ::std::os::raw::c_int,
-    #[doc = " the rate to resample to in hz"]
     pub to_rate: ::std::os::raw::c_int,
-    #[doc = " the factor to resample by (from / to)"]
     pub factor: f64,
     pub rfactor: f64,
     pub to: *mut i16,
-    #[doc = " the size of the to buffer used"]
     pub to_len: u32,
-    #[doc = " the total size of the to buffer"]
     pub to_size: u32,
-    #[doc = " the number of channels"]
     pub channels: ::std::os::raw::c_int,
 }
 extern "C" {
-    #[doc = "\\brief Prepare a new resampler handle\n\\param new_resampler NULL pointer to aim at the new handle\n\\param from_rate the rate to transfer from in hz\n\\param to_rate the rate to transfer to in hz\n\\param quality the quality desired\n\\return SWITCH_STATUS_SUCCESS if the handle was created"]
     pub fn switch_resample_perform_create(
         new_resampler: *mut *mut switch_audio_resampler_t,
         from_rate: u32,
@@ -13952,11 +13565,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an existing resampler handle\n\\param resampler the resampler handle to destroy"]
     pub fn switch_resample_destroy(resampler: *mut *mut switch_audio_resampler_t);
 }
 extern "C" {
-    #[doc = "\\brief Resample one float buffer into another using specifications of a given handle\n\\param resampler the resample handle\n\\param src the source data\n\\param srclen the length of the source data\n\\return the used size of dst"]
     pub fn switch_resample_process(
         resampler: *mut switch_audio_resampler_t,
         src: *mut i16,
@@ -13964,7 +13575,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Convert an array of floats to an array of shorts\n\\param f the float buffer\n\\param s the short buffer\n\\param len the length of the buffers\n\\return the size of the converted buffer"]
     pub fn switch_float_to_short(
         f: *mut f32,
         s: *mut ::std::os::raw::c_short,
@@ -13972,7 +13582,6 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Convert an array of chars to an array of floats\n\\param c the char buffer\n\\param f the float buffer\n\\param len the length of the buffers\n\\return the size of the converted buffer"]
     pub fn switch_char_to_float(
         c: *mut ::std::os::raw::c_char,
         f: *mut f32,
@@ -13980,7 +13589,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Convert an array of floats to an array of chars\n\\param f an array of floats\n\\param c an array of chars\n\\param len the length of the buffers\n\\return the size of the converted buffer"]
     pub fn switch_float_to_char(
         f: *mut f32,
         c: *mut ::std::os::raw::c_char,
@@ -13988,7 +13596,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Convert an array of shorts to an array of floats\n\\param s an array of shorts\n\\param f an array of floats\n\\param len the size of the buffers\n\\return the size of the converted buffer"]
     pub fn switch_short_to_float(
         s: *mut ::std::os::raw::c_short,
         f: *mut f32,
@@ -13996,23 +13603,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Perform a byteswap on a buffer of 16 bit samples\n\\param buf an array of samples\n\\param len the size of the array"]
     pub fn switch_swap_linear(buf: *mut i16, len: ::std::os::raw::c_int);
 }
 extern "C" {
-    #[doc = "\\brief Generate static noise\n\\param data the audio data buffer\n\\param samples the number of 2 byte samples\n\\param divisor the volume factor"]
     pub fn switch_generate_sln_silence(data: *mut i16, samples: u32, channels: u32, divisor: u32);
 }
 extern "C" {
-    #[doc = "\\brief Change the volume of a signed linear audio frame\n\\param data the audio data\n\\param samples the number of 2 byte samples\n\\param vol the volume factor -4 -> 4"]
     pub fn switch_change_sln_volume(data: *mut i16, samples: u32, vol: i32);
 }
 extern "C" {
-    #[doc = "\\brief Change the volume of a signed linear audio frame with more granularity\n\\param data the audio data\n\\param samples the number of 2 byte samples\n\\param vol the volume factor -12 -> 12"]
     pub fn switch_change_sln_volume_granular(data: *mut i16, samples: u32, vol: i32);
 }
 extern "C" {
-    #[doc = "\\}"]
     pub fn switch_merge_sln(
         data: *mut i16,
         samples: u32,
@@ -14078,46 +13680,36 @@ extern "C" {
 extern "C" {
     pub fn switch_agc_set_token(agc: *mut switch_agc_t, token: *const ::std::os::raw::c_char);
 }
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_INIT: switch_state_handler_name_t = 0;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_ROUTING: switch_state_handler_name_t = 1;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_EXECUTE: switch_state_handler_name_t = 2;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_HANGUP: switch_state_handler_name_t = 3;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_EXCHANGE_MEDIA: switch_state_handler_name_t = 4;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_SOFT_EXECUTE: switch_state_handler_name_t = 5;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_CONSUME_MEDIA: switch_state_handler_name_t = 6;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_HIBERNATE: switch_state_handler_name_t = 7;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_RESET: switch_state_handler_name_t = 8;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_PARK: switch_state_handler_name_t = 9;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_REPORTING: switch_state_handler_name_t = 10;
-pub const switch_state_handler_name_t_SWITCH_SHN_ON_DESTROY: switch_state_handler_name_t = 11;
-#[doc = " \\brief A table of functions to execute at various states"]
-pub type switch_state_handler_name_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_state_handler_name_t {
+    SWITCH_SHN_ON_INIT = 0,
+    SWITCH_SHN_ON_ROUTING = 1,
+    SWITCH_SHN_ON_EXECUTE = 2,
+    SWITCH_SHN_ON_HANGUP = 3,
+    SWITCH_SHN_ON_EXCHANGE_MEDIA = 4,
+    SWITCH_SHN_ON_SOFT_EXECUTE = 5,
+    SWITCH_SHN_ON_CONSUME_MEDIA = 6,
+    SWITCH_SHN_ON_HIBERNATE = 7,
+    SWITCH_SHN_ON_RESET = 8,
+    SWITCH_SHN_ON_PARK = 9,
+    SWITCH_SHN_ON_REPORTING = 10,
+    SWITCH_SHN_ON_DESTROY = 11,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_state_handler_table {
-    #[doc = " executed when the state changes to init"]
     pub on_init: switch_state_handler_t,
-    #[doc = " executed when the state changes to routing"]
     pub on_routing: switch_state_handler_t,
-    #[doc = " executed when the state changes to execute"]
     pub on_execute: switch_state_handler_t,
-    #[doc = " executed when the state changes to hangup"]
     pub on_hangup: switch_state_handler_t,
-    #[doc = " executed when the state changes to exchange_media"]
     pub on_exchange_media: switch_state_handler_t,
-    #[doc = " executed when the state changes to soft_execute"]
     pub on_soft_execute: switch_state_handler_t,
-    #[doc = " executed when the state changes to consume_media"]
     pub on_consume_media: switch_state_handler_t,
-    #[doc = " executed when the state changes to hibernate"]
     pub on_hibernate: switch_state_handler_t,
-    #[doc = " executed when the state changes to reset"]
     pub on_reset: switch_state_handler_t,
-    #[doc = " executed when the state changes to park"]
     pub on_park: switch_state_handler_t,
-    #[doc = " executed when the state changes to reporting"]
     pub on_reporting: switch_state_handler_t,
-    #[doc = " executed when the state changes to destroy"]
     pub on_destroy: switch_state_handler_t,
     pub flags: ::std::os::raw::c_int,
     pub padding: [*mut ::std::os::raw::c_void; 10usize],
@@ -14231,65 +13823,48 @@ pub type switch_io_get_jb_t = ::std::option::Option<
         arg2: switch_media_type_t,
     ) -> *mut switch_jb_t,
 >;
-pub const switch_io_routine_name_t_SWITCH_IO_OUTGOING_CHANNEL: switch_io_routine_name_t = 0;
-pub const switch_io_routine_name_t_SWITCH_IO_READ_FRAME: switch_io_routine_name_t = 1;
-pub const switch_io_routine_name_t_SWITCH_IO_WRITE_FRAME: switch_io_routine_name_t = 2;
-pub const switch_io_routine_name_t_SWITCH_IO_KILL_CHANNEL: switch_io_routine_name_t = 3;
-pub const switch_io_routine_name_t_SWITCH_IO_SEND_DTMF: switch_io_routine_name_t = 4;
-pub const switch_io_routine_name_t_SWITCH_IO_RECEIVE_MESSAGE: switch_io_routine_name_t = 5;
-pub const switch_io_routine_name_t_SWITCH_IO_RECEIVE_EVENT: switch_io_routine_name_t = 6;
-pub const switch_io_routine_name_t_SWITCH_IO_STATE_CHANGE: switch_io_routine_name_t = 7;
-pub const switch_io_routine_name_t_SWITCH_IO_READ_VIDEO_FRAME: switch_io_routine_name_t = 8;
-pub const switch_io_routine_name_t_SWITCH_IO_WRITE_VIDEO_FRAME: switch_io_routine_name_t = 9;
-pub const switch_io_routine_name_t_SWITCH_IO_READ_TEXT_FRAME: switch_io_routine_name_t = 10;
-pub const switch_io_routine_name_t_SWITCH_IO_WRITE_TEXT_FRAME: switch_io_routine_name_t = 11;
-pub const switch_io_routine_name_t_SWITCH_IO_GET_JB: switch_io_routine_name_t = 12;
-pub type switch_io_routine_name_t = ::std::os::raw::c_uint;
-#[doc = " \\brief A table of i/o routines that an endpoint interface can implement"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_io_routine_name_t {
+    SWITCH_IO_OUTGOING_CHANNEL = 0,
+    SWITCH_IO_READ_FRAME = 1,
+    SWITCH_IO_WRITE_FRAME = 2,
+    SWITCH_IO_KILL_CHANNEL = 3,
+    SWITCH_IO_SEND_DTMF = 4,
+    SWITCH_IO_RECEIVE_MESSAGE = 5,
+    SWITCH_IO_RECEIVE_EVENT = 6,
+    SWITCH_IO_STATE_CHANGE = 7,
+    SWITCH_IO_READ_VIDEO_FRAME = 8,
+    SWITCH_IO_WRITE_VIDEO_FRAME = 9,
+    SWITCH_IO_READ_TEXT_FRAME = 10,
+    SWITCH_IO_WRITE_TEXT_FRAME = 11,
+    SWITCH_IO_GET_JB = 12,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_routines {
-    #[doc = " creates an outgoing session from given session, caller profile"]
     pub outgoing_channel: switch_io_outgoing_channel_t,
-    #[doc = " read a frame from a session"]
     pub read_frame: switch_io_read_frame_t,
-    #[doc = " write a frame to a session"]
     pub write_frame: switch_io_write_frame_t,
-    #[doc = " send a kill signal to the session's channel"]
     pub kill_channel: switch_io_kill_channel_t,
-    #[doc = " send a string of DTMF digits to a session's channel"]
     pub send_dtmf: switch_io_send_dtmf_t,
-    #[doc = " receive a message from another session"]
     pub receive_message: switch_io_receive_message_t,
-    #[doc = " queue a message for another session"]
     pub receive_event: switch_io_receive_event_t,
-    #[doc = " change a sessions channel state"]
     pub state_change: switch_io_state_change_t,
-    #[doc = " read a video frame from a session"]
     pub read_video_frame: switch_io_read_video_frame_t,
-    #[doc = " write a video frame to a session"]
     pub write_video_frame: switch_io_write_video_frame_t,
-    #[doc = " read a video frame from a session"]
     pub read_text_frame: switch_io_read_text_frame_t,
-    #[doc = " write a video frame to a session"]
     pub write_text_frame: switch_io_write_text_frame_t,
-    #[doc = " change a sessions channel run state"]
     pub state_run: switch_io_state_run_t,
-    #[doc = " get sessions jitterbuffer"]
     pub get_jb: switch_io_get_jb_t,
     pub padding: [*mut ::std::os::raw::c_void; 10usize],
 }
-#[doc = " \\brief Abstraction of an module endpoint interface\nThis is the glue between the abstract idea of a \"channel\" and what is really going on under the\nhood.\t Each endpoint module fills out one of these tables and makes it available when a channel\nis created of it's paticular type."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_endpoint_interface {
-    #[doc = " the interface's name"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " channel abstraction methods"]
     pub io_routines: *mut switch_io_routines_t,
-    #[doc = " state machine methods"]
     pub state_handler: *mut switch_state_handler_table_t,
-    #[doc = " private information"]
     pub private_info: *mut ::std::os::raw::c_void,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -14298,60 +13873,46 @@ pub struct switch_endpoint_interface {
     pub next: *mut switch_endpoint_interface,
     pub recover_callback: switch_core_recover_callback_t,
 }
-#[doc = " \\brief Abstract handler to a timer module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_timer {
-    #[doc = " time interval expressed in milliseconds"]
     pub interval: ::std::os::raw::c_int,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
-    #[doc = " sample count to increment by on each cycle"]
     pub samples: ::std::os::raw::c_uint,
-    #[doc = " current sample count based on samples parameter"]
     pub samplecount: u32,
     pub last_samplecount: u32,
-    #[doc = " the timer interface provided from a loadable module"]
     pub timer_interface: *mut switch_timer_interface_t,
-    #[doc = " the timer's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
-    #[doc = " private data for loadable modules to store information"]
     pub private_info: *mut ::std::os::raw::c_void,
-    #[doc = " remaining time from last call to _check()"]
     pub diff: switch_size_t,
     pub start: switch_time_t,
     pub tick: u64,
 }
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_INIT: switch_timer_func_name_t = 0;
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_NEXT: switch_timer_func_name_t = 1;
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_STEP: switch_timer_func_name_t = 2;
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_SYNC: switch_timer_func_name_t = 3;
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_CHECK: switch_timer_func_name_t = 4;
-pub const switch_timer_func_name_t_SWITCH_TIMER_FUNC_TIMER_DESTROY: switch_timer_func_name_t = 5;
-pub type switch_timer_func_name_t = ::std::os::raw::c_uint;
-#[doc = " \\brief A table of functions that a timer module implements"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_timer_func_name_t {
+    SWITCH_TIMER_FUNC_TIMER_INIT = 0,
+    SWITCH_TIMER_FUNC_TIMER_NEXT = 1,
+    SWITCH_TIMER_FUNC_TIMER_STEP = 2,
+    SWITCH_TIMER_FUNC_TIMER_SYNC = 3,
+    SWITCH_TIMER_FUNC_TIMER_CHECK = 4,
+    SWITCH_TIMER_FUNC_TIMER_DESTROY = 5,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_timer_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to allocate the timer"]
     pub timer_init:
         ::std::option::Option<unsafe extern "C" fn(arg1: *mut switch_timer_t) -> switch_status_t>,
-    #[doc = " function to wait for one cycle to pass"]
     pub timer_next:
         ::std::option::Option<unsafe extern "C" fn(arg1: *mut switch_timer_t) -> switch_status_t>,
-    #[doc = " function to step the timer one step"]
     pub timer_step:
         ::std::option::Option<unsafe extern "C" fn(arg1: *mut switch_timer_t) -> switch_status_t>,
-    #[doc = " function to reset the timer"]
     pub timer_sync:
         ::std::option::Option<unsafe extern "C" fn(arg1: *mut switch_timer_t) -> switch_status_t>,
-    #[doc = " function to check if the current step has expired"]
     pub timer_check: ::std::option::Option<
         unsafe extern "C" fn(arg1: *mut switch_timer_t, arg2: switch_bool_t) -> switch_status_t,
     >,
-    #[doc = " function to deallocate the timer"]
     pub timer_destroy:
         ::std::option::Option<unsafe extern "C" fn(arg1: *mut switch_timer_t) -> switch_status_t>,
     pub rwlock: *mut switch_thread_rwlock_t,
@@ -14360,13 +13921,10 @@ pub struct switch_timer_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_timer_interface,
 }
-#[doc = " \\brief Abstract interface to a dialplan module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_dialplan_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " the function to read an extension and set a channels dialpan"]
     pub hunt_function: switch_dialplan_hunt_function_t,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -14374,28 +13932,22 @@ pub struct switch_dialplan_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_dialplan_interface,
 }
-#[doc = " \\brief Abstract interface to a file format module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_file_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to open the file"]
     pub file_open: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
             file_path: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to close the file"]
     pub file_close: ::std::option::Option<
         unsafe extern "C" fn(arg1: *mut switch_file_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to close the file"]
     pub file_truncate: ::std::option::Option<
         unsafe extern "C" fn(arg1: *mut switch_file_handle_t, offset: i64) -> switch_status_t,
     >,
-    #[doc = " function to read from the file"]
     pub file_read: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
@@ -14403,7 +13955,6 @@ pub struct switch_file_interface {
             len: *mut switch_size_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to write from the file"]
     pub file_write: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
@@ -14411,7 +13962,6 @@ pub struct switch_file_interface {
             len: *mut switch_size_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to seek to a certian position in the file"]
     pub file_read_video: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
@@ -14419,14 +13969,12 @@ pub struct switch_file_interface {
             flags: switch_video_read_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to write from the file"]
     pub file_write_video: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
             frame: *mut switch_frame_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to seek to a certian position in the file"]
     pub file_seek: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_file_handle_t,
@@ -14435,7 +13983,6 @@ pub struct switch_file_interface {
             whence: ::std::os::raw::c_int,
         ) -> switch_status_t,
     >,
-    #[doc = " function to set meta data"]
     pub file_set_string: ::std::option::Option<
         unsafe extern "C" fn(
             fh: *mut switch_file_handle_t,
@@ -14443,7 +13990,6 @@ pub struct switch_file_interface {
             string: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to get meta data"]
     pub file_get_string: ::std::option::Option<
         unsafe extern "C" fn(
             fh: *mut switch_file_handle_t,
@@ -14451,18 +13997,15 @@ pub struct switch_file_interface {
             string: *mut *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to pre close the file to read params"]
     pub file_pre_close: ::std::option::Option<
         unsafe extern "C" fn(fh: *mut switch_file_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to control the underlying tech of the file"]
     pub file_command: ::std::option::Option<
         unsafe extern "C" fn(
             fh: *mut switch_file_handle_t,
             command: switch_file_command_t,
         ) -> switch_status_t,
     >,
-    #[doc = " list of supported file extensions"]
     pub extens: *mut *mut ::std::os::raw::c_char,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -14470,40 +14013,24 @@ pub struct switch_file_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_file_interface,
 }
-#[doc = " an abstract representation of a file handle (some parameters based on compat with libsndfile)"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_file_handle {
-    #[doc = " the interface of the module that implemented the current file type"]
     pub file_interface: *mut switch_file_interface_t,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
-    #[doc = " a file descriptor if neceessary"]
     pub fd: *mut switch_file_t,
-    #[doc = " samples position of the handle"]
     pub samples: ::std::os::raw::c_uint,
-    #[doc = " the current samplerate"]
     pub samplerate: u32,
-    #[doc = " the current native samplerate"]
     pub native_rate: u32,
-    #[doc = " the number of channels"]
     pub channels: u32,
     pub real_channels: u32,
-    #[doc = " integer representation of the format"]
     pub format: ::std::os::raw::c_uint,
-    #[doc = " integer representation of the sections"]
     pub sections: ::std::os::raw::c_uint,
-    #[doc = " is the file seekable"]
     pub seekable: ::std::os::raw::c_int,
-    #[doc = " the sample count of the file"]
     pub sample_count: switch_size_t,
-    #[doc = " the speed of the file playback"]
     pub speed: ::std::os::raw::c_int,
-    #[doc = " the handle's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
-    #[doc = " pre-buffer x bytes for streams"]
     pub prebuf: u32,
-    #[doc = " private data for the format module to store handle specific info"]
     pub interval: u32,
     pub private_info: *mut ::std::os::raw::c_void,
     pub handler: *mut ::std::os::raw::c_char,
@@ -14538,20 +14065,15 @@ pub struct switch_file_handle {
     pub modname: *mut ::std::os::raw::c_char,
     pub mm: switch_mm_t,
     pub flag_mutex: *mut switch_mutex_t,
-    #[doc = " total video duration, or total page in pdf"]
     pub duration: i64,
-    #[doc = " current video position, or current page in pdf"]
     pub vpos: i64,
     pub muxbuf: *mut ::std::os::raw::c_void,
     pub muxlen: switch_size_t,
 }
-#[doc = " \\brief Abstract interface to an asr module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_asr_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to open the asr interface"]
     pub asr_open: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14561,7 +14083,6 @@ pub struct switch_asr_interface {
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to load a grammar to the asr interface"]
     pub asr_load_grammar: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14569,21 +14090,18 @@ pub struct switch_asr_interface {
             name: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to unload a grammar to the asr interface"]
     pub asr_unload_grammar: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
             name: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to close the asr interface"]
     pub asr_close: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to feed audio to the ASR"]
     pub asr_feed: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14592,22 +14110,18 @@ pub struct switch_asr_interface {
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to resume the ASR"]
     pub asr_resume: ::std::option::Option<
         unsafe extern "C" fn(ah: *mut switch_asr_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to pause the ASR"]
     pub asr_pause: ::std::option::Option<
         unsafe extern "C" fn(ah: *mut switch_asr_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to read results from the ASR"]
     pub asr_check_results: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to read results from the ASR"]
     pub asr_get_results: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14615,7 +14129,6 @@ pub struct switch_asr_interface {
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to read result headers from the ASR"]
     pub asr_get_result_headers: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14623,7 +14136,6 @@ pub struct switch_asr_interface {
             flags: *mut switch_asr_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to start ASR input timers"]
     pub asr_start_input_timers: ::std::option::Option<
         unsafe extern "C" fn(ah: *mut switch_asr_handle_t) -> switch_status_t,
     >,
@@ -14653,25 +14165,21 @@ pub struct switch_asr_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_asr_interface,
-    #[doc = " function to enable a grammar to the asr interface"]
     pub asr_enable_grammar: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
             name: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to disable a grammar to the asr interface"]
     pub asr_disable_grammar: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
             name: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to disable all grammars to the asr interface"]
     pub asr_disable_all_grammars: ::std::option::Option<
         unsafe extern "C" fn(ah: *mut switch_asr_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to feed DTMF to the ASR"]
     pub asr_feed_dtmf: ::std::option::Option<
         unsafe extern "C" fn(
             ah: *mut switch_asr_handle_t,
@@ -14680,43 +14188,29 @@ pub struct switch_asr_interface {
         ) -> switch_status_t,
     >,
 }
-#[doc = " an abstract representation of an asr speech interface."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_asr_handle {
-    #[doc = " the interface of the module that implemented the current speech interface"]
     pub asr_interface: *mut switch_asr_interface_t,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
-    #[doc = " The Name"]
     pub name: *mut ::std::os::raw::c_char,
-    #[doc = " The Codec"]
     pub codec: *mut ::std::os::raw::c_char,
-    #[doc = " The Rate"]
     pub rate: u32,
     pub grammar: *mut ::std::os::raw::c_char,
-    #[doc = " module specific param"]
     pub param: *mut ::std::os::raw::c_char,
-    #[doc = " the handle's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
     pub buffer: *mut switch_buffer_t,
     pub dbuf: *mut switch_byte_t,
     pub dbuflen: switch_size_t,
     pub resampler: *mut switch_audio_resampler_t,
-    #[doc = " the current samplerate"]
     pub samplerate: u32,
-    #[doc = " the current native samplerate"]
     pub native_rate: u32,
-    #[doc = " private data for the format module to store handle specific info"]
     pub private_info: *mut ::std::os::raw::c_void,
 }
-#[doc = " \\brief Abstract interface to a speech module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_speech_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to open the speech interface"]
     pub speech_open: ::std::option::Option<
         unsafe extern "C" fn(
             sh: *mut switch_speech_handle_t,
@@ -14726,14 +14220,12 @@ pub struct switch_speech_interface {
             flags: *mut switch_speech_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to close the speech interface"]
     pub speech_close: ::std::option::Option<
         unsafe extern "C" fn(
             arg1: *mut switch_speech_handle_t,
             flags: *mut switch_speech_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to feed audio to the ASR"]
     pub speech_feed_tts: ::std::option::Option<
         unsafe extern "C" fn(
             sh: *mut switch_speech_handle_t,
@@ -14741,7 +14233,6 @@ pub struct switch_speech_interface {
             flags: *mut switch_speech_flag_t,
         ) -> switch_status_t,
     >,
-    #[doc = " function to read audio from the TTS"]
     pub speech_read_tts: ::std::option::Option<
         unsafe extern "C" fn(
             sh: *mut switch_speech_handle_t,
@@ -14779,17 +14270,12 @@ pub struct switch_speech_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_speech_interface,
 }
-#[doc = " an abstract representation of a tts speech interface."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_speech_handle {
-    #[doc = " the interface of the module that implemented the current speech interface"]
     pub speech_interface: *mut switch_speech_interface_t,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
-    #[doc = " The Name"]
     pub name: *mut ::std::os::raw::c_char,
-    #[doc = " The Rate"]
     pub rate: u32,
     pub speed: u32,
     pub samples: u32,
@@ -14797,28 +14283,20 @@ pub struct switch_speech_handle {
     pub real_channels: u32,
     pub voice: [::std::os::raw::c_char; 80usize],
     pub engine: *mut ::std::os::raw::c_char,
-    #[doc = " module specific param"]
     pub param: *mut ::std::os::raw::c_char,
-    #[doc = " the handle's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
     pub resampler: *mut switch_audio_resampler_t,
     pub buffer: *mut switch_buffer_t,
     pub dbuf: *mut switch_byte_t,
     pub dbuflen: switch_size_t,
-    #[doc = " the current samplerate"]
     pub samplerate: u32,
-    #[doc = " the current native samplerate"]
     pub native_rate: u32,
-    #[doc = " private data for the format module to store handle specific info"]
     pub private_info: *mut ::std::os::raw::c_void,
 }
-#[doc = " \\brief Abstract interface to a say module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_say_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to pass down to the module"]
     pub say_function: switch_say_callback_t,
     pub say_string_function: switch_say_string_callback_t,
     pub rwlock: *mut switch_thread_rwlock_t,
@@ -14827,13 +14305,10 @@ pub struct switch_say_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_say_interface,
 }
-#[doc = " \\brief Abstract interface to a chat module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_chat_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to open the directory interface"]
     pub chat_send: ::std::option::Option<
         unsafe extern "C" fn(message_event: *mut switch_event_t) -> switch_status_t,
     >,
@@ -14843,13 +14318,10 @@ pub struct switch_chat_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_chat_interface,
 }
-#[doc = " \\brief Abstract interface to a management module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_management_interface {
-    #[doc = " the name of the interface"]
     pub relative_oid: *const ::std::os::raw::c_char,
-    #[doc = " function to open the directory interface"]
     pub management_function: ::std::option::Option<
         unsafe extern "C" fn(
             relative_oid: *mut ::std::os::raw::c_char,
@@ -14864,13 +14336,10 @@ pub struct switch_management_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_management_interface,
 }
-#[doc = " \\brief Abstract interface to a limit module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_limit_interface {
-    #[doc = " name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " increment"]
     pub incr: ::std::option::Option<
         unsafe extern "C" fn(
             session: *mut switch_core_session_t,
@@ -14880,7 +14349,6 @@ pub struct switch_limit_interface {
             interval: ::std::os::raw::c_int,
         ) -> switch_status_t,
     >,
-    #[doc = " release"]
     pub release: ::std::option::Option<
         unsafe extern "C" fn(
             session: *mut switch_core_session_t,
@@ -14888,7 +14356,6 @@ pub struct switch_limit_interface {
             resource: *const ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " usage for resource"]
     pub usage: ::std::option::Option<
         unsafe extern "C" fn(
             realm: *const ::std::os::raw::c_char,
@@ -14896,11 +14363,8 @@ pub struct switch_limit_interface {
             rcount: *mut u32,
         ) -> ::std::os::raw::c_int,
     >,
-    #[doc = " reset counters"]
     pub reset: ::std::option::Option<unsafe extern "C" fn() -> switch_status_t>,
-    #[doc = " freform status"]
     pub status: ::std::option::Option<unsafe extern "C" fn() -> *mut ::std::os::raw::c_char>,
-    #[doc = " reset interval counter"]
     pub interval_reset: ::std::option::Option<
         unsafe extern "C" fn(
             realm: *const ::std::os::raw::c_char,
@@ -14913,13 +14377,10 @@ pub struct switch_limit_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_limit_interface,
 }
-#[doc = " \\brief Abstract interface to a directory module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_directory_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function to open the directory interface"]
     pub directory_open: ::std::option::Option<
         unsafe extern "C" fn(
             dh: *mut switch_directory_handle_t,
@@ -14928,11 +14389,9 @@ pub struct switch_directory_interface {
             passwd: *mut ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to close the directory interface"]
     pub directory_close: ::std::option::Option<
         unsafe extern "C" fn(dh: *mut switch_directory_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to query the directory interface"]
     pub directory_query: ::std::option::Option<
         unsafe extern "C" fn(
             dh: *mut switch_directory_handle_t,
@@ -14940,11 +14399,9 @@ pub struct switch_directory_interface {
             query: *mut ::std::os::raw::c_char,
         ) -> switch_status_t,
     >,
-    #[doc = " function to advance to the next record"]
     pub directory_next: ::std::option::Option<
         unsafe extern "C" fn(dh: *mut switch_directory_handle_t) -> switch_status_t,
     >,
-    #[doc = " function to advance to the next name/value pair in the current record"]
     pub directory_next_pair: ::std::option::Option<
         unsafe extern "C" fn(
             dh: *mut switch_directory_handle_t,
@@ -14958,26 +14415,18 @@ pub struct switch_directory_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_directory_interface,
 }
-#[doc = " an abstract representation of a directory interface."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_directory_handle {
-    #[doc = " the interface of the module that implemented the current directory interface"]
     pub directory_interface: *mut switch_directory_interface_t,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
-    #[doc = " the handle's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
-    #[doc = " private data for the format module to store handle specific info"]
     pub private_info: *mut ::std::os::raw::c_void,
 }
-#[doc = " \\brief Abstract interface to a database module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_database_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " flags indicating database specifics, see switch_database_flag_t"]
     pub flags: u32,
     pub handle_new: ::std::option::Option<
         unsafe extern "C" fn(
@@ -15040,7 +14489,6 @@ pub struct switch_database_interface {
             affected_rows: *mut ::std::os::raw::c_int,
         ) -> switch_status_t,
     >,
-    #[doc = " list of supported dsn prefixes"]
     pub prefixes: *mut *mut ::std::os::raw::c_char,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -15048,7 +14496,6 @@ pub struct switch_database_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_database_interface,
 }
-#[doc = " an abstract representation of a database interface."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_database_interface_handle {
@@ -15076,24 +14523,16 @@ pub union switch_codec_settings {
     pub audio: switch_audio_codec_settings,
     pub video: switch_video_codec_settings,
 }
-#[doc = " an abstract handle of a fmtp parsed by codec"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_codec_fmtp {
-    #[doc = " actual samples transferred per second for those who are not moron g722 RFC writers"]
     pub actual_samples_per_second: u32,
-    #[doc = " bits transferred per second"]
     pub bits_per_second: ::std::os::raw::c_int,
-    #[doc = " number of microseconds of media in one packet (ptime * 1000)"]
     pub microseconds_per_packet: ::std::os::raw::c_int,
-    #[doc = " maximum ptime in ms"]
     pub max_ptime: ::std::os::raw::c_int,
-    #[doc = " minimum ptime in ms"]
     pub min_ptime: ::std::os::raw::c_int,
-    #[doc = " stereo, typically bidirectional"]
     pub stereo: ::std::os::raw::c_int,
     pub sprop_stereo: ::std::os::raw::c_int,
-    #[doc = " private data for the codec module to store handle specific info"]
     pub private_info: *mut ::std::os::raw::c_void,
 }
 #[repr(C)]
@@ -15104,23 +14543,15 @@ pub struct switch_picture {
     pub planes: [*mut u8; 4usize],
     pub stride: [u32; 4usize],
 }
-#[doc = " an abstract handle to a codec module"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_codec {
-    #[doc = " the codec interface table this handle uses"]
     pub codec_interface: *mut switch_codec_interface_t,
-    #[doc = " the specific implementation of the above codec"]
     pub implementation: *const switch_codec_implementation_t,
-    #[doc = " fmtp line from remote sdp"]
     pub fmtp_in: *mut ::std::os::raw::c_char,
-    #[doc = " fmtp line for local sdp"]
     pub fmtp_out: *mut ::std::os::raw::c_char,
-    #[doc = " flags to modify behaviour"]
     pub flags: u32,
-    #[doc = " the handle's memory pool"]
     pub memory_pool: *mut switch_memory_pool_t,
-    #[doc = " private data for the codec module to store handle specific info"]
     pub private_info: *mut ::std::os::raw::c_void,
     pub agreed_pt: switch_payload_t,
     pub mutex: *mut switch_mutex_t,
@@ -15128,64 +14559,39 @@ pub struct switch_codec {
     pub session: *mut switch_core_session_t,
     pub cur_frame: *mut switch_frame_t,
 }
-#[doc = " \\brief A table of settings and callbacks that define a paticular implementation of a codec"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_codec_implementation {
-    #[doc = " enumeration defining the type of the codec"]
     pub codec_type: switch_codec_type_t,
-    #[doc = " the IANA code number"]
     pub ianacode: switch_payload_t,
-    #[doc = " the IANA code name"]
     pub iananame: *mut ::std::os::raw::c_char,
-    #[doc = " default fmtp to send (can be overridden by the init function)"]
     pub fmtp: *mut ::std::os::raw::c_char,
-    #[doc = " samples transferred per second"]
     pub samples_per_second: u32,
-    #[doc = " actual samples transferred per second for those who are not moron g722 RFC writers"]
     pub actual_samples_per_second: u32,
-    #[doc = " bits transferred per second"]
     pub bits_per_second: ::std::os::raw::c_int,
-    #[doc = " number of microseconds of media in one packet (ptime * 1000)"]
     pub microseconds_per_packet: ::std::os::raw::c_int,
-    #[doc = " number of samples in one packet"]
     pub samples_per_packet: u32,
-    #[doc = " number of bytes one packet will decompress to"]
     pub decoded_bytes_per_packet: u32,
-    #[doc = " number of encoded bytes in the RTP payload"]
     pub encoded_bytes_per_packet: u32,
-    #[doc = " number of channels represented"]
     pub number_of_channels: u8,
-    #[doc = " number of codec frames packetized into one packet"]
     pub codec_frames_per_packet: ::std::os::raw::c_int,
-    #[doc = " function to initialize a codec handle using this implementation"]
     pub init: switch_core_codec_init_func_t,
-    #[doc = " function to encode raw data into encoded data"]
     pub encode: switch_core_codec_encode_func_t,
-    #[doc = " function to decode encoded data into raw data"]
     pub decode: switch_core_codec_decode_func_t,
-    #[doc = " function to encode video raw data into encoded data"]
     pub encode_video: switch_core_codec_video_encode_func_t,
-    #[doc = " function to decode video encoded data into raw data"]
     pub decode_video: switch_core_codec_video_decode_func_t,
-    #[doc = " function to send control messages to the codec"]
     pub codec_control: switch_core_codec_control_func_t,
-    #[doc = " deinitalize a codec handle using this implementation"]
     pub destroy: switch_core_codec_destroy_func_t,
     pub codec_id: u32,
     pub impl_id: u32,
     pub modname: *mut ::std::os::raw::c_char,
     pub next: *mut switch_codec_implementation,
 }
-#[doc = " \\brief Top level module interface to implement a series of codec implementations"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_codec_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " a list of codec implementations related to the codec"]
     pub implementations: *mut switch_codec_implementation_t,
-    #[doc = " function to decode a codec fmtp parameters"]
     pub parse_fmtp: switch_core_codec_fmtp_parse_func_t,
     pub codec_id: u32,
     pub rwlock: *mut switch_thread_rwlock_t,
@@ -15195,21 +14601,14 @@ pub struct switch_codec_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_codec_interface,
 }
-#[doc = " \\brief A module interface to implement an application"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_application_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function the application implements"]
     pub application_function: switch_application_function_t,
-    #[doc = " the long winded description of the application"]
     pub long_desc: *const ::std::os::raw::c_char,
-    #[doc = " the short and sweet description of the application"]
     pub short_desc: *const ::std::os::raw::c_char,
-    #[doc = " an example of the application syntax"]
     pub syntax: *const ::std::os::raw::c_char,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -15217,21 +14616,14 @@ pub struct switch_application_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_application_interface,
 }
-#[doc = " \\brief A module interface to implement a chat application"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_chat_application_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " function the application implements"]
     pub chat_application_function: switch_chat_application_function_t,
-    #[doc = " the long winded description of the application"]
     pub long_desc: *const ::std::os::raw::c_char,
-    #[doc = " the short and sweet description of the application"]
     pub short_desc: *const ::std::os::raw::c_char,
-    #[doc = " an example of the application syntax"]
     pub syntax: *const ::std::os::raw::c_char,
-    #[doc = " flags to control behaviour"]
     pub flags: u32,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -15239,17 +14631,12 @@ pub struct switch_chat_application_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_chat_application_interface,
 }
-#[doc = " \\brief A module interface to implement an api function"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_api_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " a description of the api function"]
     pub desc: *const ::std::os::raw::c_char,
-    #[doc = " function the api call uses"]
     pub function: switch_api_function_t,
-    #[doc = " an example of the api syntax"]
     pub syntax: *const ::std::os::raw::c_char,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -15257,17 +14644,12 @@ pub struct switch_api_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_api_interface,
 }
-#[doc = " \\brief A module interface to implement a json api function"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_json_api_interface {
-    #[doc = " the name of the interface"]
     pub interface_name: *const ::std::os::raw::c_char,
-    #[doc = " a description of the api function"]
     pub desc: *const ::std::os::raw::c_char,
-    #[doc = " function the api call uses"]
     pub function: switch_json_api_function_t,
-    #[doc = " an example of the api syntax"]
     pub syntax: *const ::std::os::raw::c_char,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
@@ -15287,40 +14669,25 @@ pub struct switch_frame_geometry {
     pub X: i32,
 }
 pub type switch_frame_geometry_t = switch_frame_geometry;
-#[doc = " \\brief An abstraction of a data frame"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_frame {
-    #[doc = " a pointer to the codec information"]
     pub codec: *mut switch_codec_t,
-    #[doc = " the originating source of the frame"]
     pub source: *const ::std::os::raw::c_char,
-    #[doc = " the raw packet"]
     pub packet: *mut ::std::os::raw::c_void,
-    #[doc = " the size of the raw packet when applicable"]
     pub packetlen: u32,
-    #[doc = " the extra frame data"]
     pub extra_data: *mut ::std::os::raw::c_void,
-    #[doc = " the frame data"]
     pub data: *mut ::std::os::raw::c_void,
-    #[doc = " the size of the buffer that is in use"]
     pub datalen: u32,
-    #[doc = " the entire size of the buffer"]
     pub buflen: u32,
-    #[doc = " the number of audio samples present (audio only)"]
     pub samples: u32,
-    #[doc = " the rate of the frame"]
     pub rate: u32,
-    #[doc = " the number of channels in the frame"]
     pub channels: u32,
-    #[doc = " the payload of the frame"]
     pub payload: switch_payload_t,
-    #[doc = " the timestamp of the frame"]
     pub timestamp: u32,
     pub seq: u16,
     pub ssrc: u32,
     pub m: switch_bool_t,
-    #[doc = " frame flags"]
     pub flags: switch_frame_flag_t,
     pub user_data: *mut ::std::os::raw::c_void,
     pub pmap: *mut payload_map_t,
@@ -15335,74 +14702,50 @@ pub struct switch_slin_data {
     pub codec: switch_codec_t,
     pub frame_data: [::std::os::raw::c_char; 8192usize],
 }
-pub const switch_loadable_module_type_t_SWITCH_LOADABLE_MODULE_TYPE_PRELOAD:
-    switch_loadable_module_type_t = 0;
-pub const switch_loadable_module_type_t_SWITCH_LOADABLE_MODULE_TYPE_COMMON:
-    switch_loadable_module_type_t = 1;
-pub const switch_loadable_module_type_t_SWITCH_LOADABLE_MODULE_TYPE_POSTLOAD:
-    switch_loadable_module_type_t = 2;
-#[doc = " \\brief List of loadable module types"]
-pub type switch_loadable_module_type_t = ::std::os::raw::c_uint;
-#[doc = " \\brief The abstraction of a loadable module"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_loadable_module_type_t {
+    SWITCH_LOADABLE_MODULE_TYPE_PRELOAD = 0,
+    SWITCH_LOADABLE_MODULE_TYPE_COMMON = 1,
+    SWITCH_LOADABLE_MODULE_TYPE_POSTLOAD = 2,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_loadable_module_interface {
-    #[doc = " the name of the module"]
     pub module_name: *const ::std::os::raw::c_char,
-    #[doc = " the table of endpoints the module has implemented"]
     pub endpoint_interface: *mut switch_endpoint_interface_t,
-    #[doc = " the table of timers the module has implemented"]
     pub timer_interface: *mut switch_timer_interface_t,
-    #[doc = " the table of dialplans the module has implemented"]
     pub dialplan_interface: *mut switch_dialplan_interface_t,
-    #[doc = " the table of codecs the module has implemented"]
     pub codec_interface: *mut switch_codec_interface_t,
-    #[doc = " the table of applications the module has implemented"]
     pub application_interface: *mut switch_application_interface_t,
-    #[doc = " the table of chat applications the module has implemented"]
     pub chat_application_interface: *mut switch_chat_application_interface_t,
-    #[doc = " the table of api functions the module has implemented"]
     pub api_interface: *mut switch_api_interface_t,
-    #[doc = " the table of json api functions the module has implemented"]
     pub json_api_interface: *mut switch_json_api_interface_t,
-    #[doc = " the table of file formats the module has implemented"]
     pub file_interface: *mut switch_file_interface_t,
-    #[doc = " the table of speech interfaces the module has implemented"]
     pub speech_interface: *mut switch_speech_interface_t,
-    #[doc = " the table of directory interfaces the module has implemented"]
     pub directory_interface: *mut switch_directory_interface_t,
-    #[doc = " the table of chat interfaces the module has implemented"]
     pub chat_interface: *mut switch_chat_interface_t,
-    #[doc = " the table of say interfaces the module has implemented"]
     pub say_interface: *mut switch_say_interface_t,
-    #[doc = " the table of asr interfaces the module has implemented"]
     pub asr_interface: *mut switch_asr_interface_t,
-    #[doc = " the table of management interfaces the module has implemented"]
     pub management_interface: *mut switch_management_interface_t,
-    #[doc = " the table of limit interfaces the module has implemented"]
     pub limit_interface: *mut switch_limit_interface_t,
-    #[doc = " the table of database interfaces the module has implemented"]
     pub database_interface: *mut switch_database_interface_t,
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
     pub pool: *mut switch_memory_pool_t,
 }
 extern "C" {
-    #[doc = "\\brief Initilize the module backend and load all the modules\n\\return SWITCH_STATUS_SUCCESS when complete"]
     pub fn switch_loadable_module_init(autoload: switch_bool_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Shutdown the module backend and call the shutdown routine in all loaded modules"]
     pub fn switch_loadable_module_shutdown();
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the endpoint interface by it's registered name\n\\param name the name of the endpoint\n\\return the desired endpoint interface"]
     pub fn switch_loadable_module_get_endpoint_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_endpoint_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the codec interface by it's registered name\n\\param name the name of the codec\n\\return the desired codec interface"]
     pub fn switch_loadable_module_get_codec_interface(
         name: *const ::std::os::raw::c_char,
         modname: *const ::std::os::raw::c_char,
@@ -15420,13 +14763,11 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the dialplan interface by it's registered name\n\\param name the name of the dialplan\n\\return the desired dialplan interface"]
     pub fn switch_loadable_module_get_dialplan_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_dialplan_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Enumerates a list of all modules discovered in a directory\n\\param the directory to look for modules in\n\\param memory pool\n\\param callback function to call for each module found\n\\param user data argument to pass to the callback function\n\\return the resulting status"]
     pub fn switch_loadable_module_enumerate_available(
         dir_path: *const ::std::os::raw::c_char,
         callback: switch_modulename_callback_func_t,
@@ -15434,14 +14775,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Enumerates a list of all currently loaded modules\n\\param callback function to call for each module found\n\\param user data argument to pass to the callback function\n\\return the resulting status"]
     pub fn switch_loadable_module_enumerate_loaded(
         callback: switch_modulename_callback_func_t,
         user_data: *mut ::std::os::raw::c_void,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief build a dynamic module object and register it (for use in double embeded modules)\n\\param filename the name of the modules source file\n\\param switch_module_load the function to call when the module is loaded\n\\param switch_module_runtime a function requested to be started in it's own thread once loaded\n\\param switch_module_shutdown the function to call when the system is shutdown\n\\param runtime start the runtime thread or not\n\\return the resulting status\n\\note only use this function if you are making a module that in turn gateways module loading to another technology"]
     pub fn switch_loadable_module_build_dynamic(
         filename: *mut ::std::os::raw::c_char,
         switch_module_load: switch_module_load_t,
@@ -15451,19 +14790,16 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the timer interface by it's registered name\n\\param name the name of the timer\n\\return the desired timer interface"]
     pub fn switch_loadable_module_get_timer_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_timer_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the application interface by it's registered name\n\\param name the name of the application\n\\return the desired application interface"]
     pub fn switch_loadable_module_get_application_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_application_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the chat application interface by it's registered name\n\\param name the name of the chat application\n\\return the desired chat application interface"]
     pub fn switch_loadable_module_get_chat_application_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_chat_application_interface_t;
@@ -15476,82 +14812,69 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the API interface by it's registered name\n\\param name the name of the API\n\\return the desired API interface"]
     pub fn switch_loadable_module_get_api_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_api_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the JSON API interface by it's registered name\n\\param name the name of the API\n\\return the desired API interface"]
     pub fn switch_loadable_module_get_json_api_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_json_api_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the file format interface by it's registered name\n\\param name the name of the file format\n\\return the desired file format interface"]
     pub fn switch_loadable_module_get_file_interface(
         name: *const ::std::os::raw::c_char,
         modname: *const ::std::os::raw::c_char,
     ) -> *mut switch_file_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the database interface by it's registered name\n\\param name the name of the dsn prefix\n\\return the desired database format interface"]
     pub fn switch_loadable_module_get_database_interface(
         name: *const ::std::os::raw::c_char,
         modname: *const ::std::os::raw::c_char,
     ) -> *mut switch_database_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the speech interface by it's registered name\n\\param name the name of the speech interface\n\\return the desired speech interface"]
     pub fn switch_loadable_module_get_speech_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_speech_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the asr interface by it's registered name\n\\param name the name of the asr interface\n\\return the desired asr interface"]
     pub fn switch_loadable_module_get_asr_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_asr_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the directory interface by it's registered name\n\\param name the name of the directory interface\n\\return the desired directory interface"]
     pub fn switch_loadable_module_get_directory_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_directory_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the chat interface by it's registered name\n\\param name the name of the chat interface\n\\return the desired chat interface"]
     pub fn switch_loadable_module_get_chat_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_chat_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the say interface by it's registered name\n\\param name the name of the say interface\n\\return the desired say interface"]
     pub fn switch_loadable_module_get_say_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_say_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the management interface by it's registered name\n\\param relative_oid the relative oid of the management interface\n\\return the desired management interface"]
     pub fn switch_loadable_module_get_management_interface(
         relative_oid: *const ::std::os::raw::c_char,
     ) -> *mut switch_management_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the limit interface by it's registered name\n\\param name the name of the limit interface\n\\return the desired limit interface"]
     pub fn switch_loadable_module_get_limit_interface(
         name: *const ::std::os::raw::c_char,
     ) -> *mut switch_limit_interface_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the list of loaded codecs into an array\n\\param array the array to populate\n\\param arraylen the max size in elements of the array\n\\return the number of elements added to the array"]
     pub fn switch_loadable_module_get_codecs(
         array: *mut *const switch_codec_implementation_t,
         arraylen: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the list of loaded codecs into an array based on another array showing the sorted order\n\\param array the array to populate\n\\param arraylen the max size in elements of the array\n\\param prefs the array of preferred codec names\n\\param preflen the size in elements of the prefs\n\\return the number of elements added to the array\n\\note this function only considers codecs that are listed in the \"prefs\" array and ignores the rest."]
     pub fn switch_loadable_module_get_codecs_sorted(
         array: *mut *const switch_codec_implementation_t,
         fmtp_array: *mut [::std::os::raw::c_char; 256usize],
@@ -15561,7 +14884,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Execute a registered API command\n\\param cmd the name of the API command to execute\n\\param arg the optional arguement to the command\n\\param session an optional session\n\\param stream stream for output\n\\return the status returned by the API call"]
     pub fn switch_api_execute(
         cmd: *const ::std::os::raw::c_char,
         arg: *const ::std::os::raw::c_char,
@@ -15570,7 +14892,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute a registered JSON API command\n\\param json the name of the JSON API command to execute\n\\param arg the optional arguement to the command\n\\param session an optional session\n\\param stream stream for output\n\\return the status returned by the API call"]
     pub fn switch_json_api_execute(
         json: *mut cJSON,
         session: *mut switch_core_session_t,
@@ -15578,7 +14899,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Load a module\n\\param dir the directory where the module resides\n\\param fname the file name of the module\n\\param runtime option to start the runtime thread if it exists\n\\param err pointer to error message\n\\return the status"]
     pub fn switch_loadable_module_load_module(
         dir: *const ::std::os::raw::c_char,
         fname: *const ::std::os::raw::c_char,
@@ -15587,15 +14907,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Check if a module is loaded\n\\param mod the module name\n\\return the status"]
     pub fn switch_loadable_module_exists(mod_: *const ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Protect module from beeing unloaded\n\\param mod the module name\n\\return the status"]
     pub fn switch_loadable_module_protect(mod_: *const ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Unoad a module\n\\param dir the directory where the module resides\n\\param fname the file name of the module\n\\param err pointer to error message\n\\return the status"]
     pub fn switch_loadable_module_unload_module(
         dir: *const ::std::os::raw::c_char,
         fname: *const ::std::os::raw::c_char,
@@ -15604,7 +14921,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Load a module\n\\param module_interface a pointer to a pointer to aim at your module's local interface\n\\param filename the path to the module's dll or so file\n\\return SWITCH_STATUS_SUCCESS on a successful load"]
     pub fn switch_module_load(
         module_interface: *mut *mut switch_loadable_module_interface_t,
         filename: *const ::std::os::raw::c_char,
@@ -15614,7 +14930,6 @@ extern "C" {
     pub fn switch_module_runtime() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Shutdown a module\n\\return SWITCH_STATUS_SUCCESS on a successful shutdown"]
     pub fn switch_module_shutdown() -> switch_status_t;
 }
 extern "C" {
@@ -15635,11 +14950,9 @@ extern "C" {
     pub fn switch_core_unregister_secondary_recover_callback(key: *const ::std::os::raw::c_char);
 }
 extern "C" {
-    #[doc = "\\brief A simple comand loop that reads input from the terminal"]
     pub fn switch_console_loop();
 }
 extern "C" {
-    #[doc = "\\brief A method akin to printf that allows you to redirect output to a specific console \"channel\""]
     pub fn switch_console_printf(
         channel: switch_text_channel_t,
         file: *const ::std::os::raw::c_char,
@@ -15657,7 +14970,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief A method akin to printf for dealing with api streams"]
     pub fn switch_console_stream_write(
         handle: *mut switch_stream_handle_t,
         fmt: *const ::std::os::raw::c_char,
@@ -16493,7 +15805,6 @@ extern "C" {
     pub fn switch_frame_free(frame: *mut *mut switch_frame_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Check if a 32 bit unsigned number is in a range.\n \\param str string to check. Should not contain non-digit characters.\n \\param from start of range including this number\n \\param to end of range including this number\n \\return true or false"]
     pub fn switch_is_uint_in_range(
         str_: *const ::std::os::raw::c_char,
         from: ::std::os::raw::c_uint,
@@ -16521,7 +15832,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief find local ip of the box\n\\param buf the buffer to write the ip address found into\n\\param len the length of the buf\n\\param mask the CIDR found (AF_INET only)\n\\param family the address family to return (AF_INET or AF_INET6)\n\\return SWITCH_STATUS_SUCCESSS for success, otherwise failure"]
     pub fn switch_find_local_ip(
         buf: *mut ::std::os::raw::c_char,
         len: ::std::os::raw::c_int,
@@ -16530,7 +15840,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief find primary ip of the specified interface\n\\param buf the buffer to write the ip address found into\n\\param len the length of the buf\n\\param mask the CIDR found (AF_INET only)\n\\param ifname interface name to check\n\\param family the address family to return (AF_INET or AF_INET6)\n\\return SWITCH_STATUS_SUCCESSS for success, otherwise failure"]
     pub fn switch_find_interface_ip(
         buf: *mut ::std::os::raw::c_char,
         len: ::std::os::raw::c_int,
@@ -16540,7 +15849,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief find the char representation of an ip adress\n\\param buf the buffer to write the ip adress found into\n\\param len the length of the buf\n\\param sa the struct sockaddr * to get the adress from\n\\param salen the length of sa\n\\return the ip adress string"]
     pub fn get_addr(
         buf: *mut ::std::os::raw::c_char,
         len: switch_size_t,
@@ -16573,16 +15881,16 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief get the port number of an ip address\n\\param sa the struct sockaddr * to get the port from\n\\return the ip adress string"]
     pub fn get_port(sa: *mut sockaddr) -> ::std::os::raw::c_ushort;
 }
-pub const switch_uri_flags_SWITCH_URI_NUMERIC_HOST: switch_uri_flags = 1;
-pub const switch_uri_flags_SWITCH_URI_NUMERIC_PORT: switch_uri_flags = 2;
-pub const switch_uri_flags_SWITCH_URI_NO_SCOPE: switch_uri_flags = 4;
-#[doc = "\\brief flags to be used with switch_build_uri()"]
-pub type switch_uri_flags = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_uri_flags {
+    SWITCH_URI_NUMERIC_HOST = 1,
+    SWITCH_URI_NUMERIC_PORT = 2,
+    SWITCH_URI_NO_SCOPE = 4,
+}
 extern "C" {
-    #[doc = "\\brief build a URI string from components\n\\param uri output string\n\\param size maximum size of output string (including trailing null)\n\\param scheme URI scheme\n\\param user user part or null if none\n\\param sa host address\n\\param flags logical OR-ed combination of flags from \\ref switch_uri_flags\n\\return number of characters printed (not including the trailing null)"]
     pub fn switch_build_uri(
         uri: *mut ::std::os::raw::c_char,
         size: switch_size_t,
@@ -16593,23 +15901,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Return a printable name of a switch_priority_t\n\\param priority the priority to get the name of\n\\return the printable form of the priority"]
     pub fn switch_priority_name(priority: switch_priority_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Return the RFC2833 character based on an event id\n\\param event the event id to convert\n\\return the character represented by the event or null for an invalid event"]
     pub fn switch_rfc2833_to_char(event: ::std::os::raw::c_int) -> ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Return the RFC2833 event based on an key character\n\\param key the charecter to encode\n\\return the event id for the specified character or -1 on an invalid input"]
     pub fn switch_char_to_rfc2833(key: ::std::os::raw::c_char) -> ::std::os::raw::c_uchar;
 }
 extern "C" {
-    #[doc = "\\brief Converts a string representation of a date into a switch_time_t\n\\param in the string\n\\return the epoch time in usec"]
     pub fn switch_str_time(in_: *const ::std::os::raw::c_char) -> switch_time_t;
 }
 extern "C" {
-    #[doc = "\\brief Separate a string into an array based on a character delimiter\n\\param buf the string to parse\n\\param delim the character delimiter\n\\param array the array to split the values into\n\\param arraylen the max number of elements in the array\n\\return the number of elements added to the array"]
     pub fn switch_separate_string(
         buf: *mut ::std::os::raw::c_char,
         delim: ::std::os::raw::c_char,
@@ -16686,7 +15989,6 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Escape a string by prefixing a list of characters with an escape character\n\\param pool a memory pool to use\n\\param in the string\n\\param delim the list of characters to escape\n\\param esc the escape character\n\\return the escaped string"]
     pub fn switch_escape_char(
         pool: *mut switch_memory_pool_t,
         in_: *mut ::std::os::raw::c_char,
@@ -16708,14 +16010,12 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Wait for a socket\n\\param poll the pollfd to wait on\n\\param ms the number of milliseconds to wait\n\\return the requested condition"]
     pub fn switch_socket_waitfor(
         poll: *mut switch_pollfd_t,
         ms: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Create a pointer to the file name in a given file path eliminating the directory name\n\\return the pointer to the next character after the final / or \\\\ characters"]
     pub fn switch_cut_path(in_: *const ::std::os::raw::c_char) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
@@ -16738,13 +16038,11 @@ extern "C" {
         -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Quote shell argument\n\\param string the string to quote (example: a ' b\"' c)\n\\return the quoted string (gives: 'a '\\'' b\"'\\'' c' for unices, \"a ' b ' c\" for MS Windows), should be freed"]
     pub fn switch_util_quote_shell_arg(
         string: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Quote shell argument, allocating from pool if provided\n\\param string the string to quote (example: a ' b\"' c)\n\\param pool a memory pool to use\n\\return the quoted string (gives: 'a '\\'' b\"'\\'' c' for unices, \"a ' b ' c\" for MS Windows), if pool not provided, returned value should be freed"]
     pub fn switch_util_quote_shell_arg_pool(
         string: *const ::std::os::raw::c_char,
         pool: *mut switch_memory_pool_t,
@@ -16951,7 +16249,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Split a user@domain string as user and domain\n\\param in the input string\n\\param user the string to put the user into\n\\param domain the string to put the domain into\n\\return 1 if successfull\n\\note Extended formats protocol:user@domain:port (Example: sip:toto@example.org)"]
     pub fn switch_split_user_domain(
         in_: *mut ::std::os::raw::c_char,
         user: *mut *mut ::std::os::raw::c_char,
@@ -16977,7 +16274,6 @@ extern "C" {
     pub fn switch_atoul(nptr: *const ::std::os::raw::c_char) -> ::std::os::raw::c_ulong;
 }
 extern "C" {
-    #[doc = " Portable version of strerror_r(), work around for the incompatible\n return type of GNU and XSI variants.\n \\param[in]\terrnum\tError number\n \\param[both]\tbuf\tBuffer for error message\n \\param[in]\tbuflen\tSize of message buffer\n \\return\tPointer to message buffer, returning error message or \"Unknown error xxx\" if none found"]
     pub fn switch_strerror_r(
         errnum: ::std::os::raw::c_int,
         buf: *mut ::std::os::raw::c_char,
@@ -17023,7 +16319,6 @@ pub struct switch_http_request_s {
 }
 pub type switch_http_request_t = switch_http_request_s;
 extern "C" {
-    #[doc = " parse http headers in a buffer\n return status of success or not\n \\param[in]\tbuffer the buffer start from the very begining of the http request, e.g. 'GET '\n \\param[in]\tdatalen the buffer length\n \\param[out]\tthe http request pointer or null, need destroy later if got non-NULL pointer\n \\return\tSWITCH_STATUS_SUCCESS | SWITCH_STATUS_FALSE"]
     pub fn switch_http_parse_header(
         buffer: *mut ::std::os::raw::c_char,
         datalen: u32,
@@ -17037,7 +16332,6 @@ extern "C" {
     pub fn switch_http_dump_request(request: *mut switch_http_request_t);
 }
 extern "C" {
-    #[doc = " parse http query string\n \\param[in]\trequest the http request object\n \\param[in]\tqs the query string buffer\n\n qs buffer will be modified, so be sure to dup the qs before passing into this function if you want to keep the original string untouched\n if qs is NULL, the it will parse request->qs, request->qs will be duplicated before parse to avoid being modified"]
     pub fn switch_http_parse_qs(
         request: *mut switch_http_request_t,
         qs: *mut ::std::os::raw::c_char,
@@ -17099,7 +16393,6 @@ pub struct switch_cputime {
     pub kernelms: i64,
 }
 extern "C" {
-    #[doc = "/ Return used CPU time in this process for user and kernel code"]
     pub fn switch_getcputime(t: *mut switch_cputime);
 }
 extern "C" {
@@ -17142,55 +16435,35 @@ pub struct profile_node_s {
     pub next: *mut profile_node_s,
 }
 pub type profile_node_t = profile_node_s;
-#[doc = " \\brief Call Specific Data"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_caller_profile {
-    #[doc = " The Call's User Name"]
     pub username: *const ::std::os::raw::c_char,
-    #[doc = " The name of the dialplan"]
     pub dialplan: *const ::std::os::raw::c_char,
-    #[doc = " Caller ID Name"]
     pub caller_id_name: *const ::std::os::raw::c_char,
-    #[doc = " Caller ID Number"]
     pub caller_id_number: *const ::std::os::raw::c_char,
-    #[doc = " Original Caller ID Name"]
     pub orig_caller_id_name: *const ::std::os::raw::c_char,
-    #[doc = " Original Caller ID Number"]
     pub orig_caller_id_number: *const ::std::os::raw::c_char,
-    #[doc = " Callee ID Name"]
     pub callee_id_name: *const ::std::os::raw::c_char,
-    #[doc = " Callee ID Number"]
     pub callee_id_number: *const ::std::os::raw::c_char,
     pub caller_ton: u8,
     pub caller_numplan: u8,
-    #[doc = " Caller Network Address (when applicable)"]
     pub network_addr: *const ::std::os::raw::c_char,
-    #[doc = " ANI (when applicable)"]
     pub ani: *const ::std::os::raw::c_char,
     pub ani_ton: u8,
     pub ani_numplan: u8,
-    #[doc = " ANI II (when applicable)"]
     pub aniii: *const ::std::os::raw::c_char,
-    #[doc = " RDNIS"]
     pub rdnis: *const ::std::os::raw::c_char,
     pub rdnis_ton: u8,
     pub rdnis_numplan: u8,
-    #[doc = " Destination Number"]
     pub destination_number: *mut ::std::os::raw::c_char,
     pub destination_number_ton: u8,
     pub destination_number_numplan: u8,
-    #[doc = " channel type"]
     pub source: *const ::std::os::raw::c_char,
-    #[doc = " channel name"]
     pub chan_name: *mut ::std::os::raw::c_char,
-    #[doc = " unique id"]
     pub uuid: *mut ::std::os::raw::c_char,
-    #[doc = " context"]
     pub context: *const ::std::os::raw::c_char,
-    #[doc = " profile index"]
     pub profile_index: *const ::std::os::raw::c_char,
-    #[doc = " flags"]
     pub flags: switch_caller_profile_flag_t,
     pub originator_caller_profile: *mut switch_caller_profile,
     pub originatee_caller_profile: *mut switch_caller_profile,
@@ -17208,37 +16481,26 @@ pub struct switch_caller_profile {
     pub clone_of: *mut ::std::os::raw::c_char,
     pub transfer_source: *mut ::std::os::raw::c_char,
 }
-#[doc = " \\brief An Abstract Representation of a dialplan Application"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_caller_application {
-    #[doc = " The name of the registered application to call"]
     pub application_name: *mut ::std::os::raw::c_char,
-    #[doc = " An optional argument string to pass to the application"]
     pub application_data: *mut ::std::os::raw::c_char,
-    #[doc = " A function pointer to the application"]
     pub application_function: switch_application_function_t,
     pub next: *mut switch_caller_application,
 }
-#[doc = " \\brief An Abstract Representation of a dialplan extension"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_caller_extension {
-    #[doc = " The name of the extension"]
     pub extension_name: *mut ::std::os::raw::c_char,
-    #[doc = " The number of the extension"]
     pub extension_number: *mut ::std::os::raw::c_char,
-    #[doc = " Pointer to the current application for this extension"]
     pub current_application: *mut switch_caller_application_t,
-    #[doc = " Pointer to the last application for this extension"]
     pub last_application: *mut switch_caller_application_t,
-    #[doc = " Pointer to the entire stack of applications for this extension"]
     pub applications: *mut switch_caller_application_t,
     pub children: *mut switch_caller_profile,
     pub next: *mut switch_caller_extension,
 }
 extern "C" {
-    #[doc = "\\brief Create a new extension with desired parameters\n\\param session session associated with the extension (bound by scope)\n\\param extension_name extension name\n\\param extension_number extension number\n\\return a new extension object allocated from the session's memory pool"]
     pub fn switch_caller_extension_new(
         session: *mut switch_core_session_t,
         extension_name: *const ::std::os::raw::c_char,
@@ -17253,7 +16515,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Add an application (instruction) to the given extension\n\\param session session associated with the extension (bound by scope)\n\\param caller_extension extension to add the application to\n\\param application_name the name of the application\n\\param extra_data optional argument to the application"]
     pub fn switch_caller_extension_add_application(
         session: *mut switch_core_session_t,
         caller_extension: *mut switch_caller_extension_t,
@@ -17262,7 +16523,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Add an application (instruction) to the given extension\n\\param session session associated with the extension (bound by scope)\n\\param caller_extension extension to add the application to\n\\param application_name the name of the application\n\\param fmt optional argument to the application (printf format string)"]
     pub fn switch_caller_extension_add_application_printf(
         session: *mut switch_core_session_t,
         caller_extension: *mut switch_caller_extension_t,
@@ -17272,14 +16532,12 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Get the value of a field in a caller profile based on it's name\n\\param caller_profile The caller profile\n\\param name the name\n\\note this function is meant for situations where the name paramater is the contents of the variable"]
     pub fn switch_caller_get_field_by_name(
         caller_profile: *mut switch_caller_profile_t,
         name: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Create a new caller profile object\n\\param pool memory pool to use\n\\param username tne username of the caller\n\\param dialplan name of the dialplan module in use\n\\param caller_id_name caller ID name\n\\param caller_id_number caller ID number\n\\param network_addr network address\n\\param ani ANI information\n\\param aniii ANI II information\n\\param rdnis RDNIS\n\\param source the source\n\\param context a logical context\n\\param destination_number destination number\n\\return a new profile object allocated from the session's memory pool"]
     pub fn switch_caller_profile_new(
         pool: *mut switch_memory_pool_t,
         username: *const ::std::os::raw::c_char,
@@ -17296,21 +16554,18 @@ extern "C" {
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Clone an existing caller profile object\n\\param session session associated with the profile (bound by scope)\n\\param tocopy the existing profile"]
     pub fn switch_caller_profile_clone(
         session: *mut switch_core_session_t,
         tocopy: *mut switch_caller_profile_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Duplicate an existing caller profile object\n\\param pool pool to duplicate with\n\\param tocopy the existing profile"]
     pub fn switch_caller_profile_dup(
         pool: *mut switch_memory_pool_t,
         tocopy: *mut switch_caller_profile_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Add headers to an existing event in regards to a specific profile\n\\param caller_profile the desired profile\n\\param prefix a prefix string to all of the field names (for uniqueness)\n\\param event the event to add the information to"]
     pub fn switch_caller_profile_event_set_data(
         caller_profile: *mut switch_caller_profile_t,
         prefix: *const ::std::os::raw::c_char,
@@ -17330,7 +16585,6 @@ pub struct switch_rtcp_report_block_frame {
     pub loss_avg: u32,
     pub rtt_avg: f64,
 }
-#[doc = " \\brief An abstraction of a rtcp frame"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_rtcp_frame {
@@ -17363,7 +16617,6 @@ pub struct switch_channel_timetable {
 }
 pub type switch_channel_timetable_t = switch_channel_timetable;
 extern "C" {
-    #[doc = "\\brief Get the current state of a channel in the state engine\n\\param channel channel to retrieve state from\n\\return current state of channel"]
     pub fn switch_channel_get_state(channel: *mut switch_channel_t) -> switch_channel_state_t;
 }
 extern "C" {
@@ -17378,7 +16631,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Determine if a channel is ready for io\n\\param channel channel to test\n\\return true if the channel is ready"]
     pub fn switch_channel_test_ready(
         channel: *mut switch_channel_t,
         check_ready: switch_bool_t,
@@ -17436,11 +16688,9 @@ extern "C" {
     ) -> switch_channel_state_t;
 }
 extern "C" {
-    #[doc = "\\brief return a cause code for a given string\n\\param str the string to check\n\\return the code"]
     pub fn switch_channel_str2cause(str_: *const ::std::os::raw::c_char) -> switch_call_cause_t;
 }
 extern "C" {
-    #[doc = "\\brief return the cause code for a given channel\n\\param channel the channel\n\\return the code"]
     pub fn switch_channel_get_cause(channel: *mut switch_channel_t) -> switch_call_cause_t;
 }
 extern "C" {
@@ -17454,17 +16704,14 @@ extern "C" {
         -> *mut switch_call_cause_t;
 }
 extern "C" {
-    #[doc = "\\brief return a cause string for a given cause\n\\param cause the code to check\n\\return the string"]
     pub fn switch_channel_cause2str(cause: switch_call_cause_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief View the timetable of a channel\n\\param channel channel to retrieve timetable from\n\\return a pointer to the channel's timetable (created, answered, etc..)"]
     pub fn switch_channel_get_timetable(
         channel: *mut switch_channel_t,
     ) -> *mut switch_channel_timetable_t;
 }
 extern "C" {
-    #[doc = "\\brief Allocate a new channel\n\\param channel NULL pointer to allocate channel to\n\\param pool memory_pool to use for allocation\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_channel_alloc(
         channel: *mut *mut switch_channel_t,
         direction: switch_call_direction_t,
@@ -17472,7 +16719,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Connect a newly allocated channel to a session object and setup it's initial state\n\\param channel the channel to initilize\n\\param session the session to connect the channel to\n\\param state the initial state of the channel\n\\param flags the initial channel flags"]
     pub fn switch_channel_init(
         channel: *mut switch_channel_t,
         session: *mut switch_core_session_t,
@@ -17481,14 +16727,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Takes presence_data_cols as a parameter or as a channel variable and copies them to channel profile variables\n\\param channel the channel on which to set the channel profile variables\n\\param presence_data_cols is a colon separated list of channel variables to copy to channel profile variables"]
     pub fn switch_channel_set_presence_data_vals(
         channel: *mut switch_channel_t,
         presence_data_cols: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = "\\brief Fire A presence event for the channel\n\\param channel the channel to initilize\n\\param rpid the rpid if for the icon to use\n\\param status the status message\n\\param id presence id"]
     pub fn switch_channel_perform_presence(
         channel: *mut switch_channel_t,
         rpid: *const ::std::os::raw::c_char,
@@ -17500,11 +16744,9 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Uninitalize a channel\n\\param channel the channel to uninit"]
     pub fn switch_channel_uninit(channel: *mut switch_channel_t);
 }
 extern "C" {
-    #[doc = "\\brief Set the given channel's caller profile\n\\param channel channel to assign the profile to\n\\param caller_profile the profile to assign"]
     pub fn switch_channel_set_caller_profile(
         channel: *mut switch_channel_t,
         caller_profile: *mut switch_caller_profile_t,
@@ -17514,13 +16756,11 @@ extern "C" {
     pub fn switch_channel_step_caller_profile(channel: *mut switch_channel_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the given channel's caller profile\n\\param channel channel to retrieve the profile from\n\\return the requested profile"]
     pub fn switch_channel_get_caller_profile(
         channel: *mut switch_channel_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the given channel's originator caller profile\n\\param channel channel to assign the profile to\n\\param caller_profile the profile to assign"]
     pub fn switch_channel_set_originator_caller_profile(
         channel: *mut switch_channel_t,
         caller_profile: *mut switch_caller_profile_t,
@@ -17533,43 +16773,36 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the given channel's originator caller profile\n\\param channel channel to retrieve the profile from\n\\return the requested profile"]
     pub fn switch_channel_get_originator_caller_profile(
         channel: *mut switch_channel_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the given channel's originatee caller profile\n\\param channel channel to assign the profile to\n\\param caller_profile the profile to assign"]
     pub fn switch_channel_set_originatee_caller_profile(
         channel: *mut switch_channel_t,
         caller_profile: *mut switch_caller_profile_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the given channel's originatee caller profile\n\\param channel channel to retrieve the profile from\n\\return the requested profile"]
     pub fn switch_channel_get_originatee_caller_profile(
         channel: *mut switch_channel_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the given channel's origination caller profile\n\\param channel channel to assign the profile to\n\\param caller_profile the profile to assign"]
     pub fn switch_channel_set_origination_caller_profile(
         channel: *mut switch_channel_t,
         caller_profile: *mut switch_caller_profile_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the given channel's origination caller profile\n\\param channel channel to retrieve the profile from\n\\return the requested profile"]
     pub fn switch_channel_get_origination_caller_profile(
         channel: *mut switch_channel_t,
     ) -> *mut switch_caller_profile_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the given channel's unique id\n\\param channel channel to retrieve the unique id from\n\\return the unique id"]
     pub fn switch_channel_get_uuid(channel: *mut switch_channel_t) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Set a variable on a given channel\n\\param channel channel to set variable on\n\\param varname the name of the variable\n\\param value the value of the variable\n\\returns SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_channel_set_profile_var(
         channel: *mut switch_channel_t,
         name: *const ::std::os::raw::c_char,
@@ -17706,7 +16939,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a variable from a given channel\n\\param channel channel to retrieve variable from\n\\param varname the name of the variable\n\\return the value of the requested variable"]
     pub fn switch_channel_get_variable_dup(
         channel: *mut switch_channel_t,
         varname: *const ::std::os::raw::c_char,
@@ -17715,14 +16947,12 @@ extern "C" {
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a copy of a variable from a given channel. switch_safe_free() call will be required.\n\\param channel channel to retrieve variable from\n\\param varname the name of the variable\n\\return a strdup copy the value of the requested variable without using a memory pool."]
     pub fn switch_channel_get_variable_strdup(
         channel: *mut switch_channel_t,
         varname: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a variable from a given channel to a pre-allocated buffer without using a memory pool.\n\\param channel channel to retrieve variable from\n\\param varname the name of the variable\n\\param buf a pre allocated buffer to put the value to\n\\param buflen size of the buffer\n\\return SWITCH_STATUS_SUCCESS if the value was copied to the buffer and it is not NULL, SWITCH_STATUS_FALSE otherwise."]
     pub fn switch_channel_get_variable_buf(
         channel: *mut switch_channel_t,
         varname: *const ::std::os::raw::c_char,
@@ -17750,13 +16980,11 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Start iterating over the entries in the channel variable list.\n \\param channel the channel to iterate the variables for\n \\remark This function locks the profile mutex, use switch_channel_variable_last to unlock"]
     pub fn switch_channel_variable_first(
         channel: *mut switch_channel_t,
     ) -> *mut switch_event_header_t;
 }
 extern "C" {
-    #[doc = " \\brief Stop iterating over channel variables.\n \\remark Unlocks the profile mutex initially locked in switch_channel_variable_first"]
     pub fn switch_channel_variable_last(channel: *mut switch_channel_t);
 }
 extern "C" {
@@ -17770,7 +16998,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign a caller extension to a given channel\n\\param channel channel to assign extension to\n\\param caller_extension extension to assign"]
     pub fn switch_channel_set_caller_extension(
         channel: *mut switch_channel_t,
         caller_extension: *mut switch_caller_extension_t,
@@ -17786,20 +17013,17 @@ extern "C" {
     pub fn switch_channel_sort_cid(channel: *mut switch_channel_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve caller extension from a given channel\n\\param channel channel to retrieve extension from\n\\return the requested extension"]
     pub fn switch_channel_get_caller_extension(
         channel: *mut switch_channel_t,
     ) -> *mut switch_caller_extension_t;
 }
 extern "C" {
-    #[doc = "\\brief Test for presence of given flag on a given channel\n\\param channel channel to test\n\\param flag to test\n\\return TRUE if flags were present"]
     pub fn switch_channel_test_flag(
         channel: *mut switch_channel_t,
         flag: switch_channel_flag_t,
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set given flag(s) on a given channel\n\\param channel channel on which to set flag\n\\param flag or'd list of flags to set"]
     pub fn switch_channel_set_flag_value(
         channel: *mut switch_channel_t,
         flag: switch_channel_flag_t,
@@ -17835,14 +17059,12 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set given flag(s) on a given channel's bridge partner\n\\param channel channel to derive the partner channel to set flag on\n\\param flag to set\n\\return true if the flag was set"]
     pub fn switch_channel_set_flag_partner(
         channel: *mut switch_channel_t,
         flag: switch_channel_flag_t,
     ) -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief Clears given flag(s) on a given channel's bridge partner\n\\param channel channel to derive the partner channel to clear flag(s) from\n\\param flag the flag to clear\n\\return true if the flag was cleared"]
     pub fn switch_channel_clear_flag_partner(
         channel: *mut switch_channel_t,
         flag: switch_channel_flag_t,
@@ -17855,7 +17077,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set given flag(s) on a given channel to be applied on the next state change\n\\param channel channel on which to set flag(s)\n\\param flag flag to set"]
     pub fn switch_channel_set_state_flag(
         channel: *mut switch_channel_t,
         flag: switch_channel_flag_t,
@@ -17868,7 +17089,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Clear given flag(s) from a channel\n\\param channel channel to clear flags from\n\\param flag flag to clear"]
     pub fn switch_channel_clear_flag(channel: *mut switch_channel_t, flag: switch_channel_flag_t);
 }
 extern "C" {
@@ -17936,28 +17156,24 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief add a state handler table to a given channel\n\\param channel channel on which to add the state handler table\n\\param state_handler table of state handler functions\n\\return the index number/priority of the table negative value indicates failure"]
     pub fn switch_channel_add_state_handler(
         channel: *mut switch_channel_t,
         state_handler: *const switch_state_handler_table_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief clear a state handler table from a given channel\n\\param channel channel from which to clear the state handler table\n\\param state_handler table of state handler functions"]
     pub fn switch_channel_clear_state_handler(
         channel: *mut switch_channel_t,
         state_handler: *const switch_state_handler_table_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Retrieve an state handler tablefrom a given channel at given index level\n\\param channel channel from which to retrieve the state handler table\n\\param index the index of the state handler table (start from 0)\n\\return given channel's state handler table at given index or NULL if requested index does not exist."]
     pub fn switch_channel_get_state_handler(
         channel: *mut switch_channel_t,
         index: ::std::os::raw::c_int,
     ) -> *const switch_state_handler_table_t;
 }
 extern "C" {
-    #[doc = "\\brief Set private data on channel\n\\param channel channel on which to set data\n\\param key unique keyname to associate your private data to\n\\param private_info void pointer to private data\n\\return SWITCH_STATUS_SUCCESS if data was set\n\\remarks set NULL to delete your private data"]
     pub fn switch_channel_set_private(
         channel: *mut switch_channel_t,
         key: *const ::std::os::raw::c_char,
@@ -17965,7 +17181,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve private from a given channel\n\\param channel channel to retrieve data from\n\\param key unique keyname to retrieve your private data\n\\return void pointer to channel's private data"]
     pub fn switch_channel_get_private(
         channel: *mut switch_channel_t,
         key: *const ::std::os::raw::c_char,
@@ -17978,14 +17193,12 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Assign a name to a given channel\n\\param channel channel to assign name to\n\\param name name to assign\n\\return SWITCH_STATUS_SUCCESS if name was assigned"]
     pub fn switch_channel_set_name(
         channel: *mut switch_channel_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the name of a given channel\n\\param channel channel to get name of\n\\return the channel's name"]
     pub fn switch_channel_get_name(channel: *mut switch_channel_t) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -17998,7 +17211,6 @@ extern "C" {
     ) -> switch_channel_state_t;
 }
 extern "C" {
-    #[doc = "\\brief Test for presence of DTMF on a given channel\n\\param channel channel to test\n\\return number of digits in the queue"]
     pub fn switch_channel_has_dtmf(channel: *mut switch_channel_t) -> switch_size_t;
 }
 extern "C" {
@@ -18011,7 +17223,6 @@ extern "C" {
     pub fn switch_channel_dtmf_unlock(channel: *mut switch_channel_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue DTMF on a given channel\n\\param channel channel to queue DTMF to\n\\param dtmf digit\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_channel_queue_dtmf(
         channel: *mut switch_channel_t,
         dtmf: *const switch_dtmf_t,
@@ -18024,7 +17235,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve DTMF digits from a given channel\n\\param channel channel to retrieve digits from\n\\param dtmf digit\n\\return number of bytes read into the buffer"]
     pub fn switch_channel_dequeue_dtmf(
         channel: *mut switch_channel_t,
         dtmf: *mut switch_dtmf_t,
@@ -18041,18 +17251,15 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Render the name of the provided state enum\n\\param state state to get name of\n\\return the string representation of the state"]
     pub fn switch_channel_state_name(
         state: switch_channel_state_t,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Render the enum of the provided state name\n\\param name the name of the state\n\\return the enum value (numeric)"]
     pub fn switch_channel_name_state(name: *const ::std::os::raw::c_char)
         -> switch_channel_state_t;
 }
 extern "C" {
-    #[doc = "\\brief Add information about a given channel to an event object\n\\param channel channel to add information about\n\\param event event to add information to"]
     pub fn switch_channel_event_set_data(
         channel: *mut switch_channel_t,
         event: *mut switch_event_t,
@@ -18071,7 +17278,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Expand varaibles in a string based on the variables in a paticular channel\n\\param channel channel to expand the variables from\n\\param in the original string\n\\return the original string if no expansion takes place otherwise a new string that must be freed\n\\note it's necessary to test if the return val is the same as the input and free the string if it is not."]
     pub fn switch_channel_expand_variables_check(
         channel: *mut switch_channel_t,
         in_: *const ::std::os::raw::c_char,
@@ -18206,7 +17412,6 @@ extern "C" {
     pub fn switch_channel_mark_hold(channel: *mut switch_channel_t, on: switch_bool_t);
 }
 extern "C" {
-    #[doc = " @}"]
     pub fn switch_channel_execute_on(
         channel: *mut switch_channel_t,
         variable_prefix: *const ::std::os::raw::c_char,
@@ -18332,7 +17537,6 @@ extern "C" {
     pub fn switch_buffer_reset_partition_data(buffer: *mut switch_buffer_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Allocate a new switch_buffer\n \\param pool Pool to allocate the buffer from\n \\param buffer returned pointer to the new buffer\n \\param max_len length required by the buffer\n \\return status"]
     pub fn switch_buffer_create(
         pool: *mut switch_memory_pool_t,
         buffer: *mut *mut switch_buffer_t,
@@ -18340,7 +17544,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Allocate a new dynamic switch_buffer\n \\param buffer returned pointer to the new buffer\n \\param blocksize length to realloc by as data is added\n \\param start_len ammount of memory to reserve initially\n \\param max_len length the buffer is allowed to grow to\n \\return status"]
     pub fn switch_buffer_create_dynamic(
         buffer: *mut *mut switch_buffer_t,
         blocksize: switch_size_t,
@@ -18361,19 +17564,15 @@ extern "C" {
     pub fn switch_buffer_unlock(buffer: *mut switch_buffer_t);
 }
 extern "C" {
-    #[doc = " \\brief Get the length of a switch_buffer_t\n \\param buffer any buffer of type switch_buffer_t\n \\return int size of the buffer."]
     pub fn switch_buffer_len(buffer: *mut switch_buffer_t) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Get the freespace of a switch_buffer_t\n \\param buffer any buffer of type switch_buffer_t\n \\return int freespace in the buffer."]
     pub fn switch_buffer_freespace(buffer: *mut switch_buffer_t) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Get the in use amount of a switch_buffer_t\n \\param buffer any buffer of type switch_buffer_t\n \\return int ammount of buffer curently in use"]
     pub fn switch_buffer_inuse(buffer: *mut switch_buffer_t) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Read data from a switch_buffer_t up to the ammount of datalen if it is available.  Remove read data from buffer.\n \\param buffer any buffer of type switch_buffer_t\n \\param data pointer to the read data to be returned\n \\param datalen amount of data to be returned\n \\return int ammount of data actually read"]
     pub fn switch_buffer_read(
         buffer: *mut switch_buffer_t,
         data: *mut ::std::os::raw::c_void,
@@ -18381,7 +17580,6 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Read data from a switch_buffer_t up to the ammount of datalen if it is available, without removing read data from buffer.\n \\param buffer any buffer of type switch_buffer_t\n \\param data pointer to the read data to be returned\n \\param datalen amount of data to be returned\n \\return int ammount of data actually read"]
     pub fn switch_buffer_peek(
         buffer: *mut switch_buffer_t,
         data: *mut ::std::os::raw::c_void,
@@ -18395,7 +17593,6 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Read data endlessly from a switch_buffer_t\n \\param buffer any buffer of type switch_buffer_t\n \\param data pointer to the read data to be returned\n \\param datalen amount of data to be returned\n \\return int ammount of data actually read\n \\note Once you have read all the data from the buffer it will loop around."]
     pub fn switch_buffer_read_loop(
         buffer: *mut switch_buffer_t,
         data: *mut ::std::os::raw::c_void,
@@ -18403,11 +17600,9 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Assign a number of loops to read\n \\param buffer any buffer of type switch_buffer_t\n \\param loops the number of loops (-1 for infinite)"]
     pub fn switch_buffer_set_loops(buffer: *mut switch_buffer_t, loops: i32);
 }
 extern "C" {
-    #[doc = " \\brief Write data into a switch_buffer_t up to the length of datalen\n \\param buffer any buffer of type switch_buffer_t\n \\param data pointer to the data to be written or 0 to fill in with datalen zeros\n \\param datalen amount of data to be written\n \\return int amount of buffer used after the write, or 0 if no space available"]
     pub fn switch_buffer_write(
         buffer: *mut switch_buffer_t,
         data: *const ::std::os::raw::c_void,
@@ -18415,14 +17610,12 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Remove data from the buffer\n \\param buffer any buffer of type switch_buffer_t\n \\param datalen amount of data to be removed\n \\return int size of buffer, or 0 if unable to toss that much data"]
     pub fn switch_buffer_toss(
         buffer: *mut switch_buffer_t,
         datalen: switch_size_t,
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Remove all data from the buffer\n \\param buffer any buffer of type switch_buffer_t"]
     pub fn switch_buffer_zero(buffer: *mut switch_buffer_t);
 }
 extern "C" {
@@ -18433,7 +17626,6 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Destroy the buffer\n \\param buffer buffer to destroy\n \\note only neccessary on dynamic buffers (noop on pooled ones)"]
     pub fn switch_buffer_destroy(buffer: *mut *mut switch_buffer_t);
 }
 extern "C" {
@@ -18448,45 +17640,28 @@ extern "C" {
         buffer: *mut switch_buffer_t,
     ) -> *mut ::std::os::raw::c_void;
 }
-#[doc = " \\brief An event Header"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_event_header {
-    #[doc = " the header name"]
     pub name: *mut ::std::os::raw::c_char,
-    #[doc = " the header value"]
     pub value: *mut ::std::os::raw::c_char,
-    #[doc = " array space"]
     pub array: *mut *mut ::std::os::raw::c_char,
-    #[doc = " array index"]
     pub idx: ::std::os::raw::c_int,
-    #[doc = " hash of the header name"]
     pub hash: ::std::os::raw::c_ulong,
     pub next: *mut switch_event_header,
 }
-#[doc = " \\brief Representation of an event"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_event {
-    #[doc = " the event id (descriptor)"]
     pub event_id: switch_event_types_t,
-    #[doc = " the priority of the event"]
     pub priority: switch_priority_t,
-    #[doc = " the owner of the event"]
     pub owner: *mut ::std::os::raw::c_char,
-    #[doc = " the subclass of the event"]
     pub subclass_name: *mut ::std::os::raw::c_char,
-    #[doc = " the event headers"]
     pub headers: *mut switch_event_header_t,
-    #[doc = " the event headers tail pointer"]
     pub last_header: *mut switch_event_header_t,
-    #[doc = " the body of the event"]
     pub body: *mut ::std::os::raw::c_char,
-    #[doc = " user data from the subclass provider"]
     pub bind_user_data: *mut ::std::os::raw::c_void,
-    #[doc = " user data from the event sender"]
     pub event_user_data: *mut ::std::os::raw::c_void,
-    #[doc = " unique key"]
     pub key: ::std::os::raw::c_ulong,
     pub next: *mut switch_event,
     pub flags: ::std::os::raw::c_int,
@@ -18509,20 +17684,20 @@ pub struct switch_serial_event_header_s {
     pub value: *mut ::std::os::raw::c_char,
 }
 pub type switch_serial_event_header_t = switch_serial_event_header_s;
-pub const switch_event_flag_t_EF_UNIQ_HEADERS: switch_event_flag_t = 1;
-pub const switch_event_flag_t_EF_NO_CHAT_EXEC: switch_event_flag_t = 2;
-pub const switch_event_flag_t_EF_DEFAULT_ALLOW: switch_event_flag_t = 4;
-pub type switch_event_flag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_event_flag_t {
+    EF_UNIQ_HEADERS = 1,
+    EF_NO_CHAT_EXEC = 2,
+    EF_DEFAULT_ALLOW = 4,
+}
 extern "C" {
-    #[doc = "\\brief Start the eventing system\n\\param pool the memory pool to use for the event system (creates a new one if NULL)\n\\return SWITCH_STATUS_SUCCESS when complete"]
     pub fn switch_event_init(pool: *mut switch_memory_pool_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop the eventing system\n\\return SWITCH_STATUS_SUCCESS when complete"]
     pub fn switch_event_shutdown() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Create an event\n\\param event a NULL pointer on which to create the event\n\\param event_id the event id enumeration of the desired event\n\\param subclass_name the subclass name for custom event (only valid when event_id is SWITCH_EVENT_CUSTOM)\n\\return SWITCH_STATUS_SUCCESS on success"]
     pub fn switch_event_create_subclass_detailed(
         file: *const ::std::os::raw::c_char,
         func: *const ::std::os::raw::c_char,
@@ -18533,14 +17708,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the priority of an event\n\\param event the event to set the priority on\n\\param priority the event priority\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_event_set_priority(
         event: *mut switch_event_t,
         priority: switch_priority_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve a header value from an event\n\\param event the event to read the header from\n\\param header_name the name of the header to read\n\\return the value of the requested header"]
     pub fn switch_event_get_header_ptr(
         event: *mut switch_event_t,
         header_name: *const ::std::os::raw::c_char,
@@ -18561,11 +17734,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the body value from an event\n\\param event the event to read the body from\n\\return the value of the body or NULL"]
     pub fn switch_event_get_body(event: *mut switch_event_t) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Add a header to an event\n\\param event the event to add the header to\n\\param stack the stack sense (stack it on the top or on the bottom)\n\\param header_name the name of the header to add\n\\param fmt the value of the header (varargs see standard sprintf family)\n\\return SWITCH_STATUS_SUCCESS if the header was added"]
     pub fn switch_event_add_header(
         event: *mut switch_event_t,
         stack: switch_stack_t,
@@ -18581,7 +17752,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Add a string header to an event\n\\param event the event to add the header to\n\\param stack the stack sense (stack it on the top or on the bottom)\n\\param header_name the name of the header to add\n\\param data the value of the header\n\\return SWITCH_STATUS_SUCCESS if the header was added"]
     pub fn switch_event_add_header_string(
         event: *mut switch_event_t,
         stack: switch_stack_t,
@@ -18612,11 +17782,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an event\n\\param event pointer to the pointer to event to destroy"]
     pub fn switch_event_destroy(event: *mut *mut switch_event_t);
 }
 extern "C" {
-    #[doc = "\\brief Duplicate an event\n\\param event a NULL pointer on which to duplicate the event\n\\param todup an event to duplicate\n\\return SWITCH_STATUS_SUCCESS if the event was duplicated"]
     pub fn switch_event_dup(
         event: *mut *mut switch_event_t,
         todup: *mut switch_event_t,
@@ -18632,7 +17800,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Fire an event with full arguement list\n\\param file the calling file\n\\param func the calling function\n\\param line the calling line number\n\\param event the event to send (will be nulled on success)\n\\param user_data optional private data to pass to the event handlers\n\\return"]
     pub fn switch_event_fire_detailed(
         file: *const ::std::os::raw::c_char,
         func: *const ::std::os::raw::c_char,
@@ -18650,7 +17817,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Bind an event callback to a specific event\n\\param id an identifier token of the binder\n\\param event the event enumeration to bind to\n\\param subclass_name the event subclass to bind to in the case if SWITCH_EVENT_CUSTOM\n\\param callback the callback functon to bind\n\\param user_data optional user specific data to pass whenever the callback is invoked\n\\return SWITCH_STATUS_SUCCESS if the event was binded"]
     pub fn switch_event_bind(
         id: *const ::std::os::raw::c_char,
         event: switch_event_types_t,
@@ -18665,7 +17831,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Bind an event callback to a specific event\n\\param id an identifier token of the binder\n\\param event the event enumeration to bind to\n\\param subclass_name the event subclass to bind to in the case if SWITCH_EVENT_CUSTOM\n\\param callback the callback functon to bind\n\\param user_data optional user specific data to pass whenever the callback is invoked\n\\param node bind handle to later remove the binding.\n\\return SWITCH_STATUS_SUCCESS if the event was binded"]
     pub fn switch_event_bind_removable(
         id: *const ::std::os::raw::c_char,
         event: switch_event_types_t,
@@ -18676,25 +17841,21 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Unbind a bound event consumer\n\\param node node to unbind\n\\return SWITCH_STATUS_SUCCESS if the consumer was unbinded"]
     pub fn switch_event_unbind(node: *mut *mut switch_event_node_t) -> switch_status_t;
 }
 extern "C" {
     pub fn switch_event_unbind_callback(callback: switch_event_callback_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Render the name of an event id enumeration\n\\param event the event id to render the name of\n\\return the rendered name"]
     pub fn switch_event_name(event: switch_event_types_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief return the event id that matches a given event name\n\\param name the name of the event\n\\param type the event id to return\n\\return SWITCH_STATUS_SUCCESS if there was a match"]
     pub fn switch_name_event(
         name: *const ::std::os::raw::c_char,
         type_: *mut switch_event_types_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Reserve a subclass name for private use with a custom event\n\\param owner the owner of the event name\n\\param subclass_name the name to reserve\n\\return SWITCH_STATUS_SUCCESS if the name was reserved\n\\note There is nothing to enforce this but I recommend using module::event_name for the subclass names"]
     pub fn switch_event_reserve_subclass_detailed(
         owner: *const ::std::os::raw::c_char,
         subclass_name: *const ::std::os::raw::c_char,
@@ -18707,7 +17868,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Render a string representation of an event suitable for printing or network transport\n\\param event the event to render\n\\param str a string pointer to point at the allocated data\n\\param encode url encode the headers\n\\return SWITCH_STATUS_SUCCESS if the operation was successful\n\\note you must free the resulting string when you are finished with it"]
     pub fn switch_event_binary_deserialize(
         eventp: *mut *mut switch_event_t,
         data: *mut *mut ::std::os::raw::c_void,
@@ -18767,7 +17927,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Render a XML representation of an event suitable for printing or network transport\n\\param event the event to render\n\\param fmt optional body of the event (varargs see standard sprintf family)\n\\return the xml object if the operation was successful\n\\note the body supplied by this function will supersede an existing body the event may have"]
     pub fn switch_event_xmlize(
         event: *mut switch_event_t,
         fmt: *const ::std::os::raw::c_char,
@@ -18775,11 +17934,9 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Determine if the event system has been initialized\n\\return SWITCH_STATUS_SUCCESS if the system is running"]
     pub fn switch_event_running() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Add a body to an event\n\\param event the event to add to body to\n\\param fmt optional body of the event (varargs see standard sprintf family)\n\\return SWITCH_STATUS_SUCCESS if the body was added to the event\n\\note the body parameter can be shadowed by the switch_event_reserve_subclass_detailed function"]
     pub fn switch_event_add_body(
         event: *mut switch_event_t,
         fmt: *const ::std::os::raw::c_char,
@@ -18821,7 +17978,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Deliver an event to all of the registered event listeners\n\\param event the event to send (will be nulled)\n\\note normaly use switch_event_fire for delivering events (only use this when you wish to deliver the event blocking on your thread)"]
     pub fn switch_event_deliver(event: *mut *mut switch_event_t);
 }
 extern "C" {
@@ -19004,35 +18160,47 @@ extern "C" {
 extern "C" {
     pub fn switch_event_channel_permission_clear(cookie: *const ::std::os::raw::c_char);
 }
-pub const switch_core_video_filter_t_SCV_FILTER_GRAY_FG: switch_core_video_filter_t = 1;
-pub const switch_core_video_filter_t_SCV_FILTER_GRAY_BG: switch_core_video_filter_t = 2;
-pub const switch_core_video_filter_t_SCV_FILTER_SEPIA_FG: switch_core_video_filter_t = 4;
-pub const switch_core_video_filter_t_SCV_FILTER_SEPIA_BG: switch_core_video_filter_t = 8;
-pub const switch_core_video_filter_t_SCV_FILTER_8BIT_FG: switch_core_video_filter_t = 16;
-pub type switch_core_video_filter_t = ::std::os::raw::c_uint;
-pub const switch_shade_t_SWITCH_SHADE_NONE: switch_shade_t = 0;
-pub const switch_shade_t_SWITCH_SHADE_RED: switch_shade_t = 1;
-pub const switch_shade_t_SWITCH_SHADE_GREEN: switch_shade_t = 2;
-pub const switch_shade_t_SWITCH_SHADE_BLUE: switch_shade_t = 3;
-pub const switch_shade_t_SWITCH_SHADE_AUTO: switch_shade_t = 4;
-pub type switch_shade_t = ::std::os::raw::c_uint;
-pub const switch_img_position_t_POS_LEFT_TOP: switch_img_position_t = 0;
-pub const switch_img_position_t_POS_LEFT_MID: switch_img_position_t = 1;
-pub const switch_img_position_t_POS_LEFT_BOT: switch_img_position_t = 2;
-pub const switch_img_position_t_POS_CENTER_TOP: switch_img_position_t = 3;
-pub const switch_img_position_t_POS_CENTER_MID: switch_img_position_t = 4;
-pub const switch_img_position_t_POS_CENTER_BOT: switch_img_position_t = 5;
-pub const switch_img_position_t_POS_RIGHT_TOP: switch_img_position_t = 6;
-pub const switch_img_position_t_POS_RIGHT_MID: switch_img_position_t = 7;
-pub const switch_img_position_t_POS_RIGHT_BOT: switch_img_position_t = 8;
-pub const switch_img_position_t_POS_NONE: switch_img_position_t = 9;
-pub type switch_img_position_t = ::std::os::raw::c_uint;
-pub const switch_img_fit_t_SWITCH_FIT_SIZE: switch_img_fit_t = 0;
-pub const switch_img_fit_t_SWITCH_FIT_SCALE: switch_img_fit_t = 1;
-pub const switch_img_fit_t_SWITCH_FIT_SIZE_AND_SCALE: switch_img_fit_t = 2;
-pub const switch_img_fit_t_SWITCH_FIT_NECESSARY: switch_img_fit_t = 3;
-pub const switch_img_fit_t_SWITCH_FIT_NONE: switch_img_fit_t = 4;
-pub type switch_img_fit_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_video_filter_t {
+    SCV_FILTER_GRAY_FG = 1,
+    SCV_FILTER_GRAY_BG = 2,
+    SCV_FILTER_SEPIA_FG = 4,
+    SCV_FILTER_SEPIA_BG = 8,
+    SCV_FILTER_8BIT_FG = 16,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_shade_t {
+    SWITCH_SHADE_NONE = 0,
+    SWITCH_SHADE_RED = 1,
+    SWITCH_SHADE_GREEN = 2,
+    SWITCH_SHADE_BLUE = 3,
+    SWITCH_SHADE_AUTO = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_img_position_t {
+    POS_LEFT_TOP = 0,
+    POS_LEFT_MID = 1,
+    POS_LEFT_BOT = 2,
+    POS_CENTER_TOP = 3,
+    POS_CENTER_MID = 4,
+    POS_CENTER_BOT = 5,
+    POS_RIGHT_TOP = 6,
+    POS_RIGHT_MID = 7,
+    POS_RIGHT_BOT = 8,
+    POS_NONE = 9,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_img_fit_t {
+    SWITCH_FIT_SIZE = 0,
+    SWITCH_FIT_SCALE = 1,
+    SWITCH_FIT_SIZE_AND_SCALE = 2,
+    SWITCH_FIT_NECESSARY = 3,
+    SWITCH_FIT_NONE = 4,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_yuv_color_s {
@@ -19072,23 +18240,20 @@ pub struct switch_xyz_color_t {
     pub y: f64,
     pub z: f64,
 }
-#[doc = "\\brief Representation of a rectangle on a surface"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_image_rect {
-    #[doc = "< leftmost column"]
     pub x: ::std::os::raw::c_uint,
-    #[doc = "< topmost row"]
     pub y: ::std::os::raw::c_uint,
-    #[doc = "< width"]
     pub w: ::std::os::raw::c_uint,
-    #[doc = "< height"]
     pub h: ::std::os::raw::c_uint,
 }
-#[doc = "\\brief Representation of a rectangle on a surface"]
 pub type switch_image_rect_t = switch_image_rect;
-pub const switch_convert_fmt_t_SWITCH_CONVERT_FMT_YUYV: switch_convert_fmt_t = 0;
-pub type switch_convert_fmt_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_convert_fmt_t {
+    SWITCH_CONVERT_FMT_YUYV = 0,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_png_opaque_s {
@@ -19103,13 +18268,15 @@ pub struct switch_png_s {
     pub h: ::std::os::raw::c_int,
 }
 pub type switch_png_t = switch_png_s;
-pub const switch_image_rotation_mode_t_SRM_NONE: switch_image_rotation_mode_t = 0;
-pub const switch_image_rotation_mode_t_SRM_90: switch_image_rotation_mode_t = 90;
-pub const switch_image_rotation_mode_t_SRM_180: switch_image_rotation_mode_t = 180;
-pub const switch_image_rotation_mode_t_SRM_270: switch_image_rotation_mode_t = 270;
-pub type switch_image_rotation_mode_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_image_rotation_mode_t {
+    SRM_NONE = 0,
+    SRM_90 = 90,
+    SRM_180 = 180,
+    SRM_270 = 270,
+}
 extern "C" {
-    #[doc = "\\brief Open a descriptor, allocating storage for the underlying image\n\n Returns a descriptor for storing an image of the given format. The\n storage for the descriptor is allocated on the heap.\n\n \\param[in]    img       Pointer to storage for descriptor. If this parameter\n                         is NULL, the storage for the descriptor will be\n                         allocated on the heap.\n \\param[in]    fmt       Format for the image\n \\param[in]    d_w       Width of the image\n \\param[in]    d_h       Height of the image\n \\param[in]    align     Alignment, in bytes, of the image buffer and\n                         each row in the image(stride).\n\n \\return Returns a pointer to the initialized image descriptor. If the img\n         parameter is non-null, the value of the img parameter will be\n         returned."]
     pub fn switch_img_alloc(
         img: *mut switch_image_t,
         fmt: switch_img_fmt_t,
@@ -19119,7 +18286,6 @@ extern "C" {
     ) -> *mut switch_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Open a descriptor, using existing storage for the underlying image\n\n Returns a descriptor for storing an image of the given format. The\n storage for descriptor has been allocated elsewhere, and a descriptor is\n desired to \"wrap\" that storage.\n\n \\param[in]    img       Pointer to storage for descriptor. If this parameter\n                         is NULL, the storage for the descriptor will be\n                         allocated on the heap.\n \\param[in]    fmt       Format for the image\n \\param[in]    d_w       Width of the image\n \\param[in]    d_h       Height of the image\n \\param[in]    align     Alignment, in bytes, of each row in the image.\n \\param[in]    img_data  Storage to use for the image\n\n \\return Returns a pointer to the initialized image descriptor. If the img\n         parameter is non-null, the value of the img parameter will be\n         returned."]
     pub fn switch_img_wrap(
         img: *mut switch_image_t,
         fmt: switch_img_fmt_t,
@@ -19130,7 +18296,6 @@ extern "C" {
     ) -> *mut switch_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Set the rectangle identifying the displayed portion of the image\n\n Updates the displayed rectangle (aka viewport) on the image surface to\n match the specified coordinates and size.\n\n \\param[in]    img       Image descriptor\n \\param[in]    x         leftmost column\n \\param[in]    y         topmost row\n \\param[in]    w         width\n \\param[in]    h         height\n\n \\return 0 if the requested rectangle is valid, nonzero otherwise."]
     pub fn switch_img_set_rect(
         img: *mut switch_image_t,
         x: ::std::os::raw::c_uint,
@@ -19140,7 +18305,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief patch a small img to a big IMG at position x,y\n\n Both IMG and img must be non-NULL\n\n \\param[in]    IMG       The BIG Image descriptor\n \\param[in]    img       The small Image descriptor\n \\param[in]    x         Leftmost pos to patch to\n \\param[in]    y         Topmost pos to patch to"]
     pub fn switch_img_patch(
         IMG: *mut switch_image_t,
         img: *mut switch_image_t,
@@ -19152,7 +18316,6 @@ extern "C" {
     pub fn switch_img_attenuate(img: *mut switch_image_t);
 }
 extern "C" {
-    #[doc = "\\brief patch a small img to a big IMG at position x,y\n\n Both IMG and img must be non-NULL\n\n \\param[in]    IMG       The BIG Image descriptor\n \\param[in]    img       The small Image descriptor\n \\param[in]    x         Leftmost pos to patch to\n \\param[in]    y         Topmost pos to patch to\n \\param[in]    noalpha   skip writing to non-transparent pixels"]
     pub fn switch_img_patch_rgb(
         IMG: *mut switch_image_t,
         img: *mut switch_image_t,
@@ -19162,7 +18325,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief patch part of a small img (x,y,w,h) to a big IMG at position X,Y\n\n Both IMG and img must be non-NULL\n\n \\param[in]    IMG       The BIG Image descriptor\n \\param[in]    X         Leftmost pos to patch to IMG\n \\param[in]    Y         Topmost pos to patch to IMG\n \\param[in]    img       The small Image descriptor\n \\param[in]    x         Leftmost pos to be read from img\n \\param[in]    y         Topmost pos to be read from\n \\param[in]    w         Max width to be read from img\n \\param[in]    h         Max height to be read from img"]
     pub fn switch_img_patch_rect(
         IMG: *mut switch_image_t,
         X: ::std::os::raw::c_int,
@@ -19175,7 +18337,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Copy image to a new image\n\n if new_img is NULL, a new image is allocated\n if new_img is not NULL but not the same size as img,\n    new_img is destroyed and a new new_img is allocated\n else, copy the img data to the new_img\n\n \\param[in]    img       Image descriptor\n \\param[out]   new_img   New Image descriptor, NULL if out of memory"]
     pub fn switch_img_copy(img: *mut switch_image_t, new_img: *mut *mut switch_image_t);
 }
 extern "C" {
@@ -19186,11 +18347,9 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Flip the image vertically (top for bottom)\n\n Adjusts the image descriptor's pointers and strides to make the image\n be referenced upside-down.\n\n \\param[in]    img       Image descriptor\n\n \\return 0 if the requested rectangle is valid, nonzero otherwise."]
     pub fn switch_img_rotate(img: *mut *mut switch_image_t, mode: switch_image_rotation_mode_t);
 }
 extern "C" {
-    #[doc = "\\brief Close an image descriptor\n\n Frees all allocated storage associated with an image descriptor.\n\n \\param[in]    img       pointer to pointer of Image descriptor"]
     pub fn switch_img_free(img: *mut *mut switch_image_t);
 }
 extern "C" {
@@ -19213,7 +18372,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Copy part of an image to a new image\n\n\n \\param[in]    img       Image descriptor\n \\param[in]    x         Leftmost pos to be read from\n \\param[in]    y         Topmost pos to be read from\n \\param[in]    w         Max width to be read from\n \\param[in]    h         Max height to be read from\n\n \\return NULL if failed to copy, otherwise a valid image descriptor."]
     pub fn switch_img_copy_rect(
         img: *mut switch_image_t,
         x: u32,
@@ -19223,7 +18381,6 @@ extern "C" {
     ) -> *mut switch_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Fill image with color\n\n \\param[in]    img       Image descriptor\n \\param[in]    x         Leftmost pos to be read from\n \\param[in]    y         Topmost pos to be read from\n \\param[in]    w         Max width to be read from\n \\param[in]    h         Max height to be read from\n \\param[in]    color     RGB color"]
     pub fn switch_img_fill(
         img: *mut switch_image_t,
         x: ::std::os::raw::c_int,
@@ -19265,21 +18422,18 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set RGB color with a string\n\n Color string should be in #RRGGBB format\n\n \\param[out]   color     RGB color pointer\n \\param[in]    color_str Color string in #RRGGBB format"]
     pub fn switch_color_set_rgb(
         color: *mut switch_rgb_color_t,
         color_str: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = "\\brief Set YUV color with a string\n\n Color string should be in #RRGGBB format\n\n \\param[out]   color     YUV color pointer\n \\param[in]    color_str Color string in #RRGGBB format"]
     pub fn switch_color_set_yuv(
         color: *mut switch_yuv_color_t,
         color_str: *const ::std::os::raw::c_char,
     );
 }
 extern "C" {
-    #[doc = "\\brief Created a text handle\n\n \\param[out]   handleP     Pointer to the text handle pointer\n \\param[in]    font_family Font family\n \\param[in]    font_color  Font color in #RRGGBB format\n \\param[in]    bgcolor     Background color in #RRGGBB format\n \\param[in]    font_size   Font size in point\n \\param[in]    angle       Angle to rotate\n \\param[in]    pool        APR memory pool"]
     pub fn switch_img_txt_handle_create(
         handleP: *mut *mut switch_img_txt_handle_t,
         font_family: *const ::std::os::raw::c_char,
@@ -19291,11 +18445,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Free a text handle\n\n \\param[in]   handleP     Pointer to the text handle pointer"]
     pub fn switch_img_txt_handle_destroy(handleP: *mut *mut switch_img_txt_handle_t);
 }
 extern "C" {
-    #[doc = "\\brief Render text to an img\n\n \\param[in]    handle      Pointer to the text handle pointer\n \\param[in]    img         The image to be render text on\n \\param[in]    x           Leftmost position\n \\param[in]    y           Topmost position\n \\param[in]    text        Text to render\n \\param[in]    font_family Font to use, NULL to use the handle font\n \\param[in]    font_color  Font color, NULL to use the handle color\n \\param[in]    bgcolor     Background color, NULL for transparency\n \\param[in]    font_size   Font size in point\n \\param[in]    angle       Angle to rotate"]
     pub fn switch_img_txt_handle_render(
         handle: *mut switch_img_txt_handle_t,
         img: *mut switch_image_t,
@@ -19369,14 +18521,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Read an image file to switch_image_t"]
     pub fn switch_img_read_from_file(
         file_name: *const ::std::os::raw::c_char,
         img_fmt: switch_img_fmt_t,
     ) -> *mut switch_image_t;
 }
 extern "C" {
-    #[doc = "\\brief Write an image file, supported formats png,jpg,bmp,tga,hdr\n \\param[in]    img       The image descriptor\n \\param[in]    file_name The file_name to write\n \\param[in]    quality   Only used in jpg, 1 ~ 100"]
     pub fn switch_img_write_to_file(
         img: *mut switch_image_t,
         file_name: *const ::std::os::raw::c_char,
@@ -19384,7 +18534,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief put a small img over a big IMG at position x,y, with alpha transparency\n\n Both IMG and img must be non-NULL\n\n \\param[in]    IMG       The BIG Image descriptor\n \\param[in]    img       The small Image descriptor\n \\param[in]    x         Leftmost pos\n \\param[in]    y         Topmost pos\n \\param[in]    percent   Alaha value from 0(completely transparent) to 100(opaque)"]
     pub fn switch_img_overlay(
         IMG: *mut switch_image_t,
         img: *mut switch_image_t,
@@ -19442,7 +18591,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief convert img to raw format\n\n dest should be pre-allocated and big enough for the target fmt\n\n \\param[in]    src       The image descriptor\n \\param[in]    dest      The target memory address\n \\param[in]    stride    Bytes in a row for the destination. Pass 0 if the buffer has contiguous rows. Can be negative. A multiple of 16 is optimal.\n \\param[in]    fmt       The target format"]
     pub fn switch_img_to_raw(
         src: *mut switch_image_t,
         dest: *mut ::std::os::raw::c_void,
@@ -19451,7 +18599,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief convert raw memory to switch_img_t\n\n if dest is NULL then a new img is created, user should destroy it later,\n otherwize it will re-used the dest img, and the dest img size must match the src width and height,\n width and height can be 0 in the latter case and it will figure out according to the dest img\n\n \\param[in]    dest      The image descriptor\n \\param[in]    src       The raw data memory address\n \\param[in]    fmt       The raw data format\n \\param[in]    width     The raw data width\n \\param[in]    height    The raw data height"]
     pub fn switch_img_from_raw(
         destP: *mut *mut switch_image_t,
         src: *mut ::std::os::raw::c_void,
@@ -19484,7 +18631,6 @@ extern "C" {
     pub fn switch_core_has_video() -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief I420 to I420 Copy"]
     pub fn switch_I420_copy(
         src_y: *const u8,
         src_stride_y: ::std::os::raw::c_int,
@@ -19513,7 +18659,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief I420 to ARGB Convertion"]
     pub fn switch_I420ToARGB(
         src_y: *const u8,
         src_stride_y: ::std::os::raw::c_int,
@@ -19558,7 +18703,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief chromakey an img, img must be RGBA and return modified img"]
     pub fn switch_img_chromakey(
         img: *mut switch_image_t,
         mask: *mut switch_rgb_color_t,
@@ -19632,7 +18776,6 @@ pub struct switch_unicast_conninfo {
 }
 pub type switch_unicast_conninfo_t = switch_unicast_conninfo;
 extern "C" {
-    #[doc = " @defgroup switch_ivr IVR Library\n @ingroup core1\n\tA group of core functions to do IVR related functions designed to be\n\tbuilding blocks for a higher level IVR interface.\n @{"]
     pub fn switch_ivr_deactivate_unicast(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
@@ -19647,7 +18790,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Generate an JSON CDR report.\n\\param session the session to get the data from.\n\\param json_cdr pointer to the json object\n\\return SWITCH_STATUS_SUCCESS if successful\n\\note on success the json object must be freed"]
     pub fn switch_ivr_generate_json_cdr(
         session: *mut switch_core_session_t,
         json_cdr: *mut *mut cJSON,
@@ -19655,7 +18797,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Generate an XML CDR report.\n\\param session the session to get the data from.\n\\param xml_cdr pointer to the xml_record\n\\return SWITCH_STATUS_SUCCESS if successful\n\\note on success the xml object must be freed"]
     pub fn switch_ivr_generate_xml_cdr(
         session: *mut switch_core_session_t,
         xml_cdr: *mut switch_xml_t,
@@ -19676,14 +18817,12 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Parse command from an event\n\\param session the session on which to parse the event\n\\param event the event to parse\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_ivr_parse_event(
         session: *mut switch_core_session_t,
         event: *mut switch_event_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Parse all commands from an event\n\\param session the session on which to parse the events\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_ivr_parse_all_events(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
@@ -19715,7 +18854,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Wait for time to pass for a specified number of milliseconds\n\\param session the session to wait for.\n\\param ms the number of milliseconds\n\\param sync synchronize the channel's audio before waiting\n\\param args arguements to pass for callbacks etc\n\\return SWITCH_STATUS_SUCCESS if the channel is still up"]
     pub fn switch_ivr_sleep(
         session: *mut switch_core_session_t,
         ms: u32,
@@ -19730,7 +18868,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Wait for DTMF digits calling a pluggable callback function when digits are collected.\n\\param session the session to read.\n\\param args arguements to pass for callbacks etc\n\\param timeout a timeout in milliseconds\n\\return SWITCH_STATUS_SUCCESS to keep the collection moving."]
     pub fn switch_ivr_collect_digits_callback(
         session: *mut switch_core_session_t,
         args: *mut switch_input_args_t,
@@ -19739,7 +18876,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Wait for specified number of DTMF digits, untile terminator is received or until the channel hangs up.\n\\param session the session to read.\n\\param buf strig to write to\n\\param buflen max size of buf\n\\param maxdigits max number of digits to read\n\\param terminators digits to end the collection\n\\param terminator actual digit that caused the collection to end (if any)\n\\param first_timeout timeout in ms\n\\param digit_timeout digit timeout in ms\n\\param abs_timeout abs timeout in ms\n\\return SWITCH_STATUS_SUCCESS to keep the collection moving."]
     pub fn switch_ivr_collect_digits_count(
         session: *mut switch_core_session_t,
         buf: *mut ::std::os::raw::c_char,
@@ -19753,7 +18889,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief play a file to the session while doing speech recognition.\n\\param session the session to play and detect on\n\\param file the path to the file\n\\param mod_name the module name of the ASR library\n\\param grammar the grammar text, URI, or local file name\n\\param result of speech recognition, allocated from the session pool\n\\param input_timeout time to wait for input\n\\param args arguements to pass for callbacks etc\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_play_and_detect_speech(
         session: *mut switch_core_session_t,
         file: *const ::std::os::raw::c_char,
@@ -19765,7 +18900,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Initialize background Speech detection on a session, so that parameters can be set, and grammars loaded.\nAfter calling this function, it is possible to call switch_ivr_set_param_detect_speech() to set recognition parameters.\nCalling switch_ivr_detect_speech_load_grammar() starts the speech recognition.\n\\param session the session to attach\n\\param mod_name the module name of the ASR library\n\\param dest the destination address\n\\param ah an ASR handle to use (NULL to create one)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_init(
         session: *mut switch_core_session_t,
         mod_name: *const ::std::os::raw::c_char,
@@ -19774,7 +18908,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Engage background Speech detection on a session\n\\param session the session to attach\n\\param mod_name the module name of the ASR library\n\\param grammar the grammar text, URI, or local file name\n\\param name the grammar name\n\\param dest the destination address\n\\param ah an ASR handle to use (NULL to create one)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech(
         session: *mut switch_core_session_t,
         mod_name: *const ::std::os::raw::c_char,
@@ -19785,19 +18918,15 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop background Speech detection on a session\n\\param session The session to stop detection on\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_detect_speech(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Pause background Speech detection on a session\n\\param session The session to pause detection on\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_pause_detect_speech(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Resume background Speech detection on a session\n\\param session The session to resume detection on\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_resume_detect_speech(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Load a grammar on a background speech detection handle\n\\param session The session to change the grammar on\n\\param grammar the grammar text, URI, or local file name\n\\param name the grammar name\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_load_grammar(
         session: *mut switch_core_session_t,
         grammar: *const ::std::os::raw::c_char,
@@ -19805,28 +18934,24 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Unload a grammar on a background speech detection handle\n\\param session The session to change the grammar on\n\\param name the grammar name\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_unload_grammar(
         session: *mut switch_core_session_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Enable a grammar on a background speech detection handle\n\\param session The session to change the grammar on\n\\param name the grammar name\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_enable_grammar(
         session: *mut switch_core_session_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Disable a grammar on a background speech detection handle\n\\param session The session to change the grammar on\n\\param name the grammar name\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_disable_grammar(
         session: *mut switch_core_session_t,
         name: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Disable all grammars on a background speech detection handle\n\\param session The session to change the grammar on\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_disable_all_grammars(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
@@ -19839,13 +18964,11 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Start input timers on a background speech detection handle\n\\param session The session to start the timers on\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_detect_speech_start_input_timers(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Record a session to disk\n\\param session the session to record\n\\param file the path to the file\n\\param limit stop recording after this amount of time (in ms, 0 = never stop)\n\\param fh file handle to use (NULL for builtin one)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_record_session(
         session: *mut switch_core_session_t,
         file: *const ::std::os::raw::c_char,
@@ -19889,7 +19012,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Eavesdrop on a another session\n\\param session our session\n\\param uuid the uuid of the session to spy on\n\\param require_group group name to use to limit by group\n\\param flags tweak read-mux, write-mux and dtmf\n\\return SWITCH_STATUS_SUCESS if all is well"]
     pub fn switch_ivr_eavesdrop_session(
         session: *mut switch_core_session_t,
         uuid: *const ::std::os::raw::c_char,
@@ -19898,7 +19020,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief displace the media for a session with the audio from a file\n\\param session the session to displace\n\\param file filename\n\\param limit time limit in ms\n\\param flags m (mux) l (loop) or r(read session instead of write session)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_displace_session(
         session: *mut switch_core_session_t,
         file: *const ::std::os::raw::c_char,
@@ -19907,14 +19028,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop displacing a session\n\\param session the session\n\\param file file name from the switch_ivr_displace_session call\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_displace_session(
         session: *mut switch_core_session_t,
         file: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop Recording a session\n\\param session the session to stop recording\n\\param file the path to the file\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_record_session(
         session: *mut switch_core_session_t,
         file: *const ::std::os::raw::c_char,
@@ -19932,43 +19051,36 @@ extern "C" {
     pub fn switch_ivr_stop_session_audio(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Start looking for DTMF inband\n\\param session the session to start looking\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_inband_dtmf_session(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop looking for DTMF inband\n\\param session the session to stop looking\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_inband_dtmf_session(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Start generating DTMF inband\n\\param session the session to generate on\n\\param read_stream true to use the session we are reading from, false for the session we are writing to.\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_inband_dtmf_generate_session(
         session: *mut switch_core_session_t,
         read_stream: switch_bool_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop generating DTMF inband\n\\param session the session to stop generating\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_inband_dtmf_generate_session(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief - NEEDDESC -\n\\param session the session to act on"]
     pub fn switch_ivr_session_echo(
         session: *mut switch_core_session_t,
         args: *mut switch_input_args_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Stop looking for TONES\n\\param session the session to stop looking\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_stop_tone_detect_session(
         session: *mut switch_core_session_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Start looking for TONES\n\\param session the session to start looking\n\\param key the name of the tone.\n\\param tone_spec comma sep list of tone freqs\n\\param flags one or both of 'r' and 'w'\n\\param timeout timeout\n\\param app optional application to execute when tone is found\n\\param data optional data for appliaction\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_tone_detect_session(
         session: *mut switch_core_session_t,
         key: *const ::std::os::raw::c_char,
@@ -19982,7 +19094,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief play a file from the disk to the session\n\\param session the session to play the file too\n\\param fh file handle to use (NULL for builtin one)\n\\param file the path to the file\n\\param args arguements to pass for callbacks etc\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_play_file(
         session: *mut switch_core_session_t,
         fh: *mut switch_file_handle_t,
@@ -20027,7 +19138,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief record a file from the session to a file\n\\param session the session to record from\n\\param fh file handle to use\n\\param file the path to the file\n\\param args arguements to pass for callbacks etc\n\\param limit max limit to record for (0 for infinite)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_record_file(
         session: *mut switch_core_session_t,
         fh: *mut switch_file_handle_t,
@@ -20037,7 +19147,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief record a file from the session to a file\n\\param session the session to record from\n\\param fh file handle to use\n\\param file the path to the file\n\\param args arguements to pass for callbacks etc\n\\param limit max limit to record for (0 for infinite)\n\\param vars vars to add to RECORD_START and RECORD_STOP automatically prefixed with Recording-Variable-\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_record_file_event(
         session: *mut switch_core_session_t,
         fh: *mut switch_file_handle_t,
@@ -20048,7 +19157,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Play a sound and gather digits with the number of retries specified if the user doesn't give digits in the set time\n\\param session the current session to play sound to and collect digits\n\\param min_digits the fewest digits allowed for the response to be valid\n\\param max_digits the max number of digits to accept\n\\param max_tries number of times to replay the sound and capture digits\n\\param timeout time to wait for input (this is per iteration, so total possible time = max_tries * (timeout + audio playback length)\n\\param valid_terminators for input that can include # or * (useful for variable length prompts)\n\\param audio_file file to play\n\\param bad_input_audio_file file to play if the input from the user was invalid\n\\param var_name variable name to put results in\n\\param digit_buffer variable digits captured will be put back into (empty if capture failed)\n\\param digit_buffer_length length of the buffer for digits (should be the same or larger than max_digits)\n\\param digits_regex the qualifying regex\n\\return switch status, used to note status of channel (will still return success if digit capture failed)\n\\note to test for digit capture failure look for \\\\0 in the first position of the buffer"]
     pub fn switch_play_and_get_digits(
         session: *mut switch_core_session_t,
         min_digits: u32,
@@ -20080,7 +19188,6 @@ extern "C" {
     pub fn switch_ivr_clear_speech_cache(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Speak given text with given tts engine\n\\param session the session to speak on\n\\param tts_name the desired tts module\n\\param voice_name the desired voice\n\\param text the text to speak\n\\param args arguements to pass for callbacks etc\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_speak_text(
         session: *mut switch_core_session_t,
         tts_name: *const ::std::os::raw::c_char,
@@ -20090,7 +19197,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Make an outgoing call\n\\param session originating session\n\\param bleg B leg session\n\\param cause a pointer to hold call cause\n\\param bridgeto the desired remote callstring\n\\param timelimit_sec timeout in seconds for outgoing call\n\\param table optional state handler table to install on the channel\n\\param cid_name_override override the caller id name\n\\param cid_num_override override the caller id number\n\\param caller_profile_override override the entire calling caller profile\n\\param ovars variables to be set on the outgoing channel\n\\param flags flags to pass\n\\return SWITCH_STATUS_SUCCESS if bleg is a running session.\n\\note bleg will be read locked which must be unlocked with switch_core_session_rwunlock() before losing scope"]
     pub fn switch_ivr_originate(
         session: *mut switch_core_session_t,
         bleg: *mut *mut switch_core_session_t,
@@ -20131,7 +19237,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Bridge Audio from one session to another\n\\param session one session\n\\param peer_session the other session\n\\param dtmf_callback a callback for messages and dtmf\n\\param session_data data to pass to the DTMF callback for session\n\\param peer_session_data data to pass to the DTMF callback for peer_session\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_multi_threaded_bridge(
         session: *mut switch_core_session_t,
         peer_session: *mut switch_core_session_t,
@@ -20141,7 +19246,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Bridge leaving b-leg in the control of another thread.  Call from b-leg first then call switch_ivr_multi_threaded_bridge on a-leg and b-leg.\n\\param session b-leg session\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_bridge_bleg(
         session: *mut switch_core_session_t,
         peer_session: *mut switch_core_session_t,
@@ -20149,7 +19253,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Bridge Signalling from one session to another\n\\param session one session\n\\param peer_session the other session\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_signal_bridge(
         session: *mut switch_core_session_t,
         peer_session: *mut switch_core_session_t,
@@ -20159,7 +19262,6 @@ extern "C" {
     pub fn switch_ivr_check_hold(session: *mut switch_core_session_t);
 }
 extern "C" {
-    #[doc = "\\brief Transfer an existing session to another location\n\\param session the session to transfer\n\\param extension the new extension\n\\param dialplan the new dialplan (OPTIONAL, may be NULL)\n\\param context the new context (OPTIONAL, may be NULL)"]
     pub fn switch_ivr_session_transfer(
         session: *mut switch_core_session_t,
         extension: *const ::std::os::raw::c_char,
@@ -20168,7 +19270,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Transfer an existing session to another location in the future\n\\param runtime the time (int epoch seconds) to transfer the call\n\\param uuid the uuid of the session to transfer\n\\param extension the new extension\n\\param dialplan the new dialplan (OPTIONAL, may be NULL)\n\\param context the new context (OPTIONAL, may be NULL)\n\\return the id of the task"]
     pub fn switch_ivr_schedule_transfer(
         runtime: time_t,
         uuid: *const ::std::os::raw::c_char,
@@ -20178,7 +19279,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Hangup an existing session in the future\n\\param runtime the time (int epoch seconds) to transfer the call\n\\param uuid the uuid of the session to hangup\n\\param cause the hanup cause code\n\\param bleg hangup up the B-Leg if possible\n\\return the id of the task"]
     pub fn switch_ivr_schedule_hangup(
         runtime: time_t,
         uuid: *const ::std::os::raw::c_char,
@@ -20187,14 +19287,12 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Bridge two existing sessions\n\\param originator_uuid the uuid of the originator\n\\param originatee_uuid the uuid of the originator\n\\remark Any custom state handlers on both channels will be deleted\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_uuid_bridge(
         originator_uuid: *const ::std::os::raw::c_char,
         originatee_uuid: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal a session to request direct media access to it's remote end\n\\param uuid the uuid of the session to request\n\\param flags flags to influence behaviour (SMF_REBRIDGE to rebridge the call in media mode)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_media(
         uuid: *const ::std::os::raw::c_char,
         flags: switch_media_flag_t,
@@ -20207,7 +19305,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal a session to request indirect media allowing it to exchange media directly with another device\n\\param uuid the uuid of the session to request\n\\param flags flags to influence behaviour (SMF_REBRIDGE to rebridge the call in no_media mode)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_nomedia(
         uuid: *const ::std::os::raw::c_char,
         flags: switch_media_flag_t,
@@ -20229,7 +19326,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Signal the session with a protocol specific hold message.\n\\param uuid the uuid of the session to hold\n\\param message optional message\n\\param moh play music-on-hold\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_hold_uuid(
         uuid: *const ::std::os::raw::c_char,
         message: *const ::std::os::raw::c_char,
@@ -20237,7 +19333,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Toggles channel hold state of session\n\\param uuid the uuid of the session to hold\n\\param message optional message\n\\param moh play music-on-hold\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_hold_toggle_uuid(
         uuid: *const ::std::os::raw::c_char,
         message: *const ::std::os::raw::c_char,
@@ -20245,11 +19340,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal the session with a protocol specific unhold message.\n\\param uuid the uuid of the session to hold\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_unhold_uuid(uuid: *const ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal the session with a protocol specific hold message.\n\\param session the session to hold\n\\param message optional message\n\\param moh play music-on-hold\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_hold(
         session: *mut switch_core_session_t,
         message: *const ::std::os::raw::c_char,
@@ -20257,11 +19350,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal the session with a protocol specific unhold message.\n\\param session the session to unhold\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_unhold(session: *mut switch_core_session_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Signal the session to broadcast audio in the future\n\\param runtime when (in epoch time) to run the broadcast\n\\param uuid the uuid of the session to broadcast on\n\\param path the path data of the broadcast \"/path/to/file.wav [<timer name>]\" or \"speak:<engine>|<voice>|<Text to say>\"\n\\param flags flags to send to the request (SMF_ECHO_BRIDGED to send the broadcast to both sides of the call)\n\\return the id of the task"]
     pub fn switch_ivr_schedule_broadcast(
         runtime: time_t,
         uuid: *const ::std::os::raw::c_char,
@@ -20270,7 +19361,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Signal the session to broadcast audio\n\\param uuid the uuid of the session to broadcast on\n\\param path the path data of the broadcast \"/path/to/file.wav [<timer name>]\" or \"speak:<engine>|<voice>|<Text to say>\"\n\\param flags flags to send to the request (SMF_ECHO_BRIDGED to send the broadcast to both sides of the call)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_broadcast(
         uuid: *const ::std::os::raw::c_char,
         path: *const ::std::os::raw::c_char,
@@ -20285,7 +19375,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Transfer variables from one session to another\n\\param sessa the original session\n\\param sessb the new session\n\\param var the name of the variable to transfer (NULL for all)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_transfer_variable(
         sessa: *mut switch_core_session_t,
         sessb: *mut switch_core_session_t,
@@ -20300,33 +19389,28 @@ pub struct switch_ivr_digit_stream {
 }
 pub type switch_ivr_digit_stream_t = switch_ivr_digit_stream;
 extern "C" {
-    #[doc = "\\brief Create a digit stream parser object\n\\param pool the pool to use for the new hash\n\\param parser a pointer to the object pointer\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_parser_new(
         pool: *mut switch_memory_pool_t,
         parser: *mut *mut switch_ivr_digit_stream_parser_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroy a digit stream parser object\n\\param parser a pointer to the parser object\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_parser_destroy(
         parser: *mut switch_ivr_digit_stream_parser_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Create a new digit stream object\n\\param parser a pointer to the parser object created by switch_ivr_digit_stream_parser_new\n\\param stream a pointer to the stream object pointer\n\\return NULL if no match found or consumer data that was associated with a given digit string when matched"]
     pub fn switch_ivr_digit_stream_new(
         parser: *mut switch_ivr_digit_stream_parser_t,
         stream: *mut *mut switch_ivr_digit_stream_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Destroys a digit stream object\n\\param stream a pointer to the stream object\n\\return NULL if no match found or consumer data that was associated with a given digit string when matched"]
     pub fn switch_ivr_digit_stream_destroy(
         stream: *mut *mut switch_ivr_digit_stream_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set a digit string to action mapping\n\\param parser a pointer to the parser object created by switch_ivr_digit_stream_parser_new\n\\param digits a string of digits to associate with an action\n\\param data consumer data attached to this digit string\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_parser_set_event(
         parser: *mut switch_ivr_digit_stream_parser_t,
         digits: *mut ::std::os::raw::c_char,
@@ -20334,14 +19418,12 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Delete a string to action mapping\n\\param parser a pointer to the parser object created by switch_ivr_digit_stream_parser_new\n\\param digits the digit string to be removed from the map\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_parser_del_event(
         parser: *mut switch_ivr_digit_stream_parser_t,
         digits: *mut ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Feed digits collected into the stream for event match testing\n\\param parser a pointer to the parser object created by switch_ivr_digit_stream_parser_new\n\\param stream a stream to write data to\n\\param digit a digit to collect and test against the map of digit strings\n\\return NULL if no match found or consumer data that was associated with a given digit string when matched"]
     pub fn switch_ivr_digit_stream_parser_feed(
         parser: *mut switch_ivr_digit_stream_parser_t,
         stream: *mut switch_ivr_digit_stream_t,
@@ -20349,30 +19431,33 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    #[doc = "\\brief Reset the collected digit stream to nothing\n\\param stream a pointer to the parser stream object created by switch_ivr_digit_stream_new\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_reset(stream: *mut switch_ivr_digit_stream_t)
         -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set a digit string terminator\n\\param parser a pointer to the parser object created by switch_ivr_digit_stream_parser_new\n\\param digit the terminator digit\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_digit_stream_parser_set_terminator(
         parser: *mut switch_ivr_digit_stream_parser_t,
         digit: ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
-pub const switch_ivr_menu_flags_SWITCH_IVR_MENU_FLAG_FALLTOMAIN: switch_ivr_menu_flags = 1;
-pub const switch_ivr_menu_flags_SWITCH_IVR_MENU_FLAG_FREEPOOL: switch_ivr_menu_flags = 2;
-pub const switch_ivr_menu_flags_SWITCH_IVR_MENU_FLAG_STACK: switch_ivr_menu_flags = 4;
-#[doc = " @defgroup switch_ivr_menu IVR Menu Library\n @ingroup switch_ivr\n\tIVR menu functions\n\n @{"]
-pub type switch_ivr_menu_flags = ::std::os::raw::c_uint;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_DIE: switch_ivr_action_t = 0;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_EXECMENU: switch_ivr_action_t = 1;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_EXECAPP: switch_ivr_action_t = 2;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_PLAYSOUND: switch_ivr_action_t = 3;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_BACK: switch_ivr_action_t = 4;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_TOMAIN: switch_ivr_action_t = 5;
-pub const switch_ivr_action_t_SWITCH_IVR_ACTION_NOOP: switch_ivr_action_t = 6;
-pub type switch_ivr_action_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_ivr_menu_flags {
+    SWITCH_IVR_MENU_FLAG_FALLTOMAIN = 1,
+    SWITCH_IVR_MENU_FLAG_FREEPOOL = 2,
+    SWITCH_IVR_MENU_FLAG_STACK = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_ivr_action_t {
+    SWITCH_IVR_ACTION_DIE = 0,
+    SWITCH_IVR_ACTION_EXECMENU = 1,
+    SWITCH_IVR_ACTION_EXECAPP = 2,
+    SWITCH_IVR_ACTION_PLAYSOUND = 3,
+    SWITCH_IVR_ACTION_BACK = 4,
+    SWITCH_IVR_ACTION_TOMAIN = 5,
+    SWITCH_IVR_ACTION_NOOP = 6,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_ivr_menu {
@@ -20395,7 +19480,6 @@ pub struct switch_ivr_menu_action {
 }
 pub type switch_ivr_menu_action_t = switch_ivr_menu_action;
 extern "C" {
-    #[doc = "\\brief Create a new menu object.\n\\param new_menu the pointer to the new menu\n\\param main The top level menu, (NULL if this is the top level one).\n\\param name A pointer to the name of this menu.\n\\param greeting_sound Optional pointer to a main sound (press 1 for this 2 for that).\n\\param short_greeting_sound Optional pointer to a shorter main sound for subsequent loops.\n\\param invalid_sound Optional pointer to a sound to play after invalid input.\n\\param exit_sound Optional pointer to a sound to play upon exiting the menu.\n\\param transfer_sound Optional pointer to a sound to play upon transfer away from the menu.\n\\param confirm_macro phrase macro name to confirm input\n\\param confirm_key the dtmf key required for positive confirmation\n\\param tts_engine the tts engine to use for this menu\n\\param tts_voice the tts voice to use for this menu\n\\param confirm_attempts number of times to prompt to confirm input before failure\n\\param inter_timeout inter-digit timeout\n\\param digit_len max number of digits\n\\param timeout A number of milliseconds to pause before looping.\n\\param max_failures Maximum number of failures to withstand before hangingup This resets everytime you enter the menu.\n\\param pool memory pool (NULL to create one).\n\\return SWITCH_STATUS_SUCCESS if the menu was created."]
     pub fn switch_ivr_menu_init(
         new_menu: *mut *mut switch_ivr_menu_t,
         main: *mut switch_ivr_menu_t,
@@ -20419,7 +19503,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief switch_ivr_menu_bind_action: Bind a keystroke to an action.\n\\param menu The menu obj you wish to bind to.\n\\param ivr_action switch_ivr_action_t enum of what you want to do.\n\\param arg Optional (sometimes necessary) string arguement.\n\\param bind KeyStrokes to bind the action to.\n\\return SWUTCH_STATUS_SUCCESS if the action was binded"]
     pub fn switch_ivr_menu_bind_action(
         menu: *mut switch_ivr_menu_t,
         ivr_action: switch_ivr_action_t,
@@ -20428,7 +19511,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Bind a keystroke to a callback function.\n\\param menu The menu obj you wish to bind to.\n\\param function The function to call [int proto(struct switch_ivr_menu *, char *, size_t, void *)]\n\\param arg Optional (sometimes necessary) string arguement.\n\\param bind KeyStrokes to bind the action to.\n\\note The function is passed a buffer to fill in with any required argument data.\n\\note The function is also passed an optional void pointer to an object set upon menu execution. (think threads)\n\\note The function returns an switch_ivr_action_t enum of what you want to do. and looks to your buffer for args.\n\\return SWUTCH_STATUS_SUCCESS if the function was binded"]
     pub fn switch_ivr_menu_bind_function(
         menu: *mut switch_ivr_menu_t,
         function: switch_ivr_menu_action_function_t,
@@ -20437,7 +19519,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute a menu.\n\\param session The session running the menu.\n\\param stack The top-level menu object (the first one you created.)\n\\param name A pointer to the name of the menu.\n\\param obj A void pointer to an object you want to make avaliable to your callback functions that you may have binded with switch_ivr_menu_bind_function.\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_menu_execute(
         session: *mut switch_core_session_t,
         stack: *mut switch_ivr_menu_t,
@@ -20446,7 +19527,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief free a stack of menu objects.\n\\param stack The top level menu you wish to destroy.\n\\return SWITCH_STATUS_SUCCESS if the object was a top level menu and it was freed"]
     pub fn switch_ivr_menu_stack_free(stack: *mut switch_ivr_menu_t) -> switch_status_t;
 }
 #[repr(C)]
@@ -20456,7 +19536,6 @@ pub struct switch_ivr_menu_xml_ctx {
 }
 pub type switch_ivr_menu_xml_ctx_t = switch_ivr_menu_xml_ctx;
 extern "C" {
-    #[doc = "\\brief Build a menu stack from an xml source\n\\param xml_menu_ctx The XML menu parser context previously created by switch_ivr_menu_stack_xml_init\n\\param menu_stack The menu stack object that will be created for you\n\\param xml_menus The xml Menus source\n\\param xml_menu The xml Menu source of the menu to be created\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_menu_stack_xml_build(
         xml_menu_ctx: *mut switch_ivr_menu_xml_ctx_t,
         menu_stack: *mut *mut switch_ivr_menu_t,
@@ -20471,7 +19550,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\param xml_menu_ctx The XML menu parser context previously created by switch_ivr_menu_stack_xml_init\n\\param name The xml tag name to add to the parser engine\n\\param function The menu function callback that will be executed when menu digits are bound to this name\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_menu_stack_xml_add_custom(
         xml_menu_ctx: *mut switch_ivr_menu_xml_ctx_t,
         name: *const ::std::os::raw::c_char,
@@ -20479,7 +19557,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\param xml_menu_ctx A pointer of a XML menu parser context to be created\n\\param pool memory pool (NULL to create one)\n\\return SWITCH_STATUS_SUCCESS if all is well"]
     pub fn switch_ivr_menu_stack_xml_init(
         xml_menu_ctx: *mut *mut switch_ivr_menu_xml_ctx_t,
         pool: *mut switch_memory_pool_t,
@@ -21058,14 +20135,15 @@ pub struct switch_rtp_packet_t {
     pub ext: *mut switch_rtp_hdr_ext_t,
     pub ebody: *mut ::std::os::raw::c_char,
 }
-pub const switch_rtp_crypto_direction_t_SWITCH_RTP_CRYPTO_SEND: switch_rtp_crypto_direction_t = 0;
-pub const switch_rtp_crypto_direction_t_SWITCH_RTP_CRYPTO_RECV: switch_rtp_crypto_direction_t = 1;
-pub const switch_rtp_crypto_direction_t_SWITCH_RTP_CRYPTO_SEND_RTCP: switch_rtp_crypto_direction_t =
-    2;
-pub const switch_rtp_crypto_direction_t_SWITCH_RTP_CRYPTO_RECV_RTCP: switch_rtp_crypto_direction_t =
-    3;
-pub const switch_rtp_crypto_direction_t_SWITCH_RTP_CRYPTO_MAX: switch_rtp_crypto_direction_t = 4;
-pub type switch_rtp_crypto_direction_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_rtp_crypto_direction_t {
+    SWITCH_RTP_CRYPTO_SEND = 0,
+    SWITCH_RTP_CRYPTO_RECV = 1,
+    SWITCH_RTP_CRYPTO_SEND_RTCP = 2,
+    SWITCH_RTP_CRYPTO_RECV_RTCP = 3,
+    SWITCH_RTP_CRYPTO_MAX = 4,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_srtp_crypto_suite_s {
@@ -21086,9 +20164,12 @@ pub struct switch_rtp_crypto_key {
     pub next: *mut switch_rtp_crypto_key,
 }
 pub type switch_rtp_crypto_key_t = switch_rtp_crypto_key;
-pub const ice_proto_t_IPR_RTP: ice_proto_t = 0;
-pub const ice_proto_t_IPR_RTCP: ice_proto_t = 1;
-pub type ice_proto_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum ice_proto_t {
+    IPR_RTP = 0,
+    IPR_RTCP = 1,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct icand_s {
@@ -21117,52 +20198,64 @@ pub struct ice_s {
     pub options: *mut ::std::os::raw::c_char,
 }
 pub type ice_t = ice_s;
-pub const rtcp_pt_t__RTCP_PT_FIR: rtcp_pt_t = 192;
-pub const rtcp_pt_t__RTCP_PT_IJ: rtcp_pt_t = 195;
-pub const rtcp_pt_t__RTCP_PT_SR: rtcp_pt_t = 200;
-pub const rtcp_pt_t__RTCP_PT_RR: rtcp_pt_t = 201;
-pub const rtcp_pt_t__RTCP_PT_SDES: rtcp_pt_t = 202;
-pub const rtcp_pt_t__RTCP_PT_BYE: rtcp_pt_t = 203;
-pub const rtcp_pt_t__RTCP_PT_APP: rtcp_pt_t = 204;
-pub const rtcp_pt_t__RTCP_PT_RTPFB: rtcp_pt_t = 205;
-pub const rtcp_pt_t__RTCP_PT_PSFB: rtcp_pt_t = 206;
-pub const rtcp_pt_t__RTCP_PT_XR: rtcp_pt_t = 207;
-pub const rtcp_pt_t__RTCP_PT_AVB: rtcp_pt_t = 208;
-pub const rtcp_pt_t__RTCP_PT_RSI: rtcp_pt_t = 209;
-pub const rtcp_pt_t__RTCP_PT_TOKEN: rtcp_pt_t = 210;
-pub const rtcp_pt_t__RTCP_PT_IDMS: rtcp_pt_t = 211;
-pub const rtcp_pt_t__RTCP_PT_LAST: rtcp_pt_t = 255;
-pub type rtcp_pt_t = ::std::os::raw::c_uint;
-pub const rtcp_sdes_t__RTCP_SDES_END: rtcp_sdes_t = 0;
-pub const rtcp_sdes_t__RTCP_SDES_CNAME: rtcp_sdes_t = 1;
-pub const rtcp_sdes_t__RTCP_SDES_NAME: rtcp_sdes_t = 2;
-pub const rtcp_sdes_t__RTCP_SDES_EMAIL: rtcp_sdes_t = 3;
-pub const rtcp_sdes_t__RTCP_SDES_PHONE: rtcp_sdes_t = 4;
-pub const rtcp_sdes_t__RTCP_SDES_LOC: rtcp_sdes_t = 5;
-pub const rtcp_sdes_t__RTCP_SDES_TOOL: rtcp_sdes_t = 6;
-pub const rtcp_sdes_t__RTCP_SDES_NOTE: rtcp_sdes_t = 7;
-pub const rtcp_sdes_t__RTCP_SDES_PRIV: rtcp_sdes_t = 8;
-pub const rtcp_sdes_t__RTCP_SDES_H323: rtcp_sdes_t = 9;
-pub const rtcp_sdes_t__RTCP_SDES_APSI: rtcp_sdes_t = 10;
-pub type rtcp_sdes_t = ::std::os::raw::c_uint;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_NACK: rtcp_rtpfb_t = 1;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_TMMBR: rtcp_rtpfb_t = 3;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_TMMBN: rtcp_rtpfb_t = 4;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_SR_REQ: rtcp_rtpfb_t = 5;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_RAMS: rtcp_rtpfb_t = 6;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_TLLEI: rtcp_rtpfb_t = 7;
-pub const rtcp_rtpfb_t__RTCP_RTPFB_ECN_FB: rtcp_rtpfb_t = 8;
-pub type rtcp_rtpfb_t = ::std::os::raw::c_uint;
-pub const rtcp_psfb_t__RTCP_PSFB_PLI: rtcp_psfb_t = 1;
-pub const rtcp_psfb_t__RTCP_PSFB_SLI: rtcp_psfb_t = 2;
-pub const rtcp_psfb_t__RTCP_PSFB_RPSI: rtcp_psfb_t = 3;
-pub const rtcp_psfb_t__RTCP_PSFB_FIR: rtcp_psfb_t = 4;
-pub const rtcp_psfb_t__RTCP_PSFB_TSTR: rtcp_psfb_t = 5;
-pub const rtcp_psfb_t__RTCP_PSFB_TSTN: rtcp_psfb_t = 6;
-pub const rtcp_psfb_t__RTCP_PSFB_VBCM: rtcp_psfb_t = 7;
-pub const rtcp_psfb_t__RTCP_PSFB_PSLEI: rtcp_psfb_t = 8;
-pub const rtcp_psfb_t__RTCP_PSFB_AFB: rtcp_psfb_t = 15;
-pub type rtcp_psfb_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum rtcp_pt_t {
+    _RTCP_PT_FIR = 192,
+    _RTCP_PT_IJ = 195,
+    _RTCP_PT_SR = 200,
+    _RTCP_PT_RR = 201,
+    _RTCP_PT_SDES = 202,
+    _RTCP_PT_BYE = 203,
+    _RTCP_PT_APP = 204,
+    _RTCP_PT_RTPFB = 205,
+    _RTCP_PT_PSFB = 206,
+    _RTCP_PT_XR = 207,
+    _RTCP_PT_AVB = 208,
+    _RTCP_PT_RSI = 209,
+    _RTCP_PT_TOKEN = 210,
+    _RTCP_PT_IDMS = 211,
+    _RTCP_PT_LAST = 255,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum rtcp_sdes_t {
+    _RTCP_SDES_END = 0,
+    _RTCP_SDES_CNAME = 1,
+    _RTCP_SDES_NAME = 2,
+    _RTCP_SDES_EMAIL = 3,
+    _RTCP_SDES_PHONE = 4,
+    _RTCP_SDES_LOC = 5,
+    _RTCP_SDES_TOOL = 6,
+    _RTCP_SDES_NOTE = 7,
+    _RTCP_SDES_PRIV = 8,
+    _RTCP_SDES_H323 = 9,
+    _RTCP_SDES_APSI = 10,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum rtcp_rtpfb_t {
+    _RTCP_RTPFB_NACK = 1,
+    _RTCP_RTPFB_TMMBR = 3,
+    _RTCP_RTPFB_TMMBN = 4,
+    _RTCP_RTPFB_SR_REQ = 5,
+    _RTCP_RTPFB_RAMS = 6,
+    _RTCP_RTPFB_TLLEI = 7,
+    _RTCP_RTPFB_ECN_FB = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum rtcp_psfb_t {
+    _RTCP_PSFB_PLI = 1,
+    _RTCP_PSFB_SLI = 2,
+    _RTCP_PSFB_RPSI = 3,
+    _RTCP_PSFB_FIR = 4,
+    _RTCP_PSFB_TSTR = 5,
+    _RTCP_PSFB_TSTN = 6,
+    _RTCP_PSFB_VBCM = 7,
+    _RTCP_PSFB_PSLEI = 8,
+    _RTCP_PSFB_AFB = 15,
+}
 extern "C" {
     pub fn switch_rtp_add_crypto_key(
         rtp_session: *mut switch_rtp_t,
@@ -21171,7 +20264,6 @@ extern "C" {
         ssec: *mut switch_secure_settings_t,
     ) -> switch_status_t;
 }
-#[doc = "\\defgroup rtp RTP (RealTime Transport Protocol)\n\\ingroup core1\n\\{"]
 pub type switch_rtp_invalid_handler_t = ::std::option::Option<
     unsafe extern "C" fn(
         rtp_session: *mut switch_rtp_t,
@@ -21185,14 +20277,12 @@ extern "C" {
     pub fn switch_rtp_get_random(buf: *mut ::std::os::raw::c_void, len: u32);
 }
 extern "C" {
-    #[doc = "\\brief Initilize the RTP System\n\\param pool the memory pool to use for long term allocations\n\\note Generally called by the core_init"]
     pub fn switch_rtp_init(pool: *mut switch_memory_pool_t);
 }
 extern "C" {
     pub fn switch_rtp_shutdown();
 }
 extern "C" {
-    #[doc = "\\brief Set/Get RTP start port\n\\param port new value (if > 0)\n\\return the current RTP start port"]
     pub fn switch_rtp_set_start_port(port: switch_port_t) -> switch_port_t;
 }
 extern "C" {
@@ -21203,11 +20293,9 @@ extern "C" {
         -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set/Get RTP end port\n\\param port new value (if > 0)\n\\return the current RTP end port"]
     pub fn switch_rtp_set_end_port(port: switch_port_t) -> switch_port_t;
 }
 extern "C" {
-    #[doc = "\\brief Request a new port to be used for media\n\\param ip the ip to request a port from\n\\return the new port to use"]
     pub fn switch_rtp_request_port(ip: *const ::std::os::raw::c_char) -> switch_port_t;
 }
 extern "C" {
@@ -21228,7 +20316,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief create a new RTP session handle\n\\param new_rtp_session a poiter to aim at the new session\n\\param payload the IANA payload number\n\\param samples_per_interval the default samples_per_interval\n\\param ms_per_packet time in microseconds per packet\n\\param flags flags to control behaviour\n\\param timer_name timer interface to use\n\\param err a pointer to resolve error messages\n\\param pool a memory pool to use for the session\n\\return the new RTP session or NULL on failure"]
     pub fn switch_rtp_create(
         new_rtp_session: *mut *mut switch_rtp_t,
         payload: switch_payload_t,
@@ -21241,7 +20328,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief prepare a new RTP session handle and fully initilize it\n\\param rx_host the local address\n\\param rx_port the local port\n\\param tx_host the remote address\n\\param tx_port the remote port\n\\param payload the IANA payload number\n\\param samples_per_interval the default samples_per_interval\n\\param ms_per_packet time in microseconds per packet\n\\param flags flags to control behaviour\n\\param timer_name timer interface to use\n\\param err a pointer to resolve error messages\n\\param pool a memory pool to use for the session\n\\param bundle_port port used by bundled stream locally, for video thread this is the port where it will forward audio (internal bundle port on which audio is listening), and for audio this is the port where it will send RTP (external bundle port where video is listening)\n\\return the new RTP session or NULL on failure"]
     pub fn switch_rtp_new(
         rx_host: *const ::std::os::raw::c_char,
         rx_port: switch_port_t,
@@ -21259,7 +20345,6 @@ extern "C" {
     ) -> *mut switch_rtp_t;
 }
 extern "C" {
-    #[doc = "\\brief Assign a remote address to the RTP session\n\\param rtp_session an RTP session to assign the remote address to\n\\param host the ip or fqhn of the remote address\n\\param port the remote port\n\\param err pointer for error messages"]
     pub fn switch_rtp_set_remote_address(
         rtp_session: *mut switch_rtp_t,
         host: *const ::std::os::raw::c_char,
@@ -21296,7 +20381,6 @@ extern "C" {
     pub fn switch_rtp_reset(rtp_session: *mut switch_rtp_t);
 }
 extern "C" {
-    #[doc = "\\brief Assign a local address to the RTP session\n\\param rtp_session an RTP session to assign the local address to\n\\param host the ip or fqhn of the local address\n\\param port the local port\n\\param change_adv_addr change the advertised address for doing compare\n\\param err pointer for error messages\n\\note this call also binds the RTP session's socket to the new address"]
     pub fn switch_rtp_set_local_address(
         rtp_session: *mut switch_rtp_t,
         host: *const ::std::os::raw::c_char,
@@ -21305,7 +20389,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Kill the socket on an existing RTP session\n\\param rtp_session an RTP session to kill the socket of"]
     pub fn switch_rtp_kill_socket(rtp_session: *mut switch_rtp_t);
 }
 extern "C" {
@@ -21315,18 +20398,15 @@ extern "C" {
     pub fn switch_rtp_flush(rtp_session: *mut switch_rtp_t);
 }
 extern "C" {
-    #[doc = "\\brief Test if an RTP session is ready\n\\param rtp_session an RTP session to test\n\\return a true value if it's ready"]
     pub fn switch_rtp_ready(rtp_session: *mut switch_rtp_t) -> u8;
 }
 extern "C" {
-    #[doc = "\\brief Destroy an RTP session\n\\param rtp_session an RTP session to destroy"]
     pub fn switch_rtp_destroy(rtp_session: *mut *mut switch_rtp_t);
 }
 extern "C" {
     pub fn switch_rtp_sync_stats(rtp_session: *mut switch_rtp_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Acvite ICE on an RTP session\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_rtp_activate_ice(
         rtp_session: *mut switch_rtp_t,
         login: *mut ::std::os::raw::c_char,
@@ -21339,7 +20419,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Activate sending RTCP Sender Reports (SR's)\n\\param send_rate interval in milliseconds to send at\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_rtp_activate_rtcp(
         rtp_session: *mut switch_rtp_t,
         send_rate: ::std::os::raw::c_int,
@@ -21367,7 +20446,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Acvite a jitter buffer on an RTP session\n\\param rtp_session the rtp session\n\\param queue_frames the number of frames to delay\n\\return SWITCH_STATUS_SUCCESS"]
     pub fn switch_rtp_activate_jitter_buffer(
         rtp_session: *mut switch_rtp_t,
         queue_frames: u32,
@@ -21395,7 +20473,6 @@ extern "C" {
     pub fn switch_rtp_get_jitter_buffer(rtp_session: *mut switch_rtp_t) -> *mut switch_jb_t;
 }
 extern "C" {
-    #[doc = "\\brief Set an RTP Flag\n\\param rtp_session the RTP session\n\\param flags the flags to set"]
     pub fn switch_rtp_set_flag(rtp_session: *mut switch_rtp_t, flag: switch_rtp_flag_t);
 }
 extern "C" {
@@ -21405,44 +20482,36 @@ extern "C" {
     pub fn switch_rtp_clear_flags(rtp_session: *mut switch_rtp_t, flags: *mut switch_rtp_flag_t);
 }
 extern "C" {
-    #[doc = "\\brief Test an RTP Flag\n\\param rtp_session the RTP session\n\\param flags the flags to test\n\\return TRUE or FALSE"]
     pub fn switch_rtp_test_flag(rtp_session: *mut switch_rtp_t, flags: switch_rtp_flag_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Clear an RTP Flag\n\\param rtp_session the RTP session\n\\param flags the flags to clear"]
     pub fn switch_rtp_clear_flag(rtp_session: *mut switch_rtp_t, flag: switch_rtp_flag_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the socket from an existing RTP session\n\\param rtp_session the RTP session to retrieve the socket from\n\\return the socket from the RTP session"]
     pub fn switch_rtp_get_rtp_socket(rtp_session: *mut switch_rtp_t) -> *mut switch_socket_t;
 }
 extern "C" {
     pub fn switch_rtp_ping(rtp_session: *mut switch_rtp_t);
 }
 extern "C" {
-    #[doc = "\\brief Get the default samples per interval for a given RTP session\n\\param rtp_session the RTP session to get the samples per interval from\n\\return the default samples per interval of the RTP session"]
     pub fn switch_rtp_get_default_samples_per_interval(rtp_session: *mut switch_rtp_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set the default payload number for a given RTP session\n\\param rtp_session the RTP session to set the payload number on\n\\param payload the new default payload number"]
     pub fn switch_rtp_set_default_payload(
         rtp_session: *mut switch_rtp_t,
         payload: switch_payload_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Get the default payload number for a given RTP session\n\\param rtp_session the RTP session to get the payload number from\n\\return the default payload of the RTP session"]
     pub fn switch_rtp_get_default_payload(rtp_session: *mut switch_rtp_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Set a callback function to execute when an invalid RTP packet is encountered\n\\param rtp_session the RTP session\n\\param on_invalid the function to set\n\\return"]
     pub fn switch_rtp_set_invalid_handler(
         rtp_session: *mut switch_rtp_t,
         on_invalid: switch_rtp_invalid_handler_t,
     );
 }
 extern "C" {
-    #[doc = "\\brief Read data from a given RTP session\n\\param rtp_session the RTP session to read from\n\\param data the data to read\n\\param datalen a pointer to the datalen\n\\param payload_type the IANA payload of the packet\n\\param flags flags\n\\param io_flags i/o flags\n\\return the number of bytes read"]
     pub fn switch_rtp_read(
         rtp_session: *mut switch_rtp_t,
         data: *mut ::std::os::raw::c_void,
@@ -21453,32 +20522,27 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue RFC2833 DTMF data into an RTP Session\n\\param rtp_session the rtp session to use\n\\param dtmf the dtmf digits to queue\n\\return SWITCH_STATUS_SUCCESS on success"]
     pub fn switch_rtp_queue_rfc2833(
         rtp_session: *mut switch_rtp_t,
         dtmf: *const switch_dtmf_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Queue RFC2833 DTMF data into an RTP Session\n\\param rtp_session the rtp session to use\n\\param dtmf the dtmf digits to queue\n\\return SWITCH_STATUS_SUCCESS on success"]
     pub fn switch_rtp_queue_rfc2833_in(
         rtp_session: *mut switch_rtp_t,
         dtmf: *const switch_dtmf_t,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Test for presence of DTMF on a given RTP session\n\\param rtp_session session to test\n\\return number of digits in the queue"]
     pub fn switch_rtp_has_dtmf(rtp_session: *mut switch_rtp_t) -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve DTMF digits from a given RTP session\n\\param rtp_session RTP session to retrieve digits from\n\\param dtmf the dtmf\n\\return number of bytes read into the buffer"]
     pub fn switch_rtp_dequeue_dtmf(
         rtp_session: *mut switch_rtp_t,
         dtmf: *mut switch_dtmf_t,
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = "\\brief Read data from a given RTP session without copying\n\\param rtp_session the RTP session to read from\n\\param data a pointer to point directly to the RTP read buffer\n\\param datalen a pointer to the datalen\n\\param payload_type the IANA payload of the packet\n\\param flags flags\n\\param io_flags i/o flags\n\\return the number of bytes read"]
     pub fn switch_rtp_zerocopy_read(
         rtp_session: *mut switch_rtp_t,
         data: *mut *mut ::std::os::raw::c_void,
@@ -21489,7 +20553,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Read data from a given RTP session without copying\n\\param rtp_session the RTP session to read from\n\\param frame a frame to populate with information\n\\param io_flags i/o flags\n\\return the number of bytes read"]
     pub fn switch_rtp_zerocopy_read_frame(
         rtp_session: *mut switch_rtp_t,
         frame: *mut switch_frame_t,
@@ -21497,7 +20560,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Read RTCP data from a given RTP session without copying\n\\param rtp_session the RTP session to read from\n\\param frame an RTCP frame to populate with information\n\\return the number of bytes read"]
     pub fn switch_rtcp_zerocopy_read_frame(
         rtp_session: *mut switch_rtp_t,
         frame: *mut switch_rtcp_frame_t,
@@ -21507,7 +20569,6 @@ extern "C" {
     pub fn rtp_flush_read_buffer(rtp_session: *mut switch_rtp_t, flush: switch_rtp_flush_t);
 }
 extern "C" {
-    #[doc = "\\brief Enable VAD on an RTP Session\n\\param rtp_session the RTP session\n\\param session the core session associated with the RTP session\n\\param codec the codec the channel is currenty using\n\\param flags flags for control\n\\return SWITCH_STAUTS_SUCCESS on success"]
     pub fn switch_rtp_enable_vad(
         rtp_session: *mut switch_rtp_t,
         session: *mut switch_core_session_t,
@@ -21516,18 +20577,15 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Disable VAD on an RTP Session\n\\param rtp_session the RTP session\n\\return SWITCH_STAUTS_SUCCESS on success"]
     pub fn switch_rtp_disable_vad(rtp_session: *mut switch_rtp_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Write data to a given RTP session\n\\param rtp_session the RTP session to write to\n\\param frame the frame to write\n\\return the number of bytes written"]
     pub fn switch_rtp_write_frame(
         rtp_session: *mut switch_rtp_t,
         frame: *mut switch_frame_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Write data with a specified payload and sequence number to a given RTP session\n\\param rtp_session the RTP session to write to\n\\param data data to write\n\\param datalen the size of the data\n\\param m set mark bit or not\n\\param payload the IANA payload number\n\\param ts then number of bytes to increment the timestamp by\n\\param flags frame flags\n\\return the number of bytes written"]
     pub fn switch_rtp_write_manual(
         rtp_session: *mut switch_rtp_t,
         data: *mut ::std::os::raw::c_void,
@@ -21547,18 +20605,15 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the SSRC from a given RTP session\n\\param rtp_session the RTP session to retrieve from\n\\return the SSRC"]
     pub fn switch_rtp_get_ssrc(rtp_session: *mut switch_rtp_t) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Associate an arbitrary data pointer with and RTP session\n\\param rtp_session the RTP session to assign the pointer to\n\\param private_data the private data to assign"]
     pub fn switch_rtp_set_private(
         rtp_session: *mut switch_rtp_t,
         private_data: *mut ::std::os::raw::c_void,
     );
 }
 extern "C" {
-    #[doc = "\\brief Set the payload type to consider RFC2833 DTMF\n\\param rtp_session the RTP session to modify\n\\param te the payload type"]
     pub fn switch_rtp_set_telephony_event(rtp_session: *mut switch_rtp_t, te: switch_payload_t);
 }
 extern "C" {
@@ -21568,11 +20623,9 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief Set the payload type for comfort noise\n\\param rtp_session the RTP session to modify\n\\param pt the payload type"]
     pub fn switch_rtp_set_cng_pt(rtp_session: *mut switch_rtp_t, pt: switch_payload_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve the private data from a given RTP session\n\\param rtp_session the RTP session to retrieve the data from\n\\return the pointer to the private data"]
     pub fn switch_rtp_get_private(rtp_session: *mut switch_rtp_t) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -21637,80 +20690,61 @@ extern "C" {
         rtp_session: *mut switch_rtp_t,
     ) -> *mut switch_core_session_t;
 }
-pub const switch_xml_flag_t_SWITCH_XML_ROOT: switch_xml_flag_t = 1;
-pub const switch_xml_flag_t_SWITCH_XML_NAMEM: switch_xml_flag_t = 2;
-pub const switch_xml_flag_t_SWITCH_XML_TXTM: switch_xml_flag_t = 4;
-pub const switch_xml_flag_t_SWITCH_XML_DUP: switch_xml_flag_t = 8;
-pub const switch_xml_flag_t_SWITCH_XML_CDATA: switch_xml_flag_t = 16;
-pub type switch_xml_flag_t = ::std::os::raw::c_uint;
-#[doc = " \\brief A representation of an XML tree"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_xml_flag_t {
+    SWITCH_XML_ROOT = 1,
+    SWITCH_XML_NAMEM = 2,
+    SWITCH_XML_TXTM = 4,
+    SWITCH_XML_DUP = 8,
+    SWITCH_XML_CDATA = 16,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml {
-    #[doc = " tag name"]
     pub name: *mut ::std::os::raw::c_char,
-    #[doc = " tag attributes { name, value, name, value, ... NULL }"]
     pub attr: *mut *mut ::std::os::raw::c_char,
-    #[doc = " tag character content, empty string if none"]
     pub txt: *mut ::std::os::raw::c_char,
-    #[doc = " path to free on destroy"]
     pub free_path: *mut ::std::os::raw::c_char,
-    #[doc = " tag offset from start of parent tag character content"]
     pub off: switch_size_t,
-    #[doc = " next tag with same name in this section at this depth"]
     pub next: switch_xml_t,
-    #[doc = " next tag with different name in same section and depth"]
     pub sibling: switch_xml_t,
-    #[doc = " next tag, same section and depth, in original order"]
     pub ordered: switch_xml_t,
-    #[doc = " head of sub tag list, NULL if none"]
     pub child: switch_xml_t,
-    #[doc = " parent tag, NULL if current tag is root tag"]
     pub parent: switch_xml_t,
-    #[doc = " flags"]
     pub flags: u32,
-    #[doc = " is_switch_xml_root bool"]
     pub is_switch_xml_root_t: switch_bool_t,
     pub refs: u32,
-    #[doc = " pointer to end of opening tag, '>', in the original parsed text"]
     pub open: *const ::std::os::raw::c_char,
-    #[doc = " pointer to start of closing tag, '<', in the original parsed text"]
     pub close: *const ::std::os::raw::c_char,
 }
 extern "C" {
-    #[doc = " \\brief Parses a string into a switch_xml_t, ensuring the memory will be freed with switch_xml_free\n \\param s The string to parse\n \\param dup true if you want the string to be strdup()'d automatically\n \\return the switch_xml_t or NULL if an error occured"]
     pub fn switch_xml_parse_str_dynamic(
         s: *mut ::std::os::raw::c_char,
         dup: switch_bool_t,
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Given a string of xml data and its length, parses it and creates an switch_xml\n\\ structure. For efficiency, modifies the data by adding null terminators\n\\ and decoding ampersand sequences. If you don't want this, copy the data and\n\\ pass in the copy. Returns NULL on failure.\n\\param s a string\n\\param len the length of the string\n\\return a formated xml node or NULL"]
     pub fn switch_xml_parse_str(s: *mut ::std::os::raw::c_char, len: switch_size_t)
         -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief A wrapper for switch_xml_parse_str() that accepts a file descriptor. First\n\\ attempts to mem map the file. Failing that, reads the file into memory.\n\\ Returns NULL on failure.\n\\param fd\n\\return a formated xml node or NULL"]
     pub fn switch_xml_parse_fd(fd: ::std::os::raw::c_int) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief a wrapper for switch_xml_parse_fd() that accepts a file name\n\\param file a file to parse\n\\return a formated xml node or NULL"]
     pub fn switch_xml_parse_file(file: *const ::std::os::raw::c_char) -> switch_xml_t;
 }
 extern "C" {
     pub fn switch_xml_parse_file_simple(file: *const ::std::os::raw::c_char) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Wrapper for switch_xml_parse_str() that accepts a file stream. Reads the entire\n\\ stream into memory and then parses it. For xml files, use switch_xml_parse_file()\n\\ or switch_xml_parse_fd()\n\\param fp a FILE pointer to parse\n\\return an xml node or NULL"]
     pub fn switch_xml_parse_fp(fp: *mut FILE) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief returns the first child tag (one level deeper) with the given name or NULL\n\\ if not found\n\\param xml an xml node\n\\param name the name of the child tag\n\\return an xml node or NULL"]
     pub fn switch_xml_child(xml: switch_xml_t, name: *const ::std::os::raw::c_char)
         -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief find a child tag in a node called 'childname' with an attribute 'attrname' which equals 'value'\n\\param node the xml node\n\\param childname the child tag name\n\\param attrname the attribute name\n\\param value the value\n\\return an xml node or NULL"]
     pub fn switch_xml_find_child(
         node: switch_xml_t,
         childname: *const ::std::os::raw::c_char,
@@ -21726,25 +20760,21 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Returns the Nth tag with the same name in the same section at the same depth\n\\ or NULL if not found. An index of 0 returns the tag given.\n\\param xml the xml node\n\\param idx the index\n\\return an xml node or NULL"]
     pub fn switch_xml_idx(xml: switch_xml_t, idx: ::std::os::raw::c_int) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief returns the value of the requested tag attribute, or NULL if not found\n\\param xml the xml node\n\\param attr the attribute\n\\return the value"]
     pub fn switch_xml_attr(
         xml: switch_xml_t,
         attr: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief returns the value of the requested tag attribute, or \"\" if not found\n\\param xml the xml node\n\\param attr the attribute\n\\return the value"]
     pub fn switch_xml_attr_soft(
         xml: switch_xml_t,
         attr: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Traverses the switch_xml structure to retrieve a specific subtag. Takes a\n\\ variable length list of tag names and indexes. The argument list must be\n\\ terminated by either an index of -1 or an empty string tag name. Example:\n\\ title = switch_xml_get(library, \"shelf\", 0, \"book\", 2, \"title\", -1);\n\\ This retrieves the title of the 3rd book on the 1st shelf of library.\n\\ Returns NULL if not found.\n\\param xml the xml node\n\\return an xml node or NULL"]
     pub fn switch_xml_get(xml: switch_xml_t, ...) -> switch_xml_t;
 }
 extern "C" {
@@ -21779,29 +20809,24 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief returns a NULL terminated array of processing instructions for the given\n\\ target\n\\param xml the xml node\n\\param target the instructions\n\\return the array"]
     pub fn switch_xml_pi(
         xml: switch_xml_t,
         target: *const ::std::os::raw::c_char,
     ) -> *mut *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief frees the memory allocated for an switch_xml structure\n\\param xml the xml node\n\\note in the case of the root node the readlock will be lifted"]
     pub fn switch_xml_free(xml: switch_xml_t);
 }
 extern "C" {
     pub fn switch_xml_free_in_thread(xml: switch_xml_t, stacksize: ::std::os::raw::c_int);
 }
 extern "C" {
-    #[doc = "\\brief returns parser error message or empty string if none\n\\param xml the xml node\n\\return the error string or nothing"]
     pub fn switch_xml_error(xml: switch_xml_t) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief returns a new empty switch_xml structure with the given root tag name\n\\param name the name of the new root tag"]
     pub fn switch_xml_new(name: *const ::std::os::raw::c_char) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Adds a child tag. off is the offset of the child tag relative to the start\n\\ of the parent tag's character content. Returns the child tag.\n\\param xml the xml node\n\\param name the name of the tag\n\\param off the offset\n\\return an xml node or NULL"]
     pub fn switch_xml_add_child(
         xml: switch_xml_t,
         name: *const ::std::os::raw::c_char,
@@ -21809,7 +20834,6 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief wrapper for switch_xml_add_child() that strdup()s name\n\\param xml the xml node\n\\param name the name of the child\n\\param off the offset"]
     pub fn switch_xml_add_child_d(
         xml: switch_xml_t,
         name: *const ::std::os::raw::c_char,
@@ -21817,21 +20841,18 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief sets the character content for the given tag and returns the tag\n\\param xml the xml node\n\\param txt the text\n\\return an xml node or NULL"]
     pub fn switch_xml_set_txt(
         xml: switch_xml_t,
         txt: *const ::std::os::raw::c_char,
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief wrapper for switch_xml_set_txt() that strdup()s txt\n\\ sets the character content for the given tag and returns the tag\n\\param xml the xml node\n\\param txt the text\n\\return an xml node or NULL"]
     pub fn switch_xml_set_txt_d(
         xml: switch_xml_t,
         txt: *const ::std::os::raw::c_char,
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Sets the given tag attribute or adds a new attribute if not found. A value\n\\ of NULL will remove the specified attribute.\n\\param xml the xml node\n\\param name the attribute name\n\\param value the attribute value\n\\return the tag given"]
     pub fn switch_xml_set_attr(
         xml: switch_xml_t,
         name: *const ::std::os::raw::c_char,
@@ -21839,7 +20860,6 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Wrapper for switch_xml_set_attr() that strdup()s name/value. Value cannot be NULL\n\\param xml the xml node\n\\param name the attribute name\n\\param value the attribute value\n\\return an xml node or NULL"]
     pub fn switch_xml_set_attr_d(
         xml: switch_xml_t,
         name: *const ::std::os::raw::c_char,
@@ -21847,7 +20867,6 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief Wrapper for switch_xml_set_attr() that strdup()s name/value. Value cannot be NULL\n\\param xml the xml node\n\\param name the attribute name\n\\param value the attribute value\n\\return an xml node or NULL"]
     pub fn switch_xml_set_attr_d_buf(
         xml: switch_xml_t,
         name: *const ::std::os::raw::c_char,
@@ -21855,15 +20874,12 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief sets a flag for the given tag and returns the tag\n\\param xml the xml node\n\\param flag the flag to set\n\\return an xml node or NULL"]
     pub fn switch_xml_set_flag(xml: switch_xml_t, flag: switch_xml_flag_t) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief removes a tag along with its subtags without freeing its memory\n\\param xml the xml node"]
     pub fn switch_xml_cut(xml: switch_xml_t) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief inserts an existing tag into an ezxml structure"]
     pub fn switch_xml_insert(
         xml: switch_xml_t,
         dest: switch_xml_t,
@@ -21871,25 +20887,21 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief set new core xml root"]
     pub fn switch_xml_set_root(new_main: switch_xml_t) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Set and alternate function for opening xml root"]
     pub fn switch_xml_set_open_root_function(
         func: switch_xml_open_root_function_t,
         user_data: *mut ::std::os::raw::c_void,
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief open the Core xml root\n\\param reload if it's is already open close it and open it again as soon as permissable (blocking)\n\\param err a pointer to set error strings\n\\return the xml root node or NULL"]
     pub fn switch_xml_open_root(
         reload: u8,
         err: *mut *const ::std::os::raw::c_char,
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief initilize the core XML backend\n\\param pool a memory pool to use\n\\param err a pointer to set error strings\n\\return SWITCH_STATUS_SUCCESS if successful"]
     pub fn switch_xml_init(
         pool: *mut switch_memory_pool_t,
         err: *mut *const ::std::os::raw::c_char,
@@ -21902,11 +20914,9 @@ extern "C" {
     pub fn switch_xml_destroy() -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief retrieve the core XML root node\n\\return the xml root node\n\\note this will cause a readlock on the root until it's released with \\see switch_xml_free"]
     pub fn switch_xml_root() -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief locate an xml pointer in the core registry\n\\param section the section to look in\n\\param tag_name the type of tag in that section\n\\param key_name the name of the key\n\\param key_value the value of the key\n\\param root a pointer to point at the root node\n\\param node a pointer to the requested node\n\\param params optional URL formatted params to pass to external gateways\n\\return SWITCH_STATUS_SUCCESS if successful root and node will be assigned"]
     pub fn switch_xml_locate(
         section: *const ::std::os::raw::c_char,
         tag_name: *const ::std::os::raw::c_char,
@@ -21981,7 +20991,6 @@ extern "C" {
     pub fn switch_xml_dup(xml: switch_xml_t) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief open a config in the core registry\n\\param file_path the name of the config section e.g. modules.conf\n\\param node a pointer to point to the node if it is found\n\\param params optional URL formatted params to pass to external gateways\n\\return the root xml node associated with the current request or NULL"]
     pub fn switch_xml_open_cfg(
         file_path: *const ::std::os::raw::c_char,
         node: *mut switch_xml_t,
@@ -21989,7 +20998,6 @@ extern "C" {
     ) -> switch_xml_t;
 }
 extern "C" {
-    #[doc = "\\brief bind a search function to an external gateway\n\\param function the search function to bind\n\\param sections a bitmask of sections you wil service\n\\param user_data a pointer to private data to be used during the callback\n\\return SWITCH_STATUS_SUCCESS if successful\n\\note gateway functions will be executed in the order they were binded until a success is found else the root registry will be used"]
     pub fn switch_xml_set_binding_sections(
         binding: *mut switch_xml_binding_t,
         sections: switch_xml_section_t,
@@ -22030,7 +21038,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief parse a string for a list of sections\n\\param str a | delimited list of section names\n\\return the section mask"]
     pub fn switch_xml_parse_section_string(
         str_: *const ::std::os::raw::c_char,
     ) -> switch_xml_section_t;
@@ -22053,17 +21060,19 @@ extern "C" {
         str_language: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
-pub const switch_xml_config_type_t_SWITCH_CONFIG_INT: switch_xml_config_type_t = 0;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_ATOMIC: switch_xml_config_type_t = 1;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_STRING: switch_xml_config_type_t = 2;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_BOOL: switch_xml_config_type_t = 3;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_CUSTOM: switch_xml_config_type_t = 4;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_ENUM: switch_xml_config_type_t = 5;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_FLAG: switch_xml_config_type_t = 6;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_FLAGARRAY: switch_xml_config_type_t = 7;
-pub const switch_xml_config_type_t_SWITCH_CONFIG_LAST: switch_xml_config_type_t = 8;
-#[doc = " \\brief Type of value to parse"]
-pub type switch_xml_config_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_xml_config_type_t {
+    SWITCH_CONFIG_INT = 0,
+    SWITCH_CONFIG_ATOMIC = 1,
+    SWITCH_CONFIG_STRING = 2,
+    SWITCH_CONFIG_BOOL = 3,
+    SWITCH_CONFIG_CUSTOM = 4,
+    SWITCH_CONFIG_ENUM = 5,
+    SWITCH_CONFIG_FLAG = 6,
+    SWITCH_CONFIG_FLAGARRAY = 7,
+    SWITCH_CONFIG_LAST = 8,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml_config_enum_item_t {
@@ -22096,15 +21105,20 @@ pub struct switch_xml_config_atomic_options_t {
     pub enforce_max: switch_bool_t,
     pub max: u32,
 }
-#[doc = " \\brief A configuration instruction read by switch_xml_config_parse"]
 pub type switch_xml_config_item_t = switch_xml_config_item;
-pub const switch_config_callback_type_t_CONFIG_LOAD: switch_config_callback_type_t = 0;
-pub const switch_config_callback_type_t_CONFIG_RELOAD: switch_config_callback_type_t = 1;
-pub const switch_config_callback_type_t_CONFIG_SHUTDOWN: switch_config_callback_type_t = 2;
-pub type switch_config_callback_type_t = ::std::os::raw::c_uint;
-pub const switch_config_flags_t_CONFIG_RELOADABLE: switch_config_flags_t = 1;
-pub const switch_config_flags_t_CONFIG_REQUIRED: switch_config_flags_t = 2;
-pub type switch_config_flags_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_config_callback_type_t {
+    CONFIG_LOAD = 0,
+    CONFIG_RELOAD = 1,
+    CONFIG_SHUTDOWN = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_config_flags_t {
+    CONFIG_RELOADABLE = 1,
+    CONFIG_REQUIRED = 2,
+}
 pub type switch_xml_config_callback_t = ::std::option::Option<
     unsafe extern "C" fn(
         item: *mut switch_xml_config_item_t,
@@ -22113,7 +21127,6 @@ pub type switch_xml_config_callback_t = ::std::option::Option<
         changed: switch_bool_t,
     ) -> switch_status_t,
 >;
-#[doc = " \\brief A configuration instruction read by switch_xml_config_parse"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml_config_item {
@@ -22142,7 +21155,6 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = " \\brief Gets the int representation of an enum\n \\param enum_options the switch_xml_config_enum_item_t array for this enum\n \\param value string value to search"]
     pub fn switch_xml_config_enum_str2int(
         enum_options: *mut switch_xml_config_enum_item_t,
         value: *const ::std::os::raw::c_char,
@@ -22150,21 +21162,18 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Gets the string representation of an enum\n \\param enum_options the switch_xml_config_enum_item_t array for this enum\n \\param value int value to search"]
     pub fn switch_xml_config_enum_int2str(
         enum_options: *mut switch_xml_config_enum_item_t,
         value: ::std::os::raw::c_int,
     ) -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = " \\brief Prints out an item's documentation on the console\n \\param level loglevel to use\n \\param item item which the doc should be printed"]
     pub fn switch_xml_config_item_print_doc(
         level: ::std::os::raw::c_int,
         item: *mut switch_xml_config_item_t,
     );
 }
 extern "C" {
-    #[doc = " \\brief Parses all the xml elements, following a ruleset defined by an array of switch_xml_config_item_t\n \\param xml The first element of the list to parse\n \\param reload true to skip all non-reloadable options\n \\param instructions instrutions on how to parse the elements\n \\see switch_xml_config_item_t"]
     pub fn switch_xml_config_parse(
         xml: switch_xml_t,
         reload: switch_bool_t,
@@ -22172,7 +21181,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Parses a module's settings\n \\param reload true to skip all non-reloadable options\n \\param file the configuration file to look for\n \\param instructions the instructions"]
     pub fn switch_xml_config_parse_module_settings(
         file: *const ::std::os::raw::c_char,
         reload: switch_bool_t,
@@ -22180,7 +21188,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Parses all of an event's elements, following a ruleset defined by an array of switch_xml_config_item_t\n \\param event The event structure containing the key and values to parse\n \\param reload true to skip all non-reloadable options\n \\param instructions instrutions on how to parse the elements\n \\see switch_xml_config_item_t"]
     pub fn switch_xml_config_parse_event(
         event: *mut switch_event_t,
         count: ::std::os::raw::c_int,
@@ -22189,7 +21196,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = " \\brief Parses a list of xml elements into an event\n \\param xml First element of the xml list to parse\n \\param keyname Name of the key attribute\n \\param keyvalue Name of the value attribute\n \\param event [out] event (if *event is NOT NULL, the headers will be appended to the existing event)"]
     pub fn switch_event_import_xml(
         xml: switch_xml_t,
         keyname: *const ::std::os::raw::c_char,
@@ -22198,38 +21204,22 @@ extern "C" {
     ) -> switch_size_t;
 }
 extern "C" {
-    #[doc = " \\brief Free any memory allocated by the configuration\n \\param instructions instrutions on how to parse the elements"]
     pub fn switch_xml_config_cleanup(instructions: *mut switch_xml_config_item_t);
 }
-#[doc = " \\brief A table of lists of io_event_hooks to store the event hooks associated with a session"]
 pub type switch_io_event_hooks_t = switch_io_event_hooks;
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 pub type switch_io_event_hook_outgoing_channel_t = switch_io_event_hook_outgoing_channel;
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 pub type switch_io_event_hook_receive_message_t = switch_io_event_hook_receive_message;
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 pub type switch_io_event_hook_receive_event_t = switch_io_event_hook_receive_event;
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 pub type switch_io_event_hook_read_frame_t = switch_io_event_hook_read_frame;
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 pub type switch_io_event_hook_video_read_frame_t = switch_io_event_hook_video_read_frame;
-#[doc = " \\brief Node in which to store custom write_frame channel callback hooks"]
 pub type switch_io_event_hook_write_frame_t = switch_io_event_hook_write_frame;
-#[doc = " \\brief Node in which to store custom video_write_frame channel callback hooks"]
 pub type switch_io_event_hook_video_write_frame_t = switch_io_event_hook_video_write_frame;
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 pub type switch_io_event_hook_text_read_frame_t = switch_io_event_hook_text_read_frame;
-#[doc = " \\brief Node in which to store custom video_write_frame channel callback hooks"]
 pub type switch_io_event_hook_text_write_frame_t = switch_io_event_hook_text_write_frame;
-#[doc = " \\brief Node in which to store custom kill channel callback hooks"]
 pub type switch_io_event_hook_kill_channel_t = switch_io_event_hook_kill_channel;
-#[doc = " \\brief Node in which to store custom send dtmf channel callback hooks"]
 pub type switch_io_event_hook_send_dtmf_t = switch_io_event_hook_send_dtmf;
-#[doc = " \\brief Node in which to store custom recv dtmf channel callback hooks"]
 pub type switch_io_event_hook_recv_dtmf_t = switch_io_event_hook_recv_dtmf;
-#[doc = " \\brief Node in which to store state change callback hooks"]
 pub type switch_io_event_hook_state_change_t = switch_io_event_hook_state_change;
-#[doc = " \\brief Node in which to store state run callback hooks"]
 pub type switch_io_event_hook_state_run_t = switch_io_event_hook_state_run;
 pub type switch_outgoing_channel_hook_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -22326,145 +21316,105 @@ pub type switch_state_change_hook_t = ::std::option::Option<
 pub type switch_state_run_hook_t = ::std::option::Option<
     unsafe extern "C" fn(arg1: *mut switch_core_session_t) -> switch_status_t,
 >;
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_outgoing_channel {
     pub outgoing_channel: switch_outgoing_channel_hook_t,
     pub next: *mut switch_io_event_hook_outgoing_channel,
 }
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_receive_message {
     pub receive_message: switch_receive_message_hook_t,
     pub next: *mut switch_io_event_hook_receive_message,
 }
-#[doc = " \\brief Node in which to store custom receive message callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_receive_event {
-    #[doc = " the event callback hook"]
     pub receive_event: switch_receive_event_hook_t,
     pub next: *mut switch_io_event_hook_receive_event,
 }
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_read_frame {
-    #[doc = " the read frame channel callback hook"]
     pub read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_read_frame,
 }
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_video_read_frame {
-    #[doc = " the read frame channel callback hook"]
     pub video_read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_video_read_frame,
 }
-#[doc = " \\brief Node in which to store custom write_frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_write_frame {
-    #[doc = " the write_frame channel callback hook"]
     pub write_frame: switch_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_write_frame,
 }
-#[doc = " \\brief Node in which to store custom video_write_frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_video_write_frame {
-    #[doc = " the video_write_frame channel callback hook"]
     pub video_write_frame: switch_video_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_video_write_frame,
 }
-#[doc = " \\brief Node in which to store custom read frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_text_read_frame {
-    #[doc = " the read frame channel callback hook"]
     pub text_read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_text_read_frame,
 }
-#[doc = " \\brief Node in which to store custom video_write_frame channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_text_write_frame {
-    #[doc = " the video_write_frame channel callback hook"]
     pub text_write_frame: switch_video_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_text_write_frame,
 }
-#[doc = " \\brief Node in which to store custom kill channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_kill_channel {
-    #[doc = " the kill channel callback hook"]
     pub kill_channel: switch_kill_channel_hook_t,
     pub next: *mut switch_io_event_hook_kill_channel,
 }
-#[doc = " \\brief Node in which to store custom send dtmf channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_send_dtmf {
-    #[doc = " the send dtmf channel callback hook"]
     pub send_dtmf: switch_send_dtmf_hook_t,
     pub next: *mut switch_io_event_hook_send_dtmf,
 }
-#[doc = " \\brief Node in which to store custom recv dtmf channel callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_recv_dtmf {
-    #[doc = " the recv dtmf channel callback hook"]
     pub recv_dtmf: switch_recv_dtmf_hook_t,
     pub next: *mut switch_io_event_hook_recv_dtmf,
 }
-#[doc = " \\brief Node in which to store state change callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_state_change {
-    #[doc = " the state change channel callback hook"]
     pub state_change: switch_state_change_hook_t,
     pub next: *mut switch_io_event_hook_state_change,
 }
-#[doc = " \\brief Node in which to store state run callback hooks"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_state_run {
-    #[doc = " the state run channel callback hook"]
     pub state_run: switch_state_run_hook_t,
     pub next: *mut switch_io_event_hook_state_run,
 }
-#[doc = " \\brief A table of lists of io_event_hooks to store the event hooks associated with a session"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hooks {
-    #[doc = " a list of outgoing channel hooks"]
     pub outgoing_channel: *mut switch_io_event_hook_outgoing_channel_t,
-    #[doc = " a list of receive message hooks"]
     pub receive_message: *mut switch_io_event_hook_receive_message_t,
-    #[doc = " a list of queue message hooks"]
     pub receive_event: *mut switch_io_event_hook_receive_event_t,
-    #[doc = " a list of read frame hooks"]
     pub read_frame: *mut switch_io_event_hook_read_frame_t,
-    #[doc = " a list of video read frame hooks"]
     pub video_read_frame: *mut switch_io_event_hook_video_read_frame_t,
-    #[doc = " a list of write frame hooks"]
     pub write_frame: *mut switch_io_event_hook_write_frame_t,
-    #[doc = " a list of text write frame hooks"]
     pub video_write_frame: *mut switch_io_event_hook_video_write_frame_t,
-    #[doc = " a list of text write frame hooks"]
     pub text_write_frame: *mut switch_io_event_hook_text_write_frame_t,
-    #[doc = " a list of text read frame hooks"]
     pub text_read_frame: *mut switch_io_event_hook_text_read_frame_t,
-    #[doc = " a list of kill channel hooks"]
     pub kill_channel: *mut switch_io_event_hook_kill_channel_t,
-    #[doc = " a list of send dtmf hooks"]
     pub send_dtmf: *mut switch_io_event_hook_send_dtmf_t,
-    #[doc = " a list of recv dtmf hooks"]
     pub recv_dtmf: *mut switch_io_event_hook_recv_dtmf_t,
-    #[doc = " a list of state change hooks"]
     pub state_change: *mut switch_io_event_hook_state_change_t,
     pub state_run: *mut switch_io_event_hook_state_run_t,
 }
@@ -22641,7 +21591,6 @@ extern "C" {
         recv_dtmf: switch_recv_dtmf_hook_t,
     ) -> switch_status_t;
 }
-#[doc = "\\defgroup sched1 Scheduler\n\\ingroup core1\n\\{"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_scheduler_task {
@@ -22655,7 +21604,6 @@ pub struct switch_scheduler_task {
     pub hash: ::std::os::raw::c_ulong,
 }
 extern "C" {
-    #[doc = "\\brief Schedule a task in the future\n\\param task_runtime the time in epoch seconds to execute the task.\n\\param func the callback function to execute when the task is executed.\n\\param desc an arbitrary description of the task.\n\\param group a group id tag to link multiple tasks to a single entity.\n\\param cmd_id an arbitrary index number be used in the callback.\n\\param cmd_arg user data to be passed to the callback.\n\\param flags flags to alter behaviour\n\\return the id of the task"]
     pub fn switch_scheduler_add_task(
         task_runtime: time_t,
         func: switch_scheduler_func_t,
@@ -22667,7 +21615,6 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Schedule a task in the future\n\\param task_runtime the time in epoch seconds to execute the task.\n\\param func the callback function to execute when the task is executed.\n\\param desc an arbitrary description of the task.\n\\param group a group id tag to link multiple tasks to a single entity.\n\\param cmd_id an arbitrary index number be used in the callback.\n\\param cmd_arg user data to be passed to the callback.\n\\param flags flags to alter behaviour\n\\param task_id pointer to put the id of the task to\n\\return the id of the task"]
     pub fn switch_scheduler_add_task_ex(
         task_runtime: time_t,
         func: switch_scheduler_func_t,
@@ -22680,58 +21627,41 @@ extern "C" {
     ) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Delete a scheduled task\n\\param task_id the id of the task\n\\return the number of jobs deleted"]
     pub fn switch_scheduler_del_task_id(task_id: u32) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Delete a scheduled task based on the group name\n\\param group the group name\n\\return the number of jobs deleted"]
     pub fn switch_scheduler_del_task_group(group: *const ::std::os::raw::c_char) -> u32;
 }
 extern "C" {
-    #[doc = "\\brief Start the scheduler system"]
     pub fn switch_scheduler_task_thread_start();
 }
 extern "C" {
-    #[doc = "\\brief Stop the scheduler system"]
     pub fn switch_scheduler_task_thread_stop();
 }
-#[doc = " \\brief A simple file handle representing an open configuration file"]
 pub type switch_config_t = switch_config;
-#[doc = " \\brief A simple file handle representing an open configuration file"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_config {
-    #[doc = " FILE stream buffer to the opened file"]
     pub file: *mut FILE,
-    #[doc = " path to the file"]
     pub path: [::std::os::raw::c_char; 512usize],
-    #[doc = " current category"]
     pub category: [::std::os::raw::c_char; 256usize],
-    #[doc = " current section"]
     pub section: [::std::os::raw::c_char; 256usize],
-    #[doc = " buffer of current line being read"]
     pub buf: [::std::os::raw::c_char; 1024usize],
-    #[doc = " current line number in file"]
     pub lineno: ::std::os::raw::c_int,
-    #[doc = " current category number in file"]
     pub catno: ::std::os::raw::c_int,
-    #[doc = " current section number in file"]
     pub sectno: ::std::os::raw::c_int,
     pub lockto: ::std::os::raw::c_int,
 }
 extern "C" {
-    #[doc = "\\brief Open a configuration file\n\\param cfg (switch_config_t *) config handle to use\n\\param file_path path to the file\n\\return 1 (true) on success 0 (false) on failure"]
     pub fn switch_config_open_file(
         cfg: *mut switch_config_t,
         file_path: *mut ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Close a previously opened configuration file\n\\param cfg (switch_config_t *) config handle to use"]
     pub fn switch_config_close_file(cfg: *mut switch_config_t);
 }
 extern "C" {
-    #[doc = "\\brief Retrieve next name/value pair from configuration file\n\\param cfg (switch_config_t *) config handle to use\n\\param var pointer to aim at the new variable name\n\\param val pointer to aim at the new value"]
     pub fn switch_config_next_pair(
         cfg: *mut switch_config_t,
         var: *mut *mut ::std::os::raw::c_char,
@@ -22739,15 +21669,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 pub type switch_packetizer_t = ::std::os::raw::c_void;
-pub const switch_packetizer_bitstream_t_SPT_H264_BITSTREAM: switch_packetizer_bitstream_t = 0;
-pub const switch_packetizer_bitstream_t_SPT_H264_SIZED_BITSTREAM: switch_packetizer_bitstream_t = 1;
-pub const switch_packetizer_bitstream_t_SPT_H264_SIGNALE_NALU: switch_packetizer_bitstream_t = 2;
-pub const switch_packetizer_bitstream_t_SPT_VP8_BITSTREAM: switch_packetizer_bitstream_t = 3;
-pub const switch_packetizer_bitstream_t_SPT_VP9_BITSTREAM: switch_packetizer_bitstream_t = 4;
-pub const switch_packetizer_bitstream_t_SPT_H265_BITSTREAM: switch_packetizer_bitstream_t = 5;
-pub const switch_packetizer_bitstream_t_SPT_AV1: switch_packetizer_bitstream_t = 6;
-pub const switch_packetizer_bitstream_t_SPT_INVALID_STREAM: switch_packetizer_bitstream_t = 7;
-pub type switch_packetizer_bitstream_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_packetizer_bitstream_t {
+    SPT_H264_BITSTREAM = 0,
+    SPT_H264_SIZED_BITSTREAM = 1,
+    SPT_H264_SIGNALE_NALU = 2,
+    SPT_VP8_BITSTREAM = 3,
+    SPT_VP9_BITSTREAM = 4,
+    SPT_H265_BITSTREAM = 5,
+    SPT_AV1 = 6,
+    SPT_INVALID_STREAM = 7,
+}
 extern "C" {
     pub fn switch_packetizer_create(
         type_: switch_packetizer_bitstream_t,
@@ -22783,46 +21716,44 @@ extern "C" {
 extern "C" {
     pub fn switch_packetizer_close(packetizer: *mut *mut switch_packetizer_t);
 }
-pub const switch_nat_type_t_SWITCH_NAT_TYPE_NONE: switch_nat_type_t = 0;
-pub const switch_nat_type_t_SWITCH_NAT_TYPE_PMP: switch_nat_type_t = 1;
-pub const switch_nat_type_t_SWITCH_NAT_TYPE_UPNP: switch_nat_type_t = 2;
-pub type switch_nat_type_t = ::std::os::raw::c_uint;
-pub const switch_nat_ip_proto_t_SWITCH_NAT_UDP: switch_nat_ip_proto_t = 0;
-pub const switch_nat_ip_proto_t_SWITCH_NAT_TCP: switch_nat_ip_proto_t = 1;
-pub type switch_nat_ip_proto_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_nat_type_t {
+    SWITCH_NAT_TYPE_NONE = 0,
+    SWITCH_NAT_TYPE_PMP = 1,
+    SWITCH_NAT_TYPE_UPNP = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_nat_ip_proto_t {
+    SWITCH_NAT_UDP = 0,
+    SWITCH_NAT_TCP = 1,
+}
 extern "C" {
     pub fn switch_nat_get_type() -> *const ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Initilize the NAT Traversal System\n\\param pool the memory pool to use for long term allocations\n\\note Generally called by the core_init"]
     pub fn switch_nat_init(pool: *mut switch_memory_pool_t, mapping: switch_bool_t);
 }
 extern "C" {
-    #[doc = "\\brief Initilize the rest of the NAT Traversal System\n\\note nat_init is called prior to some other modules being loaded.\nThis method allows us to init the rest of the NAT system."]
     pub fn switch_nat_late_init();
 }
 extern "C" {
-    #[doc = "\\brief Shuts down the NAT Traversal System"]
     pub fn switch_nat_shutdown();
 }
 extern "C" {
-    #[doc = "\\brief Returns a list of nat mappings and other status info\n\\note  caller must free the string"]
     pub fn switch_nat_status() -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
-    #[doc = "\\brief Republishes the nap mappings"]
     pub fn switch_nat_republish();
 }
 extern "C" {
-    #[doc = "\\brief re-initializes NAT subsystem"]
     pub fn switch_nat_reinit();
 }
 extern "C" {
-    #[doc = "\\brief Update the setting if port mapping will be created"]
     pub fn switch_nat_set_mapping(mapping: switch_bool_t);
 }
 extern "C" {
-    #[doc = "\\brief Maps a port through the NAT Traversal System\n\\param port Internal port to map\n\\param proto Protocol\n\\param external_port [out] Mapped external port\n\\param sticky make the mapping permanent"]
     pub fn switch_nat_add_mapping(
         port: switch_port_t,
         proto: switch_nat_ip_proto_t,
@@ -22831,25 +21762,29 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Has the NAT subsystem been initialized"]
     pub fn switch_nat_is_initialized() -> switch_bool_t;
 }
 extern "C" {
-    #[doc = "\\brief Deletes a NAT mapping\n\\param proto Protocol"]
     pub fn switch_nat_del_mapping(
         port: switch_port_t,
         proto: switch_nat_ip_proto_t,
     ) -> switch_status_t;
 }
 pub type switch_odbc_statement_handle_t = *mut ::std::os::raw::c_void;
-pub const switch_odbc_state_t_SWITCH_ODBC_STATE_INIT: switch_odbc_state_t = 0;
-pub const switch_odbc_state_t_SWITCH_ODBC_STATE_DOWN: switch_odbc_state_t = 1;
-pub const switch_odbc_state_t_SWITCH_ODBC_STATE_CONNECTED: switch_odbc_state_t = 2;
-pub const switch_odbc_state_t_SWITCH_ODBC_STATE_ERROR: switch_odbc_state_t = 3;
-pub type switch_odbc_state_t = ::std::os::raw::c_uint;
-pub const switch_odbc_status_t_SWITCH_ODBC_SUCCESS: switch_odbc_status_t = 0;
-pub const switch_odbc_status_t_SWITCH_ODBC_FAIL: switch_odbc_status_t = -1;
-pub type switch_odbc_status_t = ::std::os::raw::c_int;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_odbc_state_t {
+    SWITCH_ODBC_STATE_INIT = 0,
+    SWITCH_ODBC_STATE_DOWN = 1,
+    SWITCH_ODBC_STATE_CONNECTED = 2,
+    SWITCH_ODBC_STATE_ERROR = 3,
+}
+#[repr(i32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_odbc_status_t {
+    SWITCH_ODBC_SUCCESS = 0,
+    SWITCH_ODBC_FAIL = -1,
+}
 extern "C" {
     pub fn switch_odbc_skip_autocommit_flip();
 }
@@ -22917,7 +21852,6 @@ extern "C" {
     ) -> switch_odbc_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Execute the sql query and issue a callback for each row returned\n\\param file the file from which this function is called\n\\param func the function from which this function is called\n\\param line the line from which this function is called\n\\param handle the ODBC handle\n\\param sql the sql string to execute\n\\param callback the callback function to execute\n\\param pdata the state data passed on each callback invocation\n\\return SWITCH_STATUS_SUCCESS if the operation was successful\n\\note none"]
     pub fn switch_odbc_handle_callback_exec_detailed(
         file: *const ::std::os::raw::c_char,
         func: *const ::std::os::raw::c_char,
@@ -22941,11 +21875,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Initilize the LIMIT Core System\n\\param pool the memory pool to use for long term allocations\n\\note Generally called by the core_init"]
     pub fn switch_limit_init(pool: *mut switch_memory_pool_t);
 }
 extern "C" {
-    #[doc = "\\brief Increment resource.\n\\param backend to use\n\\param realm\n\\param resource\n\\param max - 0 means no limit, just count\n\\param interval - 0 means no interval\n\\return true/false - true ok, false over limit"]
     pub fn switch_limit_incr(
         backend: *const ::std::os::raw::c_char,
         session: *mut switch_core_session_t,
@@ -22956,7 +21888,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief Release resource.\n\\param backend to use\n\\param realm\n\\param resource\n\\return true/false - true ok, false over limit"]
     pub fn switch_limit_release(
         backend: *const ::std::os::raw::c_char,
         session: *mut switch_core_session_t,
@@ -22965,7 +21896,6 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief get usage count for resource\n\\param backend to use\n\\param realm\n\\param resource\n\\param rcount - output paramter, rate counter"]
     pub fn switch_limit_usage(
         backend: *const ::std::os::raw::c_char,
         realm: *const ::std::os::raw::c_char,
@@ -22974,7 +21904,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief reset interval usage counter for a given resource\n\\param backend\n\\param realm\n\\param resource"]
     pub fn switch_limit_interval_reset(
         backend: *const ::std::os::raw::c_char,
         realm: *const ::std::os::raw::c_char,
@@ -22982,11 +21911,9 @@ extern "C" {
     ) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief reset all usage counters\n\\param backend to use"]
     pub fn switch_limit_reset(backend: *const ::std::os::raw::c_char) -> switch_status_t;
 }
 extern "C" {
-    #[doc = "\\brief fire event for limit usage\n\\param backend to use\n\\param realm\n\\param resource\n\\param usage\n\\param rate\n\\param max\n\\param ratemax"]
     pub fn switch_limit_fire_event(
         backend: *const ::std::os::raw::c_char,
         realm: *const ::std::os::raw::c_char,
@@ -22998,34 +21925,48 @@ extern "C" {
     );
 }
 extern "C" {
-    #[doc = "\\brief retrieve arbitrary status information\n\\param backend to use\n\\note caller must free returned value"]
     pub fn switch_limit_status(
         backend: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
 }
-pub const MSRP_ST_WAIT_HEADER: _bindgen_ty_1 = 0;
-pub const MSRP_ST_PARSE_HEADER: _bindgen_ty_1 = 1;
-pub const MSRP_ST_WAIT_BODY: _bindgen_ty_1 = 2;
-pub const MSRP_ST_DONE: _bindgen_ty_1 = 3;
-pub const MSRP_ST_ERROR: _bindgen_ty_1 = 4;
-pub const MSRP_METHOD_REPLY: _bindgen_ty_1 = 5;
-pub const MSRP_METHOD_SEND: _bindgen_ty_1 = 6;
-pub const MSRP_METHOD_AUTH: _bindgen_ty_1 = 7;
-pub const MSRP_METHOD_REPORT: _bindgen_ty_1 = 8;
-pub type _bindgen_ty_1 = ::std::os::raw::c_uint;
-pub const switch_msrp_header_type_t_MSRP_H_FROM_PATH: switch_msrp_header_type_t = 0;
-pub const switch_msrp_header_type_t_MSRP_H_TO_PATH: switch_msrp_header_type_t = 1;
-pub const switch_msrp_header_type_t_MSRP_H_MESSAGE_ID: switch_msrp_header_type_t = 2;
-pub const switch_msrp_header_type_t_MSRP_H_CONTENT_TYPE: switch_msrp_header_type_t = 3;
-pub const switch_msrp_header_type_t_MSRP_H_SUCCESS_REPORT: switch_msrp_header_type_t = 4;
-pub const switch_msrp_header_type_t_MSRP_H_FAILURE_REPORT: switch_msrp_header_type_t = 5;
-pub const switch_msrp_header_type_t_MSRP_H_STATUS: switch_msrp_header_type_t = 6;
-pub const switch_msrp_header_type_t_MSRP_H_KEEPALIVE: switch_msrp_header_type_t = 7;
-pub const switch_msrp_header_type_t_MSRP_H_TRASACTION_ID: switch_msrp_header_type_t = 8;
-pub const switch_msrp_header_type_t_MSRP_H_DELIMITER: switch_msrp_header_type_t = 9;
-pub const switch_msrp_header_type_t_MSRP_H_CODE_DESCRIPTION: switch_msrp_header_type_t = 10;
-pub const switch_msrp_header_type_t_MSRP_H_UNKNOWN: switch_msrp_header_type_t = 11;
-pub type switch_msrp_header_type_t = ::std::os::raw::c_uint;
+pub const MSRP_ST_WAIT_HEADER: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_WAIT_HEADER;
+pub const MSRP_ST_PARSE_HEADER: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_PARSE_HEADER;
+pub const MSRP_ST_WAIT_BODY: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_WAIT_BODY;
+pub const MSRP_ST_DONE: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_DONE;
+pub const MSRP_ST_ERROR: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_ERROR;
+pub const MSRP_METHOD_REPLY: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_REPLY;
+pub const MSRP_METHOD_SEND: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_SEND;
+pub const MSRP_METHOD_AUTH: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_AUTH;
+pub const MSRP_METHOD_REPORT: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_REPORT;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum _bindgen_ty_1 {
+    MSRP_ST_WAIT_HEADER = 0,
+    MSRP_ST_PARSE_HEADER = 1,
+    MSRP_ST_WAIT_BODY = 2,
+    MSRP_ST_DONE = 3,
+    MSRP_ST_ERROR = 4,
+    MSRP_METHOD_REPLY = 5,
+    MSRP_METHOD_SEND = 6,
+    MSRP_METHOD_AUTH = 7,
+    MSRP_METHOD_REPORT = 8,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_msrp_header_type_t {
+    MSRP_H_FROM_PATH = 0,
+    MSRP_H_TO_PATH = 1,
+    MSRP_H_MESSAGE_ID = 2,
+    MSRP_H_CONTENT_TYPE = 3,
+    MSRP_H_SUCCESS_REPORT = 4,
+    MSRP_H_FAILURE_REPORT = 5,
+    MSRP_H_STATUS = 6,
+    MSRP_H_KEEPALIVE = 7,
+    MSRP_H_TRASACTION_ID = 8,
+    MSRP_H_DELIMITER = 9,
+    MSRP_H_CODE_DESCRIPTION = 10,
+    MSRP_H_UNKNOWN = 11,
+}
 pub type switch_msrp_session_t = switch_msrp_session_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -23164,46 +22105,64 @@ extern "C" {
 extern "C" {
     pub fn switch_msrp_msg_dup(msg: *mut switch_msrp_msg_t) -> *mut switch_msrp_msg_t;
 }
-pub const switch_core_media_dtmf_t_DTMF_AUTO: switch_core_media_dtmf_t = 0;
-pub const switch_core_media_dtmf_t_DTMF_2833: switch_core_media_dtmf_t = 1;
-pub const switch_core_media_dtmf_t_DTMF_INFO: switch_core_media_dtmf_t = 2;
-pub const switch_core_media_dtmf_t_DTMF_NONE: switch_core_media_dtmf_t = 3;
-pub type switch_core_media_dtmf_t = ::std::os::raw::c_uint;
-pub const switch_core_media_avp_secure_t_AVP_NO_SECURE: switch_core_media_avp_secure_t = 0;
-pub const switch_core_media_avp_secure_t_AVP_SECURE: switch_core_media_avp_secure_t = 1;
-pub const switch_core_media_avp_secure_t_AVP_UNDEFINED: switch_core_media_avp_secure_t = 2;
-pub type switch_core_media_avp_secure_t = ::std::os::raw::c_uint;
-pub const switch_core_media_NDLB_t_SM_NDLB_ALLOW_BAD_IANANAME: switch_core_media_NDLB_t = 1;
-pub const switch_core_media_NDLB_t_SM_NDLB_ALLOW_NONDUP_SDP: switch_core_media_NDLB_t = 2;
-pub const switch_core_media_NDLB_t_SM_NDLB_ALLOW_CRYPTO_IN_AVP: switch_core_media_NDLB_t = 4;
-pub const switch_core_media_NDLB_t_SM_NDLB_DISABLE_SRTP_AUTH: switch_core_media_NDLB_t = 8;
-pub const switch_core_media_NDLB_t_SM_NDLB_SENDRECV_IN_SESSION: switch_core_media_NDLB_t = 16;
-pub const switch_core_media_NDLB_t_SM_NDLB_NEVER_PATCH_REINVITE: switch_core_media_NDLB_t = 32;
-pub type switch_core_media_NDLB_t = ::std::os::raw::c_uint;
-pub const switch_core_media_flag_t_SCMF_RUNNING: switch_core_media_flag_t = 0;
-pub const switch_core_media_flag_t_SCMF_DISABLE_TRANSCODING: switch_core_media_flag_t = 1;
-pub const switch_core_media_flag_t_SCMF_AUTOFIX_TIMING: switch_core_media_flag_t = 2;
-pub const switch_core_media_flag_t_SCMF_CODEC_GREEDY: switch_core_media_flag_t = 3;
-pub const switch_core_media_flag_t_SCMF_CODEC_SCROOGE: switch_core_media_flag_t = 4;
-pub const switch_core_media_flag_t_SCMF_DISABLE_HOLD: switch_core_media_flag_t = 5;
-pub const switch_core_media_flag_t_SCMF_SUPPRESS_CNG: switch_core_media_flag_t = 6;
-pub const switch_core_media_flag_t_SCMF_DISABLE_RTP_AUTOADJ: switch_core_media_flag_t = 7;
-pub const switch_core_media_flag_t_SCMF_PASS_RFC2833: switch_core_media_flag_t = 8;
-pub const switch_core_media_flag_t_SCMF_AUTOFLUSH: switch_core_media_flag_t = 9;
-pub const switch_core_media_flag_t_SCMF_REWRITE_TIMESTAMPS: switch_core_media_flag_t = 10;
-pub const switch_core_media_flag_t_SCMF_RTP_AUTOFLUSH_DURING_BRIDGE: switch_core_media_flag_t = 11;
-pub const switch_core_media_flag_t_SCMF_MULTI_ANSWER_AUDIO: switch_core_media_flag_t = 12;
-pub const switch_core_media_flag_t_SCMF_MULTI_ANSWER_VIDEO: switch_core_media_flag_t = 13;
-pub const switch_core_media_flag_t_SCMF_RECV_SDP: switch_core_media_flag_t = 14;
-pub const switch_core_media_flag_t_SCMF_MAX: switch_core_media_flag_t = 15;
-pub type switch_core_media_flag_t = ::std::os::raw::c_uint;
-pub const STUNFLAGS_STUN_FLAG_SET: STUNFLAGS = 1;
-pub const STUNFLAGS_STUN_FLAG_PING: STUNFLAGS = 2;
-pub const STUNFLAGS_STUN_FLAG_FUNNY: STUNFLAGS = 4;
-pub type STUNFLAGS = ::std::os::raw::c_uint;
-pub const switch_core_media_vflag_t_VAD_IN: switch_core_media_vflag_t = 1;
-pub const switch_core_media_vflag_t_VAD_OUT: switch_core_media_vflag_t = 2;
-pub type switch_core_media_vflag_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_dtmf_t {
+    DTMF_AUTO = 0,
+    DTMF_2833 = 1,
+    DTMF_INFO = 2,
+    DTMF_NONE = 3,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_avp_secure_t {
+    AVP_NO_SECURE = 0,
+    AVP_SECURE = 1,
+    AVP_UNDEFINED = 2,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_NDLB_t {
+    SM_NDLB_ALLOW_BAD_IANANAME = 1,
+    SM_NDLB_ALLOW_NONDUP_SDP = 2,
+    SM_NDLB_ALLOW_CRYPTO_IN_AVP = 4,
+    SM_NDLB_DISABLE_SRTP_AUTH = 8,
+    SM_NDLB_SENDRECV_IN_SESSION = 16,
+    SM_NDLB_NEVER_PATCH_REINVITE = 32,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_flag_t {
+    SCMF_RUNNING = 0,
+    SCMF_DISABLE_TRANSCODING = 1,
+    SCMF_AUTOFIX_TIMING = 2,
+    SCMF_CODEC_GREEDY = 3,
+    SCMF_CODEC_SCROOGE = 4,
+    SCMF_DISABLE_HOLD = 5,
+    SCMF_SUPPRESS_CNG = 6,
+    SCMF_DISABLE_RTP_AUTOADJ = 7,
+    SCMF_PASS_RFC2833 = 8,
+    SCMF_AUTOFLUSH = 9,
+    SCMF_REWRITE_TIMESTAMPS = 10,
+    SCMF_RTP_AUTOFLUSH_DURING_BRIDGE = 11,
+    SCMF_MULTI_ANSWER_AUDIO = 12,
+    SCMF_MULTI_ANSWER_VIDEO = 13,
+    SCMF_RECV_SDP = 14,
+    SCMF_MAX = 15,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum STUNFLAGS {
+    STUN_FLAG_SET = 1,
+    STUN_FLAG_PING = 2,
+    STUN_FLAG_FUNNY = 4,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_core_media_vflag_t {
+    VAD_IN = 1,
+    VAD_OUT = 2,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_media_params_s {
@@ -24005,12 +22964,18 @@ extern "C" {
         type_: switch_media_type_t,
     ) -> *mut switch_codec_t;
 }
-pub const switch_jb_flag_t_SJB_QUEUE_ONLY: switch_jb_flag_t = 1;
-pub type switch_jb_flag_t = ::std::os::raw::c_uint;
-pub const switch_jb_type_t_SJB_VIDEO: switch_jb_type_t = 0;
-pub const switch_jb_type_t_SJB_AUDIO: switch_jb_type_t = 1;
-pub const switch_jb_type_t_SJB_TEXT: switch_jb_type_t = 2;
-pub type switch_jb_type_t = ::std::os::raw::c_uint;
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_jb_flag_t {
+    SJB_QUEUE_ONLY = 1,
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum switch_jb_type_t {
+    SJB_VIDEO = 0,
+    SJB_AUDIO = 1,
+    SJB_TEXT = 2,
+}
 extern "C" {
     pub fn switch_jb_create(
         jbp: *mut *mut switch_jb_t,
@@ -24216,11 +23181,9 @@ extern "C" {
     pub fn switch_vad_state2str(state: switch_vad_state_t) -> *const ::std::os::raw::c_char;
 }
 pub type teletone_process_t = f64;
-#[doc = " \\brief An abstraction to store a tone mapping"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_tone_map_t {
-    #[doc = " An array of tone frequencies"]
     pub freqs: [teletone_process_t; 18usize],
 }
 #[repr(C)]
@@ -24235,7 +23198,6 @@ pub type teletone_dds_state_t = teletone_dds_state;
 extern "C" {
     pub static mut TELETONE_SINES: [i16; 128usize];
 }
-#[doc = " \\file libteletone_generate.h\n\\brief Tone Generation Routines\n\nThis module is responsible for tone generation specifics"]
 pub type teletone_audio_t = i16;
 pub type tone_handler = ::std::option::Option<
     unsafe extern "C" fn(
@@ -24243,56 +23205,33 @@ pub type tone_handler = ::std::option::Option<
         map: *mut teletone_tone_map_t,
     ) -> ::std::os::raw::c_int,
 >;
-#[doc = " \\brief An abstraction to store a tone generation session"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_generation_session {
-    #[doc = " An array of tone mappings to character mappings"]
     pub TONES: [teletone_tone_map_t; 127usize],
-    #[doc = " The number of channels the output audio should be in"]
     pub channels: ::std::os::raw::c_int,
-    #[doc = " The Rate in hz of the output audio"]
     pub rate: ::std::os::raw::c_int,
-    #[doc = " The duration (in samples) of the output audio"]
     pub duration: ::std::os::raw::c_int,
-    #[doc = " The duration of silence to append after the initial audio is generated"]
     pub wait: ::std::os::raw::c_int,
-    #[doc = " The duration (in samples) of the output audio (takes prescedence over actual duration value)"]
     pub tmp_duration: ::std::os::raw::c_int,
-    #[doc = " The duration of silence to append after the initial audio is generated (takes prescedence over actual wait value)"]
     pub tmp_wait: ::std::os::raw::c_int,
-    #[doc = " Number of loops to repeat a single instruction"]
     pub loops: ::std::os::raw::c_int,
-    #[doc = " Number of loops to repeat the entire set of instructions"]
     pub LOOPS: ::std::os::raw::c_int,
-    #[doc = " Number to mutiply total samples by to determine when to begin ascent or decent e.g. 0=beginning 4=(last 25%)"]
     pub decay_factor: f32,
-    #[doc = " Direction to perform volume increase/decrease 1/-1"]
     pub decay_direction: ::std::os::raw::c_int,
-    #[doc = " Number of samples between increase/decrease of volume"]
     pub decay_step: ::std::os::raw::c_int,
-    #[doc = " Volume factor of the tone"]
     pub volume: f32,
-    #[doc = " Debug on/off"]
     pub debug: ::std::os::raw::c_int,
-    #[doc = " FILE stream to write debug data to"]
     pub debug_stream: *mut FILE,
-    #[doc = " Extra user data to attach to the session"]
     pub user_data: *mut ::std::os::raw::c_void,
-    #[doc = " Buffer for storing sample data (dynamic)"]
     pub buffer: *mut teletone_audio_t,
-    #[doc = " Size of the buffer"]
     pub datalen: ::std::os::raw::c_int,
-    #[doc = " In-Use size of the buffer"]
     pub samples: ::std::os::raw::c_int,
-    #[doc = " Callback function called during generation"]
     pub dynamic: ::std::os::raw::c_int,
     pub handler: tone_handler,
 }
-#[doc = " \\brief An abstraction to store a tone generation session"]
 pub type teletone_generation_session_t = teletone_generation_session;
 extern "C" {
-    #[doc = "\\brief Assign a set of tones to a tone_session indexed by a paticular index/character\n\\param ts the tone generation session\n\\param index the index to map the tone to\n\\param ... up to TELETONE_MAX_TONES frequencies terminated by 0.0\n\\return 0"]
     pub fn teletone_set_tone(
         ts: *mut teletone_generation_session_t,
         index: ::std::os::raw::c_int,
@@ -24300,11 +23239,9 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Assign a set of tones to a single tone map\n\\param map the map to assign the tones to\n\\param ... up to TELETONE_MAX_TONES frequencies terminated by 0.0\n\\return 0"]
     pub fn teletone_set_map(map: *mut teletone_tone_map_t, ...) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Initilize a tone generation session\n\\param ts the tone generation session to initilize\n\\param buflen the size of the buffer(in samples) to dynamically allocate\n\\param handler a callback function to execute when a tone generation instruction is complete\n\\param user_data optional user data to send\n\\return 0"]
     pub fn teletone_init_session(
         ts: *mut teletone_generation_session_t,
         buflen: ::std::os::raw::c_int,
@@ -24313,31 +23250,30 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Free the buffer allocated by a tone generation session\n\\param ts the tone generation session to destroy\n\\return 0"]
     pub fn teletone_destroy_session(
         ts: *mut teletone_generation_session_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Execute a single tone generation instruction\n\\param ts the tone generation session to consult for parameters\n\\param map the tone mapping to use for the frequencies\n\\return 0"]
     pub fn teletone_mux_tones(
         ts: *mut teletone_generation_session_t,
         map: *mut teletone_tone_map_t,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Execute a tone generation script and call callbacks after each instruction\n\\param ts the tone generation session to execute on\n\\param cmd the script to execute\n\\return 0"]
     pub fn teletone_run(
         ts: *mut teletone_generation_session_t,
         cmd: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-pub const teletone_hit_type_t_TT_HIT_NONE: teletone_hit_type_t = 0;
-pub const teletone_hit_type_t_TT_HIT_BEGIN: teletone_hit_type_t = 1;
-pub const teletone_hit_type_t_TT_HIT_MIDDLE: teletone_hit_type_t = 2;
-pub const teletone_hit_type_t_TT_HIT_END: teletone_hit_type_t = 3;
-pub type teletone_hit_type_t = ::std::os::raw::c_uint;
-#[doc = " \\brief A continer for the elements of a Goertzel Algorithm (The names are from his formula)"]
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub enum teletone_hit_type_t {
+    TT_HIT_NONE = 0,
+    TT_HIT_BEGIN = 1,
+    TT_HIT_MIDDLE = 2,
+    TT_HIT_END = 3,
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_goertzel_state_t {
@@ -24345,7 +23281,6 @@ pub struct teletone_goertzel_state_t {
     pub v3: f32,
     pub fac: f64,
 }
-#[doc = " \\brief A container for a DTMF detection state."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_dtmf_detect_state_t {
@@ -24368,13 +23303,11 @@ pub struct teletone_dtmf_detect_state_t {
     pub lost_digits: ::std::os::raw::c_int,
     pub digit_hits: [::std::os::raw::c_int; 16usize],
 }
-#[doc = " \\brief An abstraction to store the coefficient of a tone frequency"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_detection_descriptor_t {
     pub fac: f32,
 }
-#[doc = " \\brief A container for a single multi-tone detection\nTELETONE_MAX_TONES dictates the maximum simultaneous tones that can be present\nin a multi-tone representation."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_multi_tone_t {
@@ -24395,11 +23328,9 @@ pub struct teletone_multi_tone_t {
     pub hit_factor: ::std::os::raw::c_int,
 }
 extern "C" {
-    #[doc = "\\brief Initilize a multi-frequency tone detector\n\\param mt the multi-frequency tone descriptor\n\\param map a representation of the multi-frequency tone"]
     pub fn teletone_multi_tone_init(mt: *mut teletone_multi_tone_t, map: *mut teletone_tone_map_t);
 }
 extern "C" {
-    #[doc = "\\brief Check a sample buffer for the presence of the mulit-frequency tone described by mt\n\\param mt the multi-frequency tone descriptor\n\\param sample_buffer an array aof 16 bit signed linear samples\n\\param samples the number of samples present in sample_buffer\n\\return true when the tone was detected or false when it is not"]
     pub fn teletone_multi_tone_detect(
         mt: *mut teletone_multi_tone_t,
         sample_buffer: *mut i16,
@@ -24407,14 +23338,12 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Initilize a DTMF detection state object\n\\param dtmf_detect_state the DTMF detection state to initilize\n\\param sample_rate the desired sample rate"]
     pub fn teletone_dtmf_detect_init(
         dtmf_detect_state: *mut teletone_dtmf_detect_state_t,
         sample_rate: ::std::os::raw::c_int,
     );
 }
 extern "C" {
-    #[doc = "\\brief Check a sample buffer for the presence of DTMF digits\n\\param dtmf_detect_state the detection state object to check\n\\param sample_buffer an array aof 16 bit signed linear samples\n\\param samples the number of samples present in sample_buffer\n\\return true when DTMF was detected or false when it is not"]
     pub fn teletone_dtmf_detect(
         dtmf_detect_state: *mut teletone_dtmf_detect_state_t,
         sample_buffer: *mut i16,
@@ -24422,7 +23351,6 @@ extern "C" {
     ) -> teletone_hit_type_t;
 }
 extern "C" {
-    #[doc = "\\brief retrieve any collected digits into a string buffer\n\\param dtmf_detect_state the detection state object to check\n\\param buf the string buffer to write to\n\\param max the maximum length of buf\n\\return the number of characters written to buf"]
     pub fn teletone_dtmf_get(
         dtmf_detect_state: *mut teletone_dtmf_detect_state_t,
         buf: *mut ::std::os::raw::c_char,
@@ -24430,7 +23358,6 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    #[doc = "\\brief Step through the Goertzel Algorithm for each sample in a buffer\n\\param goertzel_state the goertzel state to step the samples through\n\\param sample_buffer an array aof 16 bit signed linear samples\n\\param samples the number of samples present in sample_buffer"]
     pub fn teletone_goertzel_update(
         goertzel_state: *mut teletone_goertzel_state_t,
         sample_buffer: *mut i16,

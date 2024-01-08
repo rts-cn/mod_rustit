@@ -25,7 +25,7 @@ fn example_binding(e: fsr::Event) {
     let s = e.subclass_name().unwrap_or(Cow::Borrowed("None"));
     let b = e.body().unwrap_or(Cow::Borrowed("<No Body>"));
     fslog!(
-        fs::switch_log_level_t_SWITCH_LOG_INFO,
+        fs::switch_log_level_t::SWITCH_LOG_INFO,
         "{:?}/{:?} {} = {}",
         e.event_id(),
         s,
@@ -34,26 +34,26 @@ fn example_binding(e: fsr::Event) {
     );
 
     let text = e.string();
-    fslog!(fs::switch_log_level_t_SWITCH_LOG_INFO, "\n{}", text);
+    fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "\n{}", text);
 }
 
 fn mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
     mod_int.add_raw_api("zrapi", "Example doc", "zrapi", zrapi_api);
     let id = fsr::event_bind(
         MOD_ZRAPI_DEF.name,
-        fs::switch_event_types_t_SWITCH_EVENT_HEARTBEAT,
+        fs::switch_event_types_t::SWITCH_EVENT_HEARTBEAT,
         None,
         example_binding,
     );
 
     GLOBALS.lock().unwrap().event_id = id;
-    fs::switch_status_t_SWITCH_STATUS_SUCCESS
+    fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn mod_unload() -> fs::switch_status_t {
     fsr::event_unbind(GLOBALS.lock().unwrap().event_id);
     thread::sleep(time::Duration::from_millis(100));
-    fs::switch_status_t_SWITCH_STATUS_SUCCESS
+    fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 static MOD_ZRAPI_DEF: fsr::ModDefinition = fsr::ModDefinition {
@@ -74,9 +74,9 @@ unsafe extern "C" fn zrapi_api(
     (*stream).write_function.unwrap()(stream, fs::str_to_ptr("OK"));
     let data = std::ffi::CStr::from_ptr(cmd).to_str().unwrap_or("");
     fslog!(
-        fs::switch_log_level_t_SWITCH_LOG_INFO,
+        fs::switch_log_level_t::SWITCH_LOG_INFO,
         "Logging data: {}",
         data
     );
-    fs::switch_status_t_SWITCH_STATUS_SUCCESS
+    fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }

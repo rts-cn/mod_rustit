@@ -67,14 +67,14 @@ macro_rules! fslog {
     ($level:expr, $s:expr) => (
         let s = concat!($s, "\0");
         fsr::fs::__log_printf_safe(
-            fsr::fs::switch_text_channel_t_SWITCH_CHANNEL_ID_LOG,
+            fsr::fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
             concat!(file!(), '\0').as_ptr() as *const libc::c_char,
             line!() as libc::c_int, $level, s.as_ptr());
     );
     ($level:expr, $fmt:expr, $($arg:expr),*) => (
         let s = format!(concat!($fmt, "\0"), $($arg), *);
         fsr::fs::__log_printf_safe(
-            fsr::fs::switch_text_channel_t_SWITCH_CHANNEL_ID_LOG,
+            fsr::fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
             concat!(file!(), '\0').as_ptr() as *const libc::c_char,
             line!() as libc::c_int, $level, s.as_ptr());
     );

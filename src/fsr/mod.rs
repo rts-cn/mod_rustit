@@ -84,7 +84,7 @@ impl Event {
             fs::switch_event_serialize(
                 self.0,
                 std::ptr::addr_of_mut!(s),
-                fs::switch_bool_t_SWITCH_FALSE,
+                fs::switch_bool_t::SWITCH_FALSE,
             );
             let text = fs::ptr_to_str(s).unwrap_or(Cow::Borrowed("")).to_string();
             libc::free(s as *mut c_void);
@@ -201,7 +201,7 @@ impl ModInterface {
         let desc = fs::str_to_ptr(desc);
         let syntax = fs::str_to_ptr(syntax);
         unsafe {
-            let ai = self.create_int(fs::switch_module_interface_name_t_SWITCH_API_INTERFACE)
+            let ai = self.create_int(fs::switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut fs::switch_api_interface_t;
             ptr_not_null!(ai);
             (*ai).interface_name = name;
@@ -226,7 +226,7 @@ impl ModInterface {
         let syntax = fs::str_to_ptr(syntax);
         unsafe {
             let ai = self
-                .create_int(fs::switch_module_interface_name_t_SWITCH_APPLICATION_INTERFACE)
+                .create_int(fs::switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut fs::switch_application_interface;
             ptr_not_null!(ai);
             (*ai).interface_name = name;
@@ -264,7 +264,7 @@ pub unsafe fn wrap_mod_load(
     let name = CString::new(mod_def.name).unwrap().into_raw();
     *mod_int = fs::switch_loadable_module_create_module_interface(mem_pool, name);
     if (*mod_int).is_null() {
-        return fs::switch_status_t_SWITCH_STATUS_MEMERR;
+        return fs::switch_status_t::SWITCH_STATUS_MEMERR;
     }
     let mi = &ModInterface::from_ptr(*mod_int);
     (mod_def.load)(mi)
@@ -274,7 +274,7 @@ pub fn wrap_mod_runtime(mod_def: &ModDefinition) -> fs::switch_status_t {
     if let Some(func) = mod_def.runtime {
         func()
     } else {
-        fs::switch_status_t_SWITCH_STATUS_SUCCESS
+        fs::switch_status_t::SWITCH_STATUS_SUCCESS
     }
 }
 
@@ -282,7 +282,7 @@ pub fn wrap_mod_shutdown(mod_def: &ModDefinition) -> fs::switch_status_t {
     if let Some(func) = mod_def.shutdown {
         func()
     } else {
-        fs::switch_status_t_SWITCH_STATUS_SUCCESS
+        fs::switch_status_t::SWITCH_STATUS_SUCCESS
     }
 }
 
@@ -326,7 +326,7 @@ macro_rules! fsr_export_mod {
                 load: Some(_mod_load),
                 shutdown: None,
                 runtime: None,
-                flags: fs::switch_module_flag_enum_t_SMODF_NONE as u32,
+                flags: fs::switch_module_flag_enum_t::SMODF_NONE as u32,
             };
     };
 }
