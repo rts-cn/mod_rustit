@@ -3,11 +3,12 @@
 
 extern crate libc;
 use libc::c_char;
+use libc::c_int;
 use libc::c_void;
-use std::borrow::Cow;
 use std::ffi::CString;
 
-pub mod fs;
+pub mod bindings;
+use bindings as fs;
 
 macro_rules! ptr_not_null {
     ($x:expr) => {
@@ -17,11 +18,84 @@ macro_rules! ptr_not_null {
     };
 }
 
-pub struct CoreSession(*mut fs::switch_core_session_t);
-impl CoreSession {
-    pub unsafe fn from_ptr(p: *mut fs::switch_core_session_t) -> CoreSession {
+/// Creates a constant nul-terminated *const c_char
+#[macro_export]
+macro_rules! char_const {
+    ($s:expr) => {
+        concat!($s, "\n\0").as_ptr() as *const ::libc::c_char
+    };
+}
+
+/// This function copies a &str to a C-style nul-terminated char*.
+/// It uses malloc, so that other code (FreeSWITCH) can call free() on it.
+/// For example, event_header.name is a *mut c_char that FS will free when finished.
+pub fn str_to_ptr(s: &str) -> *mut c_char {
+    unsafe {
+        let res = ::libc::malloc(s.len() + 1) as *mut c_char;
+        std::ptr::copy_nonoverlapping(s.as_ptr(), res as *mut u8, s.len());
+        *res.offset(s.len() as isize) = 0;
+        res
+    }
+}
+
+/// Take a char*. On null, return None. Otherwise a &str or String.
+/// Lossy conversion is applied, so non-UTF-8 char* will result in an allocation
+/// and replacement of invalid UTF-8 sequences.
+pub unsafe fn to_string<'a>(p: *const c_char) -> String {
+    if p.is_null() {
+        return "".to_string();
+    }
+    let cs = std::ffi::CStr::from_ptr(p);
+    cs.to_string_lossy().to_string()
+}
+
+/// Internal use only. Workaround for unsafe block in fslog macro.
+pub fn __log_printf_safe(
+    channel: fs::switch_text_channel_t,
+    file: *const c_char,
+    line: c_int,
+    level: fs::switch_log_level_t,
+    s: *const u8,
+) {
+    unsafe {
+        fs::switch_log_printf(
+            channel,
+            file,
+            std::ptr::null(),
+            line,
+            std::ptr::null(),
+            level,
+            char_const!("%s"),
+            s,
+        );
+    }
+}
+
+/// Calls FreeSWITCH log_printf, but uses Rust format! instead of printf.
+/// Be sure to have libc in your Cargo.toml.
+#[macro_export]
+macro_rules! fslog {
+    ($level:expr, $s:expr) => (
+        let s = concat!($s, "\0");
+        fsr::__log_printf_safe(
+            fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
+            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_ptr());
+    );
+    ($level:expr, $fmt:expr, $($arg:expr),*) => (
+        let s = format!(concat!($fmt, "\0"), $($arg), *);
+        fsr::__log_printf_safe(
+            fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
+            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+            line!() as libc::c_int, $level, s.as_ptr());
+    );
+}
+
+pub struct Session(*mut fs::switch_core_session_t);
+impl Session {
+    pub unsafe fn from_ptr(p: *mut fs::switch_core_session_t) -> Session {
         ptr_not_null!(p);
-        CoreSession(p)
+        Session(p)
     }
     pub fn as_ptr(&self) -> *const fs::switch_core_session_t {
         self.0
@@ -29,7 +103,6 @@ impl CoreSession {
     pub fn as_mut_ptr(&mut self) -> *mut fs::switch_core_session_t {
         self.0
     }
-    // No ref access, since switch_core_session is opaque
 }
 
 pub struct Event(*mut fs::switch_event_t);
@@ -56,14 +129,14 @@ impl Event {
     pub fn priority(&self) -> fs::switch_priority_t {
         unsafe { (*self.0).priority }
     }
-    pub fn owner(&self) -> Option<Cow<str>> {
-        unsafe { fs::ptr_to_str((*self.0).owner) }
+    pub fn owner(&self) -> String {
+        unsafe { self::to_string((*self.0).owner) }
     }
-    pub fn subclass_name(&self) -> Option<Cow<str>> {
-        unsafe { fs::ptr_to_str((*self.0).subclass_name) }
+    pub fn subclass_name(&self) -> String {
+        unsafe { self::to_string((*self.0).subclass_name) }
     }
-    pub fn body(&self) -> Option<Cow<str>> {
-        unsafe { fs::ptr_to_str((*self.0).body) }
+    pub fn body(&self) -> String {
+        unsafe { self::to_string((*self.0).body) }
     }
     pub fn key(&self) -> u64 {
         unsafe { (*self.0).key as u64 }
@@ -71,11 +144,11 @@ impl Event {
     pub fn flags(&self) -> isize {
         unsafe { (*self.0).flags as isize }
     }
-    pub fn header<'a>(&'a self, name: &str) -> Option<Cow<'a, str>> {
+    pub fn header<'a>(&'a self, name: &str) -> String {
         unsafe {
-            let hname = CString::new(name).unwrap();
+            let hname: CString = CString::new(name).unwrap();
             let v = fs::switch_event_get_header_idx(self.0, hname.as_ptr(), -1);
-            fs::ptr_to_str(v)
+            self::to_string(v)
         }
     }
     pub fn string<'a>(&'a self) -> String {
@@ -86,7 +159,7 @@ impl Event {
                 std::ptr::addr_of_mut!(s),
                 fs::switch_bool_t::SWITCH_FALSE,
             );
-            let text = fs::ptr_to_str(s).unwrap_or(Cow::Borrowed("")).to_string();
+            let text = self::to_string(s);
             libc::free(s as *mut c_void);
             text
         }
@@ -111,8 +184,8 @@ impl EventHeader {
     pub unsafe fn as_mut_ref(&mut self) -> &mut fs::switch_event_header_t {
         &mut *self.0
     }
-    pub fn name(&self) -> Cow<str> {
-        unsafe { fs::ptr_to_str((*self.0).name).expect("event_header.name cannot be null.") }
+    pub fn name(&self) -> String {
+        unsafe { self::to_string((*self.0).name) }
     }
 }
 
@@ -139,8 +212,8 @@ where
 
     let bx = std::boxed::Box::new(callback);
     let fp = std::boxed::Box::into_raw(bx);
-    let id = fs::str_to_ptr(id);
-    let subclass_name = subclass_name.map_or(std::ptr::null(), |x| fs::str_to_ptr(x));
+    let id = self::str_to_ptr(id);
+    let subclass_name = subclass_name.map_or(std::ptr::null(), |x| self::str_to_ptr(x));
     unsafe {
         let mut enode = 0 as *mut u64;
         fs::switch_event_bind_removable(
@@ -161,16 +234,6 @@ pub fn event_unbind(id: u64) {
         fs::switch_event_unbind((&mut enode) as *mut _ as *mut *mut fs::switch_event_node_t);
     }
 }
-
-pub enum Stream {} // Temp until wrap stream
-pub type ApiFunc = fn(String, Option<&CoreSession>, Stream);
-pub type ApiRawFunc = unsafe extern "C" fn(
-    cmd: *const c_char,
-    session: *mut fs::switch_core_session_t,
-    stream: *mut fs::switch_stream_handle_t,
-) -> fs::switch_status_t;
-pub type AppRawFunc =
-    unsafe extern "C" fn(session: *mut fs::switch_core_session_t, data: *const c_char);
 
 pub struct ModInterface(*mut fs::switch_loadable_module_interface_t);
 
@@ -196,34 +259,34 @@ impl ModInterface {
         fs::switch_loadable_module_create_interface((*self).0, iname)
     }
 
-    pub fn add_raw_api(&self, name: &str, desc: &str, syntax: &str, func: ApiRawFunc) {
-        let name = fs::str_to_ptr(name);
-        let desc = fs::str_to_ptr(desc);
-        let syntax = fs::str_to_ptr(syntax);
+    pub fn add_api(&self, name: &str, desc: &str, syntax: &str, func: fs::switch_api_function_t) {
+        let name = self::str_to_ptr(name);
+        let desc = self::str_to_ptr(desc);
+        let syntax = self::str_to_ptr(syntax);
         unsafe {
-            let ai = self.create_int(fs::switch_module_interface_name_t::SWITCH_API_INTERFACE)
+            let api = self.create_int(fs::switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut fs::switch_api_interface_t;
-            ptr_not_null!(ai);
-            (*ai).interface_name = name;
-            (*ai).desc = desc;
-            (*ai).syntax = syntax;
-            (*ai).function = Some(func);
+            ptr_not_null!(api);
+            (*api).interface_name = name;
+            (*api).desc = desc;
+            (*api).syntax = syntax;
+            (*api).function = func;
         }
     }
 
-    pub fn add_raw_application(
+    pub fn add_application(
         &self,
         name: &str,
         long_desc: &str,
         short_desc: &str,
         syntax: &str,
-        func: AppRawFunc,
+        func: fs::switch_application_function_t,
         flags: fs::switch_application_flag_enum_t,
     ) {
-        let name = fs::str_to_ptr(name);
-        let long_desc = fs::str_to_ptr(long_desc);
-        let short_desc = fs::str_to_ptr(short_desc);
-        let syntax = fs::str_to_ptr(syntax);
+        let name = self::str_to_ptr(name);
+        let long_desc = self::str_to_ptr(long_desc);
+        let short_desc = self::str_to_ptr(short_desc);
+        let syntax = self::str_to_ptr(syntax);
         unsafe {
             let ai = self
                 .create_int(fs::switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
@@ -234,7 +297,7 @@ impl ModInterface {
             (*ai).short_desc = short_desc;
             (*ai).syntax = syntax;
             (*ai).flags = flags as u32;
-            (*ai).application_function = Some(func);
+            (*ai).application_function = func;
         }
     }
 
@@ -246,7 +309,7 @@ impl ModInterface {
 }
 
 // Module Loading/Definition
-pub struct ModDefinition {
+pub struct Module {
     pub name: &'static str,
     pub load: fn(&ModInterface) -> fs::switch_status_t,
     pub shutdown: Option<fn() -> fs::switch_status_t>,
@@ -254,7 +317,7 @@ pub struct ModDefinition {
 }
 
 pub unsafe fn wrap_mod_load(
-    mod_def: &ModDefinition,
+    mod_def: &Module,
     mod_int: *mut *mut fs::switch_loadable_module_interface_t,
     mem_pool: *mut fs::switch_memory_pool_t,
 ) -> fs::switch_status_t {
@@ -270,7 +333,7 @@ pub unsafe fn wrap_mod_load(
     (mod_def.load)(mi)
 }
 
-pub fn wrap_mod_runtime(mod_def: &ModDefinition) -> fs::switch_status_t {
+pub fn wrap_mod_runtime(mod_def: &Module) -> fs::switch_status_t {
     if let Some(func) = mod_def.runtime {
         func()
     } else {
@@ -278,7 +341,7 @@ pub fn wrap_mod_runtime(mod_def: &ModDefinition) -> fs::switch_status_t {
     }
 }
 
-pub fn wrap_mod_shutdown(mod_def: &ModDefinition) -> fs::switch_status_t {
+pub fn wrap_mod_shutdown(mod_def: &Module) -> fs::switch_status_t {
     if let Some(func) = mod_def.shutdown {
         func()
     } else {
@@ -290,7 +353,7 @@ pub fn wrap_mod_shutdown(mod_def: &ModDefinition) -> fs::switch_status_t {
 /// required to be loaded by FreeSWITCH. FS requires the exported table to have a name
 /// of <filename>_module_interface. If your mod is called mod_foo, then the first param
 /// to this macro must be mod_foo_module_interface.
-/// The second parameter must be a static (global) ModDefinition.
+/// The second parameter must be a static (global) Module.
 #[macro_export]
 macro_rules! fsr_export_mod {
     ($table:ident, $def:ident) => {
@@ -322,7 +385,7 @@ macro_rules! fsr_export_mod {
         #[allow(non_upper_case_globals)]
         pub static mut $table: fs::switch_loadable_module_function_table =
             fs::switch_loadable_module_function_table {
-                switch_api_version: 5,
+                switch_api_version: fs::SWITCH_API_VERSION as i32,
                 load: Some(_mod_load),
                 shutdown: None,
                 runtime: None,
