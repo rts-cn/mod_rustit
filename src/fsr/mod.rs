@@ -157,6 +157,18 @@ impl Event {
             text
         }
     }
+    pub fn json<'a>(&'a self) -> String {
+        unsafe {
+            let mut s: *mut c_char = std::ptr::null_mut();
+            fs::switch_event_serialize_json(
+                self.0,
+                std::ptr::addr_of_mut!(s),
+            );
+            let text = self::to_string(s);
+            libc::free(s as *mut c_void);
+            text
+        }
+    }
 }
 
 pub struct EventHeader(*mut fs::switch_event_header_t);
