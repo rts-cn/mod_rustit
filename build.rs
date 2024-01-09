@@ -42,6 +42,6 @@ fn main() {
     // Write the bindings to the $OUT_DIR/bindings.rs file.
     let out_path: PathBuf = PathBuf::from("src/fsr");
     bindings
-        .write_to_file(out_path.join("bindings.rs"))
+        .write_to_file(out_path.join("fs.rs"))
         .expect("Couldn't write bindings!");
 }
