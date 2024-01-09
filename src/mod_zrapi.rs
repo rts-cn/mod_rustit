@@ -1,5 +1,3 @@
-#[macro_use]
-extern crate libc;
 use lazy_static::lazy_static;
 use std::ffi::CString;
 use std::{sync::Mutex, thread, time};

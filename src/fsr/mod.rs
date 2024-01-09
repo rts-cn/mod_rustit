@@ -1,10 +1,9 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(improper_ctypes)]
 
-extern crate libc;
-use libc::c_char;
-use libc::c_int;
-use libc::c_void;
+use std::os::raw::c_char;
+use std::os::raw::c_int;
+use std::os::raw::c_void;
 use std::assert;
 use std::ffi::CString;
 
@@ -42,23 +41,47 @@ pub fn __log_printf_safe(
 }
 
 /// Calls FreeSWITCH log_printf, but uses Rust format! instead of printf.
-/// Be sure to have libc in your Cargo.toml.
 #[macro_export]
 macro_rules! fslog {
     ($level:expr, $s:expr) => (
         let s = concat!($s, "\0");
         __log_printf_safe(
             fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
-            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
-            line!() as libc::c_int, $level, s.as_ptr());
+            concat!(file!(), '\0').as_ptr() as *const std::os::raw::c_char,
+            line!() as std::os::raw::c_int, $level, s.as_ptr());
     );
     ($level:expr, $fmt:expr, $($arg:expr),*) => (
         let s = format!(concat!($fmt, "\0"), $($arg), *);
         __log_printf_safe(
             fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
-            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
-            line!() as libc::c_int, $level, s.as_ptr());
+            concat!(file!(), '\0').as_ptr() as *const std::os::raw::c_char,
+            line!() as std::os::raw::c_int, $level, s.as_ptr());
     );
+}
+
+/// Internal use only. Workaround for unsafe block in fslog macro.
+pub fn __strdup_safe(
+    pool: *mut fs::switch_memory_pool_t,
+    todup: &str,
+    file: *const c_char,
+    line: c_int,
+) -> *mut c_char {
+    unsafe {
+        let todup = std::ffi::CString::new(todup).expect("CString::new");
+        fs::switch_core_perform_strdup(pool, todup.as_ptr(), file, std::ptr::null(), line)
+    }
+}
+
+#[macro_export]
+macro_rules! fs_strdup {
+    ($pool:expr, $todup:expr) => {
+        __strdup_safe(
+            $pool,
+            $todup,
+            concat!(file!(), '\0').as_ptr() as *const std::os::raw::c_char,
+            line!() as std::os::raw::c_int,
+        )
+    };
 }
 
 pub struct Session(*mut fs::switch_core_session_t);
@@ -159,31 +182,6 @@ impl EventHeader {
     }
 }
 
-/// Internal use only. Workaround for unsafe block in fslog macro.
-pub fn __strdup_safe(
-    pool: *mut fs::switch_memory_pool_t,
-    todup: &str,
-    file: *const c_char,
-    line: c_int,
-) -> *mut c_char {
-    unsafe {
-        let todup = std::ffi::CString::new(todup).expect("CString::new");
-        fs::switch_core_perform_strdup(pool, todup.as_ptr(), file, std::ptr::null(), line)
-    }
-}
-
-#[macro_export]
-macro_rules! fs_strdup {
-    ($pool:expr, $todup:expr) => {
-        __strdup_safe(
-            $pool,
-            $todup,
-            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
-            line!() as libc::c_int,
-        )
-    };
-}
-
 pub fn event_bind<F>(
     mi: &ModInterface,
     id: &str,
@@ -217,7 +215,7 @@ where
             event,
             subclass_name,
             Some(wrap_callback::<F>),
-            fp as *mut libc::c_void,
+            fp as *mut std::os::raw::c_void,
             (&mut enode) as *mut _ as *mut *mut fs::switch_event_node_t,
         );
         enode as u64
@@ -322,9 +320,9 @@ macro_rules! fsr_export_mod {
             let name = fs::switch_core_perform_strdup(
                 mem_pool,
                 name.as_ptr(),
-                concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+                concat!(file!(), '\0').as_ptr() as *const std::os::raw::c_char,
                 std::ptr::null(),
-                line!() as libc::c_int,
+                line!() as std::os::raw::c_int,
             );
             *mod_int = fs::switch_loadable_module_create_module_interface(mem_pool, name);
             if (*mod_int).is_null() {
