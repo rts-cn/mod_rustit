@@ -1,8 +1,8 @@
 #[macro_use]
 extern crate libc;
-use std::{sync::Mutex, thread, time};
-use std::ffi::CString;
 use lazy_static::lazy_static;
+use std::ffi::CString;
+use std::{sync::Mutex, thread, time};
 
 pub mod fsr;
 use fsr::*;
@@ -17,7 +17,7 @@ impl Global {
     }
 }
 
-static MODULE_NAME: &str = "mod_zrapi";
+const MODULE_NAME: &str = "mod_zrapi";
 
 lazy_static! {
     static ref GLOBALS: Mutex<Global> = Mutex::new(Global::new());
@@ -44,8 +44,9 @@ unsafe extern "C" fn zrapi_api(
     _session: *mut fs::switch_core_session,
     stream: *mut fs::switch_stream_handle_t,
 ) -> fs::switch_status_t {
-    (*stream).write_function.unwrap()(stream, CString::new("OK").unwrap().into_raw());
-    let data = std::ffi::CStr::from_ptr(cmd).to_str().unwrap_or("");
+    let ok =  CString::new("OK").unwrap();
+    (*stream).write_function.unwrap()(stream, ok.as_ptr());
+    let data = std::ffi::CStr::from_ptr(cmd).to_string_lossy().to_string();
     fslog!(
         fs::switch_log_level_t::SWITCH_LOG_INFO,
         "zrapi data: {}",
@@ -57,6 +58,7 @@ unsafe extern "C" fn zrapi_api(
 fn zrapi_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
     mod_int.add_api("zrapi", "zrapi", "zrapi", Some(zrapi_api));
     let id = fsr::event_bind(
+        mod_int,
         MODULE_NAME,
         fs::switch_event_types_t::SWITCH_EVENT_HEARTBEAT,
         None,
@@ -78,8 +80,9 @@ fn zrapi_mod_runtime() -> fs::switch_status_t {
 }
 
 fsr_export_mod!(
-   mod_zrapi_module_interface, MODULE_NAME,
-   zrapi_mod_load,
-   zrapi_mod_runtime,
-   zrapi_mod_shutdown
+    mod_zrapi_module_interface,
+    MODULE_NAME,
+    zrapi_mod_load,
+    zrapi_mod_runtime,
+    zrapi_mod_shutdown
 );

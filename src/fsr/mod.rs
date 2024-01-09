@@ -26,6 +26,7 @@ pub fn __log_printf_safe(
     s: *const u8,
 ) {
     unsafe {
+        let fmt = CString::new("%s\n").unwrap();
         fs::switch_log_printf(
             channel,
             file,
@@ -33,7 +34,7 @@ pub fn __log_printf_safe(
             line,
             std::ptr::null(),
             level,
-            CString::new("%s\n").unwrap().into_raw(),
+            fmt.as_ptr(),
             s,
         );
     }
@@ -157,7 +158,21 @@ impl EventHeader {
     }
 }
 
+#[macro_export]
+macro_rules! fs_strdup {
+    ($pool:expr, $todup:expr) => {
+        fs::switch_core_perform_strdup(
+            $pool,
+            CString::new($todup).unwrap_or_default().as_ptr(),
+            concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+            std::ptr::null(),
+            line!() as libc::c_int,
+        )
+    };
+}
+
 pub fn event_bind<F>(
+    mi: &ModInterface,
     id: &str,
     event: fs::switch_event_types_t,
     subclass_name: Option<&str>,
@@ -181,9 +196,8 @@ where
     let bx = std::boxed::Box::new(callback);
     let fp = std::boxed::Box::into_raw(bx);
     unsafe {
-        let id = CString::new(id).unwrap().into_raw();
-        let subclass_name =
-            subclass_name.map_or(std::ptr::null(), |x| CString::new(x).unwrap().into_raw());
+        let id = fs_strdup!(mi.pool(), id);
+        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| fs_strdup!(mi.pool(), x));
         let mut enode = 0 as *mut u64;
         fs::switch_event_bind_removable(
             id,
@@ -203,35 +217,47 @@ pub fn event_unbind(id: u64) {
         fs::switch_event_unbind((&mut enode) as *mut _ as *mut *mut fs::switch_event_node_t);
     }
 }
-pub struct ModInterface(*mut fs::switch_loadable_module_interface_t);
+
+pub struct ModInterface {
+    module: *mut fs::switch_loadable_module_interface_t,
+    pool: *mut fs::switch_memory_pool_t,
+}
 
 impl ModInterface {
-    pub unsafe fn from_ptr(p: *mut fs::switch_loadable_module_interface_t) -> ModInterface {
-        assert!(!p.is_null());
-        ModInterface(&mut *p)
+    pub unsafe fn from_ptr(
+        module: *mut fs::switch_loadable_module_interface_t,
+        pool: *mut fs::switch_memory_pool_t,
+    ) -> ModInterface {
+        assert!(!pool.is_null());
+        assert!(!module.is_null());
+        ModInterface { module, pool }
     }
     pub fn as_ptr(&mut self) -> *const fs::switch_loadable_module_interface_t {
-        self.0
+        self.module
     }
     pub fn as_mut_ptr(&mut self) -> *mut fs::switch_loadable_module_interface_t {
-        self.0
+        self.module
     }
     pub unsafe fn as_ref(&self) -> &fs::switch_loadable_module_interface_t {
-        &*self.0
+        &*self.module
     }
     pub unsafe fn as_mut_ref(&self) -> &mut fs::switch_loadable_module_interface_t {
-        &mut *self.0
+        &mut *self.module
+    }
+
+    pub unsafe fn pool(&self) -> *mut fs::switch_memory_pool_t {
+        self.pool
     }
 
     unsafe fn create_int(&self, iname: fs::switch_module_interface_name_t) -> *mut c_void {
-        fs::switch_loadable_module_create_interface((*self).0, iname)
+        fs::switch_loadable_module_create_interface((*self).module, iname)
     }
 
     pub fn add_api(&self, name: &str, desc: &str, syntax: &str, func: fs::switch_api_function_t) {
         unsafe {
-            let name = CString::new(name).unwrap().into_raw();
-            let desc = CString::new(desc).unwrap().into_raw();
-            let syntax = CString::new(syntax).unwrap().into_raw();
+            let name = fs_strdup!(self.pool(), name);
+            let desc = fs_strdup!(self.pool(), desc);
+            let syntax = fs_strdup!(self.pool(), syntax);
             let api = self.create_int(fs::switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut fs::switch_api_interface_t;
 
@@ -253,10 +279,10 @@ impl ModInterface {
         flags: fs::switch_application_flag_enum_t,
     ) {
         unsafe {
-            let name = CString::new(name).unwrap().into_raw();
-            let long_desc = CString::new(long_desc).unwrap().into_raw();
-            let short_desc = CString::new(short_desc).unwrap().into_raw();
-            let syntax = CString::new(syntax).unwrap().into_raw();
+            let name = fs_strdup!(self.pool(), name);
+            let long_desc = fs_strdup!(self.pool(), long_desc);
+            let short_desc = fs_strdup!(self.pool(), short_desc);
+            let syntax = fs_strdup!(self.pool(), syntax);
             let app = self
                 .create_int(fs::switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut fs::switch_application_interface;
@@ -279,12 +305,18 @@ macro_rules! fsr_export_mod {
             mod_int: *mut *mut fs::switch_loadable_module_interface,
             mem_pool: *mut fs::switch_memory_pool_t,
         ) -> fs::switch_status_t {
-            let name = std::ffi::CString::new($name).unwrap();
-            *mod_int = fs::switch_loadable_module_create_module_interface(mem_pool, name.as_ptr());
+            let name = fs::switch_core_perform_strdup(
+                mem_pool,
+                CString::new($name).unwrap_or_default().as_ptr(),
+                concat!(file!(), '\0').as_ptr() as *const libc::c_char,
+                std::ptr::null(),
+                line!() as libc::c_int,
+            );
+            *mod_int = fs::switch_loadable_module_create_module_interface(mem_pool, name);
             if (*mod_int).is_null() {
                 return fs::switch_status_t::SWITCH_STATUS_MEMERR;
             }
-            let mi = &ModInterface::from_ptr(*mod_int);
+            let mi = &ModInterface::from_ptr(*mod_int, mem_pool);
             $load(mi)
         }
 
