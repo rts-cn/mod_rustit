@@ -5,5 +5,5 @@ build:
 	cargo build
 
 install:
-	cp ./target/debug/libmod_zrapi.so $(FREESWITCH_MOD_DIR)/mod_zrapi.so && \
-	chmod 0755 $(FREESWITCH_MOD_DIR)/mod_zrapi.so
+	cp ./target/debug/libmod_zrapi.so ./target/debug/mod_zrapi.so && \
+	install -s  -p -D -m 0755 ./target/debug/mod_zrapi.so  $(FREESWITCH_MOD_DIR)/
