@@ -9,10 +9,6 @@ use std::assert;
 use std::ffi::CString;
 pub mod fs;
 
-pub unsafe fn to_cstring<'a>(s: &str) -> *const c_char {
-    CString::new(s).unwrap_or_default().as_ptr()
-}
-
 pub unsafe fn to_string<'a>(p: *const c_char) -> String {
     if p.is_null() {
         return String::from("");
@@ -37,7 +33,7 @@ pub fn __log_printf_safe(
             line,
             std::ptr::null(),
             level,
-            to_cstring("%s\n"),
+            CString::new("%s\n").unwrap().into_raw(),
             s,
         );
     }
@@ -49,14 +45,14 @@ pub fn __log_printf_safe(
 macro_rules! fslog {
     ($level:expr, $s:expr) => (
         let s = concat!($s, "\0");
-        fsr::__log_printf_safe(
+        __log_printf_safe(
             fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
             concat!(file!(), '\0').as_ptr() as *const libc::c_char,
             line!() as libc::c_int, $level, s.as_ptr());
     );
     ($level:expr, $fmt:expr, $($arg:expr),*) => (
         let s = format!(concat!($fmt, "\0"), $($arg), *);
-        fsr::__log_printf_safe(
+        __log_printf_safe(
             fs::switch_text_channel_t::SWITCH_CHANNEL_ID_LOG,
             concat!(file!(), '\0').as_ptr() as *const libc::c_char,
             line!() as libc::c_int, $level, s.as_ptr());
@@ -185,8 +181,9 @@ where
     let bx = std::boxed::Box::new(callback);
     let fp = std::boxed::Box::into_raw(bx);
     unsafe {
-        let id = self::to_cstring(id);
-        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| self::to_cstring(x));
+        let id = CString::new(id).unwrap().into_raw();
+        let subclass_name =
+            subclass_name.map_or(std::ptr::null(), |x| CString::new(x).unwrap().into_raw());
         let mut enode = 0 as *mut u64;
         fs::switch_event_bind_removable(
             id,
@@ -232,11 +229,12 @@ impl ModInterface {
 
     pub fn add_api(&self, name: &str, desc: &str, syntax: &str, func: fs::switch_api_function_t) {
         unsafe {
-            let name = self::to_cstring(name);
-            let desc = self::to_cstring(desc);
-            let syntax = self::to_cstring(syntax);
+            let name = CString::new(name).unwrap().into_raw();
+            let desc = CString::new(desc).unwrap().into_raw();
+            let syntax = CString::new(syntax).unwrap().into_raw();
             let api = self.create_int(fs::switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut fs::switch_api_interface_t;
+
             assert!(!api.is_null());
             (*api).interface_name = name;
             (*api).desc = desc;
@@ -255,10 +253,10 @@ impl ModInterface {
         flags: fs::switch_application_flag_enum_t,
     ) {
         unsafe {
-            let name = self::to_cstring(name);
-            let long_desc = self::to_cstring(long_desc);
-            let short_desc = self::to_cstring(short_desc);
-            let syntax = self::to_cstring(syntax);
+            let name = CString::new(name).unwrap().into_raw();
+            let long_desc = CString::new(long_desc).unwrap().into_raw();
+            let short_desc = CString::new(short_desc).unwrap().into_raw();
+            let syntax = CString::new(syntax).unwrap().into_raw();
             let app = self
                 .create_int(fs::switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut fs::switch_application_interface;
@@ -286,30 +284,18 @@ macro_rules! fsr_export_mod {
             if (*mod_int).is_null() {
                 return fs::switch_status_t::SWITCH_STATUS_MEMERR;
             }
-
-            match $load {
-                None => fs::switch_status_t::SWITCH_STATUS_SUCCESS,
-                Some(func) => {
-                    let mi = &ModInterface::from_ptr(*mod_int);
-                    func(mi)
-                }
-            }
+            let mi = &ModInterface::from_ptr(*mod_int);
+            $load(mi)
         }
 
         #[no_mangle]
         pub extern "C" fn _mod_runtime() -> fs::switch_status_t {
-            match $runtime {
-                None => fs::switch_status_t::SWITCH_STATUS_SUCCESS,
-                Some(func) => func(),
-            }
+            $runtime()
         }
 
         #[no_mangle]
         pub extern "C" fn _mod_shutdown() -> fs::switch_status_t {
-            match $shutdown {
-                None => fs::switch_status_t::SWITCH_STATUS_SUCCESS,
-                Some(func) => func(),
-            }
+            $shutdown()
         }
 
         #[no_mangle]
@@ -318,8 +304,8 @@ macro_rules! fsr_export_mod {
             fs::switch_loadable_module_function_table {
                 switch_api_version: fs::SWITCH_API_VERSION as i32,
                 load: Some(_mod_load),
-                shutdown: Some(_mod_runtime),
-                runtime: Some(_mod_shutdown),
+                shutdown: Some(_mod_shutdown),
+                runtime: Some(_mod_runtime),
                 flags: fs::switch_module_flag_enum_t::SMODF_NONE as u32,
             };
     };

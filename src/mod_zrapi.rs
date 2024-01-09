@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate libc;
 use std::{sync::Mutex, thread, time};
-
+use std::ffi::CString;
 use lazy_static::lazy_static;
 
 pub mod fsr;
@@ -44,7 +44,7 @@ unsafe extern "C" fn zrapi_api(
     _session: *mut fs::switch_core_session,
     stream: *mut fs::switch_stream_handle_t,
 ) -> fs::switch_status_t {
-    (*stream).write_function.unwrap()(stream, fsr::to_cstring("OK"));
+    (*stream).write_function.unwrap()(stream, CString::new("OK").unwrap().into_raw());
     let data = std::ffi::CStr::from_ptr(cmd).to_str().unwrap_or("");
     fslog!(
         fs::switch_log_level_t::SWITCH_LOG_INFO,
@@ -79,7 +79,7 @@ fn zrapi_mod_runtime() -> fs::switch_status_t {
 
 fsr_export_mod!(
    mod_zrapi_module_interface, MODULE_NAME,
-   Some(zrapi_mod_load),
-   Some(zrapi_mod_runtime),
-   Some(zrapi_mod_shutdown)
+   zrapi_mod_load,
+   zrapi_mod_runtime,
+   zrapi_mod_shutdown
 );
