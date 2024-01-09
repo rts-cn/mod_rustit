@@ -44,7 +44,7 @@ unsafe extern "C" fn zrapi_api(
     _session: *mut fs::switch_core_session,
     stream: *mut fs::switch_stream_handle_t,
 ) -> fs::switch_status_t {
-    let ok =  CString::new("OK").unwrap();
+    let ok = CString::new("OK").expect("CString::new failed");
     (*stream).write_function.unwrap()(stream, ok.as_ptr());
     let data = std::ffi::CStr::from_ptr(cmd).to_string_lossy().to_string();
     fslog!(

@@ -7,14 +7,15 @@ use libc::c_int;
 use libc::c_void;
 use std::assert;
 use std::ffi::CString;
+
 pub mod fs;
 
-pub unsafe fn to_string<'a>(p: *const c_char) -> String {
+pub fn to_string<'a>(p: *const c_char) -> String {
     if p.is_null() {
         return String::from("");
     }
-    let cs = std::ffi::CStr::from_ptr(p);
-    cs.to_string_lossy().to_string()
+    let cstr = unsafe { std::ffi::CStr::from_ptr(p) };
+    String::from_utf8_lossy(cstr.to_bytes()).to_string()
 }
 
 /// Internal use only. Workaround for unsafe block in fslog macro.
@@ -26,7 +27,7 @@ pub fn __log_printf_safe(
     s: *const u8,
 ) {
     unsafe {
-        let fmt = CString::new("%s\n").unwrap();
+        let fmt = CString::new("%s\n").expect("CString::new");
         fs::switch_log_printf(
             channel,
             file,
@@ -115,7 +116,7 @@ impl Event {
     }
     pub fn header<'a>(&'a self, name: &str) -> String {
         unsafe {
-            let hname: CString = CString::new(name).unwrap();
+            let hname: CString = CString::new(name).expect("CString::new");
             let v = fs::switch_event_get_header_idx(self.0, hname.as_ptr(), -1);
             self::to_string(v)
         }
@@ -158,14 +159,26 @@ impl EventHeader {
     }
 }
 
+/// Internal use only. Workaround for unsafe block in fslog macro.
+pub fn __strdup_safe(
+    pool: *mut fs::switch_memory_pool_t,
+    todup: &str,
+    file: *const c_char,
+    line: c_int,
+) -> *mut c_char {
+    unsafe {
+        let todup = std::ffi::CString::new(todup).expect("CString::new");
+        fs::switch_core_perform_strdup(pool, todup.as_ptr(), file, std::ptr::null(), line)
+    }
+}
+
 #[macro_export]
 macro_rules! fs_strdup {
     ($pool:expr, $todup:expr) => {
-        fs::switch_core_perform_strdup(
+        __strdup_safe(
             $pool,
-            CString::new($todup).unwrap_or_default().as_ptr(),
+            $todup,
             concat!(file!(), '\0').as_ptr() as *const libc::c_char,
-            std::ptr::null(),
             line!() as libc::c_int,
         )
     };
@@ -305,9 +318,10 @@ macro_rules! fsr_export_mod {
             mod_int: *mut *mut fs::switch_loadable_module_interface,
             mem_pool: *mut fs::switch_memory_pool_t,
         ) -> fs::switch_status_t {
+            let name = CString::new($name).expect("CString::new failed");
             let name = fs::switch_core_perform_strdup(
                 mem_pool,
-                CString::new($name).unwrap_or_default().as_ptr(),
+                name.as_ptr(),
                 concat!(file!(), '\0').as_ptr() as *const libc::c_char,
                 std::ptr::null(),
                 line!() as libc::c_int,
