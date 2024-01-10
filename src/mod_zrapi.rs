@@ -1,6 +1,6 @@
 use lazy_static::lazy_static;
 use std::ffi::CString;
-use std::{sync::Mutex, thread, time};
+use std::sync::Mutex;
 
 pub mod fsr;
 use fsr::*;
