@@ -1,11 +1,11 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(improper_ctypes)]
 
+use std::assert;
+use std::ffi::CString;
 use std::os::raw::c_char;
 use std::os::raw::c_int;
 use std::os::raw::c_void;
-use std::assert;
-use std::ffi::CString;
 
 pub mod fs;
 
@@ -160,10 +160,7 @@ impl Event {
     pub fn json<'a>(&'a self) -> String {
         unsafe {
             let mut s: *mut c_char = std::ptr::null_mut();
-            fs::switch_event_serialize_json(
-                self.0,
-                std::ptr::addr_of_mut!(s),
-            );
+            fs::switch_event_serialize_json(self.0, std::ptr::addr_of_mut!(s));
             let text = self::to_string(s);
             libc::free(s as *mut c_void);
             text

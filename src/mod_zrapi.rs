@@ -6,12 +6,17 @@ pub mod fsr;
 use fsr::*;
 
 struct Global {
-    event_id: u64,
+    ev_nodes: Vec<u64>,
 }
 
 impl Global {
     fn new() -> Global {
-        Global { event_id: 0 }
+        Global {
+            ev_nodes: Vec::new(),
+        }
+    }
+    fn save_node(& mut self, id:u64) {
+        self.ev_nodes.push(id);
     }
 }
 
@@ -63,13 +68,15 @@ fn zrapi_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
         heartbeat_binding,
     );
 
-    GLOBALS.lock().unwrap().event_id = id;
+    GLOBALS.lock().unwrap().save_node(id);
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrapi_mod_shutdown() -> fs::switch_status_t {
-    fsr::event_unbind(GLOBALS.lock().unwrap().event_id);
-    thread::sleep(time::Duration::from_millis(100));
+    let ev_nodes = &GLOBALS.lock().unwrap().ev_nodes;
+    for id in ev_nodes {
+        fsr::event_unbind(*id);
+    }
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
