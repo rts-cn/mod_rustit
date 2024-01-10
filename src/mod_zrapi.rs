@@ -4,7 +4,6 @@ use std::sync::Mutex;
 
 pub mod fsr;
 use fsr::*;
-
 struct Global {
     ev_nodes: Vec<u64>,
 }
@@ -15,7 +14,7 @@ impl Global {
             ev_nodes: Vec::new(),
         }
     }
-    fn save_node(& mut self, id:u64) {
+    fn save_node(&mut self, id: u64) {
         self.ev_nodes.push(id);
     }
 }
@@ -73,9 +72,14 @@ fn zrapi_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
 }
 
 fn zrapi_mod_shutdown() -> fs::switch_status_t {
-    let ev_nodes = &GLOBALS.lock().unwrap().ev_nodes;
-    for id in ev_nodes {
-        fsr::event_unbind(*id);
+    loop {
+        let id = GLOBALS.lock().unwrap().ev_nodes.pop();
+        let id = id.unwrap_or(0);
+        if id > 0 {
+            fsr::event_unbind(id);
+        } else {
+            break;
+        }
     }
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
