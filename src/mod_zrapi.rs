@@ -2,8 +2,9 @@ use lazy_static::lazy_static;
 use std::ffi::CString;
 use std::sync::Mutex;
 
-pub mod fsr;
+extern crate fsr;
 use fsr::*;
+
 struct Global {
     ev_nodes: Vec<u64>,
 }

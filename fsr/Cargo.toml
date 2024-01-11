@@ -1,20 +1,15 @@
-workspace = {members = ["fsr"]}
-
 [package]
-name = "mod_zrapi"
+name = "fsr"
 version = "0.1.0"
 edition = "2021"
 publish = ["rsproxy"]
+build = "build.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
 libc = "0.2.151"
 lazy_static="1.0"
-fsr = { path = "./fsr" }
 
 [build-dependencies]
-
-[lib]
-crate-type = ["dylib"]
-name = "mod_zrapi"
-path = "./src/mod_zrapi.rs"
+bindgen = {version = "0.69.1", default_features = true}

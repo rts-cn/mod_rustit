@@ -40,7 +40,7 @@ fn main() {
         .expect("Unable to generate bindings");
 
     // Write the bindings to the $OUT_DIR/bindings.rs file.
-    let out_path: PathBuf = PathBuf::from("src/fsr");
+    let out_path: PathBuf = PathBuf::from("src/");
     bindings
         .write_to_file(out_path.join("fs.rs"))
         .expect("Couldn't write bindings!");
