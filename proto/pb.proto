@@ -1,0 +1,14 @@
+syntax = "proto3";
+package pb;
+
+service zr {
+    rpc Event (EventRequest) returns (stream EventReply);
+}
+
+message EventRequest {
+    string topic = 1;
+}
+
+message EventReply {
+    string event = 1;
+}

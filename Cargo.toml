@@ -1,7 +1,7 @@
 workspace = {members = ["fsr"]}
 
 [package]
-name = "mod_zrapi"
+name = "mod_zrs"
 version = "0.1.0"
 edition = "2021"
 publish = ["rsproxy"]
@@ -11,10 +11,16 @@ publish = ["rsproxy"]
 libc = "0.2.151"
 lazy_static="1.0"
 fsr = { path = "./fsr" }
+futures = "0.3.30"
+tonic = "0.10"
+prost = "0.12"
+tokio = { version = "1.35", features = ["macros", "rt-multi-thread", "sync"] }
+tokio-stream = { version = "0.1", registry = "rsproxy",  features = ["sync"] }
 
 [build-dependencies]
+tonic-build = "0.10"
 
 [lib]
 crate-type = ["dylib"]
-name = "mod_zrapi"
-path = "./src/mod_zrapi.rs"
+name = "mod_zrs"
+path = "./src/mod_zrs.rs"

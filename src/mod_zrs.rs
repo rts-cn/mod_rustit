@@ -5,22 +5,34 @@ use std::sync::Mutex;
 extern crate fsr;
 use fsr::*;
 
+pub mod zrs;
+
 struct Global {
-    ev_nodes: Vec<u64>,
+    enode: Vec<u64>,
 }
 
 impl Global {
     fn new() -> Global {
-        Global {
-            ev_nodes: Vec::new(),
-        }
+        Global { enode: Vec::new() }
     }
-    fn save_node(&mut self, id: u64) {
-        self.ev_nodes.push(id);
+    fn save_node(id: u64) {
+        GLOBALS.lock().unwrap().enode.push(id);
+    }
+
+    fn remove_node() {
+        loop {
+            let id = GLOBALS.lock().unwrap().enode.pop();
+            let id = id.unwrap_or(0);
+            if id > 0 {
+                fsr::event_unbind(id);
+            } else {
+                break;
+            }
+        }
     }
 }
 
-const MODULE_NAME: &str = "mod_zrapi";
+const MODULE_NAME: &str = "mod_zrs";
 
 lazy_static! {
     static ref GLOBALS: Mutex<Global> = Mutex::new(Global::new());
@@ -42,7 +54,7 @@ fn heartbeat_binding(e: fsr::Event) {
     fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "\n{}", text);
 }
 
-unsafe extern "C" fn zrapi_api(
+unsafe extern "C" fn zrs_api(
     cmd: *const std::os::raw::c_char,
     _session: *mut fs::switch_core_session,
     stream: *mut fs::switch_stream_handle_t,
@@ -52,14 +64,15 @@ unsafe extern "C" fn zrapi_api(
     let data = std::ffi::CStr::from_ptr(cmd).to_string_lossy().to_string();
     fslog!(
         fs::switch_log_level_t::SWITCH_LOG_INFO,
-        "zrapi data: {}",
+        "zrs data: {}",
         data
     );
+
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
-fn zrapi_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
-    mod_int.add_api("zrapi", "zrapi", "zrapi", Some(zrapi_api));
+fn zrs_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
+    mod_int.add_api("zrs", "zrs", "zrs", Some(zrs_api));
     let id = fsr::event_bind(
         mod_int,
         MODULE_NAME,
@@ -68,31 +81,24 @@ fn zrapi_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
         heartbeat_binding,
     );
 
-    GLOBALS.lock().unwrap().save_node(id);
+    Global::save_node(id);
+    zrs::get_instance().listen_and_serve();
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
-fn zrapi_mod_shutdown() -> fs::switch_status_t {
-    loop {
-        let id = GLOBALS.lock().unwrap().ev_nodes.pop();
-        let id = id.unwrap_or(0);
-        if id > 0 {
-            fsr::event_unbind(id);
-        } else {
-            break;
-        }
-    }
+fn zrs_mod_shutdown() -> fs::switch_status_t {
+    Global::remove_node();
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
-fn zrapi_mod_runtime() -> fs::switch_status_t {
+fn zrs_mod_runtime() -> fs::switch_status_t {
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fsr_export_mod!(
-    mod_zrapi_module_interface,
+    mod_zrs_module_interface,
     MODULE_NAME,
-    zrapi_mod_load,
-    zrapi_mod_runtime,
-    zrapi_mod_shutdown
+    zrs_mod_load,
+    zrs_mod_runtime,
+    zrs_mod_shutdown
 );
