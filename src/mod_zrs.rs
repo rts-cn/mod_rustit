@@ -49,8 +49,7 @@ fn heartbeat_binding(e: fsr::Event) {
         e.flags(),
         b
     );
-
-    let text = e.json();
+    let text = serde_json::to_string(&e).unwrap();
     fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "\n{}", text);
 }
 
