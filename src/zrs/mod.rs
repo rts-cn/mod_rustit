@@ -42,7 +42,7 @@ impl zr_server::Zr for ZrService {
         request: Request<EventRequest>,
     ) -> Result<Response<Self::EventStream>, Status> {
         fslog!(
-            fs::switch_log_level_t::SWITCH_LOG_ERROR,
+            fs::switch_log_level_t::SWITCH_LOG_INFO,
             "Got a Event request: {:?}",
             request
         );
@@ -146,7 +146,7 @@ impl Zrs {
         let (tx, mut rx) = broadcast::channel::<u8>(1);
 
         let f = async move {
-            let _ = rx.recv();
+            let _ = rx.recv().await;
         };
 
         self.done = Some(tx);
