@@ -1,14 +1,42 @@
+#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventRequest {
     #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
 }
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Event {
+    #[prost(uint32, tag = "1")]
+    pub event_id: u32,
+    #[prost(uint32, tag = "2")]
+    pub priority: u32,
+    #[prost(string, tag = "3")]
+    pub owner: ::prost::alloc::string::String,
+    #[prost(string, tag = "4")]
+    pub subclass_name: ::prost::alloc::string::String,
+    #[prost(uint64, tag = "5")]
+    pub key: u64,
+    #[prost(int32, tag = "6")]
+    pub flags: i32,
+    #[prost(map = "string, string", tag = "7")]
+    pub headers: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(string, tag = "8")]
+    pub body: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EventReply {
-    #[prost(string, tag = "1")]
-    pub event: ::prost::alloc::string::String,
+    #[prost(uint64, tag = "1")]
+    pub seq: u64,
+    #[prost(message, optional, tag = "2")]
+    pub event: ::core::option::Option<Event>,
 }
 /// Generated server implementations.
 pub mod zr_server {

@@ -2,7 +2,6 @@ use lazy_static::lazy_static;
 use std::ffi::CString;
 use std::sync::Mutex;
 
-extern crate fsr;
 use fsr::*;
 
 pub mod zrs;
@@ -39,18 +38,19 @@ lazy_static! {
 }
 
 fn heartbeat_binding(e: fsr::Event) {
-    let s = e.subclass_name();
-    let b = e.body();
+    let event = zrs::Event::from(&e);
+    let ev_string = serde_json::to_string(&event).unwrap();
+    fslog!(
+        fs::switch_log_level_t::SWITCH_LOG_DEBUG,
+        "broadcast event:\n{}",
+        ev_string
+    );
+
+    let _ = zrs::broadcast(event);
     fslog!(
         fs::switch_log_level_t::SWITCH_LOG_INFO,
-        "{:?}/{:?} {} = {}",
-        e.event_id(),
-        s,
-        e.flags(),
-        b
+        "The Event has been broadcast"
     );
-    let text = serde_json::to_string(&e).unwrap();
-    fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "\n{}", text);
 }
 
 unsafe extern "C" fn zrs_api(
@@ -81,12 +81,22 @@ fn zrs_mod_load(mod_int: &fsr::ModInterface) -> fs::switch_status_t {
     );
 
     Global::save_node(id);
-    zrs::get_instance().listen_and_serve();
+
+    let addr = "0.0.0.0:8208";
+    fslog!(
+        fs::switch_log_level_t::SWITCH_LOG_NOTICE,
+        "Listen and serve: {}",
+        addr
+    );
+
+    zrs::serve(addr.to_string());
+
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrs_mod_shutdown() -> fs::switch_status_t {
     Global::remove_node();
+    zrs::shutdown();
     fs::switch_status_t::SWITCH_STATUS_SUCCESS
 }
 

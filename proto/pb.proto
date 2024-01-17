@@ -9,6 +9,18 @@ message EventRequest {
     string topic = 1;
 }
 
+message Event {
+    uint32 event_id = 1;
+    uint32 priority = 2;
+    string owner = 3;
+    string subclass_name = 4;
+    uint64 key = 5;
+    int32 flags = 6;
+    map<string, string> headers = 7;
+    string body = 8;
+}
+
 message EventReply {
-    string event = 1;
+    uint64 seq = 1;
+    Event event = 2;
 }

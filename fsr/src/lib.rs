@@ -153,8 +153,8 @@ impl Event {
     pub fn key(&self) -> u64 {
         self.key as u64
     }
-    pub fn flags(&self) -> isize {
-        self.flags as isize
+    pub fn flags(&self) -> i32 {
+        self.flags as i32
     }
     pub fn header(&self, name: &String) -> Option<&String> {
         self.headers.get(name)
