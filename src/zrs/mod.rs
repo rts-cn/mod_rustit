@@ -8,7 +8,6 @@ use tonic::transport::Server;
 use tonic::{Request, Response, Status};
 
 use fsr::*;
-use std::sync::Arc;
 use std::thread;
 
 use lazy_static::lazy_static;
@@ -16,7 +15,7 @@ use lazy_static::lazy_static;
 include!("pb.rs");
 
 pub struct ZrService {
-    tx: Arc<broadcast::Sender<Event>>,
+    tx: broadcast::Sender<Event>,
 }
 
 impl Event {
@@ -69,19 +68,33 @@ impl zr_server::Zr for ZrService {
 }
 
 pub struct Zrs {
-    tx: Arc<broadcast::Sender<Event>>,
-    _rx: Arc<broadcast::Receiver<Event>>,
+    _ev_rx: broadcast::Receiver<Event>,
+    ev_tx: broadcast::Sender<Event>,
+    done: Option<broadcast::Sender<u8>>,
 }
 
 impl Zrs {
+    fn new() -> Zrs {
+        let (tx, rx) = broadcast::channel::<Event>(16);
+        Zrs {
+            ev_tx: tx,
+            _ev_rx: rx,
+            done: None,
+        }
+    }
+
     #[tokio::main]
-    async fn tokio_main<F: Future<Output = ()>>(&self, addr: String, f: F) {
+    async fn tokio_main<F: Future<Output = ()>>(
+        addr: String,
+        event_tx: broadcast::Sender<Event>,
+        f: F,
+    ) {
         let addr = addr
             .parse::<std::net::SocketAddr>()
             .expect("Unable to parse grpc socket address");
 
         let service: ZrService = ZrService {
-            tx: self.tx.clone(),
+            tx: event_tx.clone(),
         };
 
         fslog!(
@@ -109,8 +122,8 @@ impl Zrs {
         }
     }
 
-    pub fn broadcast(&self, ev: Event) {
-        let ret = self.tx.send(ev);
+    fn broadcast(&self, ev: Event) {
+        let ret = self.ev_tx.send(ev);
         match ret {
             Err(e) => {
                 fslog!(fs::switch_log_level_t::SWITCH_LOG_ERROR, "{}", e);
@@ -124,58 +137,38 @@ impl Zrs {
             }
         }
     }
-}
 
-struct Done {
-    sender: Option<broadcast::Sender<u8>>,
-}
-impl Done {
-    pub fn new() -> Done {
-        Done { sender: None }
+    fn done(&mut self) {
+        let _ = self.done.clone().unwrap().send(1);
     }
 
-    pub fn set(&mut self, tx: broadcast::Sender<u8>) {
-        self.sender = Some(tx);
-    }
+    fn serve(&mut self, addr: String) {
+        let (tx, mut rx) = broadcast::channel::<u8>(1);
 
-    pub fn done(&mut self) {
-        let _ = self.sender.clone().unwrap().send(1);
+        let f = async move {
+            let _ = rx.recv();
+        };
+
+        self.done = Some(tx);
+
+        let ev_sender = self.ev_tx.clone();
+
+        thread::spawn(|| Self::tokio_main(addr, ev_sender, f));
     }
 }
 
 lazy_static! {
-    static ref DONE: Mutex<Done> = Mutex::new(Done::new());
-}
-
-pub fn get_instance() -> Arc<Zrs> {
-    static mut ZRS: Option<Arc<Zrs>> = None;
-    unsafe {
-        ZRS.get_or_insert_with(|| {
-            let (tx, rx) = broadcast::channel::<Event>(16);
-            Arc::new(Zrs {
-                tx: Arc::new(tx),
-                _rx: Arc::new(rx),
-            })
-        })
-        .clone()
-    }
+    static ref G_ZRS: Mutex<Zrs> = Mutex::new(Zrs::new());
 }
 
 pub fn shutdown() {
-    DONE.lock().unwrap().done()
+    G_ZRS.lock().unwrap().done()
 }
 
 pub fn broadcast(ev: Event) {
-    get_instance().broadcast(ev);
+    G_ZRS.lock().unwrap().broadcast(ev);
 }
 
 pub fn serve(addr: String) {
-    let (tx, mut rx) = broadcast::channel::<u8>(1);
-
-    let f = async move {
-        let _ = rx.recv();
-    };
-
-    DONE.lock().unwrap().set(tx);
-    thread::spawn(|| get_instance().tokio_main(addr, f));
+    G_ZRS.lock().unwrap().serve(addr);
 }
