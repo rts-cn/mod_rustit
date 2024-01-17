@@ -1,7 +1,9 @@
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
 #![allow(improper_ctypes)]
 
+use serde::{Deserialize, Serialize};
 use std::assert;
+use std::collections::HashMap;
 use std::ffi::CString;
 use std::os::raw::c_char;
 use std::os::raw::c_int;
@@ -98,96 +100,67 @@ impl Session {
     }
 }
 
-pub struct Event(*mut fs::switch_event_t);
-impl Event {
-    pub unsafe fn from_ptr(p: *mut fs::switch_event_t) -> Event {
-        assert!(!p.is_null());
-        Event(p)
-    }
-    pub fn as_ptr(&self) -> *const fs::switch_event_t {
-        self.0
-    }
-    pub fn as_mut_ptr(&mut self) -> *mut fs::switch_event_t {
-        self.0
-    }
-    pub unsafe fn as_ref(&self) -> &fs::switch_event_t {
-        &*self.0
-    }
-    pub unsafe fn as_mut_ref(&mut self) -> &mut fs::switch_event_t {
-        &mut *self.0
-    }
-    pub fn event_id(&self) -> fs::switch_event_types_t {
-        unsafe { (*self.0).event_id }
-    }
-    pub fn priority(&self) -> fs::switch_priority_t {
-        unsafe { (*self.0).priority }
-    }
-    pub fn owner(&self) -> String {
-        unsafe { self::to_string((*self.0).owner) }
-    }
-    pub fn subclass_name(&self) -> String {
-        unsafe { self::to_string((*self.0).subclass_name) }
-    }
-    pub fn body(&self) -> String {
-        unsafe { self::to_string((*self.0).body) }
-    }
-    pub fn key(&self) -> u64 {
-        unsafe { (*self.0).key as u64 }
-    }
-    pub fn flags(&self) -> isize {
-        unsafe { (*self.0).flags as isize }
-    }
-    pub fn header<'a>(&'a self, name: &str) -> String {
-        unsafe {
-            let hname: CString = CString::new(name).expect("CString::new");
-            let v = fs::switch_event_get_header_idx(self.0, hname.as_ptr(), -1);
-            self::to_string(v)
-        }
-    }
-    pub fn string<'a>(&'a self) -> String {
-        unsafe {
-            let mut s: *mut c_char = std::ptr::null_mut();
-            fs::switch_event_serialize(
-                self.0,
-                std::ptr::addr_of_mut!(s),
-                fs::switch_bool_t::SWITCH_FALSE,
-            );
-            let text = self::to_string(s);
-            libc::free(s as *mut c_void);
-            text
-        }
-    }
-    pub fn json<'a>(&'a self) -> String {
-        unsafe {
-            let mut s: *mut c_char = std::ptr::null_mut();
-            fs::switch_event_serialize_json(self.0, std::ptr::addr_of_mut!(s));
-            let text = self::to_string(s);
-            libc::free(s as *mut c_void);
-            text
-        }
-    }
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Event {
+    event_id: u32,
+    priority: u32,
+    owner: String,
+    subclass_name: String,
+    body: String,
+    key: u64,
+    flags: i32,
+    headers: HashMap<String, String>,
 }
 
-pub struct EventHeader(*mut fs::switch_event_header_t);
-impl EventHeader {
-    pub unsafe fn from_ptr(p: *mut fs::switch_event_header_t) -> EventHeader {
+impl Event {
+    pub unsafe fn from_raw(p: *mut fs::switch_event_t) -> Event {
         assert!(!p.is_null());
-        EventHeader(p)
+        let mut headers = HashMap::new();
+        let mut hp = (*p).headers;
+        loop {
+            if hp.is_null() {
+                break;
+            }
+            headers.insert(to_string((*hp).name), to_string((*hp).value));
+            hp = (*hp).next;
+        }
+        Event {
+            event_id: (*p).event_id as u32,
+            priority: (*p).priority as u32,
+            owner: to_string((*p).owner),
+            subclass_name: to_string((*p).subclass_name),
+            body: to_string((*p).body),
+            key: (*p).key,
+            flags: (*p).flags,
+            headers,
+        }
     }
-    pub fn as_ptr(&self) -> *const fs::switch_event_header_t {
-        self.0
+    pub fn event_id(&self) -> u32 {
+        self.event_id
     }
-    pub fn as_mut_ptr(&mut self) -> *mut fs::switch_event_header_t {
-        self.0
+    pub fn priority(&self) -> u32 {
+        self.priority
     }
-    pub unsafe fn as_ref(&self) -> &fs::switch_event_header_t {
-        &*self.0
+    pub fn owner(&self) -> &String {
+        &self.owner
     }
-    pub unsafe fn as_mut_ref(&mut self) -> &mut fs::switch_event_header_t {
-        &mut *self.0
+    pub fn subclass_name(&self) -> &String {
+        &self.subclass_name
     }
-    pub fn name(&self) -> String {
-        unsafe { self::to_string((*self.0).name) }
+    pub fn body(&self) -> &String {
+        &self.body
+    }
+    pub fn key(&self) -> u64 {
+        self.key as u64
+    }
+    pub fn flags(&self) -> isize {
+        self.flags as isize
+    }
+    pub fn header(&self, name: &String) -> Option<&String> {
+        self.headers.get(name)
+    }
+    pub fn headers(&self) -> &HashMap<String, String> {
+        &self.headers
     }
 }
 
@@ -201,20 +174,17 @@ pub fn event_bind<F>(
 where
     F: Fn(Event),
 {
-    // TODO: Can you modify events in the callback?
     unsafe extern "C" fn wrap_callback<F>(e: *mut fs::switch_event_t)
     where
         F: Fn(Event),
     {
         assert!(!e.is_null());
         assert!(!((*e).bind_user_data.is_null()));
-        let f = (*e).bind_user_data as *mut F;
-        let e = Event::from_ptr(e);
+        let f = (*e).bind_user_data as *const F;
+        let e = Event::from_raw(e);
         (*f)(e);
     }
-
-    let bx = std::boxed::Box::new(callback);
-    let fp = std::boxed::Box::into_raw(bx);
+    let fp = std::ptr::addr_of!(callback);
     unsafe {
         let id = fs_strdup!(mi.pool(), id);
         let subclass_name = subclass_name.map_or(std::ptr::null(), |x| fs_strdup!(mi.pool(), x));
@@ -224,7 +194,7 @@ where
             event,
             subclass_name,
             Some(wrap_callback::<F>),
-            fp as *mut std::os::raw::c_void,
+            fp as *mut c_void,
             (&mut enode) as *mut _ as *mut *mut fs::switch_event_node_t,
         );
         enode as u64
