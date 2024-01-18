@@ -41,24 +41,64 @@ impl zr_server::Zr for ZrService {
         &self,
         request: Request<EventRequest>,
     ) -> Result<Response<Self::EventStream>, Status> {
+        let mut remote_addr_str = String::from("");
+        let remote_addr = request.remote_addr();
+
+        if let Some(remote_addr) = remote_addr {
+            remote_addr_str = remote_addr.to_string();
+        }
+
         fslog!(
             fs::switch_log_level_t::SWITCH_LOG_INFO,
-            "Got a Event request: {:?}",
-            request
+            "Got a subscriber from {}",
+            remote_addr_str
         );
+
         let (tx, rx) = mpsc::channel(10);
         let mut sub_rx = self.tx.subscribe();
         tokio::spawn(async move {
             let mut seq = 0u64;
-            for v in sub_rx.recv().await.iter() {
-                let text = serde_json::to_string(&v).unwrap();
-                fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "{}", text);
-                tx.send(Ok(EventReply {
-                    seq,
-                    event: Some(v.clone()),
-                }))
-                .await
-                .unwrap();
+            loop {
+                let v = sub_rx.recv().await;
+                match v {
+                    Err(e) => {
+                        fslog!(
+                            fs::switch_log_level_t::SWITCH_LOG_ERROR,
+                            "Event broadcast shutdown: {:?}",
+                            e
+                        );
+
+                        break;
+                    }
+                    Ok(e) => {
+                        let text = serde_json::to_string(&e).unwrap();
+                        fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "{}", text);
+                        let send = tx
+                            .send(Ok(EventReply {
+                                seq,
+                                event: Some(e),
+                            }))
+                            .await;
+
+                        match send {
+                            Err(_) => {
+                                fslog!(
+                                    fs::switch_log_level_t::SWITCH_LOG_WARNING,
+                                    "Subscriber disconnect from {}",
+                                    remote_addr_str
+                                );
+                                break;
+                            }
+                            _ => {}
+                        }
+                    }
+                };
+
+                fslog!(
+                    fs::switch_log_level_t::SWITCH_LOG_INFO,
+                    "Send Event SEQ: {:?}",
+                    seq
+                );
                 seq = seq + 1;
             }
         });
