@@ -269,7 +269,7 @@ impl Event {
 }
 
 pub fn event_bind<F>(
-    mi: &ModInterface,
+    m: &Module,
     id: &str,
     event: switch_event_types_t,
     subclass_name: Option<&str>,
@@ -290,8 +290,8 @@ where
     }
     let fp = std::ptr::addr_of!(callback);
     unsafe {
-        let id = strdup!(mi.pool(), id);
-        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| strdup!(mi.pool(), x));
+        let id = strdup!(m.pool(), id);
+        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| strdup!(m.pool(), x));
         let mut enode = 0 as *mut u64;
         switch_event_bind_removable(
             id,
@@ -312,19 +312,19 @@ pub fn event_unbind(id: u64) {
     }
 }
 
-pub struct ModInterface {
+pub struct Module {
     module: *mut switch_loadable_module_interface_t,
     pool: *mut switch_memory_pool_t,
 }
 
-impl ModInterface {
+impl Module {
     pub unsafe fn from_ptr(
         module: *mut switch_loadable_module_interface_t,
         pool: *mut switch_memory_pool_t,
-    ) -> ModInterface {
+    ) -> Module {
         assert!(!pool.is_null());
         assert!(!module.is_null());
-        ModInterface { module, pool }
+        Module { module, pool }
     }
     pub fn as_ptr(&mut self) -> *const switch_loadable_module_interface_t {
         self.module
@@ -398,19 +398,12 @@ macro_rules! fsr_mod {
             mod_int: *mut *mut switch_loadable_module_interface,
             mem_pool: *mut switch_memory_pool_t,
         ) -> switch_status_t {
-            let name = CString::new($name).expect("CString::new failed");
-            let name = switch_core_perform_strdup(
-                mem_pool,
-                name.as_ptr(),
-                concat!(file!(), '\0').as_ptr() as *const std::os::raw::c_char,
-                std::ptr::null(),
-                line!() as std::os::raw::c_int,
-            );
+            let name = strdup!(mem_pool, $name);
             *mod_int = switch_loadable_module_create_module_interface(mem_pool, name);
             if (*mod_int).is_null() {
                 return switch_status_t::SWITCH_STATUS_MEMERR;
             }
-            let mi = &ModInterface::from_ptr(*mod_int, mem_pool);
+            let mi = &Module::from_ptr(*mod_int, mem_pool);
             $load(mi)
         }
 

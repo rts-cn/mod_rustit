@@ -58,10 +58,10 @@ unsafe extern "C" fn zrs_api(
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
-fn zrs_mod_load(mod_int: &fsr::ModInterface) -> switch_status_t {
-    mod_int.add_api("zrs", "zrs", "zrs", Some(zrs_api));
+fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
+    m.add_api("zrs", "zrs", "zrs", Some(zrs_api));
     let id = fsr::event_bind(
-        mod_int,
+        m,
         MODULE_NAME,
         switch_event_types_t::SWITCH_EVENT_HEARTBEAT,
         None,
