@@ -49,6 +49,7 @@ impl zr_server::Zr for ZrService {
         }
 
         info!("Got a subscriber from {}", remote_addr_str);
+        let topics = request.into_inner().topics;
 
         let (tx, rx) = mpsc::channel(10);
         let mut sub_rx = self.tx.subscribe();
@@ -59,23 +60,39 @@ impl zr_server::Zr for ZrService {
                 match v {
                     Err(e) => {
                         error!("Event broadcast shutdown: {:?}", e);
-
                         break;
                     }
                     Ok(e) => {
-                        let send = tx
-                            .send(Ok(EventReply {
-                                seq,
-                                event: Some(e),
-                            }))
-                            .await;
-
-                        match send {
-                            Err(_) => {
-                                notice!("Subscriber disconnect from {}", remote_addr_str);
+                        let mut pass = false;
+                        for topic in &topics {
+                            if topic.id == EventTypes::SwitchEventAll as i32  {
+                                pass = true;
+                                break;
+                            } else if (topic.id == EventTypes::SwitchEventCustom as i32)
+                                && (topic.subclass == e.subclass_name)
+                            {
+                                pass = true;
+                                break;
+                            } else if topic.id == e.event_id as i32 {
+                                pass = true;
                                 break;
                             }
-                            _ => {}
+                        }
+                        if pass {
+                            let send = tx
+                                .send(Ok(EventReply {
+                                    seq,
+                                    event: Some(e),
+                                }))
+                                .await;
+
+                            match send {
+                                Err(_) => {
+                                    notice!("Subscriber disconnect from {}", remote_addr_str);
+                                    break;
+                                }
+                                _ => {}
+                            }
                         }
                     }
                 };
