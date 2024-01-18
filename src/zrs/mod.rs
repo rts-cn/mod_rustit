@@ -48,11 +48,7 @@ impl zr_server::Zr for ZrService {
             remote_addr_str = remote_addr.to_string();
         }
 
-        fslog!(
-            fs::switch_log_level_t::SWITCH_LOG_INFO,
-            "Got a subscriber from {}",
-            remote_addr_str
-        );
+        info!("Got a subscriber from {}", remote_addr_str);
 
         let (tx, rx) = mpsc::channel(10);
         let mut sub_rx = self.tx.subscribe();
@@ -62,17 +58,11 @@ impl zr_server::Zr for ZrService {
                 let v = sub_rx.recv().await;
                 match v {
                     Err(e) => {
-                        fslog!(
-                            fs::switch_log_level_t::SWITCH_LOG_ERROR,
-                            "Event broadcast shutdown: {:?}",
-                            e
-                        );
+                        error!("Event broadcast shutdown: {:?}", e);
 
                         break;
                     }
                     Ok(e) => {
-                        let text = serde_json::to_string(&e).unwrap();
-                        fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "{}", text);
                         let send = tx
                             .send(Ok(EventReply {
                                 seq,
@@ -82,11 +72,7 @@ impl zr_server::Zr for ZrService {
 
                         match send {
                             Err(_) => {
-                                fslog!(
-                                    fs::switch_log_level_t::SWITCH_LOG_WARNING,
-                                    "Subscriber disconnect from {}",
-                                    remote_addr_str
-                                );
+                                notice!("Subscriber disconnect from {}", remote_addr_str);
                                 break;
                             }
                             _ => {}
@@ -94,11 +80,7 @@ impl zr_server::Zr for ZrService {
                     }
                 };
 
-                fslog!(
-                    fs::switch_log_level_t::SWITCH_LOG_INFO,
-                    "Send Event SEQ: {:?}",
-                    seq
-                );
+                debug!("Send Event SEQ: {:?}", seq);
                 seq = seq + 1;
             }
         });
@@ -137,11 +119,7 @@ impl Zrs {
             tx: event_tx.clone(),
         };
 
-        fslog!(
-            fs::switch_log_level_t::SWITCH_LOG_NOTICE,
-            "Running zrpc sever on {}",
-            addr
-        );
+        notice!("Running zrpc sever on {}", addr);
 
         let ret = Server::builder()
             .add_service(zr_server::ZrServer::new(service))
@@ -149,15 +127,11 @@ impl Zrs {
             .await;
         match ret {
             Err(e) => {
-                fslog!(
-                    fs::switch_log_level_t::SWITCH_LOG_ERROR,
-                    "Running zrpc sever: {}",
-                    e
-                );
+                info!("Running zrpc sever: {}", e);
             }
 
             Ok(_) => {
-                fslog!(fs::switch_log_level_t::SWITCH_LOG_INFO, "zrpc sever stoped");
+                warn!("zrpc sever stoped");
             }
         }
     }
@@ -166,14 +140,10 @@ impl Zrs {
         let ret = self.ev_tx.send(ev);
         match ret {
             Err(e) => {
-                fslog!(fs::switch_log_level_t::SWITCH_LOG_ERROR, "{}", e);
+                error!("{}", e);
             }
             _ => {
-                fslog!(
-                    fs::switch_log_level_t::SWITCH_LOG_DEBUG,
-                    "{}",
-                    "Event broadcast OK"
-                );
+                error!("{}", "Event broadcast OK");
             }
         }
     }
