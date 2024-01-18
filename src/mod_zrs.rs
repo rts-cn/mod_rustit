@@ -1,9 +1,7 @@
 use lazy_static::lazy_static;
-use std::ffi::CString;
 use std::sync::Mutex;
 
 use fsr::*;
-
 pub mod zrs;
 
 struct Global {
@@ -46,20 +44,17 @@ fn heartbeat_binding(e: fsr::Event) {
     debug!("The Event has been broadcast");
 }
 
-unsafe extern "C" fn zrs_api(
-    cmd: *const std::os::raw::c_char,
-    _session: *mut switch_core_session,
-    stream: *mut switch_stream_handle_t,
-) -> switch_status_t {
-    let ok = CString::new("OK").expect("CString::new failed");
-    (*stream).write_function.unwrap()(stream, ok.as_ptr());
-    let data = std::ffi::CStr::from_ptr(cmd).to_string_lossy().to_string();
-    debug!("zrs data: {}", data);
+fn api_zsr(_session: &fsr::Session, cmd: String, stream: &fsr::Stream) -> fsr::switch_status_t {
+    debug!("api zsr:{}", cmd);
+    stream.write("OK");
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
+fn app_zsr(_session: &fsr::Session, cmd: String) {
+    debug!("api zsr:{}", cmd);
+}
+
 fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
-    m.add_api("zrs", "zrs", "zrs", Some(zrs_api));
     let id = fsr::event_bind(
         m,
         MODULE_NAME,
@@ -74,6 +69,18 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
     info!("Listen and serve: {}", addr);
 
     zrs::serve(addr.to_string());
+
+    fsr_api!(m, "zsr", "zsr desc", "zsr syntax", api_zsr);
+
+    fsr_app!(
+        m,
+        "zsr",
+        "zsr short desc",
+        "zsr long desc",
+        "zsr syntax",
+        app_zsr,
+        switch_application_flag_enum_t::SAF_NONE
+    );
 
     switch_status_t::SWITCH_STATUS_SUCCESS
 }

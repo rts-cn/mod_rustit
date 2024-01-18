@@ -169,21 +169,6 @@ macro_rules! strdup {
         )
     };
 }
-
-pub struct Session(*mut switch_core_session_t);
-impl Session {
-    pub unsafe fn from_ptr(p: *mut switch_core_session_t) -> Session {
-        assert!(!p.is_null());
-        Session(p)
-    }
-    pub fn as_ptr(&self) -> *const switch_core_session_t {
-        self.0
-    }
-    pub fn as_mut_ptr(&mut self) -> *mut switch_core_session_t {
-        self.0
-    }
-}
-
 pub struct Event(*mut switch_event_t);
 impl Event {
     pub unsafe fn from_ptr(p: *mut switch_event_t) -> Event {
@@ -366,8 +351,8 @@ impl Module {
     pub fn add_application(
         &self,
         name: &str,
-        long_desc: &str,
         short_desc: &str,
+        long_desc: &str,
         syntax: &str,
         func: switch_application_function_t,
         flags: switch_application_flag_enum_t,
@@ -390,6 +375,60 @@ impl Module {
     }
 }
 
+pub struct Session(*mut switch_core_session_t);
+impl Session {
+    pub unsafe fn from_ptr(p: *mut switch_core_session_t) -> Session {
+        Session(p)
+    }
+    pub fn as_ptr(&self) -> *const switch_core_session_t {
+        self.0
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut switch_core_session_t {
+        self.0
+    }
+}
+
+pub struct Stream(*mut switch_stream_handle_t);
+impl Stream {
+    pub unsafe fn from_ptr(p: *mut switch_stream_handle_t) -> Stream {
+        assert!(!p.is_null());
+        Stream(p)
+    }
+    pub fn as_ptr(&self) -> *const switch_stream_handle_t {
+        self.0
+    }
+    pub fn as_mut_ptr(&mut self) -> *mut switch_stream_handle_t {
+        self.0
+    }
+    pub fn write(&self, s: &str) {
+        let ok = CString::new(s).expect("CString::new failed");
+        unsafe {
+            (*self.0).write_function.unwrap()(self.0, ok.as_ptr());
+        }
+    }
+}
+
+/// Create FreeSWITCH module interface
+///
+/// This macro will Create FreeSWITCH module interface
+/// args:
+/// table: FreeeSWITCH mod static switch_loadable_module_function_table variable，
+/// name:  mod name ident.
+/// load:  load callback
+/// runtime: runtime callbak
+/// shutdown:  shutdown callback
+/// # Examples
+///
+/// ```
+// fsr_mod!(
+//     mod_zrs_module_interface,
+//     "mod_zrs",
+//     zrs_mod_load,
+//     zrs_mod_runtime,
+//     zrs_mod_shutdown
+// );
+/// ```
+///
 #[macro_export]
 macro_rules! fsr_mod {
     ($table:ident,$name:expr,$load:expr,$runtime:expr,$shutdown:expr) => {
@@ -427,5 +466,72 @@ macro_rules! fsr_mod {
                 runtime: Some(_mod_runtime),
                 flags: switch_module_flag_enum_t::SMODF_NONE as u32,
             };
+    };
+}
+
+/// Add FreeSWITCH Appliction
+///
+/// This macro will Add a App to FreeSWICH
+/// args:
+/// module_interface: FreeeSWITCH on loadable module created module interface.
+/// name: the api name ident and the wrap unsafe callback func name.
+/// short_desc: short desc string
+/// long_desc: long desc string
+/// syntax: syntax string
+/// callback:  callback func.
+/// flag: switch_application_flag_enum_t
+/// # Examples
+///
+/// ```
+/// fsr_app!(module_interface, app_name, "long_desc", "short_desc", "syntax", callback, flag);
+/// ```
+///
+#[macro_export]
+macro_rules! fsr_app {
+    ($module:expr,$name:expr,$short_desc:expr,$long_desc:expr,$syntax:expr,$callback:ident, $flag:expr) => {
+        paste::paste! {
+            unsafe extern "C" fn [<_app_wrap_ $callback>](
+                session: *mut switch_core_session_t,
+                cmd: *const ::std::os::raw::c_char
+            ) {
+                let session = &fsr::Session::from_ptr(session);
+                $callback(session, to_string(cmd));
+            }
+
+            $module.add_application($name, $short_desc, $long_desc, $syntax, Some([<_app_wrap_ $callback>]), $flag);
+        }
+    };
+}
+
+/// Add FreeSWITCH API
+///
+/// This macro will Add a API to FreeSWICH
+/// args:
+/// module_interface: FreeeSWITCH on loadable module created module interface.
+/// name: the api name ident and the wrap unsafe callback func name.
+/// desc: desc string
+/// syntax: syntax string
+/// callback:  callback func.
+/// # Examples
+///
+/// ```
+/// fsr_api!(ident, module_interface, api_name, "desc", "syntax", callback);
+/// ```
+///
+#[macro_export]
+macro_rules! fsr_api {
+    ($module:expr,$name:expr,$desc:expr,$syntax:expr,$callback:ident) => {
+        paste::paste! {
+                unsafe extern "C" fn [<_api_wrap_ $callback>](
+                    cmd: *const std::os::raw::c_char,
+                    session: *mut fsr::switch_core_session,
+                    stream: *mut fsr::switch_stream_handle_t,
+                ) -> switch_status_t {
+                    let session = &fsr::Session::from_ptr(session);
+                    let stream = &fsr::Stream::from_ptr(stream);
+                    $callback(session, to_string(cmd), stream)
+                }
+            $module.add_api($name, $desc, $syntax, Some([<_api_wrap_ $callback>]));
+        }
     };
 }

@@ -8,6 +8,7 @@ publish = ["rsproxy"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
+fsr = { path = "./fsr" }
 libc = "0.2.151"
 lazy_static="1.4"
 futures = "0.3.30"
@@ -17,8 +18,7 @@ tokio = { version = "1.35", features = ["macros", "rt-multi-thread", "sync"] }
 tokio-stream = { version = "0.1", features = ["sync"] }
 serde_json = { version = "1.0" }
 serde = { version = "1.0", features = ["derive"]}
-
-fsr = { path = "./fsr" }
+paste = { version = "1.0.14" }
 
 [build-dependencies]
 tonic-build = "0.10"
