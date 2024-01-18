@@ -410,23 +410,19 @@ impl Stream {
 
 /// Create FreeSWITCH module interface
 ///
-/// This macro will Create FreeSWITCH module interface
-///
 /// # Examples
+/// ```
+/// use fsr::switch_status_t;
+/// fn examples_mod_load(m: &fsr::Module) -> switch_status_t { SWITCH_STATUS_SUCCESS }
+/// fn examples_mod_runtime() -> switch_status_t { SWITCH_STATUS_SUCCESS }
+/// fn examples_mod_shutdown() -> switch_status_t { SWITCH_STATUS_SUCCESS }
+/// fsr_mod!("mod_examples", examples_mod_load, examples_mod_runtime, examples_mod_shutdown);
 ///
 /// ```
-// fsr_mod!(
-//     mod_zrs_module_interface,
-//     "mod_zrs",
-//     zrs_mod_load,
-//     zrs_mod_runtime,
-//     zrs_mod_shutdown
-// );
-/// ```
-///
 #[macro_export]
 macro_rules! fsr_mod {
-    ($table:ident,$name:expr,$load:expr,$runtime:expr,$shutdown:expr) => {
+    ($name:expr,$load:expr,$runtime:expr,$shutdown:expr) => {
+        paste::paste! {
         #[no_mangle]
         pub unsafe extern "C" fn _mod_load(
             mod_int: *mut *mut switch_loadable_module_interface,
@@ -453,7 +449,7 @@ macro_rules! fsr_mod {
 
         #[no_mangle]
         #[allow(non_upper_case_globals)]
-        pub static mut $table: switch_loadable_module_function_table =
+        pub static mut [<$name _module_interface>]: switch_loadable_module_function_table =
             switch_loadable_module_function_table {
                 switch_api_version: SWITCH_API_VERSION as i32,
                 load: Some(_mod_load),
@@ -461,6 +457,7 @@ macro_rules! fsr_mod {
                 runtime: Some(_mod_runtime),
                 flags: switch_module_flag_enum_t::SMODF_NONE as u32,
             };
+        }
     };
 }
 

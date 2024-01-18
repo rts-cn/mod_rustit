@@ -95,10 +95,4 @@ fn zrs_mod_runtime() -> switch_status_t {
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
-fsr_mod!(
-    mod_zrs_module_interface,
-    MODULE_NAME,
-    zrs_mod_load,
-    zrs_mod_runtime,
-    zrs_mod_shutdown
-);
+fsr_mod!("mod_zrs", zrs_mod_load, zrs_mod_runtime, zrs_mod_shutdown);
