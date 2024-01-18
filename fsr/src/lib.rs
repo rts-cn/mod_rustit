@@ -411,12 +411,7 @@ impl Stream {
 /// Create FreeSWITCH module interface
 ///
 /// This macro will Create FreeSWITCH module interface
-/// args:
-/// table: FreeeSWITCH mod static switch_loadable_module_function_table variable，
-/// name:  mod name ident.
-/// load:  load callback
-/// runtime: runtime callbak
-/// shutdown:  shutdown callback
+///
 /// # Examples
 ///
 /// ```
@@ -471,21 +466,18 @@ macro_rules! fsr_mod {
 
 /// Add FreeSWITCH Appliction
 ///
-/// This macro will Add a App to FreeSWICH
-/// args:
-/// module_interface: FreeeSWITCH on loadable module created module interface.
-/// name: the api name ident and the wrap unsafe callback func name.
-/// short_desc: short desc string
-/// long_desc: long desc string
-/// syntax: syntax string
-/// callback:  callback func.
-/// flag: switch_application_flag_enum_t
+/// This macro will add a FreeSWICH application
+///
 /// # Examples
 ///
 /// ```
-/// fsr_app!(module_interface, app_name, "long_desc", "short_desc", "syntax", callback, flag);
+/// use fsr::switch_application_flag_enum_t;
+/// fn examples(session &fsr::session, cmd String)
+/// {
+///     info!({}, cmd);
+/// }
+/// fsr_app!(module_interface, "app_name", "long_desc", "short_desc", "syntax", examples, SAF_NONE);
 /// ```
-///
 #[macro_export]
 macro_rules! fsr_app {
     ($module:expr,$name:expr,$short_desc:expr,$long_desc:expr,$syntax:expr,$callback:ident, $flag:expr) => {
@@ -505,19 +497,18 @@ macro_rules! fsr_app {
 
 /// Add FreeSWITCH API
 ///
-/// This macro will Add a API to FreeSWICH
-/// args:
-/// module_interface: FreeeSWITCH on loadable module created module interface.
-/// name: the api name ident and the wrap unsafe callback func name.
-/// desc: desc string
-/// syntax: syntax string
-/// callback:  callback func.
+/// This macro will add a FreeSWICH API
 /// # Examples
 ///
 /// ```
-/// fsr_api!(ident, module_interface, api_name, "desc", "syntax", callback);
+/// fn examples(session &fsr::Session, cmd String, stream &fsr::Stream) -> fsr::switch_status_t
+/// {
+///    info!({}, cmd);
+//     stream.write("OK");
+///    switch_status_t::SWITCH_STATUS_SUCCESS
+/// }
+/// fsr_api!(module_interface, "api_name", "desc", "syntax", examples);
 /// ```
-///
 #[macro_export]
 macro_rules! fsr_api {
     ($module:expr,$name:expr,$desc:expr,$syntax:expr,$callback:ident) => {
