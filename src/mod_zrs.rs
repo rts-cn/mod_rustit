@@ -35,13 +35,9 @@ lazy_static! {
     static ref GLOBALS: Mutex<Global> = Mutex::new(Global::new());
 }
 
-fn heartbeat_binding(e: fsr::Event) {
+fn on_event(e: fsr::Event) {
     let event = zrs::Event::from(&e);
-    let ev_string = serde_json::to_string(&event).unwrap();
-    debug!("broadcast event:\n{}", ev_string);
-
     let _ = zrs::broadcast(event);
-    debug!("The Event has been broadcast");
 }
 
 fn api_zsr(_session: &fsr::Session, cmd: String, stream: &fsr::Stream) -> fsr::switch_status_t {
@@ -58,9 +54,9 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
     let id = fsr::event_bind(
         m,
         MODULE_NAME,
-        switch_event_types_t::SWITCH_EVENT_HEARTBEAT,
+        switch_event_types_t::SWITCH_EVENT_ALL,
         None,
-        heartbeat_binding,
+        on_event,
     );
 
     Global::save_node(id);
