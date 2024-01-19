@@ -110,7 +110,7 @@ macro_rules! info {
 }
 
 #[macro_export]
-macro_rules! warn {
+macro_rules! error {
     ($s:expr) => (
         let s = concat!($s, "\0");
         __log_printf_safe(
@@ -128,7 +128,7 @@ macro_rules! warn {
 }
 
 #[macro_export]
-macro_rules! error {
+macro_rules! warn {
     ($s:expr) => (
         let s = concat!($s, "\0");
         __log_printf_safe(
