@@ -1,8 +1,14 @@
 syntax = "proto3";
 package pb;
+option go_package = "zrc/proto";
 
 service zr {
+    // Subscribe the FreeSWITCH events
     rpc Event (EventRequest) returns (stream EventReply);
+    // Command sends a single command to the server and returns a response Event.
+    rpc Command(CommandRequest) returns (CommandReply);
+    // SendMsg sends messages to FreeSWITCH and returns a response Event.
+    rpc SendMsg(SendMsgRequest) returns (SendMsgReply);
 }
 
 enum EventTypes {
@@ -124,4 +130,23 @@ message Event {
 message EventReply {
     uint64 seq = 1;
     Event event = 2;
+}
+
+message CommandRequest {
+    string command = 1;
+    bool sync = 2;
+}
+
+message CommandReply {
+    int32 code = 1;
+    string message = 2;
+}
+
+message SendMsgRequest {
+    map<string, string> msg  = 1;
+}
+
+message SendMsgReply{
+    int32 code = 1;
+    string message = 2;
 }

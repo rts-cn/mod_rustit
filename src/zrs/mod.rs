@@ -65,7 +65,7 @@ impl zr_server::Zr for ZrService {
                     Ok(e) => {
                         let mut pass = false;
                         for topic in &topics {
-                            if topic.id == EventTypes::SwitchEventAll as i32  {
+                            if topic.id == EventTypes::SwitchEventAll as i32 {
                                 pass = true;
                                 break;
                             } else if (topic.id == EventTypes::SwitchEventCustom as i32)
@@ -103,6 +103,27 @@ impl zr_server::Zr for ZrService {
         });
 
         Ok(Response::new(ReceiverStream::new(rx)))
+    }
+
+    /// Command sends a single command to the server and returns a response Event.
+    async fn command(
+        &self,
+        request: Request<CommandRequest>,
+    ) -> Result<Response<CommandReply>, Status> {
+        let req = request.into_inner();
+        debug!("{:?}", req);
+        let reply = CommandReply { code: 200, message: String::from("OK") };
+        Ok(Response::new(reply))
+    }
+    /// SendMsg sends messages to FreeSWITCH and returns a response Event.
+    async fn send_msg(
+        &self,
+        request: Request<SendMsgRequest>,
+    ) -> Result<Response<SendMsgReply>, Status> {
+        let req = request.into_inner();
+        debug!("{:?}", req);
+        let reply = SendMsgReply { code: 200, message: String::from("OK") };
+        Ok(Response::new(reply))
     }
 }
 
@@ -160,7 +181,7 @@ impl Zrs {
                 error!("{}", e);
             }
             _ => {
-                error!("{}", "Event broadcast OK");
+                // error!("{}", "Event broadcast OK");
             }
         }
     }
