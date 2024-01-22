@@ -1,16 +1,26 @@
 use lazy_static::lazy_static;
-use std::sync::Mutex;
+use std::{ffi::CString, sync::Mutex};
 
 use fsr::*;
 pub mod zrs;
 
 struct Global {
     enode: Vec<u64>,
+    listen_ip: String,
+    listen_port: u16,
+    gateway_url: String,
+    timeout: u32,
 }
 
 impl Global {
     fn new() -> Global {
-        Global { enode: Vec::new() }
+        Global {
+            enode: Vec::new(),
+            listen_ip: String::from("0.0.0.0"),
+            listen_port: 8202,
+            gateway_url: String::from(""),
+            timeout: 10,
+        }
     }
     fn save_node(id: u64) {
         GLOBALS.lock().unwrap().enode.push(id);
@@ -50,7 +60,58 @@ fn app_zsr(_session: &fsr::Session, cmd: String) {
     debug!("api zsr:{}", cmd);
 }
 
+fn do_config() {
+    let cf = "zrs.conf";
+    let mut cfg: fsr::switch_xml_t = std::ptr::null_mut();
+    unsafe {
+        let event = std::ptr::null_mut();
+        let tmp_str = CString::new(cf).unwrap();
+        let xml = fsr::switch_xml_open_cfg(tmp_str.as_ptr(), std::ptr::addr_of_mut!(cfg), event);
+        if xml.is_null() {
+            error!("open of {} failed\n", cf);
+            fsr::switch_xml_free(xml);
+            return;
+        }
+
+        let tmp_str = CString::new("settings").unwrap();
+        let settings_tag = fsr::switch_xml_child(cfg, tmp_str.as_ptr());
+        if settings_tag.is_null() {
+            error!("Missing <settings> tag!\n");
+            fsr::switch_xml_free(xml);
+            return;
+        }
+
+        let tmp_str = CString::new("param").unwrap();
+        let mut param = fsr::switch_xml_child(settings_tag, tmp_str.as_ptr());
+        while !param.is_null() {
+            let tmp_str = CString::new("name").unwrap();
+            let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+            let tmp_str = CString::new("value").unwrap();
+            let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+
+            let var = fsr::to_string(var);
+            let val = fsr::to_string(val);
+
+            if var.eq_ignore_ascii_case("listen-ip") {
+                GLOBALS.lock().unwrap().listen_ip = val;
+            } else if var.eq_ignore_ascii_case("listen-port") {
+                GLOBALS.lock().unwrap().listen_port = val.parse::<u16>().unwrap_or(8202);
+            } else if var.eq_ignore_ascii_case("gateway-url") {
+                GLOBALS.lock().unwrap().gateway_url = val;
+            } else if var.eq_ignore_ascii_case("timeout") {
+                GLOBALS.lock().unwrap().timeout = val.parse::<u32>().unwrap_or(10);
+            }
+            param = (*param).next;
+        }
+        fsr::switch_xml_free(xml);
+    }
+}
+
 fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
+
+    // load config
+    do_config();
+
     let id = fsr::event_bind(
         m,
         MODULE_NAME,
@@ -61,7 +122,10 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
 
     Global::save_node(id);
 
-    let addr = "0.0.0.0:8208";
+    let listen_ip =  GLOBALS.lock().unwrap().listen_ip.clone();
+    let listen_port =  GLOBALS.lock().unwrap().listen_port;
+
+    let addr = format!("{}:{}", listen_ip, listen_port);
     info!("Listen and serve: {}", addr);
 
     zrs::serve(addr.to_string());
