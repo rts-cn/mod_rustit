@@ -1,14 +1,46 @@
 syntax = "proto3";
 package pb;
-option go_package = "zrc/proto";
+option go_package = "app/gateway/proto";
 
-service zr {
+service zrs {
     // Subscribe the FreeSWITCH events
     rpc Event (EventRequest) returns (stream EventReply);
     // Command sends a single command to the server and returns a response Event.
     rpc Command(CommandRequest) returns (CommandReply);
     // SendMsg sends messages to FreeSWITCH and returns a response Event.
     rpc SendMsg(SendMsgRequest) returns (SendMsgReply);
+}
+
+service zrc {
+    // Register the FreeSWITCH node
+    rpc Register (RegisterRequest) returns (RegisterReply);
+    // UnRegister the FreeSWITCH node
+    rpc UnRegister (UnRegisterRequest) returns (UnRegisterReply);
+}
+
+message Info {
+    string uuid = 1;
+    string name = 2;
+    string uri = 3;
+    string ip = 4;
+}
+
+message RegisterRequest {
+    Info info = 1;
+}
+
+message RegisterReply {
+    int32 code = 1;
+    string message = 2;
+}
+
+message UnRegisterRequest {
+   string uuid = 1;
+}
+
+message UnRegisterReply {
+    int32 code = 1;
+    string message = 2;
 }
 
 enum EventTypes {

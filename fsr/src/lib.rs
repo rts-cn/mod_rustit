@@ -523,3 +523,28 @@ macro_rules! fsr_api {
         }
     };
 }
+
+pub fn get_variable(s: &str) -> String {
+    let tmp_str = CString::new(s).unwrap();
+    let val = unsafe { switch_core_get_variable(tmp_str.as_ptr()) };
+    to_string(val)
+}
+
+pub fn check_acl(ip: &str, list: &str) -> bool {
+    let cstr_ip = CString::new(ip).unwrap();
+    let cstr_list = CString::new(list).unwrap();
+    let mut token = std::ptr::null() as *const c_char;
+
+    let r = unsafe {
+        switch_check_network_list_ip_token(
+            cstr_ip.as_ptr(),
+            cstr_list.as_ptr(),
+            std::ptr::addr_of_mut!(token),
+        )
+    };
+    if r == switch_bool_t::SWITCH_TRUE {
+        true
+    } else {
+        false
+    }
+}

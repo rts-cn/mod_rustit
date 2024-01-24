@@ -3,8 +3,9 @@
     <param name="listen-addr" value="0.0.0.0"/>
     <param name="listen-port" value="8202"/>
     <!-- The url to a gateway -->
-    <param name="gateway-url" value="192.168.107.3:8000"/>
+    <param name="gateway-url" value="http://192.168.107.1:8000"/>
     <!-- optional timeout -->
     <param name="timeout" value="10"/>
+    <param name="secret_key" value="1234" />
   </settings>
 </configuration>
