@@ -21,7 +21,15 @@ pub struct RegisterRequest {
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RegisterReply {
+pub struct ReloadXmlRequest {}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReloadAclRequest {}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Reply {
     #[prost(int32, tag = "1")]
     pub code: i32,
     #[prost(string, tag = "2")]
@@ -104,30 +112,12 @@ pub struct CommandRequest {
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CommandReply {
-    #[prost(int32, tag = "1")]
-    pub code: i32,
-    #[prost(string, tag = "2")]
-    pub message: ::prost::alloc::string::String,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SendMsgRequest {
     #[prost(map = "string, string", tag = "1")]
     pub msg: ::std::collections::HashMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-}
-#[derive(serde::Serialize, serde::Deserialize)]
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SendMsgReply {
-    #[prost(int32, tag = "1")]
-    pub code: i32,
-    #[prost(string, tag = "2")]
-    pub message: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -573,7 +563,7 @@ pub mod zrs_client {
         pub async fn command(
             &mut self,
             request: impl tonic::IntoRequest<super::CommandRequest>,
-        ) -> std::result::Result<tonic::Response<super::CommandReply>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -593,7 +583,7 @@ pub mod zrs_client {
         pub async fn send_msg(
             &mut self,
             request: impl tonic::IntoRequest<super::SendMsgRequest>,
-        ) -> std::result::Result<tonic::Response<super::SendMsgReply>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -607,6 +597,46 @@ pub mod zrs_client {
             let path = http::uri::PathAndQuery::from_static("/pb.zrs/SendMsg");
             let mut req = request.into_request();
             req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "SendMsg"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Reload xml
+        pub async fn reload_xml(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ReloadXmlRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/ReloadXML");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "ReloadXML"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Reload Acl
+        pub async fn reload_acl(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ReloadAclRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/ReloadAcl");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "ReloadAcl"));
             self.inner.unary(req, path, codec).await
         }
     }
@@ -700,7 +730,7 @@ pub mod zrc_client {
         pub async fn register(
             &mut self,
             request: impl tonic::IntoRequest<super::RegisterRequest>,
-        ) -> std::result::Result<tonic::Response<super::RegisterReply>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -720,10 +750,7 @@ pub mod zrc_client {
         pub async fn un_register(
             &mut self,
             request: impl tonic::IntoRequest<super::UnRegisterRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::UnRegisterReply>,
-            tonic::Status,
-        > {
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -763,12 +790,22 @@ pub mod zrs_server {
         async fn command(
             &self,
             request: tonic::Request<super::CommandRequest>,
-        ) -> std::result::Result<tonic::Response<super::CommandReply>, tonic::Status>;
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
         /// SendMsg sends messages to FreeSWITCH and returns a response Event.
         async fn send_msg(
             &self,
             request: tonic::Request<super::SendMsgRequest>,
-        ) -> std::result::Result<tonic::Response<super::SendMsgReply>, tonic::Status>;
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// Reload xml
+        async fn reload_xml(
+            &self,
+            request: tonic::Request<super::ReloadXmlRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// Reload Acl
+        async fn reload_acl(
+            &self,
+            request: tonic::Request<super::ReloadAclRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct ZrsServer<T: Zrs> {
@@ -901,7 +938,7 @@ pub mod zrs_server {
                     struct CommandSvc<T: Zrs>(pub Arc<T>);
                     impl<T: Zrs> tonic::server::UnaryService<super::CommandRequest>
                     for CommandSvc<T> {
-                        type Response = super::CommandReply;
+                        type Response = super::Reply;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -945,7 +982,7 @@ pub mod zrs_server {
                     struct SendMsgSvc<T: Zrs>(pub Arc<T>);
                     impl<T: Zrs> tonic::server::UnaryService<super::SendMsgRequest>
                     for SendMsgSvc<T> {
-                        type Response = super::SendMsgReply;
+                        type Response = super::Reply;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -969,6 +1006,94 @@ pub mod zrs_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = SendMsgSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/ReloadXML" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReloadXMLSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::ReloadXmlRequest>
+                    for ReloadXMLSvc<T> {
+                        type Response = super::Reply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReloadXmlRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::reload_xml(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReloadXMLSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/ReloadAcl" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReloadAclSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::ReloadAclRequest>
+                    for ReloadAclSvc<T> {
+                        type Response = super::Reply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReloadAclRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::reload_acl(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReloadAclSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
@@ -1036,12 +1161,12 @@ pub mod zrc_server {
         async fn register(
             &self,
             request: tonic::Request<super::RegisterRequest>,
-        ) -> std::result::Result<tonic::Response<super::RegisterReply>, tonic::Status>;
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
         /// UnRegister the FreeSWITCH node
         async fn un_register(
             &self,
             request: tonic::Request<super::UnRegisterRequest>,
-        ) -> std::result::Result<tonic::Response<super::UnRegisterReply>, tonic::Status>;
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct ZrcServer<T: Zrc> {
@@ -1127,7 +1252,7 @@ pub mod zrc_server {
                     struct RegisterSvc<T: Zrc>(pub Arc<T>);
                     impl<T: Zrc> tonic::server::UnaryService<super::RegisterRequest>
                     for RegisterSvc<T> {
-                        type Response = super::RegisterReply;
+                        type Response = super::Reply;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -1171,7 +1296,7 @@ pub mod zrc_server {
                     struct UnRegisterSvc<T: Zrc>(pub Arc<T>);
                     impl<T: Zrc> tonic::server::UnaryService<super::UnRegisterRequest>
                     for UnRegisterSvc<T> {
-                        type Response = super::UnRegisterReply;
+                        type Response = super::Reply;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,

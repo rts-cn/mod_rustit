@@ -130,7 +130,7 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
 
     let listen_ip = GLOBALS.lock().unwrap().listen_ip.clone();
     let listen_port = GLOBALS.lock().unwrap().listen_port;
-
+    let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
     let dst = GLOBALS.lock().unwrap().gateway_url.clone();
     let secret = GLOBALS.lock().unwrap().secret_key.clone();
     let apply_inbound_acl = GLOBALS.lock().unwrap().apply_inbound_acl.clone();
@@ -139,11 +139,11 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
         name: fsr::get_variable("hostname"),
         ip: fsr::get_variable("local_ip_v4"),
         uuid: fsr::get_variable("core_uuid"),
-        uri: format!("http://{}:{}", listen_ip, listen_port),
+        uri: bind_uri.clone(),
     };
 
     let server = zrs::Server {
-        bind_uri:format!("{}:{}", listen_ip, listen_port),
+        bind_uri,
         register_uri: dst,
         secret,
         apply_inbound_acl,

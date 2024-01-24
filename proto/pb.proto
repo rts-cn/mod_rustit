@@ -2,47 +2,6 @@ syntax = "proto3";
 package pb;
 option go_package = "app/gateway/proto";
 
-service zrs {
-    // Subscribe the FreeSWITCH events
-    rpc Event (EventRequest) returns (stream EventReply);
-    // Command sends a single command to the server and returns a response Event.
-    rpc Command(CommandRequest) returns (CommandReply);
-    // SendMsg sends messages to FreeSWITCH and returns a response Event.
-    rpc SendMsg(SendMsgRequest) returns (SendMsgReply);
-}
-
-service zrc {
-    // Register the FreeSWITCH node
-    rpc Register (RegisterRequest) returns (RegisterReply);
-    // UnRegister the FreeSWITCH node
-    rpc UnRegister (UnRegisterRequest) returns (UnRegisterReply);
-}
-
-message Info {
-    string uuid = 1;
-    string name = 2;
-    string uri = 3;
-    string ip = 4;
-}
-
-message RegisterRequest {
-    Info info = 1;
-}
-
-message RegisterReply {
-    int32 code = 1;
-    string message = 2;
-}
-
-message UnRegisterRequest {
-   string uuid = 1;
-}
-
-message UnRegisterReply {
-    int32 code = 1;
-    string message = 2;
-}
-
 enum EventTypes {
     SWITCH_EVENT_CUSTOM = 0;
     SWITCH_EVENT_CLONE = 1;
@@ -139,6 +98,55 @@ enum EventTypes {
     SWITCH_EVENT_ALL = 92;
 }
 
+service zrs {
+    // Subscribe the FreeSWITCH events
+    rpc Event (EventRequest) returns (stream EventReply);
+    // Command sends a single command to the server and returns a response Event.
+    rpc Command(CommandRequest) returns (Reply);
+    // SendMsg sends messages to FreeSWITCH and returns a response Event.
+    rpc SendMsg(SendMsgRequest) returns (Reply);
+    // Reload xml
+    rpc ReloadXML(ReloadXMLRequest) returns (Reply);
+    // Reload Acl
+    rpc ReloadAcl(ReloadACLRequest) returns (Reply);
+}
+
+service zrc {
+    // Register the FreeSWITCH node
+    rpc Register (RegisterRequest) returns (Reply);
+    // UnRegister the FreeSWITCH node
+    rpc UnRegister (UnRegisterRequest) returns (Reply);
+}
+
+message Info {
+    string uuid = 1;
+    string name = 2;
+    string uri = 3;
+    string ip = 4;
+}
+
+message RegisterRequest {
+    Info info = 1;
+}
+
+message ReloadXMLRequest {}
+
+message ReloadACLRequest {}
+
+message Reply {
+    int32 code = 1;
+    string message = 2;
+}
+
+message UnRegisterRequest {
+   string uuid = 1;
+}
+
+message UnRegisterReply {
+    int32 code = 1;
+    string message = 2;
+}
+
 message Topic{
     EventTypes id = 1;
     string subclass = 2;
@@ -169,16 +177,6 @@ message CommandRequest {
     bool sync = 2;
 }
 
-message CommandReply {
-    int32 code = 1;
-    string message = 2;
-}
-
 message SendMsgRequest {
     map<string, string> msg  = 1;
-}
-
-message SendMsgReply{
-    int32 code = 1;
-    string message = 2;
 }

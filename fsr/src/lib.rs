@@ -548,3 +548,40 @@ pub fn check_acl(ip: &str, list: &str) -> bool {
         false
     }
 }
+pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
+    unsafe {
+        let data_size: usize = 1024;
+        let data = libc::malloc(data_size);
+        libc::memset(data, 0, data_size);
+        let stream = &mut switch_stream_handle_t {
+            read_function: None,
+            write_function: Some(switch_console_stream_write),
+            raw_write_function: Some(switch_console_stream_raw_write),
+            data,
+            data_size,
+            data_len: 0,
+            alloc_len: data_size,
+            alloc_chunk: data_size,
+            param_event: std::ptr::null_mut() as *mut switch_event,
+            end: data,
+        };
+
+        let api_cmd = CString::new(cmd).unwrap();
+        let api_arg = CString::new(arg).unwrap();
+
+        let status = switch_api_execute(
+            api_cmd.as_ptr(),
+            api_arg.as_ptr(),
+            std::ptr::null_mut() as *mut switch_core_session_t,
+            stream as *mut switch_stream_handle_t,
+        );
+
+        let ret: String = to_string((*stream).data as *const c_char);
+        libc::free((*stream).data);
+        if status == switch_status_t::SWITCH_STATUS_SUCCESS {
+            Ok(ret)
+        } else {
+            Err(format!("-ERR %s Command not found!{}\n", cmd))
+        }
+    }
+}
