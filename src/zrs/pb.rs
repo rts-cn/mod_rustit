@@ -29,6 +29,13 @@ pub struct ReloadAclRequest {}
 #[derive(serde::Serialize, serde::Deserialize)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ModRequest {
+    #[prost(string, tag = "1")]
+    pub mod_name: ::prost::alloc::string::String,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Reply {
     #[prost(int32, tag = "1")]
     pub code: i32,
@@ -639,6 +646,66 @@ pub mod zrs_client {
             req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "ReloadAcl"));
             self.inner.unary(req, path, codec).await
         }
+        /// Reload mod
+        pub async fn reload_mod(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ModRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/ReloadMod");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "ReloadMod"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Load mod
+        pub async fn load_mod(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ModRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/LoadMod");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "LoadMod"));
+            self.inner.unary(req, path, codec).await
+        }
+        /// Unload mod
+        pub async fn unload_mod(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ModRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/UnloadMod");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "UnloadMod"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated client implementations.
@@ -805,6 +872,21 @@ pub mod zrs_server {
         async fn reload_acl(
             &self,
             request: tonic::Request<super::ReloadAclRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// Reload mod
+        async fn reload_mod(
+            &self,
+            request: tonic::Request<super::ModRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// Load mod
+        async fn load_mod(
+            &self,
+            request: tonic::Request<super::ModRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// Unload mod
+        async fn unload_mod(
+            &self,
+            request: tonic::Request<super::ModRequest>,
         ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
     }
     #[derive(Debug)]
@@ -1094,6 +1176,138 @@ pub mod zrs_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = ReloadAclSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/ReloadMod" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReloadModSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::ModRequest>
+                    for ReloadModSvc<T> {
+                        type Response = super::Reply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::reload_mod(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = ReloadModSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/LoadMod" => {
+                    #[allow(non_camel_case_types)]
+                    struct LoadModSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::ModRequest>
+                    for LoadModSvc<T> {
+                        type Response = super::Reply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::load_mod(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = LoadModSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/UnloadMod" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnloadModSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::ModRequest>
+                    for UnloadModSvc<T> {
+                        type Response = super::Reply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::unload_mod(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = UnloadModSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

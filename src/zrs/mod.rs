@@ -1,185 +1,16 @@
 use std::sync::Mutex;
 use tokio::sync::broadcast;
-use tokio::sync::mpsc;
-
-use tonic::codegen::tokio_stream::wrappers::ReceiverStream;
-use tonic::{Request, Response, Status};
+use tonic::{Request, Status};
 use url::Url;
 
 use fsr::*;
 use std::thread;
-
 use lazy_static::lazy_static;
 
 include!("pb.rs");
-
+pub mod event;
+pub mod service;
 pub mod token;
-
-pub struct ZrService {
-    tx: broadcast::Sender<Event>,
-}
-
-impl Event {
-    pub fn from(e: &fsr::Event) -> Event {
-        Event {
-            event_id: e.event_id(),
-            priority: e.priority(),
-            owner: e.owner().to_string(),
-            subclass_name: e.subclass_name().to_string(),
-            key: e.key(),
-            flags: e.flags(),
-            headers: e.headers().clone(),
-            body: e.body().to_string(),
-        }
-    }
-}
-
-#[tonic::async_trait]
-impl zrs_server::Zrs for ZrService {
-    type EventStream = ReceiverStream<Result<EventReply, Status>>;
-
-    async fn event(
-        &self,
-        request: Request<EventRequest>,
-    ) -> Result<Response<Self::EventStream>, Status> {
-        let mut remote_addr_str = String::from("");
-        let remote_addr = request.remote_addr();
-
-        if let Some(remote_addr) = remote_addr {
-            remote_addr_str = remote_addr.to_string();
-        }
-
-        info!("Got a subscriber from {}", remote_addr_str);
-        let topics = request.into_inner().topics;
-
-        let (tx, rx) = mpsc::channel(10);
-        let mut sub_rx = self.tx.subscribe();
-        tokio::spawn(async move {
-            let mut seq = 0u64;
-            loop {
-                let v = sub_rx.recv().await;
-                match v {
-                    Err(e) => {
-                        error!("Event broadcast shutdown: {:?}", e);
-                        break;
-                    }
-                    Ok(e) => {
-                        let mut pass = false;
-                        for topic in &topics {
-                            if topic.id == EventTypes::SwitchEventAll as i32 {
-                                pass = true;
-                                break;
-                            } else if (topic.id == EventTypes::SwitchEventCustom as i32)
-                                && (topic.subclass == e.subclass_name)
-                            {
-                                pass = true;
-                                break;
-                            } else if topic.id == e.event_id as i32 {
-                                pass = true;
-                                break;
-                            }
-                        }
-                        if pass {
-                            let send = tx
-                                .send(Ok(EventReply {
-                                    seq,
-                                    event: Some(e),
-                                }))
-                                .await;
-
-                            match send {
-                                Err(_) => {
-                                    notice!("Subscriber disconnect from {}", remote_addr_str);
-                                    break;
-                                }
-                                _ => {}
-                            }
-                        }
-                    }
-                };
-
-                debug!("Send Event SEQ: {:?}", seq);
-                seq = seq + 1;
-            }
-        });
-
-        Ok(Response::new(ReceiverStream::new(rx)))
-    }
-
-    /// Command sends a single command to the server and returns a response Event.
-    async fn command(&self, request: Request<CommandRequest>) -> Result<Response<Reply>, Status> {
-        let req = request.into_inner();
-        debug!("{:?}", req);
-        let reply = Reply {
-            code: 200,
-            message: String::from("OK"),
-        };
-        Ok(Response::new(reply))
-    }
-
-    /// SendMsg sends messages to FreeSWITCH and returns a response Event.
-    async fn send_msg(&self, request: Request<SendMsgRequest>) -> Result<Response<Reply>, Status> {
-        let req = request.into_inner();
-        debug!("{:?}", req);
-        let reply = Reply {
-            code: 200,
-            message: String::from("OK"),
-        };
-        Ok(Response::new(reply))
-    }
-
-    // reload xml
-    async fn reload_xml(
-        &self,
-        request: Request<ReloadXmlRequest>,
-    ) -> Result<Response<Reply>, Status> {
-        let _req: ReloadXmlRequest = request.into_inner();
-        // debug!("{:?}", req);
-        let ret = fsr::api_exec("reloadxml", "");
-        match ret {
-            Err(e) => {
-                let reply = Reply {
-                    code: 500,
-                    message: e,
-                };
-                Ok(Response::new(reply))
-            }
-            Ok(msg) => {
-                let reply = Reply {
-                    code: 200,
-                    message: msg,
-                };
-                Ok(Response::new(reply))
-            }
-        }
-    }
-
-    // reload acl
-    async fn reload_acl(
-        &self,
-        request: Request<ReloadAclRequest>,
-    ) -> Result<Response<Reply>, Status> {
-        let _req = request.into_inner();
-        // debug!("{:?}", req);
-        let ret = fsr::api_exec("reloadacl", "");
-        match ret {
-            Err(e) => {
-                let reply = Reply {
-                    code: 500,
-                    message: e,
-                };
-                Ok(Response::new(reply))
-            }
-            Ok(msg) => {
-                let reply = Reply {
-                    code: 200,
-                    message: msg,
-                };
-                Ok(Response::new(reply))
-            }
-        }
-    }
-}
 
 pub struct Server {
     pub bind_uri: String,
@@ -265,7 +96,7 @@ impl Zrs {
 
         G_ZRS.lock().unwrap().done = Some(tx.clone());
 
-        let service: ZrService = ZrService {
+        let service: service::Service = service::Service {
             tx: G_ZRS.lock().unwrap().ev_tx.clone(),
         };
 

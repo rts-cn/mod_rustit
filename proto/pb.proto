@@ -109,6 +109,12 @@ service zrs {
     rpc ReloadXML(ReloadXMLRequest) returns (Reply);
     // Reload Acl
     rpc ReloadAcl(ReloadACLRequest) returns (Reply);
+    // Reload mod
+    rpc ReloadMod(ModRequest) returns (Reply);
+    // Load mod
+    rpc LoadMod(ModRequest) returns (Reply);
+    // Unload mod
+    rpc UnloadMod(ModRequest) returns (Reply);
 }
 
 service zrc {
@@ -132,6 +138,10 @@ message RegisterRequest {
 message ReloadXMLRequest {}
 
 message ReloadACLRequest {}
+
+message ModRequest {
+    string mod_name = 1;
+}
 
 message Reply {
     int32 code = 1;
