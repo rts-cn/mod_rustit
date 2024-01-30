@@ -4,12 +4,12 @@ use tonic::{Request, Status};
 
 use fsr::*;
 use lazy_static::lazy_static;
+use md5;
 use std::thread;
 
 include!("pb.rs");
 pub mod event;
 pub mod service;
-pub mod token;
 
 pub struct Server {
     pub bind_uri: String,
@@ -22,7 +22,6 @@ pub struct Zrs {
     _ev_rx: broadcast::Receiver<Event>,
     ev_tx: broadcast::Sender<Event>,
     done: Option<broadcast::Sender<u8>>,
-    register_host: Option<String>,
     apply_inbound_acl: Option<String>,
     password: Option<String>,
 }
@@ -34,7 +33,6 @@ impl Zrs {
             ev_tx: tx,
             _ev_rx: rx,
             done: None,
-            register_host: None,
             apply_inbound_acl: None,
             password: None,
         }
@@ -44,10 +42,6 @@ impl Zrs {
         let remote_addr = req.remote_addr();
         if let Some(remote_addr) = remote_addr {
             let remote_addr_str = remote_addr.ip().to_string();
-            let register_host = G_ZRS.lock().unwrap().register_host.clone();
-            if remote_addr_str.eq_ignore_ascii_case(&register_host.unwrap()) {
-                return Ok(req);
-            }
             let apply_inbound_acl = G_ZRS.lock().unwrap().apply_inbound_acl.clone();
             if fsr::check_acl(&remote_addr_str, &apply_inbound_acl.unwrap()) {
                 return Ok(req);
@@ -58,11 +52,15 @@ impl Zrs {
         match authorization {
             Some(t) => {
                 let password = G_ZRS.lock().unwrap().password.clone();
+                let password = password.unwrap();
+                let digest = format!("bearer {:x}", md5::compute(password));
                 let token = t.to_str().unwrap();
-                let check = token::verify(&password.unwrap(), token);
-                match check {
-                    Ok(_) => Ok(req),
-                    Err(e) => Err(Status::unauthenticated(e)),
+                if digest.eq_ignore_ascii_case(token) {
+                    Ok(req)
+                } else {
+                    Err(Status::unauthenticated(
+                        "authentication failure wrong password",
+                    ))
                 }
             }
             _ => Err(Status::unauthenticated("No valid auth token")),
@@ -91,23 +89,21 @@ impl Zrs {
         };
 
         notice!("Running zrpc sever on {}", addr);
-        tokio::spawn(async move {
-            let ret = tonic::transport::Server::builder()
-                .add_service(zrs_server::ZrsServer::with_interceptor(
-                    service,
-                    Self::check_auth,
-                ))
-                .serve_with_shutdown(addr, f)
-                .await;
-            match ret {
-                Err(e) => {
-                    info!("Running zrpc sever: {}", e);
-                }
-                Ok(_) => {
-                    warn!("zrpc sever stoped");
-                }
+        let ret = tonic::transport::Server::builder()
+            .add_service(zrs_server::ZrsServer::with_interceptor(
+                service,
+                Self::check_auth,
+            ))
+            .serve_with_shutdown(addr, f)
+            .await;
+        match ret {
+            Err(e) => {
+                info!("Running zrpc sever: {}", e);
             }
-        });
+            Ok(_) => {
+                warn!("zrpc sever stoped");
+            }
+        }
     }
 
     fn broadcast(&self, ev: Event) {
