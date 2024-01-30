@@ -8,9 +8,7 @@ struct Global {
     enode: Vec<u64>,
     listen_ip: String,
     listen_port: u16,
-    gateway_url: String,
-    timeout: u32,
-    secret_key: String,
+    password: String,
     apply_inbound_acl: String,
 }
 
@@ -20,9 +18,7 @@ impl Global {
             enode: Vec::new(),
             listen_ip: String::from("0.0.0.0"),
             listen_port: 8202,
-            gateway_url: String::from(""),
-            timeout: 10,
-            secret_key: "".to_string(),
+            password: "".to_string(),
             apply_inbound_acl: "".to_string(),
         }
     }
@@ -100,12 +96,8 @@ fn do_config() {
                 GLOBALS.lock().unwrap().listen_ip = val;
             } else if var.eq_ignore_ascii_case("listen-port") {
                 GLOBALS.lock().unwrap().listen_port = val.parse::<u16>().unwrap_or(8202);
-            } else if var.eq_ignore_ascii_case("gateway-url") {
-                GLOBALS.lock().unwrap().gateway_url = val;
-            } else if var.eq_ignore_ascii_case("timeout") {
-                GLOBALS.lock().unwrap().timeout = val.parse::<u32>().unwrap_or(10);
-            } else if var.eq_ignore_ascii_case("secret_key") {
-                GLOBALS.lock().unwrap().secret_key = val;
+            } else if var.eq_ignore_ascii_case("password") {
+                GLOBALS.lock().unwrap().password = val;
             } else if var.eq_ignore_ascii_case("apply-inbound-acl") {
                 GLOBALS.lock().unwrap().apply_inbound_acl = val;
             }
@@ -131,25 +123,10 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
     let listen_ip = GLOBALS.lock().unwrap().listen_ip.clone();
     let listen_port = GLOBALS.lock().unwrap().listen_port;
     let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
-    let dst = GLOBALS.lock().unwrap().gateway_url.clone();
-    let secret = GLOBALS.lock().unwrap().secret_key.clone();
-    let apply_inbound_acl = GLOBALS.lock().unwrap().apply_inbound_acl.clone();
+    let password = GLOBALS.lock().unwrap().password.clone();
+    let acl = GLOBALS.lock().unwrap().apply_inbound_acl.clone();
 
-    let info = zrs::Info {
-        name: fsr::get_variable("hostname"),
-        ip: fsr::get_variable("local_ip_v4"),
-        uuid: fsr::get_variable("core_uuid"),
-        uri: bind_uri.clone(),
-    };
-
-    let server = zrs::Server {
-        bind_uri,
-        register_uri: dst,
-        secret,
-        apply_inbound_acl,
-    };
-
-    zrs::serve(server, info);
+    zrs::serve(bind_uri, password, acl);
 
     fsr_api!(m, "zsr", "zsr desc", "zsr syntax", api_zsr);
 

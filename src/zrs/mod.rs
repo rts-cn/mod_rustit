@@ -1,11 +1,10 @@
 use std::sync::Mutex;
 use tokio::sync::broadcast;
 use tonic::{Request, Status};
-use url::Url;
 
 use fsr::*;
-use std::thread;
 use lazy_static::lazy_static;
+use std::thread;
 
 include!("pb.rs");
 pub mod event;
@@ -25,7 +24,7 @@ pub struct Zrs {
     done: Option<broadcast::Sender<u8>>,
     register_host: Option<String>,
     apply_inbound_acl: Option<String>,
-    secret: Option<String>,
+    password: Option<String>,
 }
 
 impl Zrs {
@@ -37,7 +36,7 @@ impl Zrs {
             done: None,
             register_host: None,
             apply_inbound_acl: None,
-            secret: None,
+            password: None,
         }
     }
 
@@ -58,9 +57,9 @@ impl Zrs {
         let authorization = req.metadata().get("authorization");
         match authorization {
             Some(t) => {
-                let secret_key = G_ZRS.lock().unwrap().secret.clone();
+                let password = G_ZRS.lock().unwrap().password.clone();
                 let token = t.to_str().unwrap();
-                let check = token::verify(&secret_key.unwrap(), token);
+                let check = token::verify(&password.unwrap(), token);
                 match check {
                     Ok(_) => Ok(req),
                     Err(e) => Err(Status::unauthenticated(e)),
@@ -71,23 +70,14 @@ impl Zrs {
     }
 
     #[tokio::main]
-    async fn tokio_main(server: Server, node: Info) {
-        let addr = server.bind_uri.clone();
+    async fn tokio_main(addr: String, password: String, acl: String) {
+        let addr = addr.clone();
         let addr = addr
             .parse::<std::net::SocketAddr>()
             .expect("Unable to parse grpc socket address");
 
-        let url = Url::parse(&server.register_uri);
-        match url {
-            Err(e) => {
-                error!("register uri parse error {}", e);
-                return;
-            }
-            Ok(url) => {
-                let host = url.host_str().unwrap();
-                G_ZRS.lock().unwrap().register_host = Some(String::from(host));
-            }
-        }
+        G_ZRS.lock().unwrap().password = Some(password);
+        G_ZRS.lock().unwrap().apply_inbound_acl = Some(acl);
 
         let (tx, mut rx) = broadcast::channel::<u8>(1);
         let f = async move {
@@ -118,47 +108,6 @@ impl Zrs {
                 }
             }
         });
-
-        let client = zrc_client::ZrcClient::connect(server.register_uri.clone()).await;
-        match client {
-            Err(e) => {
-                error!("Failed to connect to {}:{}", server.register_uri, e);
-                return;
-            }
-            Ok(mut client) => {
-                let uuid = node.uuid.clone();
-                let request = tonic::Request::new(RegisterRequest { info: Some(node) });
-                let response = client.register(request).await;
-                match response {
-                    Err(e) => {
-                        error!("Node registered {}", e);
-                    }
-                    Ok(response) => {
-                        debug!(
-                            "Node registered {} [{}]",
-                            response.get_ref().message,
-                            response.get_ref().code
-                        );
-                    }
-                }
-                let mut done = tx.clone().subscribe();
-                let _ = done.recv().await;
-                let request = tonic::Request::new(UnRegisterRequest { uuid });
-                let response = client.un_register(request).await;
-                match response {
-                    Err(e) => {
-                        error!("Node unregistered {}", e);
-                    }
-                    Ok(response) => {
-                        debug!(
-                            "Node unregistered {} [{}]",
-                            response.get_ref().message,
-                            response.get_ref().code
-                        );
-                    }
-                }
-            }
-        };
     }
 
     fn broadcast(&self, ev: Event) {
@@ -177,8 +126,8 @@ impl Zrs {
         let _ = self.done.clone().unwrap().send(1);
     }
 
-    fn serve(&mut self, server: Server, node: Info) {
-        thread::spawn(|| Self::tokio_main(server, node));
+    fn serve(&mut self, addr: String, password: String, acl: String) {
+        thread::spawn(|| Self::tokio_main(addr, password, acl));
     }
 }
 
@@ -194,6 +143,6 @@ pub fn broadcast(ev: Event) {
     G_ZRS.lock().unwrap().broadcast(ev);
 }
 
-pub fn serve(server: Server, node: Info) {
-    G_ZRS.lock().unwrap().serve(server, node);
+pub fn serve(addr: String, password: String, acl: String) {
+    G_ZRS.lock().unwrap().serve(addr, password, acl);
 }

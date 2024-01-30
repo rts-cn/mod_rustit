@@ -22,7 +22,6 @@ paste = { version = "1.0.14" }
 jwt = { version = "0.16"}
 hmac = { version = "0.12", features = ["reset"] }
 sha2 = { version = "0.10"}
-url = { version = "2.5.0" }
 
 [build-dependencies]
 tonic-build = "0.10"
