@@ -27,7 +27,7 @@ fn main() {
         // bindings for.
         .header(headers_path_str)
         .allowlist_file(".*freeswitch.*")
-        .rustified_enum(".*")
+        .newtype_enum(".*")
         .derive_hash(false)
         .generate_comments(false)
         .clang_arg("-I/usr/local/freeswitch/include/freeswitch")

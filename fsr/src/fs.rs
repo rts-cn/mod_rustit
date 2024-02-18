@@ -958,56 +958,125 @@ extern "C" {
         string: *const ::std::os::raw::c_char,
     ) -> *const ::std::os::raw::c_char;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum vpx_img_fmt {
-    VPX_IMG_FMT_NONE = 0,
-    VPX_IMG_FMT_RGB24 = 1,
-    VPX_IMG_FMT_RGB32 = 2,
-    VPX_IMG_FMT_RGB565 = 3,
-    VPX_IMG_FMT_RGB555 = 4,
-    VPX_IMG_FMT_UYVY = 5,
-    VPX_IMG_FMT_YUY2 = 6,
-    VPX_IMG_FMT_YVYU = 7,
-    VPX_IMG_FMT_BGR24 = 8,
-    VPX_IMG_FMT_RGB32_LE = 9,
-    VPX_IMG_FMT_ARGB = 10,
-    VPX_IMG_FMT_ARGB_LE = 11,
-    VPX_IMG_FMT_RGB565_LE = 12,
-    VPX_IMG_FMT_RGB555_LE = 13,
-    VPX_IMG_FMT_YV12 = 769,
-    VPX_IMG_FMT_I420 = 258,
-    VPX_IMG_FMT_VPXYV12 = 771,
-    VPX_IMG_FMT_VPXI420 = 260,
-    VPX_IMG_FMT_I422 = 261,
-    VPX_IMG_FMT_I444 = 262,
-    VPX_IMG_FMT_I440 = 263,
-    VPX_IMG_FMT_444A = 1286,
-    VPX_IMG_FMT_I42016 = 2306,
-    VPX_IMG_FMT_I42216 = 2309,
-    VPX_IMG_FMT_I44416 = 2310,
-    VPX_IMG_FMT_I44016 = 2311,
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_NONE: vpx_img_fmt = vpx_img_fmt(0);
 }
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB24: vpx_img_fmt = vpx_img_fmt(1);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB32: vpx_img_fmt = vpx_img_fmt(2);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB565: vpx_img_fmt = vpx_img_fmt(3);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB555: vpx_img_fmt = vpx_img_fmt(4);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_UYVY: vpx_img_fmt = vpx_img_fmt(5);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_YUY2: vpx_img_fmt = vpx_img_fmt(6);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_YVYU: vpx_img_fmt = vpx_img_fmt(7);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_BGR24: vpx_img_fmt = vpx_img_fmt(8);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB32_LE: vpx_img_fmt = vpx_img_fmt(9);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_ARGB: vpx_img_fmt = vpx_img_fmt(10);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_ARGB_LE: vpx_img_fmt = vpx_img_fmt(11);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB565_LE: vpx_img_fmt = vpx_img_fmt(12);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_RGB555_LE: vpx_img_fmt = vpx_img_fmt(13);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_YV12: vpx_img_fmt = vpx_img_fmt(769);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I420: vpx_img_fmt = vpx_img_fmt(258);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_VPXYV12: vpx_img_fmt = vpx_img_fmt(771);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_VPXI420: vpx_img_fmt = vpx_img_fmt(260);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I422: vpx_img_fmt = vpx_img_fmt(261);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I444: vpx_img_fmt = vpx_img_fmt(262);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I440: vpx_img_fmt = vpx_img_fmt(263);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_444A: vpx_img_fmt = vpx_img_fmt(1286);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I42016: vpx_img_fmt = vpx_img_fmt(2306);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I42216: vpx_img_fmt = vpx_img_fmt(2309);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I44416: vpx_img_fmt = vpx_img_fmt(2310);
+}
+impl vpx_img_fmt {
+    pub const VPX_IMG_FMT_I44016: vpx_img_fmt = vpx_img_fmt(2311);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct vpx_img_fmt(pub ::std::os::raw::c_uint);
 pub use self::vpx_img_fmt as vpx_img_fmt_t;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum vpx_color_space {
-    VPX_CS_UNKNOWN = 0,
-    VPX_CS_BT_601 = 1,
-    VPX_CS_BT_709 = 2,
-    VPX_CS_SMPTE_170 = 3,
-    VPX_CS_SMPTE_240 = 4,
-    VPX_CS_BT_2020 = 5,
-    VPX_CS_RESERVED = 6,
-    VPX_CS_SRGB = 7,
+impl vpx_color_space {
+    pub const VPX_CS_UNKNOWN: vpx_color_space = vpx_color_space(0);
 }
+impl vpx_color_space {
+    pub const VPX_CS_BT_601: vpx_color_space = vpx_color_space(1);
+}
+impl vpx_color_space {
+    pub const VPX_CS_BT_709: vpx_color_space = vpx_color_space(2);
+}
+impl vpx_color_space {
+    pub const VPX_CS_SMPTE_170: vpx_color_space = vpx_color_space(3);
+}
+impl vpx_color_space {
+    pub const VPX_CS_SMPTE_240: vpx_color_space = vpx_color_space(4);
+}
+impl vpx_color_space {
+    pub const VPX_CS_BT_2020: vpx_color_space = vpx_color_space(5);
+}
+impl vpx_color_space {
+    pub const VPX_CS_RESERVED: vpx_color_space = vpx_color_space(6);
+}
+impl vpx_color_space {
+    pub const VPX_CS_SRGB: vpx_color_space = vpx_color_space(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct vpx_color_space(pub ::std::os::raw::c_uint);
 pub use self::vpx_color_space as vpx_color_space_t;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum vpx_color_range {
-    VPX_CR_STUDIO_RANGE = 0,
-    VPX_CR_FULL_RANGE = 1,
+impl vpx_color_range {
+    pub const VPX_CR_STUDIO_RANGE: vpx_color_range = vpx_color_range(0);
 }
+impl vpx_color_range {
+    pub const VPX_CR_FULL_RANGE: vpx_color_range = vpx_color_range(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct vpx_color_range(pub ::std::os::raw::c_uint);
 pub use self::vpx_color_range as vpx_color_range_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1080,34 +1149,54 @@ extern "C" {
 pub use self::vpx_img_fmt_t as switch_img_fmt_t;
 pub type switch_image_t = vpx_image_t;
 pub type switch_byte_t = u8;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_pvt_class_t {
-    SWITCH_PVT_PRIMARY = 0,
-    SWITCH_PVT_SECONDARY = 1,
+impl switch_pvt_class_t {
+    pub const SWITCH_PVT_PRIMARY: switch_pvt_class_t = switch_pvt_class_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_dtmf_source_t {
-    SWITCH_DTMF_UNKNOWN = 0,
-    SWITCH_DTMF_INBAND_AUDIO = 1,
-    SWITCH_DTMF_RTP = 2,
-    SWITCH_DTMF_ENDPOINT = 3,
-    SWITCH_DTMF_APP = 4,
+impl switch_pvt_class_t {
+    pub const SWITCH_PVT_SECONDARY: switch_pvt_class_t = switch_pvt_class_t(1);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_digit_action_target_t {
-    DIGIT_TARGET_SELF = 0,
-    DIGIT_TARGET_PEER = 1,
-    DIGIT_TARGET_BOTH = 2,
+pub struct switch_pvt_class_t(pub ::std::os::raw::c_uint);
+impl switch_dtmf_source_t {
+    pub const SWITCH_DTMF_UNKNOWN: switch_dtmf_source_t = switch_dtmf_source_t(0);
 }
-#[repr(u32)]
+impl switch_dtmf_source_t {
+    pub const SWITCH_DTMF_INBAND_AUDIO: switch_dtmf_source_t = switch_dtmf_source_t(1);
+}
+impl switch_dtmf_source_t {
+    pub const SWITCH_DTMF_RTP: switch_dtmf_source_t = switch_dtmf_source_t(2);
+}
+impl switch_dtmf_source_t {
+    pub const SWITCH_DTMF_ENDPOINT: switch_dtmf_source_t = switch_dtmf_source_t(3);
+}
+impl switch_dtmf_source_t {
+    pub const SWITCH_DTMF_APP: switch_dtmf_source_t = switch_dtmf_source_t(4);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum dtmf_flag_t {
-    DTMF_FLAG_SKIP_PROCESS = 1,
-    DTMF_FLAG_SENSITIVE = 2,
+pub struct switch_dtmf_source_t(pub ::std::os::raw::c_uint);
+impl switch_digit_action_target_t {
+    pub const DIGIT_TARGET_SELF: switch_digit_action_target_t = switch_digit_action_target_t(0);
 }
+impl switch_digit_action_target_t {
+    pub const DIGIT_TARGET_PEER: switch_digit_action_target_t = switch_digit_action_target_t(1);
+}
+impl switch_digit_action_target_t {
+    pub const DIGIT_TARGET_BOTH: switch_digit_action_target_t = switch_digit_action_target_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_digit_action_target_t(pub ::std::os::raw::c_uint);
+impl dtmf_flag_t {
+    pub const DTMF_FLAG_SKIP_PROCESS: dtmf_flag_t = dtmf_flag_t(1);
+}
+impl dtmf_flag_t {
+    pub const DTMF_FLAG_SENSITIVE: dtmf_flag_t = dtmf_flag_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct dtmf_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_dtmf_t {
@@ -1116,246 +1205,562 @@ pub struct switch_dtmf_t {
     pub flags: i32,
     pub source: switch_dtmf_source_t,
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_call_direction_t {
-    SWITCH_CALL_DIRECTION_INBOUND = 0,
-    SWITCH_CALL_DIRECTION_OUTBOUND = 1,
+impl switch_call_direction_t {
+    pub const SWITCH_CALL_DIRECTION_INBOUND: switch_call_direction_t = switch_call_direction_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_bind_flag_enum_t {
-    SBF_DIAL_ALEG = 1,
-    SBF_EXEC_ALEG = 2,
-    SBF_DIAL_BLEG = 4,
-    SBF_EXEC_BLEG = 8,
-    SBF_EXEC_OPPOSITE = 16,
-    SBF_EXEC_SAME = 32,
-    SBF_ONCE = 64,
-    SBF_EXEC_INLINE = 128,
+impl switch_call_direction_t {
+    pub const SWITCH_CALL_DIRECTION_OUTBOUND: switch_call_direction_t = switch_call_direction_t(1);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_call_direction_t(pub ::std::os::raw::c_uint);
+impl switch_bind_flag_enum_t {
+    pub const SBF_DIAL_ALEG: switch_bind_flag_enum_t = switch_bind_flag_enum_t(1);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_EXEC_ALEG: switch_bind_flag_enum_t = switch_bind_flag_enum_t(2);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_DIAL_BLEG: switch_bind_flag_enum_t = switch_bind_flag_enum_t(4);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_EXEC_BLEG: switch_bind_flag_enum_t = switch_bind_flag_enum_t(8);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_EXEC_OPPOSITE: switch_bind_flag_enum_t = switch_bind_flag_enum_t(16);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_EXEC_SAME: switch_bind_flag_enum_t = switch_bind_flag_enum_t(32);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_ONCE: switch_bind_flag_enum_t = switch_bind_flag_enum_t(64);
+}
+impl switch_bind_flag_enum_t {
+    pub const SBF_EXEC_INLINE: switch_bind_flag_enum_t = switch_bind_flag_enum_t(128);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_bind_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_bind_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_dtmf_direction_t {
-    SWITCH_DTMF_RECV = 0,
-    SWITCH_DTMF_SEND = 1,
+impl switch_dtmf_direction_t {
+    pub const SWITCH_DTMF_RECV: switch_dtmf_direction_t = switch_dtmf_direction_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_originate_flag_enum_t {
-    SOF_NONE = 0,
-    SOF_NOBLOCK = 1,
-    SOF_FORKED_DIAL = 2,
-    SOF_NO_EFFECTIVE_ANI = 4,
-    SOF_NO_EFFECTIVE_ANIII = 8,
-    SOF_NO_EFFECTIVE_CID_NUM = 16,
-    SOF_NO_EFFECTIVE_CID_NAME = 32,
-    SOF_NO_LIMITS = 64,
+impl switch_dtmf_direction_t {
+    pub const SWITCH_DTMF_SEND: switch_dtmf_direction_t = switch_dtmf_direction_t(1);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_dtmf_direction_t(pub ::std::os::raw::c_uint);
+impl switch_originate_flag_enum_t {
+    pub const SOF_NONE: switch_originate_flag_enum_t = switch_originate_flag_enum_t(0);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NOBLOCK: switch_originate_flag_enum_t = switch_originate_flag_enum_t(1);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_FORKED_DIAL: switch_originate_flag_enum_t = switch_originate_flag_enum_t(2);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NO_EFFECTIVE_ANI: switch_originate_flag_enum_t = switch_originate_flag_enum_t(4);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NO_EFFECTIVE_ANIII: switch_originate_flag_enum_t =
+        switch_originate_flag_enum_t(8);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NO_EFFECTIVE_CID_NUM: switch_originate_flag_enum_t =
+        switch_originate_flag_enum_t(16);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NO_EFFECTIVE_CID_NAME: switch_originate_flag_enum_t =
+        switch_originate_flag_enum_t(32);
+}
+impl switch_originate_flag_enum_t {
+    pub const SOF_NO_LIMITS: switch_originate_flag_enum_t = switch_originate_flag_enum_t(64);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_originate_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_originate_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_port_flag_enum_t {
-    SPF_NONE = 0,
-    SPF_ODD = 1,
-    SPF_EVEN = 2,
-    SPF_ROBUST_TCP = 4,
-    SPF_ROBUST_UDP = 8,
+impl switch_port_flag_enum_t {
+    pub const SPF_NONE: switch_port_flag_enum_t = switch_port_flag_enum_t(0);
 }
+impl switch_port_flag_enum_t {
+    pub const SPF_ODD: switch_port_flag_enum_t = switch_port_flag_enum_t(1);
+}
+impl switch_port_flag_enum_t {
+    pub const SPF_EVEN: switch_port_flag_enum_t = switch_port_flag_enum_t(2);
+}
+impl switch_port_flag_enum_t {
+    pub const SPF_ROBUST_TCP: switch_port_flag_enum_t = switch_port_flag_enum_t(4);
+}
+impl switch_port_flag_enum_t {
+    pub const SPF_ROBUST_UDP: switch_port_flag_enum_t = switch_port_flag_enum_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_port_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_port_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_eavesdrop_flag_enum_t {
-    ED_NONE = 0,
-    ED_MUX_READ = 1,
-    ED_MUX_WRITE = 2,
-    ED_DTMF = 4,
-    ED_COPY_DISPLAY = 8,
-    ED_BRIDGE_READ = 16,
-    ED_BRIDGE_WRITE = 32,
-    ED_TAP_READ = 64,
-    ED_TAP_WRITE = 128,
-    ED_STEREO = 256,
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_NONE: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(0);
 }
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_MUX_READ: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(1);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_MUX_WRITE: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(2);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_DTMF: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(4);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_COPY_DISPLAY: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(8);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_BRIDGE_READ: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(16);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_BRIDGE_WRITE: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(32);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_TAP_READ: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(64);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_TAP_WRITE: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(128);
+}
+impl switch_eavesdrop_flag_enum_t {
+    pub const ED_STEREO: switch_eavesdrop_flag_enum_t = switch_eavesdrop_flag_enum_t(256);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_eavesdrop_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_eavesdrop_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_flag_enum_t {
-    SCF_NONE = 0,
-    SCF_USE_SQL = 1,
-    SCF_NO_NEW_OUTBOUND_SESSIONS = 2,
-    SCF_NO_NEW_INBOUND_SESSIONS = 4,
-    SCF_NO_NEW_SESSIONS = 6,
-    SCF_SHUTTING_DOWN = 8,
-    SCF_VG = 16,
-    SCF_RESTART = 32,
-    SCF_SHUTDOWN_REQUESTED = 64,
-    SCF_USE_AUTO_NAT = 128,
-    SCF_EARLY_HANGUP = 256,
-    SCF_CALIBRATE_CLOCK = 512,
-    SCF_USE_HEAVY_TIMING = 1024,
-    SCF_USE_CLOCK_RT = 2048,
-    SCF_VERBOSE_EVENTS = 4096,
-    SCF_USE_WIN32_MONOTONIC = 8192,
-    SCF_AUTO_SCHEMAS = 16384,
-    SCF_MINIMAL = 32768,
-    SCF_USE_NAT_MAPPING = 65536,
-    SCF_CLEAR_SQL = 131072,
-    SCF_THREADED_SYSTEM_EXEC = 262144,
-    SCF_SYNC_CLOCK_REQUESTED = 524288,
-    SCF_CORE_NON_SQLITE_DB_REQ = 1048576,
-    SCF_DEBUG_SQL = 2097152,
-    SCF_API_EXPANSION = 4194304,
-    SCF_SESSION_THREAD_POOL = 8388608,
-    SCF_DIALPLAN_TIMESTAMPS = 16777216,
-    SCF_CPF_SOFT_PREFIX = 33554432,
-    SCF_CPF_SOFT_LOOKUP = 67108864,
-    SCF_EVENT_CHANNEL_ENABLE_HIERARCHY_DELIVERY = 134217728,
-    SCF_EVENT_CHANNEL_HIERARCHY_DELIVERY_ONCE = 268435456,
-    SCF_EVENT_CHANNEL_LOG_UNDELIVERABLE_JSON = 536870912,
-    SCF_LOG_DISABLE = 1073741824,
+impl switch_core_flag_enum_t {
+    pub const SCF_NONE: switch_core_flag_enum_t = switch_core_flag_enum_t(0);
 }
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_SQL: switch_core_flag_enum_t = switch_core_flag_enum_t(1);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_NO_NEW_OUTBOUND_SESSIONS: switch_core_flag_enum_t = switch_core_flag_enum_t(2);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_NO_NEW_INBOUND_SESSIONS: switch_core_flag_enum_t = switch_core_flag_enum_t(4);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_NO_NEW_SESSIONS: switch_core_flag_enum_t = switch_core_flag_enum_t(6);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_SHUTTING_DOWN: switch_core_flag_enum_t = switch_core_flag_enum_t(8);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_VG: switch_core_flag_enum_t = switch_core_flag_enum_t(16);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_RESTART: switch_core_flag_enum_t = switch_core_flag_enum_t(32);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_SHUTDOWN_REQUESTED: switch_core_flag_enum_t = switch_core_flag_enum_t(64);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_AUTO_NAT: switch_core_flag_enum_t = switch_core_flag_enum_t(128);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_EARLY_HANGUP: switch_core_flag_enum_t = switch_core_flag_enum_t(256);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_CALIBRATE_CLOCK: switch_core_flag_enum_t = switch_core_flag_enum_t(512);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_HEAVY_TIMING: switch_core_flag_enum_t = switch_core_flag_enum_t(1024);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_CLOCK_RT: switch_core_flag_enum_t = switch_core_flag_enum_t(2048);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_VERBOSE_EVENTS: switch_core_flag_enum_t = switch_core_flag_enum_t(4096);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_WIN32_MONOTONIC: switch_core_flag_enum_t = switch_core_flag_enum_t(8192);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_AUTO_SCHEMAS: switch_core_flag_enum_t = switch_core_flag_enum_t(16384);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_MINIMAL: switch_core_flag_enum_t = switch_core_flag_enum_t(32768);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_USE_NAT_MAPPING: switch_core_flag_enum_t = switch_core_flag_enum_t(65536);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_CLEAR_SQL: switch_core_flag_enum_t = switch_core_flag_enum_t(131072);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_THREADED_SYSTEM_EXEC: switch_core_flag_enum_t = switch_core_flag_enum_t(262144);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_SYNC_CLOCK_REQUESTED: switch_core_flag_enum_t = switch_core_flag_enum_t(524288);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_CORE_NON_SQLITE_DB_REQ: switch_core_flag_enum_t =
+        switch_core_flag_enum_t(1048576);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_DEBUG_SQL: switch_core_flag_enum_t = switch_core_flag_enum_t(2097152);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_API_EXPANSION: switch_core_flag_enum_t = switch_core_flag_enum_t(4194304);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_SESSION_THREAD_POOL: switch_core_flag_enum_t = switch_core_flag_enum_t(8388608);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_DIALPLAN_TIMESTAMPS: switch_core_flag_enum_t = switch_core_flag_enum_t(16777216);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_CPF_SOFT_PREFIX: switch_core_flag_enum_t = switch_core_flag_enum_t(33554432);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_CPF_SOFT_LOOKUP: switch_core_flag_enum_t = switch_core_flag_enum_t(67108864);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_EVENT_CHANNEL_ENABLE_HIERARCHY_DELIVERY: switch_core_flag_enum_t =
+        switch_core_flag_enum_t(134217728);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_EVENT_CHANNEL_HIERARCHY_DELIVERY_ONCE: switch_core_flag_enum_t =
+        switch_core_flag_enum_t(268435456);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_EVENT_CHANNEL_LOG_UNDELIVERABLE_JSON: switch_core_flag_enum_t =
+        switch_core_flag_enum_t(536870912);
+}
+impl switch_core_flag_enum_t {
+    pub const SCF_LOG_DISABLE: switch_core_flag_enum_t = switch_core_flag_enum_t(1073741824);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_core_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_module_interface_name_t {
-    SWITCH_ENDPOINT_INTERFACE = 0,
-    SWITCH_TIMER_INTERFACE = 1,
-    SWITCH_DIALPLAN_INTERFACE = 2,
-    SWITCH_CODEC_INTERFACE = 3,
-    SWITCH_APPLICATION_INTERFACE = 4,
-    SWITCH_API_INTERFACE = 5,
-    SWITCH_FILE_INTERFACE = 6,
-    SWITCH_SPEECH_INTERFACE = 7,
-    SWITCH_DIRECTORY_INTERFACE = 8,
-    SWITCH_CHAT_INTERFACE = 9,
-    SWITCH_SAY_INTERFACE = 10,
-    SWITCH_ASR_INTERFACE = 11,
-    SWITCH_MANAGEMENT_INTERFACE = 12,
-    SWITCH_LIMIT_INTERFACE = 13,
-    SWITCH_CHAT_APPLICATION_INTERFACE = 14,
-    SWITCH_JSON_API_INTERFACE = 15,
-    SWITCH_DATABASE_INTERFACE = 16,
+impl switch_module_interface_name_t {
+    pub const SWITCH_ENDPOINT_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_database_flag_enum_t {
-    SWITCH_DATABASE_FLAG_ROW_SIZE_LIMIT = 1,
+impl switch_module_interface_name_t {
+    pub const SWITCH_TIMER_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(1);
 }
+impl switch_module_interface_name_t {
+    pub const SWITCH_DIALPLAN_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(2);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_CODEC_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(3);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_APPLICATION_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(4);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_API_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(5);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_FILE_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(6);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_SPEECH_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(7);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_DIRECTORY_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(8);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_CHAT_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(9);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_SAY_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(10);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_ASR_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(11);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_MANAGEMENT_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(12);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_LIMIT_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(13);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_CHAT_APPLICATION_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(14);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_JSON_API_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(15);
+}
+impl switch_module_interface_name_t {
+    pub const SWITCH_DATABASE_INTERFACE: switch_module_interface_name_t =
+        switch_module_interface_name_t(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_module_interface_name_t(pub ::std::os::raw::c_uint);
+impl switch_database_flag_enum_t {
+    pub const SWITCH_DATABASE_FLAG_ROW_SIZE_LIMIT: switch_database_flag_enum_t =
+        switch_database_flag_enum_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_database_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_database_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_unicast_flag_enum_t {
-    SUF_NONE = 0,
-    SUF_THREAD_RUNNING = 1,
-    SUF_READY = 2,
-    SUF_NATIVE = 4,
+impl switch_unicast_flag_enum_t {
+    pub const SUF_NONE: switch_unicast_flag_enum_t = switch_unicast_flag_enum_t(0);
 }
+impl switch_unicast_flag_enum_t {
+    pub const SUF_THREAD_RUNNING: switch_unicast_flag_enum_t = switch_unicast_flag_enum_t(1);
+}
+impl switch_unicast_flag_enum_t {
+    pub const SUF_READY: switch_unicast_flag_enum_t = switch_unicast_flag_enum_t(2);
+}
+impl switch_unicast_flag_enum_t {
+    pub const SUF_NATIVE: switch_unicast_flag_enum_t = switch_unicast_flag_enum_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_unicast_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_unicast_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_bool_t {
-    SWITCH_FALSE = 0,
-    SWITCH_TRUE = 1,
+impl switch_bool_t {
+    pub const SWITCH_FALSE: switch_bool_t = switch_bool_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_say_method_t {
-    SSM_NA = 0,
-    SSM_PRONOUNCED = 1,
-    SSM_ITERATED = 2,
-    SSM_COUNTED = 3,
-    SSM_PRONOUNCED_YEAR = 4,
+impl switch_bool_t {
+    pub const SWITCH_TRUE: switch_bool_t = switch_bool_t(1);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_say_type_t {
-    SST_NUMBER = 0,
-    SST_ITEMS = 1,
-    SST_PERSONS = 2,
-    SST_MESSAGES = 3,
-    SST_CURRENCY = 4,
-    SST_TIME_MEASUREMENT = 5,
-    SST_CURRENT_DATE = 6,
-    SST_CURRENT_TIME = 7,
-    SST_CURRENT_DATE_TIME = 8,
-    SST_TELEPHONE_NUMBER = 9,
-    SST_TELEPHONE_EXTENSION = 10,
-    SST_URL = 11,
-    SST_IP_ADDRESS = 12,
-    SST_EMAIL_ADDRESS = 13,
-    SST_POSTAL_ADDRESS = 14,
-    SST_ACCOUNT_NUMBER = 15,
-    SST_NAME_SPELLED = 16,
-    SST_NAME_PHONETIC = 17,
-    SST_SHORT_DATE_TIME = 18,
+pub struct switch_bool_t(pub ::std::os::raw::c_uint);
+impl switch_say_method_t {
+    pub const SSM_NA: switch_say_method_t = switch_say_method_t(0);
 }
-#[repr(u32)]
+impl switch_say_method_t {
+    pub const SSM_PRONOUNCED: switch_say_method_t = switch_say_method_t(1);
+}
+impl switch_say_method_t {
+    pub const SSM_ITERATED: switch_say_method_t = switch_say_method_t(2);
+}
+impl switch_say_method_t {
+    pub const SSM_COUNTED: switch_say_method_t = switch_say_method_t(3);
+}
+impl switch_say_method_t {
+    pub const SSM_PRONOUNCED_YEAR: switch_say_method_t = switch_say_method_t(4);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_say_gender_t {
-    SSG_MASCULINE = 0,
-    SSG_FEMININE = 1,
-    SSG_NEUTER = 2,
-    SSG_UTRUM = 3,
+pub struct switch_say_method_t(pub ::std::os::raw::c_uint);
+impl switch_say_type_t {
+    pub const SST_NUMBER: switch_say_type_t = switch_say_type_t(0);
 }
-#[repr(u32)]
+impl switch_say_type_t {
+    pub const SST_ITEMS: switch_say_type_t = switch_say_type_t(1);
+}
+impl switch_say_type_t {
+    pub const SST_PERSONS: switch_say_type_t = switch_say_type_t(2);
+}
+impl switch_say_type_t {
+    pub const SST_MESSAGES: switch_say_type_t = switch_say_type_t(3);
+}
+impl switch_say_type_t {
+    pub const SST_CURRENCY: switch_say_type_t = switch_say_type_t(4);
+}
+impl switch_say_type_t {
+    pub const SST_TIME_MEASUREMENT: switch_say_type_t = switch_say_type_t(5);
+}
+impl switch_say_type_t {
+    pub const SST_CURRENT_DATE: switch_say_type_t = switch_say_type_t(6);
+}
+impl switch_say_type_t {
+    pub const SST_CURRENT_TIME: switch_say_type_t = switch_say_type_t(7);
+}
+impl switch_say_type_t {
+    pub const SST_CURRENT_DATE_TIME: switch_say_type_t = switch_say_type_t(8);
+}
+impl switch_say_type_t {
+    pub const SST_TELEPHONE_NUMBER: switch_say_type_t = switch_say_type_t(9);
+}
+impl switch_say_type_t {
+    pub const SST_TELEPHONE_EXTENSION: switch_say_type_t = switch_say_type_t(10);
+}
+impl switch_say_type_t {
+    pub const SST_URL: switch_say_type_t = switch_say_type_t(11);
+}
+impl switch_say_type_t {
+    pub const SST_IP_ADDRESS: switch_say_type_t = switch_say_type_t(12);
+}
+impl switch_say_type_t {
+    pub const SST_EMAIL_ADDRESS: switch_say_type_t = switch_say_type_t(13);
+}
+impl switch_say_type_t {
+    pub const SST_POSTAL_ADDRESS: switch_say_type_t = switch_say_type_t(14);
+}
+impl switch_say_type_t {
+    pub const SST_ACCOUNT_NUMBER: switch_say_type_t = switch_say_type_t(15);
+}
+impl switch_say_type_t {
+    pub const SST_NAME_SPELLED: switch_say_type_t = switch_say_type_t(16);
+}
+impl switch_say_type_t {
+    pub const SST_NAME_PHONETIC: switch_say_type_t = switch_say_type_t(17);
+}
+impl switch_say_type_t {
+    pub const SST_SHORT_DATE_TIME: switch_say_type_t = switch_say_type_t(18);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_management_action_t {
-    SMA_NONE = 0,
-    SMA_GET = 1,
-    SMA_SET = 2,
+pub struct switch_say_type_t(pub ::std::os::raw::c_uint);
+impl switch_say_gender_t {
+    pub const SSG_MASCULINE: switch_say_gender_t = switch_say_gender_t(0);
 }
-#[repr(u32)]
+impl switch_say_gender_t {
+    pub const SSG_FEMININE: switch_say_gender_t = switch_say_gender_t(1);
+}
+impl switch_say_gender_t {
+    pub const SSG_NEUTER: switch_say_gender_t = switch_say_gender_t(2);
+}
+impl switch_say_gender_t {
+    pub const SSG_UTRUM: switch_say_gender_t = switch_say_gender_t(3);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_scheduler_flag_enum_t {
-    SSHF_NONE = 0,
-    SSHF_OWN_THREAD = 1,
-    SSHF_FREE_ARG = 2,
-    SSHF_NO_DEL = 4,
+pub struct switch_say_gender_t(pub ::std::os::raw::c_uint);
+impl switch_management_action_t {
+    pub const SMA_NONE: switch_management_action_t = switch_management_action_t(0);
 }
+impl switch_management_action_t {
+    pub const SMA_GET: switch_management_action_t = switch_management_action_t(1);
+}
+impl switch_management_action_t {
+    pub const SMA_SET: switch_management_action_t = switch_management_action_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_management_action_t(pub ::std::os::raw::c_uint);
+impl switch_scheduler_flag_enum_t {
+    pub const SSHF_NONE: switch_scheduler_flag_enum_t = switch_scheduler_flag_enum_t(0);
+}
+impl switch_scheduler_flag_enum_t {
+    pub const SSHF_OWN_THREAD: switch_scheduler_flag_enum_t = switch_scheduler_flag_enum_t(1);
+}
+impl switch_scheduler_flag_enum_t {
+    pub const SSHF_FREE_ARG: switch_scheduler_flag_enum_t = switch_scheduler_flag_enum_t(2);
+}
+impl switch_scheduler_flag_enum_t {
+    pub const SSHF_NO_DEL: switch_scheduler_flag_enum_t = switch_scheduler_flag_enum_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_scheduler_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_scheduler_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_media_flag_enum_t {
-    SMF_NONE = 0,
-    SMF_REBRIDGE = 1,
-    SMF_ECHO_ALEG = 2,
-    SMF_ECHO_BLEG = 4,
-    SMF_FORCE = 8,
-    SMF_LOOP = 16,
-    SMF_HOLD_BLEG = 32,
-    SMF_IMMEDIATE = 64,
-    SMF_EXEC_INLINE = 128,
-    SMF_PRIORITY = 256,
-    SMF_REPLYONLY_A = 512,
-    SMF_REPLYONLY_B = 1024,
+impl switch_media_flag_enum_t {
+    pub const SMF_NONE: switch_media_flag_enum_t = switch_media_flag_enum_t(0);
 }
+impl switch_media_flag_enum_t {
+    pub const SMF_REBRIDGE: switch_media_flag_enum_t = switch_media_flag_enum_t(1);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_ECHO_ALEG: switch_media_flag_enum_t = switch_media_flag_enum_t(2);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_ECHO_BLEG: switch_media_flag_enum_t = switch_media_flag_enum_t(4);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_FORCE: switch_media_flag_enum_t = switch_media_flag_enum_t(8);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_LOOP: switch_media_flag_enum_t = switch_media_flag_enum_t(16);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_HOLD_BLEG: switch_media_flag_enum_t = switch_media_flag_enum_t(32);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_IMMEDIATE: switch_media_flag_enum_t = switch_media_flag_enum_t(64);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_EXEC_INLINE: switch_media_flag_enum_t = switch_media_flag_enum_t(128);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_PRIORITY: switch_media_flag_enum_t = switch_media_flag_enum_t(256);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_REPLYONLY_A: switch_media_flag_enum_t = switch_media_flag_enum_t(512);
+}
+impl switch_media_flag_enum_t {
+    pub const SMF_REPLYONLY_B: switch_media_flag_enum_t = switch_media_flag_enum_t(1024);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_media_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_media_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_bitpack_mode_t {
-    SWITCH_BITPACK_MODE_RFC3551 = 0,
-    SWITCH_BITPACK_MODE_AAL2 = 1,
+impl switch_bitpack_mode_t {
+    pub const SWITCH_BITPACK_MODE_RFC3551: switch_bitpack_mode_t = switch_bitpack_mode_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_abc_type_t {
-    SWITCH_ABC_TYPE_INIT = 0,
-    SWITCH_ABC_TYPE_READ = 1,
-    SWITCH_ABC_TYPE_WRITE = 2,
-    SWITCH_ABC_TYPE_WRITE_REPLACE = 3,
-    SWITCH_ABC_TYPE_READ_REPLACE = 4,
-    SWITCH_ABC_TYPE_READ_PING = 5,
-    SWITCH_ABC_TYPE_TAP_NATIVE_READ = 6,
-    SWITCH_ABC_TYPE_TAP_NATIVE_WRITE = 7,
-    SWITCH_ABC_TYPE_CLOSE = 8,
-    SWITCH_ABC_TYPE_READ_VIDEO_PING = 9,
-    SWITCH_ABC_TYPE_WRITE_VIDEO_PING = 10,
-    SWITCH_ABC_TYPE_STREAM_VIDEO_PING = 11,
-    SWITCH_ABC_TYPE_VIDEO_PATCH = 12,
-    SWITCH_ABC_TYPE_READ_TEXT = 13,
+impl switch_bitpack_mode_t {
+    pub const SWITCH_BITPACK_MODE_AAL2: switch_bitpack_mode_t = switch_bitpack_mode_t(1);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_bitpack_mode_t(pub ::std::os::raw::c_uint);
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_INIT: switch_abc_type_t = switch_abc_type_t(0);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_READ: switch_abc_type_t = switch_abc_type_t(1);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_WRITE: switch_abc_type_t = switch_abc_type_t(2);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_WRITE_REPLACE: switch_abc_type_t = switch_abc_type_t(3);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_READ_REPLACE: switch_abc_type_t = switch_abc_type_t(4);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_READ_PING: switch_abc_type_t = switch_abc_type_t(5);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_TAP_NATIVE_READ: switch_abc_type_t = switch_abc_type_t(6);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_TAP_NATIVE_WRITE: switch_abc_type_t = switch_abc_type_t(7);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_CLOSE: switch_abc_type_t = switch_abc_type_t(8);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_READ_VIDEO_PING: switch_abc_type_t = switch_abc_type_t(9);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_WRITE_VIDEO_PING: switch_abc_type_t = switch_abc_type_t(10);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_STREAM_VIDEO_PING: switch_abc_type_t = switch_abc_type_t(11);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_VIDEO_PATCH: switch_abc_type_t = switch_abc_type_t(12);
+}
+impl switch_abc_type_t {
+    pub const SWITCH_ABC_TYPE_READ_TEXT: switch_abc_type_t = switch_abc_type_t(13);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_abc_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_bitpack_t {
@@ -1408,74 +1813,151 @@ pub struct switch_filenames {
 extern "C" {
     pub static mut SWITCH_GLOBAL_filenames: switch_filenames;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rw_t {
-    SWITCH_RW_READ = 0,
-    SWITCH_RW_WRITE = 1,
+impl switch_rw_t {
+    pub const SWITCH_RW_READ: switch_rw_t = switch_rw_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_caller_profile_flag_enum_t {
-    SWITCH_CPF_NONE = 0,
-    SWITCH_CPF_SCREEN = 1,
-    SWITCH_CPF_HIDE_NAME = 2,
-    SWITCH_CPF_HIDE_NUMBER = 4,
-    SWITCH_CPF_SOFT_PREFIX = 8,
-    SWITCH_CPF_SOFT_LOOKUP = 16,
+impl switch_rw_t {
+    pub const SWITCH_RW_WRITE: switch_rw_t = switch_rw_t(1);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rw_t(pub ::std::os::raw::c_uint);
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_NONE: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(0);
+}
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_SCREEN: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(1);
+}
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_HIDE_NAME: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(2);
+}
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_HIDE_NUMBER: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(4);
+}
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_SOFT_PREFIX: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(8);
+}
+impl switch_caller_profile_flag_enum_t {
+    pub const SWITCH_CPF_SOFT_LOOKUP: switch_caller_profile_flag_enum_t =
+        switch_caller_profile_flag_enum_t(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_caller_profile_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_caller_profile_flag_t = u32;
-#[repr(u32)]
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_TITLE: switch_audio_col_t = switch_audio_col_t(1);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_COPYRIGHT: switch_audio_col_t = switch_audio_col_t(2);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_SOFTWARE: switch_audio_col_t = switch_audio_col_t(3);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_ARTIST: switch_audio_col_t = switch_audio_col_t(4);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_COMMENT: switch_audio_col_t = switch_audio_col_t(5);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_DATE: switch_audio_col_t = switch_audio_col_t(6);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_ALBUM: switch_audio_col_t = switch_audio_col_t(7);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_LICENSE: switch_audio_col_t = switch_audio_col_t(8);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_TRACKNUMBER: switch_audio_col_t = switch_audio_col_t(9);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_GENRE: switch_audio_col_t = switch_audio_col_t(16);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_FILE_SIZE: switch_audio_col_t = switch_audio_col_t(240);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_FILE_TRIMMED: switch_audio_col_t = switch_audio_col_t(241);
+}
+impl switch_audio_col_t {
+    pub const SWITCH_AUDIO_COL_STR_FILE_TRIMMED_MS: switch_audio_col_t = switch_audio_col_t(242);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_audio_col_t {
-    SWITCH_AUDIO_COL_STR_TITLE = 1,
-    SWITCH_AUDIO_COL_STR_COPYRIGHT = 2,
-    SWITCH_AUDIO_COL_STR_SOFTWARE = 3,
-    SWITCH_AUDIO_COL_STR_ARTIST = 4,
-    SWITCH_AUDIO_COL_STR_COMMENT = 5,
-    SWITCH_AUDIO_COL_STR_DATE = 6,
-    SWITCH_AUDIO_COL_STR_ALBUM = 7,
-    SWITCH_AUDIO_COL_STR_LICENSE = 8,
-    SWITCH_AUDIO_COL_STR_TRACKNUMBER = 9,
-    SWITCH_AUDIO_COL_STR_GENRE = 16,
-    SWITCH_AUDIO_COL_STR_FILE_SIZE = 240,
-    SWITCH_AUDIO_COL_STR_FILE_TRIMMED = 241,
-    SWITCH_AUDIO_COL_STR_FILE_TRIMMED_MS = 242,
+pub struct switch_audio_col_t(pub ::std::os::raw::c_uint);
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_RESULT: switch_xml_section_enum_t = switch_xml_section_enum_t(0);
 }
 impl switch_xml_section_enum_t {
-    pub const SWITCH_XML_SECTION_MAX: switch_xml_section_enum_t =
-        switch_xml_section_enum_t::SWITCH_XML_SECTION_CHANNELS;
+    pub const SWITCH_XML_SECTION_CONFIG: switch_xml_section_enum_t = switch_xml_section_enum_t(1);
 }
-#[repr(u32)]
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_DIRECTORY: switch_xml_section_enum_t =
+        switch_xml_section_enum_t(2);
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_DIALPLAN: switch_xml_section_enum_t = switch_xml_section_enum_t(4);
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_LANGUAGES: switch_xml_section_enum_t =
+        switch_xml_section_enum_t(8);
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_CHATPLAN: switch_xml_section_enum_t =
+        switch_xml_section_enum_t(16);
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_CHANNELS: switch_xml_section_enum_t =
+        switch_xml_section_enum_t(32);
+}
+impl switch_xml_section_enum_t {
+    pub const SWITCH_XML_SECTION_MAX: switch_xml_section_enum_t = switch_xml_section_enum_t(32);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_xml_section_enum_t {
-    SWITCH_XML_SECTION_RESULT = 0,
-    SWITCH_XML_SECTION_CONFIG = 1,
-    SWITCH_XML_SECTION_DIRECTORY = 2,
-    SWITCH_XML_SECTION_DIALPLAN = 4,
-    SWITCH_XML_SECTION_LANGUAGES = 8,
-    SWITCH_XML_SECTION_CHATPLAN = 16,
-    SWITCH_XML_SECTION_CHANNELS = 32,
-}
+pub struct switch_xml_section_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_xml_section_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_vad_flag_enum_t {
-    SWITCH_VAD_FLAG_TALKING = 1,
-    SWITCH_VAD_FLAG_EVENTS_TALK = 2,
-    SWITCH_VAD_FLAG_EVENTS_NOTALK = 4,
-    SWITCH_VAD_FLAG_CNG = 8,
+impl switch_vad_flag_enum_t {
+    pub const SWITCH_VAD_FLAG_TALKING: switch_vad_flag_enum_t = switch_vad_flag_enum_t(1);
 }
+impl switch_vad_flag_enum_t {
+    pub const SWITCH_VAD_FLAG_EVENTS_TALK: switch_vad_flag_enum_t = switch_vad_flag_enum_t(2);
+}
+impl switch_vad_flag_enum_t {
+    pub const SWITCH_VAD_FLAG_EVENTS_NOTALK: switch_vad_flag_enum_t = switch_vad_flag_enum_t(4);
+}
+impl switch_vad_flag_enum_t {
+    pub const SWITCH_VAD_FLAG_CNG: switch_vad_flag_enum_t = switch_vad_flag_enum_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_vad_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_vad_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_vad_state_t {
-    SWITCH_VAD_STATE_NONE = 0,
-    SWITCH_VAD_STATE_START_TALKING = 1,
-    SWITCH_VAD_STATE_TALKING = 2,
-    SWITCH_VAD_STATE_STOP_TALKING = 3,
-    SWITCH_VAD_STATE_ERROR = 4,
+impl switch_vad_state_t {
+    pub const SWITCH_VAD_STATE_NONE: switch_vad_state_t = switch_vad_state_t(0);
 }
+impl switch_vad_state_t {
+    pub const SWITCH_VAD_STATE_START_TALKING: switch_vad_state_t = switch_vad_state_t(1);
+}
+impl switch_vad_state_t {
+    pub const SWITCH_VAD_STATE_TALKING: switch_vad_state_t = switch_vad_state_t(2);
+}
+impl switch_vad_state_t {
+    pub const SWITCH_VAD_STATE_STOP_TALKING: switch_vad_state_t = switch_vad_state_t(3);
+}
+impl switch_vad_state_t {
+    pub const SWITCH_VAD_STATE_ERROR: switch_vad_state_t = switch_vad_state_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_vad_state_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_vad_s {
@@ -1576,86 +2058,220 @@ pub struct switch_rtp_stats_t {
     pub rtcp: switch_rtcp_numbers_t,
     pub read_count: u32,
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_flush_t {
-    SWITCH_RTP_FLUSH_ONCE = 0,
-    SWITCH_RTP_FLUSH_STICK = 1,
-    SWITCH_RTP_FLUSH_UNSTICK = 2,
+impl switch_rtp_flush_t {
+    pub const SWITCH_RTP_FLUSH_ONCE: switch_rtp_flush_t = switch_rtp_flush_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_flag_t {
-    SWITCH_RTP_FLAG_NOBLOCK = 0,
-    SWITCH_RTP_FLAG_DTMF_ON = 1,
-    SWITCH_RTP_FLAG_IO = 2,
-    SWITCH_RTP_FLAG_USE_TIMER = 3,
-    SWITCH_RTP_FLAG_RTCP_PASSTHRU = 4,
-    SWITCH_RTP_FLAG_SECURE_SEND = 5,
-    SWITCH_RTP_FLAG_SECURE_RECV = 6,
-    SWITCH_RTP_FLAG_AUTOADJ = 7,
-    SWITCH_RTP_FLAG_RTCP_AUTOADJ = 8,
-    SWITCH_RTP_FLAG_RAW_WRITE = 9,
-    SWITCH_RTP_FLAG_GOOGLEHACK = 10,
-    SWITCH_RTP_FLAG_VAD = 11,
-    SWITCH_RTP_FLAG_BREAK = 12,
-    SWITCH_RTP_FLAG_UDPTL = 13,
-    SWITCH_RTP_FLAG_DATAWAIT = 14,
-    SWITCH_RTP_FLAG_BYTESWAP = 15,
-    SWITCH_RTP_FLAG_PASS_RFC2833 = 16,
-    SWITCH_RTP_FLAG_AUTO_CNG = 17,
-    SWITCH_RTP_FLAG_SECURE_SEND_RESET = 18,
-    SWITCH_RTP_FLAG_SECURE_RECV_RESET = 19,
-    SWITCH_RTP_FLAG_PROXY_MEDIA = 20,
-    SWITCH_RTP_FLAG_SHUTDOWN = 21,
-    SWITCH_RTP_FLAG_FLUSH = 22,
-    SWITCH_RTP_FLAG_AUTOFLUSH = 23,
-    SWITCH_RTP_FLAG_STICKY_FLUSH = 24,
-    SWITCH_RTP_FLAG_DEBUG_RTP_READ = 25,
-    SWITCH_RTP_FLAG_DEBUG_RTP_WRITE = 26,
-    SWITCH_RTP_FLAG_ESTIMATORS = 27,
-    SWITCH_RTP_FLAG_ADJ_BITRATE_CAP = 28,
-    SWITCH_RTP_FLAG_VIDEO = 29,
-    SWITCH_RTP_FLAG_ENABLE_RTCP = 30,
-    SWITCH_RTP_FLAG_RTCP_MUX = 31,
-    SWITCH_RTP_FLAG_KILL_JB = 32,
-    SWITCH_RTP_FLAG_VIDEO_BREAK = 33,
-    SWITCH_RTP_FLAG_PAUSE = 34,
-    SWITCH_RTP_FLAG_FIR = 35,
-    SWITCH_RTP_FLAG_PLI = 36,
-    SWITCH_RTP_FLAG_RESET = 37,
-    SWITCH_RTP_FLAG_MUTE = 38,
-    SWITCH_RTP_FLAG_NACK = 39,
-    SWITCH_RTP_FLAG_TMMBR = 40,
-    SWITCH_RTP_FLAG_DETECT_SSRC = 41,
-    SWITCH_RTP_FLAG_TEXT = 42,
-    SWITCH_RTP_FLAG_OLD_FIR = 43,
-    SWITCH_RTP_FLAG_PASSTHRU = 44,
-    SWITCH_RTP_FLAG_SECURE_SEND_MKI = 45,
-    SWITCH_RTP_FLAG_SECURE_RECV_MKI = 46,
-    SWITCH_RTP_FLAG_SRTP_HANGUP_ON_ERROR = 47,
-    SWITCH_RTP_FLAG_AUDIO_FIRE_SEND_RTCP_EVENT = 48,
-    SWITCH_RTP_FLAG_VIDEO_FIRE_SEND_RTCP_EVENT = 49,
-    SWITCH_RTP_FLAG_INVALID = 50,
+impl switch_rtp_flush_t {
+    pub const SWITCH_RTP_FLUSH_STICK: switch_rtp_flush_t = switch_rtp_flush_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_bug_flag_t {
-    RTP_BUG_NONE = 0,
-    RTP_BUG_CISCO_SKIP_MARK_BIT_2833 = 1,
-    RTP_BUG_SONUS_SEND_INVALID_TIMESTAMP_2833 = 2,
-    RTP_BUG_IGNORE_MARK_BIT = 4,
-    RTP_BUG_SEND_LINEAR_TIMESTAMPS = 8,
-    RTP_BUG_START_SEQ_AT_ZERO = 16,
-    RTP_BUG_NEVER_SEND_MARKER = 32,
-    RTP_BUG_IGNORE_DTMF_DURATION = 64,
-    RTP_BUG_ACCEPT_ANY_PACKETS = 128,
-    RTP_BUG_GEN_ONE_GEN_ALL = 256,
-    RTP_BUG_CHANGE_SSRC_ON_MARKER = 512,
-    RTP_BUG_FLUSH_JB_ON_DTMF = 1024,
-    RTP_BUG_ACCEPT_ANY_PAYLOAD = 2048,
-    RTP_BUG_ALWAYS_AUTO_ADJUST = 4096,
+impl switch_rtp_flush_t {
+    pub const SWITCH_RTP_FLUSH_UNSTICK: switch_rtp_flush_t = switch_rtp_flush_t(2);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_flush_t(pub ::std::os::raw::c_uint);
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_NOBLOCK: switch_rtp_flag_t = switch_rtp_flag_t(0);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_DTMF_ON: switch_rtp_flag_t = switch_rtp_flag_t(1);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_IO: switch_rtp_flag_t = switch_rtp_flag_t(2);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_USE_TIMER: switch_rtp_flag_t = switch_rtp_flag_t(3);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_RTCP_PASSTHRU: switch_rtp_flag_t = switch_rtp_flag_t(4);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_SEND: switch_rtp_flag_t = switch_rtp_flag_t(5);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_RECV: switch_rtp_flag_t = switch_rtp_flag_t(6);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_AUTOADJ: switch_rtp_flag_t = switch_rtp_flag_t(7);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_RTCP_AUTOADJ: switch_rtp_flag_t = switch_rtp_flag_t(8);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_RAW_WRITE: switch_rtp_flag_t = switch_rtp_flag_t(9);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_GOOGLEHACK: switch_rtp_flag_t = switch_rtp_flag_t(10);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_VAD: switch_rtp_flag_t = switch_rtp_flag_t(11);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_BREAK: switch_rtp_flag_t = switch_rtp_flag_t(12);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_UDPTL: switch_rtp_flag_t = switch_rtp_flag_t(13);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_DATAWAIT: switch_rtp_flag_t = switch_rtp_flag_t(14);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_BYTESWAP: switch_rtp_flag_t = switch_rtp_flag_t(15);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_PASS_RFC2833: switch_rtp_flag_t = switch_rtp_flag_t(16);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_AUTO_CNG: switch_rtp_flag_t = switch_rtp_flag_t(17);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_SEND_RESET: switch_rtp_flag_t = switch_rtp_flag_t(18);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_RECV_RESET: switch_rtp_flag_t = switch_rtp_flag_t(19);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_PROXY_MEDIA: switch_rtp_flag_t = switch_rtp_flag_t(20);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SHUTDOWN: switch_rtp_flag_t = switch_rtp_flag_t(21);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_FLUSH: switch_rtp_flag_t = switch_rtp_flag_t(22);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_AUTOFLUSH: switch_rtp_flag_t = switch_rtp_flag_t(23);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_STICKY_FLUSH: switch_rtp_flag_t = switch_rtp_flag_t(24);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_DEBUG_RTP_READ: switch_rtp_flag_t = switch_rtp_flag_t(25);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_DEBUG_RTP_WRITE: switch_rtp_flag_t = switch_rtp_flag_t(26);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_ESTIMATORS: switch_rtp_flag_t = switch_rtp_flag_t(27);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_ADJ_BITRATE_CAP: switch_rtp_flag_t = switch_rtp_flag_t(28);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_VIDEO: switch_rtp_flag_t = switch_rtp_flag_t(29);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_ENABLE_RTCP: switch_rtp_flag_t = switch_rtp_flag_t(30);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_RTCP_MUX: switch_rtp_flag_t = switch_rtp_flag_t(31);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_KILL_JB: switch_rtp_flag_t = switch_rtp_flag_t(32);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_VIDEO_BREAK: switch_rtp_flag_t = switch_rtp_flag_t(33);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_PAUSE: switch_rtp_flag_t = switch_rtp_flag_t(34);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_FIR: switch_rtp_flag_t = switch_rtp_flag_t(35);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_PLI: switch_rtp_flag_t = switch_rtp_flag_t(36);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_RESET: switch_rtp_flag_t = switch_rtp_flag_t(37);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_MUTE: switch_rtp_flag_t = switch_rtp_flag_t(38);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_NACK: switch_rtp_flag_t = switch_rtp_flag_t(39);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_TMMBR: switch_rtp_flag_t = switch_rtp_flag_t(40);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_DETECT_SSRC: switch_rtp_flag_t = switch_rtp_flag_t(41);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_TEXT: switch_rtp_flag_t = switch_rtp_flag_t(42);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_OLD_FIR: switch_rtp_flag_t = switch_rtp_flag_t(43);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_PASSTHRU: switch_rtp_flag_t = switch_rtp_flag_t(44);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_SEND_MKI: switch_rtp_flag_t = switch_rtp_flag_t(45);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SECURE_RECV_MKI: switch_rtp_flag_t = switch_rtp_flag_t(46);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_SRTP_HANGUP_ON_ERROR: switch_rtp_flag_t = switch_rtp_flag_t(47);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_AUDIO_FIRE_SEND_RTCP_EVENT: switch_rtp_flag_t = switch_rtp_flag_t(48);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_VIDEO_FIRE_SEND_RTCP_EVENT: switch_rtp_flag_t = switch_rtp_flag_t(49);
+}
+impl switch_rtp_flag_t {
+    pub const SWITCH_RTP_FLAG_INVALID: switch_rtp_flag_t = switch_rtp_flag_t(50);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_flag_t(pub ::std::os::raw::c_uint);
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_NONE: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(0);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_CISCO_SKIP_MARK_BIT_2833: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(1);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_SONUS_SEND_INVALID_TIMESTAMP_2833: switch_rtp_bug_flag_t =
+        switch_rtp_bug_flag_t(2);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_IGNORE_MARK_BIT: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(4);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_SEND_LINEAR_TIMESTAMPS: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(8);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_START_SEQ_AT_ZERO: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(16);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_NEVER_SEND_MARKER: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(32);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_IGNORE_DTMF_DURATION: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(64);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_ACCEPT_ANY_PACKETS: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(128);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_GEN_ONE_GEN_ALL: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(256);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_CHANGE_SSRC_ON_MARKER: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(512);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_FLUSH_JB_ON_DTMF: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(1024);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_ACCEPT_ANY_PAYLOAD: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(2048);
+}
+impl switch_rtp_bug_flag_t {
+    pub const RTP_BUG_ALWAYS_AUTO_ADJUST: switch_rtp_bug_flag_t = switch_rtp_bug_flag_t(4096);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_bug_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[repr(align(4))]
 #[derive(Debug, Copy, Clone)]
@@ -1965,87 +2581,282 @@ pub struct audio_buffer_header_s {
     pub len: u32,
 }
 pub type audio_buffer_header_t = audio_buffer_header_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_priority_t {
-    SWITCH_PRIORITY_NORMAL = 0,
-    SWITCH_PRIORITY_LOW = 1,
-    SWITCH_PRIORITY_HIGH = 2,
+impl switch_priority_t {
+    pub const SWITCH_PRIORITY_NORMAL: switch_priority_t = switch_priority_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_ivr_option_enum_t {
-    SWITCH_IVR_OPTION_NONE = 0,
-    SWITCH_IVR_OPTION_ASYNC = 1,
-    SWITCH_IVR_OPTION_FILE = 2,
+impl switch_priority_t {
+    pub const SWITCH_PRIORITY_LOW: switch_priority_t = switch_priority_t(1);
 }
+impl switch_priority_t {
+    pub const SWITCH_PRIORITY_HIGH: switch_priority_t = switch_priority_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_priority_t(pub ::std::os::raw::c_uint);
+impl switch_ivr_option_enum_t {
+    pub const SWITCH_IVR_OPTION_NONE: switch_ivr_option_enum_t = switch_ivr_option_enum_t(0);
+}
+impl switch_ivr_option_enum_t {
+    pub const SWITCH_IVR_OPTION_ASYNC: switch_ivr_option_enum_t = switch_ivr_option_enum_t(1);
+}
+impl switch_ivr_option_enum_t {
+    pub const SWITCH_IVR_OPTION_FILE: switch_ivr_option_enum_t = switch_ivr_option_enum_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_ivr_option_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_ivr_option_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_session_message_types_t {
-    SWITCH_MESSAGE_REDIRECT_AUDIO = 0,
-    SWITCH_MESSAGE_TRANSMIT_TEXT = 1,
-    SWITCH_MESSAGE_INDICATE_ANSWER = 2,
-    SWITCH_MESSAGE_INDICATE_ACKNOWLEDGE_CALL = 3,
-    SWITCH_MESSAGE_INDICATE_PROGRESS = 4,
-    SWITCH_MESSAGE_INDICATE_BRIDGE = 5,
-    SWITCH_MESSAGE_INDICATE_UNBRIDGE = 6,
-    SWITCH_MESSAGE_INDICATE_TRANSFER = 7,
-    SWITCH_MESSAGE_INDICATE_RINGING = 8,
-    SWITCH_MESSAGE_INDICATE_ALERTING = 9,
-    SWITCH_MESSAGE_INDICATE_MEDIA = 10,
-    SWITCH_MESSAGE_INDICATE_3P_MEDIA = 11,
-    SWITCH_MESSAGE_INDICATE_NOMEDIA = 12,
-    SWITCH_MESSAGE_INDICATE_3P_NOMEDIA = 13,
-    SWITCH_MESSAGE_INDICATE_HOLD = 14,
-    SWITCH_MESSAGE_INDICATE_UNHOLD = 15,
-    SWITCH_MESSAGE_INDICATE_REDIRECT = 16,
-    SWITCH_MESSAGE_INDICATE_RESPOND = 17,
-    SWITCH_MESSAGE_INDICATE_BROADCAST = 18,
-    SWITCH_MESSAGE_INDICATE_MEDIA_REDIRECT = 19,
-    SWITCH_MESSAGE_INDICATE_DEFLECT = 20,
-    SWITCH_MESSAGE_INDICATE_VIDEO_REFRESH_REQ = 21,
-    SWITCH_MESSAGE_INDICATE_DISPLAY = 22,
-    SWITCH_MESSAGE_INDICATE_MEDIA_PARAMS = 23,
-    SWITCH_MESSAGE_INDICATE_TRANSCODING_NECESSARY = 24,
-    SWITCH_MESSAGE_INDICATE_AUDIO_SYNC = 25,
-    SWITCH_MESSAGE_INDICATE_VIDEO_SYNC = 26,
-    SWITCH_MESSAGE_INDICATE_REQUEST_IMAGE_MEDIA = 27,
-    SWITCH_MESSAGE_INDICATE_UUID_CHANGE = 28,
-    SWITCH_MESSAGE_INDICATE_SIMPLIFY = 29,
-    SWITCH_MESSAGE_INDICATE_DEBUG_MEDIA = 30,
-    SWITCH_MESSAGE_INDICATE_PROXY_MEDIA = 31,
-    SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC = 32,
-    SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC_COMPLETE = 33,
-    SWITCH_MESSAGE_INDICATE_PHONE_EVENT = 34,
-    SWITCH_MESSAGE_INDICATE_T38_DESCRIPTION = 35,
-    SWITCH_MESSAGE_INDICATE_UDPTL_MODE = 36,
-    SWITCH_MESSAGE_INDICATE_CLEAR_PROGRESS = 37,
-    SWITCH_MESSAGE_INDICATE_JITTER_BUFFER = 38,
-    SWITCH_MESSAGE_INDICATE_RECOVERY_REFRESH = 39,
-    SWITCH_MESSAGE_INDICATE_SIGNAL_DATA = 40,
-    SWITCH_MESSAGE_INDICATE_MESSAGE = 41,
-    SWITCH_MESSAGE_INDICATE_INFO = 42,
-    SWITCH_MESSAGE_INDICATE_AUDIO_DATA = 43,
-    SWITCH_MESSAGE_INDICATE_BLIND_TRANSFER_RESPONSE = 44,
-    SWITCH_MESSAGE_INDICATE_STUN_ERROR = 45,
-    SWITCH_MESSAGE_INDICATE_MEDIA_RENEG = 46,
-    SWITCH_MESSAGE_INDICATE_KEEPALIVE = 47,
-    SWITCH_MESSAGE_INDICATE_HARD_MUTE = 48,
-    SWITCH_MESSAGE_INDICATE_BITRATE_REQ = 49,
-    SWITCH_MESSAGE_INDICATE_BITRATE_ACK = 50,
-    SWITCH_MESSAGE_INDICATE_CODEC_DEBUG_REQ = 51,
-    SWITCH_MESSAGE_INDICATE_CODEC_SPECIFIC_REQ = 52,
-    SWITCH_MESSAGE_REFER_EVENT = 53,
-    SWITCH_MESSAGE_ANSWER_EVENT = 54,
-    SWITCH_MESSAGE_PROGRESS_EVENT = 55,
-    SWITCH_MESSAGE_RING_EVENT = 56,
-    SWITCH_MESSAGE_RESAMPLE_EVENT = 57,
-    SWITCH_MESSAGE_HEARTBEAT_EVENT = 58,
-    SWITCH_MESSAGE_INDICATE_SESSION_ID = 59,
-    SWITCH_MESSAGE_INDICATE_PROMPT = 60,
-    SWITCH_MESSAGE_INVALID = 61,
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_REDIRECT_AUDIO: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(0);
 }
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_TRANSMIT_TEXT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(1);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_ANSWER: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(2);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_ACKNOWLEDGE_CALL: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(3);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_PROGRESS: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(4);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_BRIDGE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(5);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_UNBRIDGE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(6);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_TRANSFER: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(7);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_RINGING: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(8);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_ALERTING: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(9);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_MEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(10);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_3P_MEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(11);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_NOMEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(12);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_3P_NOMEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(13);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_HOLD: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(14);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_UNHOLD: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(15);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_REDIRECT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(16);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_RESPOND: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(17);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_BROADCAST: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(18);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_MEDIA_REDIRECT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(19);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_DEFLECT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(20);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_VIDEO_REFRESH_REQ: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(21);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_DISPLAY: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(22);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_MEDIA_PARAMS: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(23);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_TRANSCODING_NECESSARY: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(24);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_AUDIO_SYNC: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(25);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_VIDEO_SYNC: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(26);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_REQUEST_IMAGE_MEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(27);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_UUID_CHANGE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(28);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_SIMPLIFY: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(29);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_DEBUG_MEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(30);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_PROXY_MEDIA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(31);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(32);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_APPLICATION_EXEC_COMPLETE:
+        switch_core_session_message_types_t = switch_core_session_message_types_t(33);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_PHONE_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(34);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_T38_DESCRIPTION: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(35);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_UDPTL_MODE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(36);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_CLEAR_PROGRESS: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(37);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_JITTER_BUFFER: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(38);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_RECOVERY_REFRESH: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(39);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_SIGNAL_DATA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(40);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_MESSAGE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(41);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_INFO: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(42);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_AUDIO_DATA: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(43);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_BLIND_TRANSFER_RESPONSE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(44);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_STUN_ERROR: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(45);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_MEDIA_RENEG: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(46);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_KEEPALIVE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(47);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_HARD_MUTE: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(48);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_BITRATE_REQ: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(49);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_BITRATE_ACK: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(50);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_CODEC_DEBUG_REQ: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(51);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_CODEC_SPECIFIC_REQ: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(52);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_REFER_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(53);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_ANSWER_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(54);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_PROGRESS_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(55);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_RING_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(56);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_RESAMPLE_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(57);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_HEARTBEAT_EVENT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(58);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_SESSION_ID: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(59);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INDICATE_PROMPT: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(60);
+}
+impl switch_core_session_message_types_t {
+    pub const SWITCH_MESSAGE_INVALID: switch_core_session_message_types_t =
+        switch_core_session_message_types_t(61);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_session_message_types_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_t38_options_t {
@@ -2065,84 +2876,198 @@ pub struct switch_t38_options_t {
     pub local_port: u16,
     pub sdp_o_line: *const ::std::os::raw::c_char,
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_stack_t {
-    SWITCH_STACK_BOTTOM = 1,
-    SWITCH_STACK_TOP = 2,
-    SWITCH_STACK_UNSHIFT = 4,
-    SWITCH_STACK_PUSH = 8,
+impl switch_stack_t {
+    pub const SWITCH_STACK_BOTTOM: switch_stack_t = switch_stack_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_status_t {
-    SWITCH_STATUS_SUCCESS = 0,
-    SWITCH_STATUS_FALSE = 1,
-    SWITCH_STATUS_TIMEOUT = 2,
-    SWITCH_STATUS_RESTART = 3,
-    SWITCH_STATUS_INTR = 4,
-    SWITCH_STATUS_NOTIMPL = 5,
-    SWITCH_STATUS_MEMERR = 6,
-    SWITCH_STATUS_NOOP = 7,
-    SWITCH_STATUS_RESAMPLE = 8,
-    SWITCH_STATUS_GENERR = 9,
-    SWITCH_STATUS_INUSE = 10,
-    SWITCH_STATUS_BREAK = 11,
-    SWITCH_STATUS_SOCKERR = 12,
-    SWITCH_STATUS_MORE_DATA = 13,
-    SWITCH_STATUS_NOTFOUND = 14,
-    SWITCH_STATUS_UNLOAD = 15,
-    SWITCH_STATUS_NOUNLOAD = 16,
-    SWITCH_STATUS_IGNORE = 17,
-    SWITCH_STATUS_TOO_SMALL = 18,
-    SWITCH_STATUS_FOUND = 19,
-    SWITCH_STATUS_CONTINUE = 20,
-    SWITCH_STATUS_TERM = 21,
-    SWITCH_STATUS_NOT_INITALIZED = 22,
-    SWITCH_STATUS_TOO_LATE = 23,
-    SWITCH_STATUS_XBREAK = 35,
-    SWITCH_STATUS_WINBREAK = 730035,
+impl switch_stack_t {
+    pub const SWITCH_STACK_TOP: switch_stack_t = switch_stack_t(2);
 }
-#[repr(i32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_log_level_t {
-    SWITCH_LOG_DEBUG10 = 110,
-    SWITCH_LOG_DEBUG9 = 109,
-    SWITCH_LOG_DEBUG8 = 108,
-    SWITCH_LOG_DEBUG7 = 107,
-    SWITCH_LOG_DEBUG6 = 106,
-    SWITCH_LOG_DEBUG5 = 105,
-    SWITCH_LOG_DEBUG4 = 104,
-    SWITCH_LOG_DEBUG3 = 103,
-    SWITCH_LOG_DEBUG2 = 102,
-    SWITCH_LOG_DEBUG1 = 101,
-    SWITCH_LOG_DEBUG = 7,
-    SWITCH_LOG_INFO = 6,
-    SWITCH_LOG_NOTICE = 5,
-    SWITCH_LOG_WARNING = 4,
-    SWITCH_LOG_ERROR = 3,
-    SWITCH_LOG_CRIT = 2,
-    SWITCH_LOG_ALERT = 1,
-    SWITCH_LOG_CONSOLE = 0,
-    SWITCH_LOG_DISABLE = -1,
-    SWITCH_LOG_INVALID = 64,
-    SWITCH_LOG_UNINIT = 1000,
+impl switch_stack_t {
+    pub const SWITCH_STACK_UNSHIFT: switch_stack_t = switch_stack_t(4);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_text_channel_t {
-    SWITCH_CHANNEL_ID_LOG = 0,
-    SWITCH_CHANNEL_ID_LOG_CLEAN = 1,
-    SWITCH_CHANNEL_ID_EVENT = 2,
-    SWITCH_CHANNEL_ID_SESSION = 3,
+impl switch_stack_t {
+    pub const SWITCH_STACK_PUSH: switch_stack_t = switch_stack_t(8);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_session_message_flag_enum_t {
-    SCSMF_DYNAMIC = 1,
-    SCSMF_FREE_STRING_REPLY = 2,
-    SCSMF_FREE_POINTER_REPLY = 4,
+pub struct switch_stack_t(pub ::std::os::raw::c_uint);
+impl switch_status_t {
+    pub const SWITCH_STATUS_SUCCESS: switch_status_t = switch_status_t(0);
 }
+impl switch_status_t {
+    pub const SWITCH_STATUS_FALSE: switch_status_t = switch_status_t(1);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_TIMEOUT: switch_status_t = switch_status_t(2);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_RESTART: switch_status_t = switch_status_t(3);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_INTR: switch_status_t = switch_status_t(4);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_NOTIMPL: switch_status_t = switch_status_t(5);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_MEMERR: switch_status_t = switch_status_t(6);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_NOOP: switch_status_t = switch_status_t(7);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_RESAMPLE: switch_status_t = switch_status_t(8);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_GENERR: switch_status_t = switch_status_t(9);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_INUSE: switch_status_t = switch_status_t(10);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_BREAK: switch_status_t = switch_status_t(11);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_SOCKERR: switch_status_t = switch_status_t(12);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_MORE_DATA: switch_status_t = switch_status_t(13);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_NOTFOUND: switch_status_t = switch_status_t(14);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_UNLOAD: switch_status_t = switch_status_t(15);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_NOUNLOAD: switch_status_t = switch_status_t(16);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_IGNORE: switch_status_t = switch_status_t(17);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_TOO_SMALL: switch_status_t = switch_status_t(18);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_FOUND: switch_status_t = switch_status_t(19);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_CONTINUE: switch_status_t = switch_status_t(20);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_TERM: switch_status_t = switch_status_t(21);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_NOT_INITALIZED: switch_status_t = switch_status_t(22);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_TOO_LATE: switch_status_t = switch_status_t(23);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_XBREAK: switch_status_t = switch_status_t(35);
+}
+impl switch_status_t {
+    pub const SWITCH_STATUS_WINBREAK: switch_status_t = switch_status_t(730035);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_status_t(pub ::std::os::raw::c_uint);
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG10: switch_log_level_t = switch_log_level_t(110);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG9: switch_log_level_t = switch_log_level_t(109);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG8: switch_log_level_t = switch_log_level_t(108);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG7: switch_log_level_t = switch_log_level_t(107);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG6: switch_log_level_t = switch_log_level_t(106);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG5: switch_log_level_t = switch_log_level_t(105);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG4: switch_log_level_t = switch_log_level_t(104);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG3: switch_log_level_t = switch_log_level_t(103);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG2: switch_log_level_t = switch_log_level_t(102);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG1: switch_log_level_t = switch_log_level_t(101);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DEBUG: switch_log_level_t = switch_log_level_t(7);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_INFO: switch_log_level_t = switch_log_level_t(6);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_NOTICE: switch_log_level_t = switch_log_level_t(5);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_WARNING: switch_log_level_t = switch_log_level_t(4);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_ERROR: switch_log_level_t = switch_log_level_t(3);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_CRIT: switch_log_level_t = switch_log_level_t(2);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_ALERT: switch_log_level_t = switch_log_level_t(1);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_CONSOLE: switch_log_level_t = switch_log_level_t(0);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_DISABLE: switch_log_level_t = switch_log_level_t(-1);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_INVALID: switch_log_level_t = switch_log_level_t(64);
+}
+impl switch_log_level_t {
+    pub const SWITCH_LOG_UNINIT: switch_log_level_t = switch_log_level_t(1000);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_log_level_t(pub ::std::os::raw::c_int);
+impl switch_text_channel_t {
+    pub const SWITCH_CHANNEL_ID_LOG: switch_text_channel_t = switch_text_channel_t(0);
+}
+impl switch_text_channel_t {
+    pub const SWITCH_CHANNEL_ID_LOG_CLEAN: switch_text_channel_t = switch_text_channel_t(1);
+}
+impl switch_text_channel_t {
+    pub const SWITCH_CHANNEL_ID_EVENT: switch_text_channel_t = switch_text_channel_t(2);
+}
+impl switch_text_channel_t {
+    pub const SWITCH_CHANNEL_ID_SESSION: switch_text_channel_t = switch_text_channel_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_text_channel_t(pub ::std::os::raw::c_uint);
+impl switch_core_session_message_flag_enum_t {
+    pub const SCSMF_DYNAMIC: switch_core_session_message_flag_enum_t =
+        switch_core_session_message_flag_enum_t(1);
+}
+impl switch_core_session_message_flag_enum_t {
+    pub const SCSMF_FREE_STRING_REPLY: switch_core_session_message_flag_enum_t =
+        switch_core_session_message_flag_enum_t(2);
+}
+impl switch_core_session_message_flag_enum_t {
+    pub const SCSMF_FREE_POINTER_REPLY: switch_core_session_message_flag_enum_t =
+        switch_core_session_message_flag_enum_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_session_message_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_core_session_message_flag_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2150,246 +3075,672 @@ pub struct switch_core_session {
     _unused: [u8; 0],
 }
 pub type switch_core_session_t = switch_core_session;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_channel_callstate_t {
-    CCS_DOWN = 0,
-    CCS_DIALING = 1,
-    CCS_RINGING = 2,
-    CCS_EARLY = 3,
-    CCS_ACTIVE = 4,
-    CCS_HELD = 5,
-    CCS_RING_WAIT = 6,
-    CCS_HANGUP = 7,
-    CCS_UNHELD = 8,
+impl switch_channel_callstate_t {
+    pub const CCS_DOWN: switch_channel_callstate_t = switch_channel_callstate_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_device_state_t {
-    SDS_DOWN = 0,
-    SDS_RINGING = 1,
-    SDS_ACTIVE = 2,
-    SDS_ACTIVE_MULTI = 3,
-    SDS_HELD = 4,
-    SDS_UNHELD = 5,
-    SDS_HANGUP = 6,
+impl switch_channel_callstate_t {
+    pub const CCS_DIALING: switch_channel_callstate_t = switch_channel_callstate_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_channel_state_t {
-    CS_NEW = 0,
-    CS_INIT = 1,
-    CS_ROUTING = 2,
-    CS_SOFT_EXECUTE = 3,
-    CS_EXECUTE = 4,
-    CS_EXCHANGE_MEDIA = 5,
-    CS_PARK = 6,
-    CS_CONSUME_MEDIA = 7,
-    CS_HIBERNATE = 8,
-    CS_RESET = 9,
-    CS_HANGUP = 10,
-    CS_REPORTING = 11,
-    CS_DESTROY = 12,
-    CS_NONE = 13,
+impl switch_channel_callstate_t {
+    pub const CCS_RINGING: switch_channel_callstate_t = switch_channel_callstate_t(2);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_ring_ready_t {
-    SWITCH_RING_READY_NONE = 0,
-    SWITCH_RING_READY_RINGING = 1,
-    SWITCH_RING_READY_QUEUED = 2,
+impl switch_channel_callstate_t {
+    pub const CCS_EARLY: switch_channel_callstate_t = switch_channel_callstate_t(3);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_channel_cap_t {
-    CC_MEDIA_ACK = 1,
-    CC_BYPASS_MEDIA = 2,
-    CC_PROXY_MEDIA = 3,
-    CC_JITTERBUFFER = 4,
-    CC_FS_RTP = 5,
-    CC_QUEUEABLE_DTMF_DELAY = 6,
-    CC_IO_OVERRIDE = 7,
-    CC_RTP_RTT = 8,
-    CC_MSRP = 9,
-    CC_MUTE_VIA_MEDIA_STREAM = 10,
-    CC_FLAG_MAX = 11,
+impl switch_channel_callstate_t {
+    pub const CCS_ACTIVE: switch_channel_callstate_t = switch_channel_callstate_t(4);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_channel_flag_t {
-    CF_ANSWERED = 1,
-    CF_OUTBOUND = 2,
-    CF_EARLY_MEDIA = 3,
-    CF_BRIDGE_ORIGINATOR = 4,
-    CF_UUID_BRIDGE_ORIGINATOR = 5,
-    CF_TRANSFER = 6,
-    CF_ACCEPT_CNG = 7,
-    CF_REDIRECT = 8,
-    CF_BRIDGED = 9,
-    CF_HOLD = 10,
-    CF_HOLD_BLEG = 11,
-    CF_SERVICE = 12,
-    CF_TAGGED = 13,
-    CF_WINNER = 14,
-    CF_REUSE_CALLER_PROFILE = 15,
-    CF_CONTROLLED = 16,
-    CF_PROXY_MODE = 17,
-    CF_PROXY_OFF = 18,
-    CF_SUSPEND = 19,
-    CF_EVENT_PARSE = 20,
-    CF_GEN_RINGBACK = 21,
-    CF_RING_READY = 22,
-    CF_BREAK = 23,
-    CF_BROADCAST = 24,
-    CF_UNICAST = 25,
-    CF_VIDEO = 26,
-    CF_EVENT_LOCK = 27,
-    CF_EVENT_LOCK_PRI = 28,
-    CF_RESET = 29,
-    CF_ORIGINATING = 30,
-    CF_STOP_BROADCAST = 31,
-    CF_PROXY_MEDIA = 32,
-    CF_INNER_BRIDGE = 33,
-    CF_REQ_MEDIA = 34,
-    CF_VERBOSE_EVENTS = 35,
-    CF_PAUSE_BUGS = 36,
-    CF_DIVERT_EVENTS = 37,
-    CF_BLOCK_STATE = 38,
-    CF_FS_RTP = 39,
-    CF_REPORTING = 40,
-    CF_PARK = 41,
-    CF_TIMESTAMP_SET = 42,
-    CF_ORIGINATOR = 43,
-    CF_XFER_ZOMBIE = 44,
-    CF_MEDIA_ACK = 45,
-    CF_THREAD_SLEEPING = 46,
-    CF_DISABLE_RINGBACK = 47,
-    CF_NOT_READY = 48,
-    CF_SIGNAL_BRIDGE_TTL = 49,
-    CF_MEDIA_BRIDGE_TTL = 50,
-    CF_BYPASS_MEDIA_AFTER_BRIDGE = 51,
-    CF_LEG_HOLDING = 52,
-    CF_BROADCAST_DROP_MEDIA = 53,
-    CF_EARLY_HANGUP = 54,
-    CF_MEDIA_SET = 55,
-    CF_CONSUME_ON_ORIGINATE = 56,
-    CF_PASSTHRU_PTIME_MISMATCH = 57,
-    CF_BRIDGE_NOWRITE = 58,
-    CF_RECOVERED = 59,
-    CF_JITTERBUFFER = 60,
-    CF_JITTERBUFFER_PLC = 61,
-    CF_DIALPLAN = 62,
-    CF_BLEG = 63,
-    CF_BLOCK_BROADCAST_UNTIL_MEDIA = 64,
-    CF_CNG_PLC = 65,
-    CF_ATTENDED_TRANSFER = 66,
-    CF_LAZY_ATTENDED_TRANSFER = 67,
-    CF_SIGNAL_DATA = 68,
-    CF_SIMPLIFY = 69,
-    CF_ZOMBIE_EXEC = 70,
-    CF_INTERCEPT = 71,
-    CF_INTERCEPTED = 72,
-    CF_VIDEO_REFRESH_REQ = 73,
-    CF_MANUAL_VID_REFRESH = 74,
-    CF_MANUAL_MEDIA_PARAMS = 75,
-    CF_SERVICE_AUDIO = 76,
-    CF_SERVICE_VIDEO = 77,
-    CF_CHANNEL_SWAP = 78,
-    CF_DEVICE_LEG = 79,
-    CF_FINAL_DEVICE_LEG = 80,
-    CF_PICKUP = 81,
-    CF_CONFIRM_BLIND_TRANSFER = 82,
-    CF_NO_PRESENCE = 83,
-    CF_CONFERENCE = 84,
-    CF_CONFERENCE_ADV = 85,
-    CF_RECOVERING = 86,
-    CF_RECOVERING_BRIDGE = 87,
-    CF_TRACKED = 88,
-    CF_TRACKABLE = 89,
-    CF_NO_CDR = 90,
-    CF_EARLY_OK = 91,
-    CF_MEDIA_TRANS = 92,
-    CF_HOLD_ON_BRIDGE = 93,
-    CF_SECURE = 94,
-    CF_LIBERAL_DTMF = 95,
-    CF_SLA_BARGE = 96,
-    CF_SLA_BARGING = 97,
-    CF_PROTO_HOLD = 98,
-    CF_HOLD_LOCK = 99,
-    CF_VIDEO_POSSIBLE = 100,
-    CF_NOTIMER_DURING_BRIDGE = 101,
-    CF_PASS_RFC2833 = 102,
-    CF_T38_PASSTHRU = 103,
-    CF_DROP_DTMF = 104,
-    CF_REINVITE = 105,
-    CF_NOSDP_REINVITE = 106,
-    CF_AUTOFLUSH_DURING_BRIDGE = 107,
-    CF_RTP_NOTIMER_DURING_BRIDGE = 108,
-    CF_AVPF = 109,
-    CF_AVPF_MOZ = 110,
-    CF_ICE = 111,
-    CF_DTLS = 112,
-    CF_VERBOSE_SDP = 113,
-    CF_DTLS_OK = 114,
-    CF_3PCC = 115,
-    CF_VIDEO_PASSIVE = 116,
-    CF_NOVIDEO = 117,
-    CF_VIDEO_BITRATE_UNMANAGABLE = 118,
-    CF_VIDEO_ECHO = 119,
-    CF_VIDEO_BLANK = 120,
-    CF_VIDEO_WRITING = 121,
-    CF_SLA_INTERCEPT = 122,
-    CF_VIDEO_BREAK = 123,
-    CF_AUDIO_PAUSE_READ = 124,
-    CF_AUDIO_PAUSE_WRITE = 125,
-    CF_VIDEO_PAUSE_READ = 126,
-    CF_VIDEO_PAUSE_WRITE = 127,
-    CF_BYPASS_MEDIA_AFTER_HOLD = 128,
-    CF_HANGUP_HELD = 129,
-    CF_CONFERENCE_RESET_MEDIA = 130,
-    CF_VIDEO_DECODED_READ = 131,
-    CF_VIDEO_DEBUG_READ = 132,
-    CF_VIDEO_DEBUG_WRITE = 133,
-    CF_NO_RECOVER = 134,
-    CF_VIDEO_READY = 135,
-    CF_VIDEO_MIRROR_INPUT = 136,
-    CF_VIDEO_READ_FILE_ATTACHED = 137,
-    CF_VIDEO_WRITE_FILE_ATTACHED = 138,
-    CF_3P_MEDIA_REQUESTED = 139,
-    CF_3P_NOMEDIA_REQUESTED = 140,
-    CF_3P_NOMEDIA_REQUESTED_BLEG = 141,
-    CF_IMAGE_SDP = 142,
-    CF_VIDEO_SDP_RECVD = 143,
-    CF_TEXT_SDP_RECVD = 144,
-    CF_HAS_TEXT = 145,
-    CF_TEXT_POSSIBLE = 146,
-    CF_TEXT_PASSIVE = 147,
-    CF_TEXT_ECHO = 148,
-    CF_TEXT_ACTIVE = 149,
-    CF_TEXT_IDLE = 150,
-    CF_TEXT_LINE_BASED = 151,
-    CF_QUEUE_TEXT_EVENTS = 152,
-    CF_FIRE_TEXT_EVENTS = 153,
-    CF_MSRP = 154,
-    CF_MSRPS = 155,
-    CF_WANT_MSRP = 156,
-    CF_WANT_MSRPS = 157,
-    CF_RTT = 158,
-    CF_WANT_RTT = 159,
-    CF_AUDIO = 160,
-    CF_AWAITING_STREAM_CHANGE = 161,
-    CF_PROCESSING_STREAM_CHANGE = 162,
-    CF_STREAM_CHANGED = 163,
-    CF_ARRANGED_BRIDGE = 164,
-    CF_STATE_REPEAT = 165,
-    CF_WANT_DTLSv1_2 = 166,
-    CF_RFC7329_COMPAT = 167,
-    CF_REATTACHED = 168,
-    CF_VIDEO_READ_TAPPED = 169,
-    CF_VIDEO_WRITE_TAPPED = 170,
-    CF_DEVICES_CHANGED = 171,
-    CF_FLAG_MAX = 172,
+impl switch_channel_callstate_t {
+    pub const CCS_HELD: switch_channel_callstate_t = switch_channel_callstate_t(5);
 }
+impl switch_channel_callstate_t {
+    pub const CCS_RING_WAIT: switch_channel_callstate_t = switch_channel_callstate_t(6);
+}
+impl switch_channel_callstate_t {
+    pub const CCS_HANGUP: switch_channel_callstate_t = switch_channel_callstate_t(7);
+}
+impl switch_channel_callstate_t {
+    pub const CCS_UNHELD: switch_channel_callstate_t = switch_channel_callstate_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_channel_callstate_t(pub ::std::os::raw::c_uint);
+impl switch_device_state_t {
+    pub const SDS_DOWN: switch_device_state_t = switch_device_state_t(0);
+}
+impl switch_device_state_t {
+    pub const SDS_RINGING: switch_device_state_t = switch_device_state_t(1);
+}
+impl switch_device_state_t {
+    pub const SDS_ACTIVE: switch_device_state_t = switch_device_state_t(2);
+}
+impl switch_device_state_t {
+    pub const SDS_ACTIVE_MULTI: switch_device_state_t = switch_device_state_t(3);
+}
+impl switch_device_state_t {
+    pub const SDS_HELD: switch_device_state_t = switch_device_state_t(4);
+}
+impl switch_device_state_t {
+    pub const SDS_UNHELD: switch_device_state_t = switch_device_state_t(5);
+}
+impl switch_device_state_t {
+    pub const SDS_HANGUP: switch_device_state_t = switch_device_state_t(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_device_state_t(pub ::std::os::raw::c_uint);
+impl switch_channel_state_t {
+    pub const CS_NEW: switch_channel_state_t = switch_channel_state_t(0);
+}
+impl switch_channel_state_t {
+    pub const CS_INIT: switch_channel_state_t = switch_channel_state_t(1);
+}
+impl switch_channel_state_t {
+    pub const CS_ROUTING: switch_channel_state_t = switch_channel_state_t(2);
+}
+impl switch_channel_state_t {
+    pub const CS_SOFT_EXECUTE: switch_channel_state_t = switch_channel_state_t(3);
+}
+impl switch_channel_state_t {
+    pub const CS_EXECUTE: switch_channel_state_t = switch_channel_state_t(4);
+}
+impl switch_channel_state_t {
+    pub const CS_EXCHANGE_MEDIA: switch_channel_state_t = switch_channel_state_t(5);
+}
+impl switch_channel_state_t {
+    pub const CS_PARK: switch_channel_state_t = switch_channel_state_t(6);
+}
+impl switch_channel_state_t {
+    pub const CS_CONSUME_MEDIA: switch_channel_state_t = switch_channel_state_t(7);
+}
+impl switch_channel_state_t {
+    pub const CS_HIBERNATE: switch_channel_state_t = switch_channel_state_t(8);
+}
+impl switch_channel_state_t {
+    pub const CS_RESET: switch_channel_state_t = switch_channel_state_t(9);
+}
+impl switch_channel_state_t {
+    pub const CS_HANGUP: switch_channel_state_t = switch_channel_state_t(10);
+}
+impl switch_channel_state_t {
+    pub const CS_REPORTING: switch_channel_state_t = switch_channel_state_t(11);
+}
+impl switch_channel_state_t {
+    pub const CS_DESTROY: switch_channel_state_t = switch_channel_state_t(12);
+}
+impl switch_channel_state_t {
+    pub const CS_NONE: switch_channel_state_t = switch_channel_state_t(13);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_channel_state_t(pub ::std::os::raw::c_uint);
+impl switch_ring_ready_t {
+    pub const SWITCH_RING_READY_NONE: switch_ring_ready_t = switch_ring_ready_t(0);
+}
+impl switch_ring_ready_t {
+    pub const SWITCH_RING_READY_RINGING: switch_ring_ready_t = switch_ring_ready_t(1);
+}
+impl switch_ring_ready_t {
+    pub const SWITCH_RING_READY_QUEUED: switch_ring_ready_t = switch_ring_ready_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_ring_ready_t(pub ::std::os::raw::c_uint);
+impl switch_channel_cap_t {
+    pub const CC_MEDIA_ACK: switch_channel_cap_t = switch_channel_cap_t(1);
+}
+impl switch_channel_cap_t {
+    pub const CC_BYPASS_MEDIA: switch_channel_cap_t = switch_channel_cap_t(2);
+}
+impl switch_channel_cap_t {
+    pub const CC_PROXY_MEDIA: switch_channel_cap_t = switch_channel_cap_t(3);
+}
+impl switch_channel_cap_t {
+    pub const CC_JITTERBUFFER: switch_channel_cap_t = switch_channel_cap_t(4);
+}
+impl switch_channel_cap_t {
+    pub const CC_FS_RTP: switch_channel_cap_t = switch_channel_cap_t(5);
+}
+impl switch_channel_cap_t {
+    pub const CC_QUEUEABLE_DTMF_DELAY: switch_channel_cap_t = switch_channel_cap_t(6);
+}
+impl switch_channel_cap_t {
+    pub const CC_IO_OVERRIDE: switch_channel_cap_t = switch_channel_cap_t(7);
+}
+impl switch_channel_cap_t {
+    pub const CC_RTP_RTT: switch_channel_cap_t = switch_channel_cap_t(8);
+}
+impl switch_channel_cap_t {
+    pub const CC_MSRP: switch_channel_cap_t = switch_channel_cap_t(9);
+}
+impl switch_channel_cap_t {
+    pub const CC_MUTE_VIA_MEDIA_STREAM: switch_channel_cap_t = switch_channel_cap_t(10);
+}
+impl switch_channel_cap_t {
+    pub const CC_FLAG_MAX: switch_channel_cap_t = switch_channel_cap_t(11);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_channel_cap_t(pub ::std::os::raw::c_uint);
+impl switch_channel_flag_t {
+    pub const CF_ANSWERED: switch_channel_flag_t = switch_channel_flag_t(1);
+}
+impl switch_channel_flag_t {
+    pub const CF_OUTBOUND: switch_channel_flag_t = switch_channel_flag_t(2);
+}
+impl switch_channel_flag_t {
+    pub const CF_EARLY_MEDIA: switch_channel_flag_t = switch_channel_flag_t(3);
+}
+impl switch_channel_flag_t {
+    pub const CF_BRIDGE_ORIGINATOR: switch_channel_flag_t = switch_channel_flag_t(4);
+}
+impl switch_channel_flag_t {
+    pub const CF_UUID_BRIDGE_ORIGINATOR: switch_channel_flag_t = switch_channel_flag_t(5);
+}
+impl switch_channel_flag_t {
+    pub const CF_TRANSFER: switch_channel_flag_t = switch_channel_flag_t(6);
+}
+impl switch_channel_flag_t {
+    pub const CF_ACCEPT_CNG: switch_channel_flag_t = switch_channel_flag_t(7);
+}
+impl switch_channel_flag_t {
+    pub const CF_REDIRECT: switch_channel_flag_t = switch_channel_flag_t(8);
+}
+impl switch_channel_flag_t {
+    pub const CF_BRIDGED: switch_channel_flag_t = switch_channel_flag_t(9);
+}
+impl switch_channel_flag_t {
+    pub const CF_HOLD: switch_channel_flag_t = switch_channel_flag_t(10);
+}
+impl switch_channel_flag_t {
+    pub const CF_HOLD_BLEG: switch_channel_flag_t = switch_channel_flag_t(11);
+}
+impl switch_channel_flag_t {
+    pub const CF_SERVICE: switch_channel_flag_t = switch_channel_flag_t(12);
+}
+impl switch_channel_flag_t {
+    pub const CF_TAGGED: switch_channel_flag_t = switch_channel_flag_t(13);
+}
+impl switch_channel_flag_t {
+    pub const CF_WINNER: switch_channel_flag_t = switch_channel_flag_t(14);
+}
+impl switch_channel_flag_t {
+    pub const CF_REUSE_CALLER_PROFILE: switch_channel_flag_t = switch_channel_flag_t(15);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONTROLLED: switch_channel_flag_t = switch_channel_flag_t(16);
+}
+impl switch_channel_flag_t {
+    pub const CF_PROXY_MODE: switch_channel_flag_t = switch_channel_flag_t(17);
+}
+impl switch_channel_flag_t {
+    pub const CF_PROXY_OFF: switch_channel_flag_t = switch_channel_flag_t(18);
+}
+impl switch_channel_flag_t {
+    pub const CF_SUSPEND: switch_channel_flag_t = switch_channel_flag_t(19);
+}
+impl switch_channel_flag_t {
+    pub const CF_EVENT_PARSE: switch_channel_flag_t = switch_channel_flag_t(20);
+}
+impl switch_channel_flag_t {
+    pub const CF_GEN_RINGBACK: switch_channel_flag_t = switch_channel_flag_t(21);
+}
+impl switch_channel_flag_t {
+    pub const CF_RING_READY: switch_channel_flag_t = switch_channel_flag_t(22);
+}
+impl switch_channel_flag_t {
+    pub const CF_BREAK: switch_channel_flag_t = switch_channel_flag_t(23);
+}
+impl switch_channel_flag_t {
+    pub const CF_BROADCAST: switch_channel_flag_t = switch_channel_flag_t(24);
+}
+impl switch_channel_flag_t {
+    pub const CF_UNICAST: switch_channel_flag_t = switch_channel_flag_t(25);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO: switch_channel_flag_t = switch_channel_flag_t(26);
+}
+impl switch_channel_flag_t {
+    pub const CF_EVENT_LOCK: switch_channel_flag_t = switch_channel_flag_t(27);
+}
+impl switch_channel_flag_t {
+    pub const CF_EVENT_LOCK_PRI: switch_channel_flag_t = switch_channel_flag_t(28);
+}
+impl switch_channel_flag_t {
+    pub const CF_RESET: switch_channel_flag_t = switch_channel_flag_t(29);
+}
+impl switch_channel_flag_t {
+    pub const CF_ORIGINATING: switch_channel_flag_t = switch_channel_flag_t(30);
+}
+impl switch_channel_flag_t {
+    pub const CF_STOP_BROADCAST: switch_channel_flag_t = switch_channel_flag_t(31);
+}
+impl switch_channel_flag_t {
+    pub const CF_PROXY_MEDIA: switch_channel_flag_t = switch_channel_flag_t(32);
+}
+impl switch_channel_flag_t {
+    pub const CF_INNER_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(33);
+}
+impl switch_channel_flag_t {
+    pub const CF_REQ_MEDIA: switch_channel_flag_t = switch_channel_flag_t(34);
+}
+impl switch_channel_flag_t {
+    pub const CF_VERBOSE_EVENTS: switch_channel_flag_t = switch_channel_flag_t(35);
+}
+impl switch_channel_flag_t {
+    pub const CF_PAUSE_BUGS: switch_channel_flag_t = switch_channel_flag_t(36);
+}
+impl switch_channel_flag_t {
+    pub const CF_DIVERT_EVENTS: switch_channel_flag_t = switch_channel_flag_t(37);
+}
+impl switch_channel_flag_t {
+    pub const CF_BLOCK_STATE: switch_channel_flag_t = switch_channel_flag_t(38);
+}
+impl switch_channel_flag_t {
+    pub const CF_FS_RTP: switch_channel_flag_t = switch_channel_flag_t(39);
+}
+impl switch_channel_flag_t {
+    pub const CF_REPORTING: switch_channel_flag_t = switch_channel_flag_t(40);
+}
+impl switch_channel_flag_t {
+    pub const CF_PARK: switch_channel_flag_t = switch_channel_flag_t(41);
+}
+impl switch_channel_flag_t {
+    pub const CF_TIMESTAMP_SET: switch_channel_flag_t = switch_channel_flag_t(42);
+}
+impl switch_channel_flag_t {
+    pub const CF_ORIGINATOR: switch_channel_flag_t = switch_channel_flag_t(43);
+}
+impl switch_channel_flag_t {
+    pub const CF_XFER_ZOMBIE: switch_channel_flag_t = switch_channel_flag_t(44);
+}
+impl switch_channel_flag_t {
+    pub const CF_MEDIA_ACK: switch_channel_flag_t = switch_channel_flag_t(45);
+}
+impl switch_channel_flag_t {
+    pub const CF_THREAD_SLEEPING: switch_channel_flag_t = switch_channel_flag_t(46);
+}
+impl switch_channel_flag_t {
+    pub const CF_DISABLE_RINGBACK: switch_channel_flag_t = switch_channel_flag_t(47);
+}
+impl switch_channel_flag_t {
+    pub const CF_NOT_READY: switch_channel_flag_t = switch_channel_flag_t(48);
+}
+impl switch_channel_flag_t {
+    pub const CF_SIGNAL_BRIDGE_TTL: switch_channel_flag_t = switch_channel_flag_t(49);
+}
+impl switch_channel_flag_t {
+    pub const CF_MEDIA_BRIDGE_TTL: switch_channel_flag_t = switch_channel_flag_t(50);
+}
+impl switch_channel_flag_t {
+    pub const CF_BYPASS_MEDIA_AFTER_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(51);
+}
+impl switch_channel_flag_t {
+    pub const CF_LEG_HOLDING: switch_channel_flag_t = switch_channel_flag_t(52);
+}
+impl switch_channel_flag_t {
+    pub const CF_BROADCAST_DROP_MEDIA: switch_channel_flag_t = switch_channel_flag_t(53);
+}
+impl switch_channel_flag_t {
+    pub const CF_EARLY_HANGUP: switch_channel_flag_t = switch_channel_flag_t(54);
+}
+impl switch_channel_flag_t {
+    pub const CF_MEDIA_SET: switch_channel_flag_t = switch_channel_flag_t(55);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONSUME_ON_ORIGINATE: switch_channel_flag_t = switch_channel_flag_t(56);
+}
+impl switch_channel_flag_t {
+    pub const CF_PASSTHRU_PTIME_MISMATCH: switch_channel_flag_t = switch_channel_flag_t(57);
+}
+impl switch_channel_flag_t {
+    pub const CF_BRIDGE_NOWRITE: switch_channel_flag_t = switch_channel_flag_t(58);
+}
+impl switch_channel_flag_t {
+    pub const CF_RECOVERED: switch_channel_flag_t = switch_channel_flag_t(59);
+}
+impl switch_channel_flag_t {
+    pub const CF_JITTERBUFFER: switch_channel_flag_t = switch_channel_flag_t(60);
+}
+impl switch_channel_flag_t {
+    pub const CF_JITTERBUFFER_PLC: switch_channel_flag_t = switch_channel_flag_t(61);
+}
+impl switch_channel_flag_t {
+    pub const CF_DIALPLAN: switch_channel_flag_t = switch_channel_flag_t(62);
+}
+impl switch_channel_flag_t {
+    pub const CF_BLEG: switch_channel_flag_t = switch_channel_flag_t(63);
+}
+impl switch_channel_flag_t {
+    pub const CF_BLOCK_BROADCAST_UNTIL_MEDIA: switch_channel_flag_t = switch_channel_flag_t(64);
+}
+impl switch_channel_flag_t {
+    pub const CF_CNG_PLC: switch_channel_flag_t = switch_channel_flag_t(65);
+}
+impl switch_channel_flag_t {
+    pub const CF_ATTENDED_TRANSFER: switch_channel_flag_t = switch_channel_flag_t(66);
+}
+impl switch_channel_flag_t {
+    pub const CF_LAZY_ATTENDED_TRANSFER: switch_channel_flag_t = switch_channel_flag_t(67);
+}
+impl switch_channel_flag_t {
+    pub const CF_SIGNAL_DATA: switch_channel_flag_t = switch_channel_flag_t(68);
+}
+impl switch_channel_flag_t {
+    pub const CF_SIMPLIFY: switch_channel_flag_t = switch_channel_flag_t(69);
+}
+impl switch_channel_flag_t {
+    pub const CF_ZOMBIE_EXEC: switch_channel_flag_t = switch_channel_flag_t(70);
+}
+impl switch_channel_flag_t {
+    pub const CF_INTERCEPT: switch_channel_flag_t = switch_channel_flag_t(71);
+}
+impl switch_channel_flag_t {
+    pub const CF_INTERCEPTED: switch_channel_flag_t = switch_channel_flag_t(72);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_REFRESH_REQ: switch_channel_flag_t = switch_channel_flag_t(73);
+}
+impl switch_channel_flag_t {
+    pub const CF_MANUAL_VID_REFRESH: switch_channel_flag_t = switch_channel_flag_t(74);
+}
+impl switch_channel_flag_t {
+    pub const CF_MANUAL_MEDIA_PARAMS: switch_channel_flag_t = switch_channel_flag_t(75);
+}
+impl switch_channel_flag_t {
+    pub const CF_SERVICE_AUDIO: switch_channel_flag_t = switch_channel_flag_t(76);
+}
+impl switch_channel_flag_t {
+    pub const CF_SERVICE_VIDEO: switch_channel_flag_t = switch_channel_flag_t(77);
+}
+impl switch_channel_flag_t {
+    pub const CF_CHANNEL_SWAP: switch_channel_flag_t = switch_channel_flag_t(78);
+}
+impl switch_channel_flag_t {
+    pub const CF_DEVICE_LEG: switch_channel_flag_t = switch_channel_flag_t(79);
+}
+impl switch_channel_flag_t {
+    pub const CF_FINAL_DEVICE_LEG: switch_channel_flag_t = switch_channel_flag_t(80);
+}
+impl switch_channel_flag_t {
+    pub const CF_PICKUP: switch_channel_flag_t = switch_channel_flag_t(81);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONFIRM_BLIND_TRANSFER: switch_channel_flag_t = switch_channel_flag_t(82);
+}
+impl switch_channel_flag_t {
+    pub const CF_NO_PRESENCE: switch_channel_flag_t = switch_channel_flag_t(83);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONFERENCE: switch_channel_flag_t = switch_channel_flag_t(84);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONFERENCE_ADV: switch_channel_flag_t = switch_channel_flag_t(85);
+}
+impl switch_channel_flag_t {
+    pub const CF_RECOVERING: switch_channel_flag_t = switch_channel_flag_t(86);
+}
+impl switch_channel_flag_t {
+    pub const CF_RECOVERING_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(87);
+}
+impl switch_channel_flag_t {
+    pub const CF_TRACKED: switch_channel_flag_t = switch_channel_flag_t(88);
+}
+impl switch_channel_flag_t {
+    pub const CF_TRACKABLE: switch_channel_flag_t = switch_channel_flag_t(89);
+}
+impl switch_channel_flag_t {
+    pub const CF_NO_CDR: switch_channel_flag_t = switch_channel_flag_t(90);
+}
+impl switch_channel_flag_t {
+    pub const CF_EARLY_OK: switch_channel_flag_t = switch_channel_flag_t(91);
+}
+impl switch_channel_flag_t {
+    pub const CF_MEDIA_TRANS: switch_channel_flag_t = switch_channel_flag_t(92);
+}
+impl switch_channel_flag_t {
+    pub const CF_HOLD_ON_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(93);
+}
+impl switch_channel_flag_t {
+    pub const CF_SECURE: switch_channel_flag_t = switch_channel_flag_t(94);
+}
+impl switch_channel_flag_t {
+    pub const CF_LIBERAL_DTMF: switch_channel_flag_t = switch_channel_flag_t(95);
+}
+impl switch_channel_flag_t {
+    pub const CF_SLA_BARGE: switch_channel_flag_t = switch_channel_flag_t(96);
+}
+impl switch_channel_flag_t {
+    pub const CF_SLA_BARGING: switch_channel_flag_t = switch_channel_flag_t(97);
+}
+impl switch_channel_flag_t {
+    pub const CF_PROTO_HOLD: switch_channel_flag_t = switch_channel_flag_t(98);
+}
+impl switch_channel_flag_t {
+    pub const CF_HOLD_LOCK: switch_channel_flag_t = switch_channel_flag_t(99);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_POSSIBLE: switch_channel_flag_t = switch_channel_flag_t(100);
+}
+impl switch_channel_flag_t {
+    pub const CF_NOTIMER_DURING_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(101);
+}
+impl switch_channel_flag_t {
+    pub const CF_PASS_RFC2833: switch_channel_flag_t = switch_channel_flag_t(102);
+}
+impl switch_channel_flag_t {
+    pub const CF_T38_PASSTHRU: switch_channel_flag_t = switch_channel_flag_t(103);
+}
+impl switch_channel_flag_t {
+    pub const CF_DROP_DTMF: switch_channel_flag_t = switch_channel_flag_t(104);
+}
+impl switch_channel_flag_t {
+    pub const CF_REINVITE: switch_channel_flag_t = switch_channel_flag_t(105);
+}
+impl switch_channel_flag_t {
+    pub const CF_NOSDP_REINVITE: switch_channel_flag_t = switch_channel_flag_t(106);
+}
+impl switch_channel_flag_t {
+    pub const CF_AUTOFLUSH_DURING_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(107);
+}
+impl switch_channel_flag_t {
+    pub const CF_RTP_NOTIMER_DURING_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(108);
+}
+impl switch_channel_flag_t {
+    pub const CF_AVPF: switch_channel_flag_t = switch_channel_flag_t(109);
+}
+impl switch_channel_flag_t {
+    pub const CF_AVPF_MOZ: switch_channel_flag_t = switch_channel_flag_t(110);
+}
+impl switch_channel_flag_t {
+    pub const CF_ICE: switch_channel_flag_t = switch_channel_flag_t(111);
+}
+impl switch_channel_flag_t {
+    pub const CF_DTLS: switch_channel_flag_t = switch_channel_flag_t(112);
+}
+impl switch_channel_flag_t {
+    pub const CF_VERBOSE_SDP: switch_channel_flag_t = switch_channel_flag_t(113);
+}
+impl switch_channel_flag_t {
+    pub const CF_DTLS_OK: switch_channel_flag_t = switch_channel_flag_t(114);
+}
+impl switch_channel_flag_t {
+    pub const CF_3PCC: switch_channel_flag_t = switch_channel_flag_t(115);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_PASSIVE: switch_channel_flag_t = switch_channel_flag_t(116);
+}
+impl switch_channel_flag_t {
+    pub const CF_NOVIDEO: switch_channel_flag_t = switch_channel_flag_t(117);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_BITRATE_UNMANAGABLE: switch_channel_flag_t = switch_channel_flag_t(118);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_ECHO: switch_channel_flag_t = switch_channel_flag_t(119);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_BLANK: switch_channel_flag_t = switch_channel_flag_t(120);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_WRITING: switch_channel_flag_t = switch_channel_flag_t(121);
+}
+impl switch_channel_flag_t {
+    pub const CF_SLA_INTERCEPT: switch_channel_flag_t = switch_channel_flag_t(122);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_BREAK: switch_channel_flag_t = switch_channel_flag_t(123);
+}
+impl switch_channel_flag_t {
+    pub const CF_AUDIO_PAUSE_READ: switch_channel_flag_t = switch_channel_flag_t(124);
+}
+impl switch_channel_flag_t {
+    pub const CF_AUDIO_PAUSE_WRITE: switch_channel_flag_t = switch_channel_flag_t(125);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_PAUSE_READ: switch_channel_flag_t = switch_channel_flag_t(126);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_PAUSE_WRITE: switch_channel_flag_t = switch_channel_flag_t(127);
+}
+impl switch_channel_flag_t {
+    pub const CF_BYPASS_MEDIA_AFTER_HOLD: switch_channel_flag_t = switch_channel_flag_t(128);
+}
+impl switch_channel_flag_t {
+    pub const CF_HANGUP_HELD: switch_channel_flag_t = switch_channel_flag_t(129);
+}
+impl switch_channel_flag_t {
+    pub const CF_CONFERENCE_RESET_MEDIA: switch_channel_flag_t = switch_channel_flag_t(130);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_DECODED_READ: switch_channel_flag_t = switch_channel_flag_t(131);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_DEBUG_READ: switch_channel_flag_t = switch_channel_flag_t(132);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_DEBUG_WRITE: switch_channel_flag_t = switch_channel_flag_t(133);
+}
+impl switch_channel_flag_t {
+    pub const CF_NO_RECOVER: switch_channel_flag_t = switch_channel_flag_t(134);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_READY: switch_channel_flag_t = switch_channel_flag_t(135);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_MIRROR_INPUT: switch_channel_flag_t = switch_channel_flag_t(136);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_READ_FILE_ATTACHED: switch_channel_flag_t = switch_channel_flag_t(137);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_WRITE_FILE_ATTACHED: switch_channel_flag_t = switch_channel_flag_t(138);
+}
+impl switch_channel_flag_t {
+    pub const CF_3P_MEDIA_REQUESTED: switch_channel_flag_t = switch_channel_flag_t(139);
+}
+impl switch_channel_flag_t {
+    pub const CF_3P_NOMEDIA_REQUESTED: switch_channel_flag_t = switch_channel_flag_t(140);
+}
+impl switch_channel_flag_t {
+    pub const CF_3P_NOMEDIA_REQUESTED_BLEG: switch_channel_flag_t = switch_channel_flag_t(141);
+}
+impl switch_channel_flag_t {
+    pub const CF_IMAGE_SDP: switch_channel_flag_t = switch_channel_flag_t(142);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_SDP_RECVD: switch_channel_flag_t = switch_channel_flag_t(143);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_SDP_RECVD: switch_channel_flag_t = switch_channel_flag_t(144);
+}
+impl switch_channel_flag_t {
+    pub const CF_HAS_TEXT: switch_channel_flag_t = switch_channel_flag_t(145);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_POSSIBLE: switch_channel_flag_t = switch_channel_flag_t(146);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_PASSIVE: switch_channel_flag_t = switch_channel_flag_t(147);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_ECHO: switch_channel_flag_t = switch_channel_flag_t(148);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_ACTIVE: switch_channel_flag_t = switch_channel_flag_t(149);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_IDLE: switch_channel_flag_t = switch_channel_flag_t(150);
+}
+impl switch_channel_flag_t {
+    pub const CF_TEXT_LINE_BASED: switch_channel_flag_t = switch_channel_flag_t(151);
+}
+impl switch_channel_flag_t {
+    pub const CF_QUEUE_TEXT_EVENTS: switch_channel_flag_t = switch_channel_flag_t(152);
+}
+impl switch_channel_flag_t {
+    pub const CF_FIRE_TEXT_EVENTS: switch_channel_flag_t = switch_channel_flag_t(153);
+}
+impl switch_channel_flag_t {
+    pub const CF_MSRP: switch_channel_flag_t = switch_channel_flag_t(154);
+}
+impl switch_channel_flag_t {
+    pub const CF_MSRPS: switch_channel_flag_t = switch_channel_flag_t(155);
+}
+impl switch_channel_flag_t {
+    pub const CF_WANT_MSRP: switch_channel_flag_t = switch_channel_flag_t(156);
+}
+impl switch_channel_flag_t {
+    pub const CF_WANT_MSRPS: switch_channel_flag_t = switch_channel_flag_t(157);
+}
+impl switch_channel_flag_t {
+    pub const CF_RTT: switch_channel_flag_t = switch_channel_flag_t(158);
+}
+impl switch_channel_flag_t {
+    pub const CF_WANT_RTT: switch_channel_flag_t = switch_channel_flag_t(159);
+}
+impl switch_channel_flag_t {
+    pub const CF_AUDIO: switch_channel_flag_t = switch_channel_flag_t(160);
+}
+impl switch_channel_flag_t {
+    pub const CF_AWAITING_STREAM_CHANGE: switch_channel_flag_t = switch_channel_flag_t(161);
+}
+impl switch_channel_flag_t {
+    pub const CF_PROCESSING_STREAM_CHANGE: switch_channel_flag_t = switch_channel_flag_t(162);
+}
+impl switch_channel_flag_t {
+    pub const CF_STREAM_CHANGED: switch_channel_flag_t = switch_channel_flag_t(163);
+}
+impl switch_channel_flag_t {
+    pub const CF_ARRANGED_BRIDGE: switch_channel_flag_t = switch_channel_flag_t(164);
+}
+impl switch_channel_flag_t {
+    pub const CF_STATE_REPEAT: switch_channel_flag_t = switch_channel_flag_t(165);
+}
+impl switch_channel_flag_t {
+    pub const CF_WANT_DTLSv1_2: switch_channel_flag_t = switch_channel_flag_t(166);
+}
+impl switch_channel_flag_t {
+    pub const CF_RFC7329_COMPAT: switch_channel_flag_t = switch_channel_flag_t(167);
+}
+impl switch_channel_flag_t {
+    pub const CF_REATTACHED: switch_channel_flag_t = switch_channel_flag_t(168);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_READ_TAPPED: switch_channel_flag_t = switch_channel_flag_t(169);
+}
+impl switch_channel_flag_t {
+    pub const CF_VIDEO_WRITE_TAPPED: switch_channel_flag_t = switch_channel_flag_t(170);
+}
+impl switch_channel_flag_t {
+    pub const CF_DEVICES_CHANGED: switch_channel_flag_t = switch_channel_flag_t(171);
+}
+impl switch_channel_flag_t {
+    pub const CF_FLAG_MAX: switch_channel_flag_t = switch_channel_flag_t(172);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_channel_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_vid_params_s {
@@ -2408,451 +3759,1166 @@ pub struct switch_fps_s {
     pub samples: ::std::os::raw::c_int,
 }
 pub type switch_fps_t = switch_fps_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_channel_app_flag_t {
-    CF_APP_TAGGED = 1,
-    CF_APP_T38 = 2,
-    CF_APP_T38_REQ = 4,
-    CF_APP_T38_FAIL = 8,
-    CF_APP_T38_NEGOTIATED = 16,
-    CF_APP_T38_POSSIBLE = 32,
+impl switch_channel_app_flag_t {
+    pub const CF_APP_TAGGED: switch_channel_app_flag_t = switch_channel_app_flag_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_frame_flag_enum_t {
-    SFF_NONE = 0,
-    SFF_CNG = 1,
-    SFF_RAW_RTP = 2,
-    SFF_RTP_HEADER = 4,
-    SFF_PLC = 8,
-    SFF_RFC2833 = 16,
-    SFF_PROXY_PACKET = 32,
-    SFF_DYNAMIC = 64,
-    SFF_UDPTL_PACKET = 128,
-    SFF_NOT_AUDIO = 256,
-    SFF_RTCP = 512,
-    SFF_MARKER = 1024,
-    SFF_WAIT_KEY_FRAME = 2048,
-    SFF_RAW_RTP_PARSE_FRAME = 4096,
-    SFF_PICTURE_RESET = 8192,
-    SFF_SAME_IMAGE = 16384,
-    SFF_USE_VIDEO_TIMESTAMP = 32768,
-    SFF_ENCODED = 65536,
-    SFF_TEXT_LINE_BREAK = 131072,
-    SFF_IS_KEYFRAME = 262144,
-    SFF_EXTERNAL = 524288,
+impl switch_channel_app_flag_t {
+    pub const CF_APP_T38: switch_channel_app_flag_t = switch_channel_app_flag_t(2);
 }
+impl switch_channel_app_flag_t {
+    pub const CF_APP_T38_REQ: switch_channel_app_flag_t = switch_channel_app_flag_t(4);
+}
+impl switch_channel_app_flag_t {
+    pub const CF_APP_T38_FAIL: switch_channel_app_flag_t = switch_channel_app_flag_t(8);
+}
+impl switch_channel_app_flag_t {
+    pub const CF_APP_T38_NEGOTIATED: switch_channel_app_flag_t = switch_channel_app_flag_t(16);
+}
+impl switch_channel_app_flag_t {
+    pub const CF_APP_T38_POSSIBLE: switch_channel_app_flag_t = switch_channel_app_flag_t(32);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_channel_app_flag_t(pub ::std::os::raw::c_uint);
+impl switch_frame_flag_enum_t {
+    pub const SFF_NONE: switch_frame_flag_enum_t = switch_frame_flag_enum_t(0);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_CNG: switch_frame_flag_enum_t = switch_frame_flag_enum_t(1);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_RAW_RTP: switch_frame_flag_enum_t = switch_frame_flag_enum_t(2);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_RTP_HEADER: switch_frame_flag_enum_t = switch_frame_flag_enum_t(4);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_PLC: switch_frame_flag_enum_t = switch_frame_flag_enum_t(8);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_RFC2833: switch_frame_flag_enum_t = switch_frame_flag_enum_t(16);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_PROXY_PACKET: switch_frame_flag_enum_t = switch_frame_flag_enum_t(32);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_DYNAMIC: switch_frame_flag_enum_t = switch_frame_flag_enum_t(64);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_UDPTL_PACKET: switch_frame_flag_enum_t = switch_frame_flag_enum_t(128);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_NOT_AUDIO: switch_frame_flag_enum_t = switch_frame_flag_enum_t(256);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_RTCP: switch_frame_flag_enum_t = switch_frame_flag_enum_t(512);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_MARKER: switch_frame_flag_enum_t = switch_frame_flag_enum_t(1024);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_WAIT_KEY_FRAME: switch_frame_flag_enum_t = switch_frame_flag_enum_t(2048);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_RAW_RTP_PARSE_FRAME: switch_frame_flag_enum_t = switch_frame_flag_enum_t(4096);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_PICTURE_RESET: switch_frame_flag_enum_t = switch_frame_flag_enum_t(8192);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_SAME_IMAGE: switch_frame_flag_enum_t = switch_frame_flag_enum_t(16384);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_USE_VIDEO_TIMESTAMP: switch_frame_flag_enum_t = switch_frame_flag_enum_t(32768);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_ENCODED: switch_frame_flag_enum_t = switch_frame_flag_enum_t(65536);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_TEXT_LINE_BREAK: switch_frame_flag_enum_t = switch_frame_flag_enum_t(131072);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_IS_KEYFRAME: switch_frame_flag_enum_t = switch_frame_flag_enum_t(262144);
+}
+impl switch_frame_flag_enum_t {
+    pub const SFF_EXTERNAL: switch_frame_flag_enum_t = switch_frame_flag_enum_t(524288);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_frame_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_frame_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_application_flag_enum_t {
-    SAF_NONE = 0,
-    SAF_SUPPORT_NOMEDIA = 1,
-    SAF_ROUTING_EXEC = 2,
-    SAF_MEDIA_TAP = 4,
-    SAF_ZOMBIE_EXEC = 8,
-    SAF_NO_LOOPBACK = 16,
-    SAF_SUPPORT_TEXT_ONLY = 32,
+impl switch_application_flag_enum_t {
+    pub const SAF_NONE: switch_application_flag_enum_t = switch_application_flag_enum_t(0);
 }
+impl switch_application_flag_enum_t {
+    pub const SAF_SUPPORT_NOMEDIA: switch_application_flag_enum_t =
+        switch_application_flag_enum_t(1);
+}
+impl switch_application_flag_enum_t {
+    pub const SAF_ROUTING_EXEC: switch_application_flag_enum_t = switch_application_flag_enum_t(2);
+}
+impl switch_application_flag_enum_t {
+    pub const SAF_MEDIA_TAP: switch_application_flag_enum_t = switch_application_flag_enum_t(4);
+}
+impl switch_application_flag_enum_t {
+    pub const SAF_ZOMBIE_EXEC: switch_application_flag_enum_t = switch_application_flag_enum_t(8);
+}
+impl switch_application_flag_enum_t {
+    pub const SAF_NO_LOOPBACK: switch_application_flag_enum_t = switch_application_flag_enum_t(16);
+}
+impl switch_application_flag_enum_t {
+    pub const SAF_SUPPORT_TEXT_ONLY: switch_application_flag_enum_t =
+        switch_application_flag_enum_t(32);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_application_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_application_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_chat_application_flag_enum_t {
-    SCAF_NONE = 0,
+impl switch_chat_application_flag_enum_t {
+    pub const SCAF_NONE: switch_chat_application_flag_enum_t =
+        switch_chat_application_flag_enum_t(0);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_chat_application_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_chat_application_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_signal_t {
-    SWITCH_SIG_NONE = 0,
-    SWITCH_SIG_KILL = 1,
-    SWITCH_SIG_XFER = 2,
-    SWITCH_SIG_BREAK = 3,
+impl switch_signal_t {
+    pub const SWITCH_SIG_NONE: switch_signal_t = switch_signal_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_codec_flag_enum_t {
-    SWITCH_CODEC_FLAG_ENCODE = 1,
-    SWITCH_CODEC_FLAG_DECODE = 2,
-    SWITCH_CODEC_FLAG_SILENCE_START = 4,
-    SWITCH_CODEC_FLAG_SILENCE_STOP = 8,
-    SWITCH_CODEC_FLAG_SILENCE = 16,
-    SWITCH_CODEC_FLAG_FREE_POOL = 32,
-    SWITCH_CODEC_FLAG_AAL2 = 64,
-    SWITCH_CODEC_FLAG_PASSTHROUGH = 128,
-    SWITCH_CODEC_FLAG_READY = 256,
-    SWITCH_CODEC_FLAG_HAS_ADJ_BITRATE = 16384,
-    SWITCH_CODEC_FLAG_HAS_PLC = 32768,
-    SWITCH_CODEC_FLAG_VIDEO_PATCHING = 65536,
+impl switch_signal_t {
+    pub const SWITCH_SIG_KILL: switch_signal_t = switch_signal_t(1);
 }
+impl switch_signal_t {
+    pub const SWITCH_SIG_XFER: switch_signal_t = switch_signal_t(2);
+}
+impl switch_signal_t {
+    pub const SWITCH_SIG_BREAK: switch_signal_t = switch_signal_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_signal_t(pub ::std::os::raw::c_uint);
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_ENCODE: switch_codec_flag_enum_t = switch_codec_flag_enum_t(1);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_DECODE: switch_codec_flag_enum_t = switch_codec_flag_enum_t(2);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_SILENCE_START: switch_codec_flag_enum_t =
+        switch_codec_flag_enum_t(4);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_SILENCE_STOP: switch_codec_flag_enum_t =
+        switch_codec_flag_enum_t(8);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_SILENCE: switch_codec_flag_enum_t = switch_codec_flag_enum_t(16);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_FREE_POOL: switch_codec_flag_enum_t = switch_codec_flag_enum_t(32);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_AAL2: switch_codec_flag_enum_t = switch_codec_flag_enum_t(64);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_PASSTHROUGH: switch_codec_flag_enum_t =
+        switch_codec_flag_enum_t(128);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_READY: switch_codec_flag_enum_t = switch_codec_flag_enum_t(256);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_HAS_ADJ_BITRATE: switch_codec_flag_enum_t =
+        switch_codec_flag_enum_t(16384);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_HAS_PLC: switch_codec_flag_enum_t = switch_codec_flag_enum_t(32768);
+}
+impl switch_codec_flag_enum_t {
+    pub const SWITCH_CODEC_FLAG_VIDEO_PATCHING: switch_codec_flag_enum_t =
+        switch_codec_flag_enum_t(65536);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_codec_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_codec_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_speech_flag_enum_t {
-    SWITCH_SPEECH_FLAG_NONE = 0,
-    SWITCH_SPEECH_FLAG_HASTEXT = 1,
-    SWITCH_SPEECH_FLAG_PEEK = 2,
-    SWITCH_SPEECH_FLAG_FREE_POOL = 4,
-    SWITCH_SPEECH_FLAG_BLOCKING = 8,
-    SWITCH_SPEECH_FLAG_PAUSE = 16,
-    SWITCH_SPEECH_FLAG_OPEN = 32,
-    SWITCH_SPEECH_FLAG_DONE = 64,
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_NONE: switch_speech_flag_enum_t = switch_speech_flag_enum_t(0);
 }
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_HASTEXT: switch_speech_flag_enum_t = switch_speech_flag_enum_t(1);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_PEEK: switch_speech_flag_enum_t = switch_speech_flag_enum_t(2);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_FREE_POOL: switch_speech_flag_enum_t =
+        switch_speech_flag_enum_t(4);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_BLOCKING: switch_speech_flag_enum_t = switch_speech_flag_enum_t(8);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_PAUSE: switch_speech_flag_enum_t = switch_speech_flag_enum_t(16);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_OPEN: switch_speech_flag_enum_t = switch_speech_flag_enum_t(32);
+}
+impl switch_speech_flag_enum_t {
+    pub const SWITCH_SPEECH_FLAG_DONE: switch_speech_flag_enum_t = switch_speech_flag_enum_t(64);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_speech_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_speech_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_asr_flag_enum_t {
-    SWITCH_ASR_FLAG_NONE = 0,
-    SWITCH_ASR_FLAG_DATA = 1,
-    SWITCH_ASR_FLAG_FREE_POOL = 2,
-    SWITCH_ASR_FLAG_CLOSED = 4,
-    SWITCH_ASR_FLAG_FIRE_EVENTS = 8,
-    SWITCH_ASR_FLAG_AUTO_RESUME = 16,
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_NONE: switch_asr_flag_enum_t = switch_asr_flag_enum_t(0);
 }
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_DATA: switch_asr_flag_enum_t = switch_asr_flag_enum_t(1);
+}
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_FREE_POOL: switch_asr_flag_enum_t = switch_asr_flag_enum_t(2);
+}
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_CLOSED: switch_asr_flag_enum_t = switch_asr_flag_enum_t(4);
+}
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_FIRE_EVENTS: switch_asr_flag_enum_t = switch_asr_flag_enum_t(8);
+}
+impl switch_asr_flag_enum_t {
+    pub const SWITCH_ASR_FLAG_AUTO_RESUME: switch_asr_flag_enum_t = switch_asr_flag_enum_t(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_asr_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_asr_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_directory_flag_enum_t {
-    SWITCH_DIRECTORY_FLAG_FREE_POOL = 1,
+impl switch_directory_flag_enum_t {
+    pub const SWITCH_DIRECTORY_FLAG_FREE_POOL: switch_directory_flag_enum_t =
+        switch_directory_flag_enum_t(1);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_directory_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_directory_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_codec_type_t {
-    SWITCH_CODEC_TYPE_AUDIO = 0,
-    SWITCH_CODEC_TYPE_VIDEO = 1,
-    SWITCH_CODEC_TYPE_T38 = 2,
-    SWITCH_CODEC_TYPE_APP = 3,
+impl switch_codec_type_t {
+    pub const SWITCH_CODEC_TYPE_AUDIO: switch_codec_type_t = switch_codec_type_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_media_type_t {
-    SWITCH_MEDIA_TYPE_AUDIO = 0,
-    SWITCH_MEDIA_TYPE_VIDEO = 1,
-    SWITCH_MEDIA_TYPE_TEXT = 2,
+impl switch_codec_type_t {
+    pub const SWITCH_CODEC_TYPE_VIDEO: switch_codec_type_t = switch_codec_type_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_timer_flag_enum_t {
-    SWITCH_TIMER_FLAG_FREE_POOL = 1,
+impl switch_codec_type_t {
+    pub const SWITCH_CODEC_TYPE_T38: switch_codec_type_t = switch_codec_type_t(2);
 }
+impl switch_codec_type_t {
+    pub const SWITCH_CODEC_TYPE_APP: switch_codec_type_t = switch_codec_type_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_codec_type_t(pub ::std::os::raw::c_uint);
+impl switch_media_type_t {
+    pub const SWITCH_MEDIA_TYPE_AUDIO: switch_media_type_t = switch_media_type_t(0);
+}
+impl switch_media_type_t {
+    pub const SWITCH_MEDIA_TYPE_VIDEO: switch_media_type_t = switch_media_type_t(1);
+}
+impl switch_media_type_t {
+    pub const SWITCH_MEDIA_TYPE_TEXT: switch_media_type_t = switch_media_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_media_type_t(pub ::std::os::raw::c_uint);
+impl switch_timer_flag_enum_t {
+    pub const SWITCH_TIMER_FLAG_FREE_POOL: switch_timer_flag_enum_t = switch_timer_flag_enum_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_timer_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_timer_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_media_bug_flag_enum_t {
-    SMBF_BOTH = 0,
-    SMBF_READ_STREAM = 1,
-    SMBF_WRITE_STREAM = 2,
-    SMBF_WRITE_REPLACE = 4,
-    SMBF_READ_REPLACE = 8,
-    SMBF_READ_PING = 16,
-    SMBF_STEREO = 32,
-    SMBF_ANSWER_REQ = 64,
-    SMBF_BRIDGE_REQ = 128,
-    SMBF_THREAD_LOCK = 256,
-    SMBF_PRUNE = 512,
-    SMBF_NO_PAUSE = 1024,
-    SMBF_STEREO_SWAP = 2048,
-    SMBF_LOCK = 4096,
-    SMBF_TAP_NATIVE_READ = 8192,
-    SMBF_TAP_NATIVE_WRITE = 16384,
-    SMBF_ONE_ONLY = 32768,
-    SMBF_MASK = 65536,
-    SMBF_READ_VIDEO_PING = 131072,
-    SMBF_WRITE_VIDEO_PING = 262144,
-    SMBF_READ_VIDEO_STREAM = 524288,
-    SMBF_WRITE_VIDEO_STREAM = 1048576,
-    SMBF_VIDEO_PATCH = 2097152,
-    SMBF_SPY_VIDEO_STREAM = 4194304,
-    SMBF_SPY_VIDEO_STREAM_BLEG = 8388608,
-    SMBF_READ_VIDEO_PATCH = 16777216,
-    SMBF_READ_TEXT_STREAM = 33554432,
-    SMBF_FIRST = 67108864,
-    SMBF_PAUSE = 134217728,
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_BOTH: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(0);
 }
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_STREAM: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(1);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_WRITE_STREAM: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(2);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_WRITE_REPLACE: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(4);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_REPLACE: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(8);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_PING: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(16);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_STEREO: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(32);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_ANSWER_REQ: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(64);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_BRIDGE_REQ: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(128);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_THREAD_LOCK: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(256);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_PRUNE: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(512);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_NO_PAUSE: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(1024);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_STEREO_SWAP: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(2048);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_LOCK: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(4096);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_TAP_NATIVE_READ: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(8192);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_TAP_NATIVE_WRITE: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(16384);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_ONE_ONLY: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(32768);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_MASK: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(65536);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_VIDEO_PING: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(131072);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_WRITE_VIDEO_PING: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(262144);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_VIDEO_STREAM: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(524288);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_WRITE_VIDEO_STREAM: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(1048576);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_VIDEO_PATCH: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(2097152);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_SPY_VIDEO_STREAM: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(4194304);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_SPY_VIDEO_STREAM_BLEG: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(8388608);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_VIDEO_PATCH: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(16777216);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_READ_TEXT_STREAM: switch_media_bug_flag_enum_t =
+        switch_media_bug_flag_enum_t(33554432);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_FIRST: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(67108864);
+}
+impl switch_media_bug_flag_enum_t {
+    pub const SMBF_PAUSE: switch_media_bug_flag_enum_t = switch_media_bug_flag_enum_t(134217728);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_media_bug_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_media_bug_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_file_flag_enum_t {
-    SWITCH_FILE_FLAG_READ = 1,
-    SWITCH_FILE_FLAG_WRITE = 2,
-    SWITCH_FILE_FLAG_FREE_POOL = 4,
-    SWITCH_FILE_DATA_SHORT = 8,
-    SWITCH_FILE_DATA_INT = 16,
-    SWITCH_FILE_DATA_FLOAT = 32,
-    SWITCH_FILE_DATA_DOUBLE = 64,
-    SWITCH_FILE_DATA_RAW = 128,
-    SWITCH_FILE_PAUSE = 256,
-    SWITCH_FILE_NATIVE = 512,
-    SWITCH_FILE_SEEK = 1024,
-    SWITCH_FILE_OPEN = 2048,
-    SWITCH_FILE_CALLBACK = 4096,
-    SWITCH_FILE_DONE = 8192,
-    SWITCH_FILE_BUFFER_DONE = 16384,
-    SWITCH_FILE_WRITE_APPEND = 32768,
-    SWITCH_FILE_WRITE_OVER = 65536,
-    SWITCH_FILE_NOMUX = 131072,
-    SWITCH_FILE_BREAK_ON_CHANGE = 262144,
-    SWITCH_FILE_FLAG_VIDEO = 524288,
-    SWITCH_FILE_FLAG_VIDEO_EOF = 1048576,
-    SWITCH_FILE_PRE_CLOSED = 2097152,
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_FLAG_READ: switch_file_flag_enum_t = switch_file_flag_enum_t(1);
 }
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_FLAG_WRITE: switch_file_flag_enum_t = switch_file_flag_enum_t(2);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_FLAG_FREE_POOL: switch_file_flag_enum_t = switch_file_flag_enum_t(4);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DATA_SHORT: switch_file_flag_enum_t = switch_file_flag_enum_t(8);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DATA_INT: switch_file_flag_enum_t = switch_file_flag_enum_t(16);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DATA_FLOAT: switch_file_flag_enum_t = switch_file_flag_enum_t(32);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DATA_DOUBLE: switch_file_flag_enum_t = switch_file_flag_enum_t(64);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DATA_RAW: switch_file_flag_enum_t = switch_file_flag_enum_t(128);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_PAUSE: switch_file_flag_enum_t = switch_file_flag_enum_t(256);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_NATIVE: switch_file_flag_enum_t = switch_file_flag_enum_t(512);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_SEEK: switch_file_flag_enum_t = switch_file_flag_enum_t(1024);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_OPEN: switch_file_flag_enum_t = switch_file_flag_enum_t(2048);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_CALLBACK: switch_file_flag_enum_t = switch_file_flag_enum_t(4096);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_DONE: switch_file_flag_enum_t = switch_file_flag_enum_t(8192);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_BUFFER_DONE: switch_file_flag_enum_t = switch_file_flag_enum_t(16384);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_WRITE_APPEND: switch_file_flag_enum_t = switch_file_flag_enum_t(32768);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_WRITE_OVER: switch_file_flag_enum_t = switch_file_flag_enum_t(65536);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_NOMUX: switch_file_flag_enum_t = switch_file_flag_enum_t(131072);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_BREAK_ON_CHANGE: switch_file_flag_enum_t =
+        switch_file_flag_enum_t(262144);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_FLAG_VIDEO: switch_file_flag_enum_t = switch_file_flag_enum_t(524288);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_FLAG_VIDEO_EOF: switch_file_flag_enum_t =
+        switch_file_flag_enum_t(1048576);
+}
+impl switch_file_flag_enum_t {
+    pub const SWITCH_FILE_PRE_CLOSED: switch_file_flag_enum_t = switch_file_flag_enum_t(2097152);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_file_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_file_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_io_flag_enum_t {
-    SWITCH_IO_FLAG_NONE = 0,
-    SWITCH_IO_FLAG_NOBLOCK = 1,
-    SWITCH_IO_FLAG_SINGLE_READ = 2,
-    SWITCH_IO_FLAG_FORCE = 4,
-    SWITCH_IO_FLAG_QUEUED = 8,
+impl switch_io_flag_enum_t {
+    pub const SWITCH_IO_FLAG_NONE: switch_io_flag_enum_t = switch_io_flag_enum_t(0);
 }
+impl switch_io_flag_enum_t {
+    pub const SWITCH_IO_FLAG_NOBLOCK: switch_io_flag_enum_t = switch_io_flag_enum_t(1);
+}
+impl switch_io_flag_enum_t {
+    pub const SWITCH_IO_FLAG_SINGLE_READ: switch_io_flag_enum_t = switch_io_flag_enum_t(2);
+}
+impl switch_io_flag_enum_t {
+    pub const SWITCH_IO_FLAG_FORCE: switch_io_flag_enum_t = switch_io_flag_enum_t(4);
+}
+impl switch_io_flag_enum_t {
+    pub const SWITCH_IO_FLAG_QUEUED: switch_io_flag_enum_t = switch_io_flag_enum_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_io_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_io_flag_t = u32;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_event_types_t {
-    SWITCH_EVENT_CUSTOM = 0,
-    SWITCH_EVENT_CLONE = 1,
-    SWITCH_EVENT_CHANNEL_CREATE = 2,
-    SWITCH_EVENT_CHANNEL_DESTROY = 3,
-    SWITCH_EVENT_CHANNEL_STATE = 4,
-    SWITCH_EVENT_CHANNEL_CALLSTATE = 5,
-    SWITCH_EVENT_CHANNEL_ANSWER = 6,
-    SWITCH_EVENT_CHANNEL_HANGUP = 7,
-    SWITCH_EVENT_CHANNEL_HANGUP_COMPLETE = 8,
-    SWITCH_EVENT_CHANNEL_EXECUTE = 9,
-    SWITCH_EVENT_CHANNEL_EXECUTE_COMPLETE = 10,
-    SWITCH_EVENT_CHANNEL_HOLD = 11,
-    SWITCH_EVENT_CHANNEL_UNHOLD = 12,
-    SWITCH_EVENT_CHANNEL_BRIDGE = 13,
-    SWITCH_EVENT_CHANNEL_UNBRIDGE = 14,
-    SWITCH_EVENT_CHANNEL_PROGRESS = 15,
-    SWITCH_EVENT_CHANNEL_PROGRESS_MEDIA = 16,
-    SWITCH_EVENT_CHANNEL_OUTGOING = 17,
-    SWITCH_EVENT_CHANNEL_PARK = 18,
-    SWITCH_EVENT_CHANNEL_UNPARK = 19,
-    SWITCH_EVENT_CHANNEL_APPLICATION = 20,
-    SWITCH_EVENT_CHANNEL_ORIGINATE = 21,
-    SWITCH_EVENT_CHANNEL_UUID = 22,
-    SWITCH_EVENT_API = 23,
-    SWITCH_EVENT_LOG = 24,
-    SWITCH_EVENT_INBOUND_CHAN = 25,
-    SWITCH_EVENT_OUTBOUND_CHAN = 26,
-    SWITCH_EVENT_STARTUP = 27,
-    SWITCH_EVENT_SHUTDOWN = 28,
-    SWITCH_EVENT_PUBLISH = 29,
-    SWITCH_EVENT_UNPUBLISH = 30,
-    SWITCH_EVENT_TALK = 31,
-    SWITCH_EVENT_NOTALK = 32,
-    SWITCH_EVENT_SESSION_CRASH = 33,
-    SWITCH_EVENT_MODULE_LOAD = 34,
-    SWITCH_EVENT_MODULE_UNLOAD = 35,
-    SWITCH_EVENT_DTMF = 36,
-    SWITCH_EVENT_MESSAGE = 37,
-    SWITCH_EVENT_PRESENCE_IN = 38,
-    SWITCH_EVENT_NOTIFY_IN = 39,
-    SWITCH_EVENT_PRESENCE_OUT = 40,
-    SWITCH_EVENT_PRESENCE_PROBE = 41,
-    SWITCH_EVENT_MESSAGE_WAITING = 42,
-    SWITCH_EVENT_MESSAGE_QUERY = 43,
-    SWITCH_EVENT_ROSTER = 44,
-    SWITCH_EVENT_CODEC = 45,
-    SWITCH_EVENT_BACKGROUND_JOB = 46,
-    SWITCH_EVENT_DETECTED_SPEECH = 47,
-    SWITCH_EVENT_DETECTED_TONE = 48,
-    SWITCH_EVENT_PRIVATE_COMMAND = 49,
-    SWITCH_EVENT_HEARTBEAT = 50,
-    SWITCH_EVENT_TRAP = 51,
-    SWITCH_EVENT_ADD_SCHEDULE = 52,
-    SWITCH_EVENT_DEL_SCHEDULE = 53,
-    SWITCH_EVENT_EXE_SCHEDULE = 54,
-    SWITCH_EVENT_RE_SCHEDULE = 55,
-    SWITCH_EVENT_RELOADXML = 56,
-    SWITCH_EVENT_NOTIFY = 57,
-    SWITCH_EVENT_PHONE_FEATURE = 58,
-    SWITCH_EVENT_PHONE_FEATURE_SUBSCRIBE = 59,
-    SWITCH_EVENT_SEND_MESSAGE = 60,
-    SWITCH_EVENT_RECV_MESSAGE = 61,
-    SWITCH_EVENT_REQUEST_PARAMS = 62,
-    SWITCH_EVENT_CHANNEL_DATA = 63,
-    SWITCH_EVENT_GENERAL = 64,
-    SWITCH_EVENT_COMMAND = 65,
-    SWITCH_EVENT_SESSION_HEARTBEAT = 66,
-    SWITCH_EVENT_CLIENT_DISCONNECTED = 67,
-    SWITCH_EVENT_SERVER_DISCONNECTED = 68,
-    SWITCH_EVENT_SEND_INFO = 69,
-    SWITCH_EVENT_RECV_INFO = 70,
-    SWITCH_EVENT_RECV_RTCP_MESSAGE = 71,
-    SWITCH_EVENT_SEND_RTCP_MESSAGE = 72,
-    SWITCH_EVENT_CALL_SECURE = 73,
-    SWITCH_EVENT_NAT = 74,
-    SWITCH_EVENT_RECORD_START = 75,
-    SWITCH_EVENT_RECORD_STOP = 76,
-    SWITCH_EVENT_PLAYBACK_START = 77,
-    SWITCH_EVENT_PLAYBACK_STOP = 78,
-    SWITCH_EVENT_CALL_UPDATE = 79,
-    SWITCH_EVENT_FAILURE = 80,
-    SWITCH_EVENT_SOCKET_DATA = 81,
-    SWITCH_EVENT_MEDIA_BUG_START = 82,
-    SWITCH_EVENT_MEDIA_BUG_STOP = 83,
-    SWITCH_EVENT_CONFERENCE_DATA_QUERY = 84,
-    SWITCH_EVENT_CONFERENCE_DATA = 85,
-    SWITCH_EVENT_CALL_SETUP_REQ = 86,
-    SWITCH_EVENT_CALL_SETUP_RESULT = 87,
-    SWITCH_EVENT_CALL_DETAIL = 88,
-    SWITCH_EVENT_DEVICE_STATE = 89,
-    SWITCH_EVENT_TEXT = 90,
-    SWITCH_EVENT_SHUTDOWN_REQUESTED = 91,
-    SWITCH_EVENT_ALL = 92,
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CUSTOM: switch_event_types_t = switch_event_types_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_input_type_t {
-    SWITCH_INPUT_TYPE_DTMF = 0,
-    SWITCH_INPUT_TYPE_EVENT = 1,
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CLONE: switch_event_types_t = switch_event_types_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_call_cause_t {
-    SWITCH_CAUSE_NONE = 0,
-    SWITCH_CAUSE_UNALLOCATED_NUMBER = 1,
-    SWITCH_CAUSE_NO_ROUTE_TRANSIT_NET = 2,
-    SWITCH_CAUSE_NO_ROUTE_DESTINATION = 3,
-    SWITCH_CAUSE_CHANNEL_UNACCEPTABLE = 6,
-    SWITCH_CAUSE_CALL_AWARDED_DELIVERED = 7,
-    SWITCH_CAUSE_NORMAL_CLEARING = 16,
-    SWITCH_CAUSE_USER_BUSY = 17,
-    SWITCH_CAUSE_NO_USER_RESPONSE = 18,
-    SWITCH_CAUSE_NO_ANSWER = 19,
-    SWITCH_CAUSE_SUBSCRIBER_ABSENT = 20,
-    SWITCH_CAUSE_CALL_REJECTED = 21,
-    SWITCH_CAUSE_NUMBER_CHANGED = 22,
-    SWITCH_CAUSE_REDIRECTION_TO_NEW_DESTINATION = 23,
-    SWITCH_CAUSE_EXCHANGE_ROUTING_ERROR = 25,
-    SWITCH_CAUSE_DESTINATION_OUT_OF_ORDER = 27,
-    SWITCH_CAUSE_INVALID_NUMBER_FORMAT = 28,
-    SWITCH_CAUSE_FACILITY_REJECTED = 29,
-    SWITCH_CAUSE_RESPONSE_TO_STATUS_ENQUIRY = 30,
-    SWITCH_CAUSE_NORMAL_UNSPECIFIED = 31,
-    SWITCH_CAUSE_NORMAL_CIRCUIT_CONGESTION = 34,
-    SWITCH_CAUSE_NETWORK_OUT_OF_ORDER = 38,
-    SWITCH_CAUSE_NORMAL_TEMPORARY_FAILURE = 41,
-    SWITCH_CAUSE_SWITCH_CONGESTION = 42,
-    SWITCH_CAUSE_ACCESS_INFO_DISCARDED = 43,
-    SWITCH_CAUSE_REQUESTED_CHAN_UNAVAIL = 44,
-    SWITCH_CAUSE_PRE_EMPTED = 45,
-    SWITCH_CAUSE_FACILITY_NOT_SUBSCRIBED = 50,
-    SWITCH_CAUSE_OUTGOING_CALL_BARRED = 52,
-    SWITCH_CAUSE_INCOMING_CALL_BARRED = 54,
-    SWITCH_CAUSE_BEARERCAPABILITY_NOTAUTH = 57,
-    SWITCH_CAUSE_BEARERCAPABILITY_NOTAVAIL = 58,
-    SWITCH_CAUSE_SERVICE_UNAVAILABLE = 63,
-    SWITCH_CAUSE_BEARERCAPABILITY_NOTIMPL = 65,
-    SWITCH_CAUSE_CHAN_NOT_IMPLEMENTED = 66,
-    SWITCH_CAUSE_FACILITY_NOT_IMPLEMENTED = 69,
-    SWITCH_CAUSE_SERVICE_NOT_IMPLEMENTED = 79,
-    SWITCH_CAUSE_INVALID_CALL_REFERENCE = 81,
-    SWITCH_CAUSE_INCOMPATIBLE_DESTINATION = 88,
-    SWITCH_CAUSE_INVALID_MSG_UNSPECIFIED = 95,
-    SWITCH_CAUSE_MANDATORY_IE_MISSING = 96,
-    SWITCH_CAUSE_MESSAGE_TYPE_NONEXIST = 97,
-    SWITCH_CAUSE_WRONG_MESSAGE = 98,
-    SWITCH_CAUSE_IE_NONEXIST = 99,
-    SWITCH_CAUSE_INVALID_IE_CONTENTS = 100,
-    SWITCH_CAUSE_WRONG_CALL_STATE = 101,
-    SWITCH_CAUSE_RECOVERY_ON_TIMER_EXPIRE = 102,
-    SWITCH_CAUSE_MANDATORY_IE_LENGTH_ERROR = 103,
-    SWITCH_CAUSE_PROTOCOL_ERROR = 111,
-    SWITCH_CAUSE_INTERWORKING = 127,
-    SWITCH_CAUSE_SUCCESS = 142,
-    SWITCH_CAUSE_ORIGINATOR_CANCEL = 487,
-    SWITCH_CAUSE_CRASH = 700,
-    SWITCH_CAUSE_SYSTEM_SHUTDOWN = 701,
-    SWITCH_CAUSE_LOSE_RACE = 702,
-    SWITCH_CAUSE_MANAGER_REQUEST = 703,
-    SWITCH_CAUSE_BLIND_TRANSFER = 800,
-    SWITCH_CAUSE_ATTENDED_TRANSFER = 801,
-    SWITCH_CAUSE_ALLOTTED_TIMEOUT = 802,
-    SWITCH_CAUSE_USER_CHALLENGE = 803,
-    SWITCH_CAUSE_MEDIA_TIMEOUT = 804,
-    SWITCH_CAUSE_PICKED_OFF = 805,
-    SWITCH_CAUSE_USER_NOT_REGISTERED = 806,
-    SWITCH_CAUSE_PROGRESS_TIMEOUT = 807,
-    SWITCH_CAUSE_INVALID_GATEWAY = 808,
-    SWITCH_CAUSE_GATEWAY_DOWN = 809,
-    SWITCH_CAUSE_INVALID_URL = 810,
-    SWITCH_CAUSE_INVALID_PROFILE = 811,
-    SWITCH_CAUSE_NO_PICKUP = 812,
-    SWITCH_CAUSE_SRTP_READ_ERROR = 813,
-    SWITCH_CAUSE_BOWOUT = 814,
-    SWITCH_CAUSE_BUSY_EVERYWHERE = 815,
-    SWITCH_CAUSE_DECLINE = 816,
-    SWITCH_CAUSE_DOES_NOT_EXIST_ANYWHERE = 817,
-    SWITCH_CAUSE_NOT_ACCEPTABLE = 818,
-    SWITCH_CAUSE_UNWANTED = 819,
-    SWITCH_CAUSE_NO_IDENTITY = 820,
-    SWITCH_CAUSE_BAD_IDENTITY_INFO = 821,
-    SWITCH_CAUSE_UNSUPPORTED_CERTIFICATE = 822,
-    SWITCH_CAUSE_INVALID_IDENTITY = 823,
-    SWITCH_CAUSE_STALE_DATE = 824,
-    SWITCH_CAUSE_REJECT_ALL = 825,
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_CREATE: switch_event_types_t = switch_event_types_t(2);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_session_ctl_t {
-    SCSC_PAUSE_INBOUND = 0,
-    SCSC_PAUSE_OUTBOUND = 1,
-    SCSC_PAUSE_ALL = 2,
-    SCSC_HUPALL = 3,
-    SCSC_SHUTDOWN = 4,
-    SCSC_CHECK_RUNNING = 5,
-    SCSC_LOGLEVEL = 6,
-    SCSC_SPS = 7,
-    SCSC_LAST_SPS = 8,
-    SCSC_RECLAIM = 9,
-    SCSC_MAX_SESSIONS = 10,
-    SCSC_SYNC_CLOCK = 11,
-    SCSC_MAX_DTMF_DURATION = 12,
-    SCSC_MIN_DTMF_DURATION = 13,
-    SCSC_DEFAULT_DTMF_DURATION = 14,
-    SCSC_SHUTDOWN_ELEGANT = 15,
-    SCSC_SHUTDOWN_ASAP = 16,
-    SCSC_CANCEL_SHUTDOWN = 17,
-    SCSC_SEND_SIGHUP = 18,
-    SCSC_DEBUG_LEVEL = 19,
-    SCSC_FLUSH_DB_HANDLES = 20,
-    SCSC_SHUTDOWN_NOW = 21,
-    SCSC_REINCARNATE_NOW = 22,
-    SCSC_CALIBRATE_CLOCK = 23,
-    SCSC_SAVE_HISTORY = 24,
-    SCSC_CRASH = 25,
-    SCSC_MIN_IDLE_CPU = 26,
-    SCSC_VERBOSE_EVENTS = 27,
-    SCSC_SHUTDOWN_CHECK = 28,
-    SCSC_PAUSE_INBOUND_CHECK = 29,
-    SCSC_PAUSE_OUTBOUND_CHECK = 30,
-    SCSC_PAUSE_CHECK = 31,
-    SCSC_READY_CHECK = 32,
-    SCSC_THREADED_SYSTEM_EXEC = 33,
-    SCSC_SYNC_CLOCK_WHEN_IDLE = 34,
-    SCSC_DEBUG_SQL = 35,
-    SCSC_SQL = 36,
-    SCSC_API_EXPANSION = 37,
-    SCSC_RECOVER = 38,
-    SCSC_SPS_PEAK = 39,
-    SCSC_SPS_PEAK_FIVEMIN = 40,
-    SCSC_SESSIONS_PEAK = 41,
-    SCSC_SESSIONS_PEAK_FIVEMIN = 42,
-    SCSC_MDNS_RESOLVE = 43,
-    SCSC_SHUTDOWN_CAUSE = 44,
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_DESTROY: switch_event_types_t = switch_event_types_t(3);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_state_handler_flag_t {
-    SSH_FLAG_STICKY = 1,
-    SSH_FLAG_PRE_EXEC = 2,
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_STATE: switch_event_types_t = switch_event_types_t(4);
 }
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_CALLSTATE: switch_event_types_t = switch_event_types_t(5);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_ANSWER: switch_event_types_t = switch_event_types_t(6);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_HANGUP: switch_event_types_t = switch_event_types_t(7);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_HANGUP_COMPLETE: switch_event_types_t = switch_event_types_t(8);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_EXECUTE: switch_event_types_t = switch_event_types_t(9);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_EXECUTE_COMPLETE: switch_event_types_t =
+        switch_event_types_t(10);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_HOLD: switch_event_types_t = switch_event_types_t(11);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_UNHOLD: switch_event_types_t = switch_event_types_t(12);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_BRIDGE: switch_event_types_t = switch_event_types_t(13);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_UNBRIDGE: switch_event_types_t = switch_event_types_t(14);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_PROGRESS: switch_event_types_t = switch_event_types_t(15);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_PROGRESS_MEDIA: switch_event_types_t = switch_event_types_t(16);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_OUTGOING: switch_event_types_t = switch_event_types_t(17);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_PARK: switch_event_types_t = switch_event_types_t(18);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_UNPARK: switch_event_types_t = switch_event_types_t(19);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_APPLICATION: switch_event_types_t = switch_event_types_t(20);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_ORIGINATE: switch_event_types_t = switch_event_types_t(21);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_UUID: switch_event_types_t = switch_event_types_t(22);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_API: switch_event_types_t = switch_event_types_t(23);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_LOG: switch_event_types_t = switch_event_types_t(24);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_INBOUND_CHAN: switch_event_types_t = switch_event_types_t(25);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_OUTBOUND_CHAN: switch_event_types_t = switch_event_types_t(26);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_STARTUP: switch_event_types_t = switch_event_types_t(27);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SHUTDOWN: switch_event_types_t = switch_event_types_t(28);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PUBLISH: switch_event_types_t = switch_event_types_t(29);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_UNPUBLISH: switch_event_types_t = switch_event_types_t(30);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_TALK: switch_event_types_t = switch_event_types_t(31);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_NOTALK: switch_event_types_t = switch_event_types_t(32);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SESSION_CRASH: switch_event_types_t = switch_event_types_t(33);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MODULE_LOAD: switch_event_types_t = switch_event_types_t(34);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MODULE_UNLOAD: switch_event_types_t = switch_event_types_t(35);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_DTMF: switch_event_types_t = switch_event_types_t(36);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MESSAGE: switch_event_types_t = switch_event_types_t(37);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PRESENCE_IN: switch_event_types_t = switch_event_types_t(38);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_NOTIFY_IN: switch_event_types_t = switch_event_types_t(39);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PRESENCE_OUT: switch_event_types_t = switch_event_types_t(40);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PRESENCE_PROBE: switch_event_types_t = switch_event_types_t(41);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MESSAGE_WAITING: switch_event_types_t = switch_event_types_t(42);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MESSAGE_QUERY: switch_event_types_t = switch_event_types_t(43);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_ROSTER: switch_event_types_t = switch_event_types_t(44);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CODEC: switch_event_types_t = switch_event_types_t(45);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_BACKGROUND_JOB: switch_event_types_t = switch_event_types_t(46);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_DETECTED_SPEECH: switch_event_types_t = switch_event_types_t(47);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_DETECTED_TONE: switch_event_types_t = switch_event_types_t(48);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PRIVATE_COMMAND: switch_event_types_t = switch_event_types_t(49);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_HEARTBEAT: switch_event_types_t = switch_event_types_t(50);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_TRAP: switch_event_types_t = switch_event_types_t(51);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_ADD_SCHEDULE: switch_event_types_t = switch_event_types_t(52);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_DEL_SCHEDULE: switch_event_types_t = switch_event_types_t(53);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_EXE_SCHEDULE: switch_event_types_t = switch_event_types_t(54);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RE_SCHEDULE: switch_event_types_t = switch_event_types_t(55);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RELOADXML: switch_event_types_t = switch_event_types_t(56);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_NOTIFY: switch_event_types_t = switch_event_types_t(57);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PHONE_FEATURE: switch_event_types_t = switch_event_types_t(58);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PHONE_FEATURE_SUBSCRIBE: switch_event_types_t = switch_event_types_t(59);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SEND_MESSAGE: switch_event_types_t = switch_event_types_t(60);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RECV_MESSAGE: switch_event_types_t = switch_event_types_t(61);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_REQUEST_PARAMS: switch_event_types_t = switch_event_types_t(62);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CHANNEL_DATA: switch_event_types_t = switch_event_types_t(63);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_GENERAL: switch_event_types_t = switch_event_types_t(64);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_COMMAND: switch_event_types_t = switch_event_types_t(65);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SESSION_HEARTBEAT: switch_event_types_t = switch_event_types_t(66);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CLIENT_DISCONNECTED: switch_event_types_t = switch_event_types_t(67);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SERVER_DISCONNECTED: switch_event_types_t = switch_event_types_t(68);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SEND_INFO: switch_event_types_t = switch_event_types_t(69);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RECV_INFO: switch_event_types_t = switch_event_types_t(70);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RECV_RTCP_MESSAGE: switch_event_types_t = switch_event_types_t(71);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SEND_RTCP_MESSAGE: switch_event_types_t = switch_event_types_t(72);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CALL_SECURE: switch_event_types_t = switch_event_types_t(73);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_NAT: switch_event_types_t = switch_event_types_t(74);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RECORD_START: switch_event_types_t = switch_event_types_t(75);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_RECORD_STOP: switch_event_types_t = switch_event_types_t(76);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PLAYBACK_START: switch_event_types_t = switch_event_types_t(77);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_PLAYBACK_STOP: switch_event_types_t = switch_event_types_t(78);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CALL_UPDATE: switch_event_types_t = switch_event_types_t(79);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_FAILURE: switch_event_types_t = switch_event_types_t(80);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SOCKET_DATA: switch_event_types_t = switch_event_types_t(81);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MEDIA_BUG_START: switch_event_types_t = switch_event_types_t(82);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_MEDIA_BUG_STOP: switch_event_types_t = switch_event_types_t(83);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CONFERENCE_DATA_QUERY: switch_event_types_t = switch_event_types_t(84);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CONFERENCE_DATA: switch_event_types_t = switch_event_types_t(85);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CALL_SETUP_REQ: switch_event_types_t = switch_event_types_t(86);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CALL_SETUP_RESULT: switch_event_types_t = switch_event_types_t(87);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_CALL_DETAIL: switch_event_types_t = switch_event_types_t(88);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_DEVICE_STATE: switch_event_types_t = switch_event_types_t(89);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_TEXT: switch_event_types_t = switch_event_types_t(90);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_SHUTDOWN_REQUESTED: switch_event_types_t = switch_event_types_t(91);
+}
+impl switch_event_types_t {
+    pub const SWITCH_EVENT_ALL: switch_event_types_t = switch_event_types_t(92);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_event_types_t(pub ::std::os::raw::c_uint);
+impl switch_input_type_t {
+    pub const SWITCH_INPUT_TYPE_DTMF: switch_input_type_t = switch_input_type_t(0);
+}
+impl switch_input_type_t {
+    pub const SWITCH_INPUT_TYPE_EVENT: switch_input_type_t = switch_input_type_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_input_type_t(pub ::std::os::raw::c_uint);
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NONE: switch_call_cause_t = switch_call_cause_t(0);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_UNALLOCATED_NUMBER: switch_call_cause_t = switch_call_cause_t(1);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_ROUTE_TRANSIT_NET: switch_call_cause_t = switch_call_cause_t(2);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_ROUTE_DESTINATION: switch_call_cause_t = switch_call_cause_t(3);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_CHANNEL_UNACCEPTABLE: switch_call_cause_t = switch_call_cause_t(6);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_CALL_AWARDED_DELIVERED: switch_call_cause_t = switch_call_cause_t(7);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NORMAL_CLEARING: switch_call_cause_t = switch_call_cause_t(16);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_USER_BUSY: switch_call_cause_t = switch_call_cause_t(17);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_USER_RESPONSE: switch_call_cause_t = switch_call_cause_t(18);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_ANSWER: switch_call_cause_t = switch_call_cause_t(19);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SUBSCRIBER_ABSENT: switch_call_cause_t = switch_call_cause_t(20);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_CALL_REJECTED: switch_call_cause_t = switch_call_cause_t(21);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NUMBER_CHANGED: switch_call_cause_t = switch_call_cause_t(22);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_REDIRECTION_TO_NEW_DESTINATION: switch_call_cause_t =
+        switch_call_cause_t(23);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_EXCHANGE_ROUTING_ERROR: switch_call_cause_t = switch_call_cause_t(25);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_DESTINATION_OUT_OF_ORDER: switch_call_cause_t = switch_call_cause_t(27);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_NUMBER_FORMAT: switch_call_cause_t = switch_call_cause_t(28);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_FACILITY_REJECTED: switch_call_cause_t = switch_call_cause_t(29);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_RESPONSE_TO_STATUS_ENQUIRY: switch_call_cause_t =
+        switch_call_cause_t(30);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NORMAL_UNSPECIFIED: switch_call_cause_t = switch_call_cause_t(31);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NORMAL_CIRCUIT_CONGESTION: switch_call_cause_t = switch_call_cause_t(34);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NETWORK_OUT_OF_ORDER: switch_call_cause_t = switch_call_cause_t(38);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NORMAL_TEMPORARY_FAILURE: switch_call_cause_t = switch_call_cause_t(41);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SWITCH_CONGESTION: switch_call_cause_t = switch_call_cause_t(42);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_ACCESS_INFO_DISCARDED: switch_call_cause_t = switch_call_cause_t(43);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_REQUESTED_CHAN_UNAVAIL: switch_call_cause_t = switch_call_cause_t(44);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_PRE_EMPTED: switch_call_cause_t = switch_call_cause_t(45);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_FACILITY_NOT_SUBSCRIBED: switch_call_cause_t = switch_call_cause_t(50);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_OUTGOING_CALL_BARRED: switch_call_cause_t = switch_call_cause_t(52);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INCOMING_CALL_BARRED: switch_call_cause_t = switch_call_cause_t(54);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BEARERCAPABILITY_NOTAUTH: switch_call_cause_t = switch_call_cause_t(57);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BEARERCAPABILITY_NOTAVAIL: switch_call_cause_t = switch_call_cause_t(58);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SERVICE_UNAVAILABLE: switch_call_cause_t = switch_call_cause_t(63);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BEARERCAPABILITY_NOTIMPL: switch_call_cause_t = switch_call_cause_t(65);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_CHAN_NOT_IMPLEMENTED: switch_call_cause_t = switch_call_cause_t(66);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_FACILITY_NOT_IMPLEMENTED: switch_call_cause_t = switch_call_cause_t(69);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SERVICE_NOT_IMPLEMENTED: switch_call_cause_t = switch_call_cause_t(79);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_CALL_REFERENCE: switch_call_cause_t = switch_call_cause_t(81);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INCOMPATIBLE_DESTINATION: switch_call_cause_t = switch_call_cause_t(88);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_MSG_UNSPECIFIED: switch_call_cause_t = switch_call_cause_t(95);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_MANDATORY_IE_MISSING: switch_call_cause_t = switch_call_cause_t(96);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_MESSAGE_TYPE_NONEXIST: switch_call_cause_t = switch_call_cause_t(97);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_WRONG_MESSAGE: switch_call_cause_t = switch_call_cause_t(98);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_IE_NONEXIST: switch_call_cause_t = switch_call_cause_t(99);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_IE_CONTENTS: switch_call_cause_t = switch_call_cause_t(100);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_WRONG_CALL_STATE: switch_call_cause_t = switch_call_cause_t(101);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_RECOVERY_ON_TIMER_EXPIRE: switch_call_cause_t = switch_call_cause_t(102);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_MANDATORY_IE_LENGTH_ERROR: switch_call_cause_t =
+        switch_call_cause_t(103);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_PROTOCOL_ERROR: switch_call_cause_t = switch_call_cause_t(111);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INTERWORKING: switch_call_cause_t = switch_call_cause_t(127);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SUCCESS: switch_call_cause_t = switch_call_cause_t(142);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_ORIGINATOR_CANCEL: switch_call_cause_t = switch_call_cause_t(487);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_CRASH: switch_call_cause_t = switch_call_cause_t(700);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SYSTEM_SHUTDOWN: switch_call_cause_t = switch_call_cause_t(701);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_LOSE_RACE: switch_call_cause_t = switch_call_cause_t(702);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_MANAGER_REQUEST: switch_call_cause_t = switch_call_cause_t(703);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BLIND_TRANSFER: switch_call_cause_t = switch_call_cause_t(800);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_ATTENDED_TRANSFER: switch_call_cause_t = switch_call_cause_t(801);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_ALLOTTED_TIMEOUT: switch_call_cause_t = switch_call_cause_t(802);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_USER_CHALLENGE: switch_call_cause_t = switch_call_cause_t(803);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_MEDIA_TIMEOUT: switch_call_cause_t = switch_call_cause_t(804);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_PICKED_OFF: switch_call_cause_t = switch_call_cause_t(805);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_USER_NOT_REGISTERED: switch_call_cause_t = switch_call_cause_t(806);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_PROGRESS_TIMEOUT: switch_call_cause_t = switch_call_cause_t(807);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_GATEWAY: switch_call_cause_t = switch_call_cause_t(808);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_GATEWAY_DOWN: switch_call_cause_t = switch_call_cause_t(809);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_URL: switch_call_cause_t = switch_call_cause_t(810);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_PROFILE: switch_call_cause_t = switch_call_cause_t(811);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_PICKUP: switch_call_cause_t = switch_call_cause_t(812);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_SRTP_READ_ERROR: switch_call_cause_t = switch_call_cause_t(813);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BOWOUT: switch_call_cause_t = switch_call_cause_t(814);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BUSY_EVERYWHERE: switch_call_cause_t = switch_call_cause_t(815);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_DECLINE: switch_call_cause_t = switch_call_cause_t(816);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_DOES_NOT_EXIST_ANYWHERE: switch_call_cause_t = switch_call_cause_t(817);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NOT_ACCEPTABLE: switch_call_cause_t = switch_call_cause_t(818);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_UNWANTED: switch_call_cause_t = switch_call_cause_t(819);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_NO_IDENTITY: switch_call_cause_t = switch_call_cause_t(820);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_BAD_IDENTITY_INFO: switch_call_cause_t = switch_call_cause_t(821);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_UNSUPPORTED_CERTIFICATE: switch_call_cause_t = switch_call_cause_t(822);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_INVALID_IDENTITY: switch_call_cause_t = switch_call_cause_t(823);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_STALE_DATE: switch_call_cause_t = switch_call_cause_t(824);
+}
+impl switch_call_cause_t {
+    pub const SWITCH_CAUSE_REJECT_ALL: switch_call_cause_t = switch_call_cause_t(825);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_call_cause_t(pub ::std::os::raw::c_uint);
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_INBOUND: switch_session_ctl_t = switch_session_ctl_t(0);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_OUTBOUND: switch_session_ctl_t = switch_session_ctl_t(1);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_ALL: switch_session_ctl_t = switch_session_ctl_t(2);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_HUPALL: switch_session_ctl_t = switch_session_ctl_t(3);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN: switch_session_ctl_t = switch_session_ctl_t(4);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_CHECK_RUNNING: switch_session_ctl_t = switch_session_ctl_t(5);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_LOGLEVEL: switch_session_ctl_t = switch_session_ctl_t(6);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SPS: switch_session_ctl_t = switch_session_ctl_t(7);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_LAST_SPS: switch_session_ctl_t = switch_session_ctl_t(8);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_RECLAIM: switch_session_ctl_t = switch_session_ctl_t(9);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_MAX_SESSIONS: switch_session_ctl_t = switch_session_ctl_t(10);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SYNC_CLOCK: switch_session_ctl_t = switch_session_ctl_t(11);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_MAX_DTMF_DURATION: switch_session_ctl_t = switch_session_ctl_t(12);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_MIN_DTMF_DURATION: switch_session_ctl_t = switch_session_ctl_t(13);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_DEFAULT_DTMF_DURATION: switch_session_ctl_t = switch_session_ctl_t(14);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN_ELEGANT: switch_session_ctl_t = switch_session_ctl_t(15);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN_ASAP: switch_session_ctl_t = switch_session_ctl_t(16);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_CANCEL_SHUTDOWN: switch_session_ctl_t = switch_session_ctl_t(17);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SEND_SIGHUP: switch_session_ctl_t = switch_session_ctl_t(18);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_DEBUG_LEVEL: switch_session_ctl_t = switch_session_ctl_t(19);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_FLUSH_DB_HANDLES: switch_session_ctl_t = switch_session_ctl_t(20);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN_NOW: switch_session_ctl_t = switch_session_ctl_t(21);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_REINCARNATE_NOW: switch_session_ctl_t = switch_session_ctl_t(22);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_CALIBRATE_CLOCK: switch_session_ctl_t = switch_session_ctl_t(23);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SAVE_HISTORY: switch_session_ctl_t = switch_session_ctl_t(24);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_CRASH: switch_session_ctl_t = switch_session_ctl_t(25);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_MIN_IDLE_CPU: switch_session_ctl_t = switch_session_ctl_t(26);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_VERBOSE_EVENTS: switch_session_ctl_t = switch_session_ctl_t(27);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN_CHECK: switch_session_ctl_t = switch_session_ctl_t(28);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_INBOUND_CHECK: switch_session_ctl_t = switch_session_ctl_t(29);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_OUTBOUND_CHECK: switch_session_ctl_t = switch_session_ctl_t(30);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_PAUSE_CHECK: switch_session_ctl_t = switch_session_ctl_t(31);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_READY_CHECK: switch_session_ctl_t = switch_session_ctl_t(32);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_THREADED_SYSTEM_EXEC: switch_session_ctl_t = switch_session_ctl_t(33);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SYNC_CLOCK_WHEN_IDLE: switch_session_ctl_t = switch_session_ctl_t(34);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_DEBUG_SQL: switch_session_ctl_t = switch_session_ctl_t(35);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SQL: switch_session_ctl_t = switch_session_ctl_t(36);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_API_EXPANSION: switch_session_ctl_t = switch_session_ctl_t(37);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_RECOVER: switch_session_ctl_t = switch_session_ctl_t(38);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SPS_PEAK: switch_session_ctl_t = switch_session_ctl_t(39);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SPS_PEAK_FIVEMIN: switch_session_ctl_t = switch_session_ctl_t(40);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SESSIONS_PEAK: switch_session_ctl_t = switch_session_ctl_t(41);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SESSIONS_PEAK_FIVEMIN: switch_session_ctl_t = switch_session_ctl_t(42);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_MDNS_RESOLVE: switch_session_ctl_t = switch_session_ctl_t(43);
+}
+impl switch_session_ctl_t {
+    pub const SCSC_SHUTDOWN_CAUSE: switch_session_ctl_t = switch_session_ctl_t(44);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_session_ctl_t(pub ::std::os::raw::c_uint);
+impl switch_state_handler_flag_t {
+    pub const SSH_FLAG_STICKY: switch_state_handler_flag_t = switch_state_handler_flag_t(1);
+}
+impl switch_state_handler_flag_t {
+    pub const SSH_FLAG_PRE_EXEC: switch_state_handler_flag_t = switch_state_handler_flag_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_state_handler_flag_t(pub ::std::os::raw::c_uint);
 pub type switch_os_socket_t = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3076,31 +5142,59 @@ pub type switch_core_codec_video_encode_func_t = ::std::option::Option<
 pub type switch_core_codec_video_decode_func_t = ::std::option::Option<
     unsafe extern "C" fn(codec: *mut switch_codec_t, frame: *mut switch_frame_t) -> switch_status_t,
 >;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_codec_control_command_t {
-    SCC_VIDEO_GEN_KEYFRAME = 0,
-    SCC_VIDEO_BANDWIDTH = 1,
-    SCC_VIDEO_RESET = 2,
-    SCC_AUDIO_PACKET_LOSS = 3,
-    SCC_AUDIO_ADJUST_BITRATE = 4,
-    SCC_AUDIO_VAD = 5,
-    SCC_DEBUG = 6,
-    SCC_CODEC_SPECIFIC = 7,
+impl switch_codec_control_command_t {
+    pub const SCC_VIDEO_GEN_KEYFRAME: switch_codec_control_command_t =
+        switch_codec_control_command_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_codec_control_type_t {
-    SCCT_NONE = 0,
-    SCCT_STRING = 1,
-    SCCT_INT = 2,
+impl switch_codec_control_command_t {
+    pub const SCC_VIDEO_BANDWIDTH: switch_codec_control_command_t =
+        switch_codec_control_command_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_io_type_t {
-    SWITCH_IO_READ = 0,
-    SWITCH_IO_WRITE = 1,
+impl switch_codec_control_command_t {
+    pub const SCC_VIDEO_RESET: switch_codec_control_command_t = switch_codec_control_command_t(2);
 }
+impl switch_codec_control_command_t {
+    pub const SCC_AUDIO_PACKET_LOSS: switch_codec_control_command_t =
+        switch_codec_control_command_t(3);
+}
+impl switch_codec_control_command_t {
+    pub const SCC_AUDIO_ADJUST_BITRATE: switch_codec_control_command_t =
+        switch_codec_control_command_t(4);
+}
+impl switch_codec_control_command_t {
+    pub const SCC_AUDIO_VAD: switch_codec_control_command_t = switch_codec_control_command_t(5);
+}
+impl switch_codec_control_command_t {
+    pub const SCC_DEBUG: switch_codec_control_command_t = switch_codec_control_command_t(6);
+}
+impl switch_codec_control_command_t {
+    pub const SCC_CODEC_SPECIFIC: switch_codec_control_command_t =
+        switch_codec_control_command_t(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_codec_control_command_t(pub ::std::os::raw::c_uint);
+impl switch_codec_control_type_t {
+    pub const SCCT_NONE: switch_codec_control_type_t = switch_codec_control_type_t(0);
+}
+impl switch_codec_control_type_t {
+    pub const SCCT_STRING: switch_codec_control_type_t = switch_codec_control_type_t(1);
+}
+impl switch_codec_control_type_t {
+    pub const SCCT_INT: switch_codec_control_type_t = switch_codec_control_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_codec_control_type_t(pub ::std::os::raw::c_uint);
+impl switch_io_type_t {
+    pub const SWITCH_IO_READ: switch_io_type_t = switch_io_type_t(0);
+}
+impl switch_io_type_t {
+    pub const SWITCH_IO_WRITE: switch_io_type_t = switch_io_type_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_io_type_t(pub ::std::os::raw::c_uint);
 pub type switch_core_codec_control_func_t = ::std::option::Option<
     unsafe extern "C" fn(
         codec: *mut switch_codec_t,
@@ -3214,12 +5308,15 @@ pub type switch_read_frame_callback_function_t = ::std::option::Option<
     ) -> switch_status_t,
 >;
 pub type switch_say_interface_t = switch_say_interface;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum dm_match_type_t {
-    DM_MATCH_POSITIVE = 0,
-    DM_MATCH_NEGATIVE = 1,
+impl dm_match_type_t {
+    pub const DM_MATCH_POSITIVE: dm_match_type_t = dm_match_type_t(0);
 }
+impl dm_match_type_t {
+    pub const DM_MATCH_NEGATIVE: dm_match_type_t = dm_match_type_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct dm_match_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_ivr_dmachine {
@@ -3334,20 +5431,30 @@ pub type switch_module_load_t = ::std::option::Option<
 pub type switch_module_runtime_t = ::std::option::Option<unsafe extern "C" fn() -> switch_status_t>;
 pub type switch_module_shutdown_t =
     ::std::option::Option<unsafe extern "C" fn() -> switch_status_t>;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_thread_priority_t {
-    SWITCH_PRI_LOW = 1,
-    SWITCH_PRI_NORMAL = 10,
-    SWITCH_PRI_IMPORTANT = 50,
-    SWITCH_PRI_REALTIME = 99,
+impl switch_thread_priority_t {
+    pub const SWITCH_PRI_LOW: switch_thread_priority_t = switch_thread_priority_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_module_flag_enum_t {
-    SMODF_NONE = 0,
-    SMODF_GLOBAL_SYMBOLS = 1,
+impl switch_thread_priority_t {
+    pub const SWITCH_PRI_NORMAL: switch_thread_priority_t = switch_thread_priority_t(10);
 }
+impl switch_thread_priority_t {
+    pub const SWITCH_PRI_IMPORTANT: switch_thread_priority_t = switch_thread_priority_t(50);
+}
+impl switch_thread_priority_t {
+    pub const SWITCH_PRI_REALTIME: switch_thread_priority_t = switch_thread_priority_t(99);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_thread_priority_t(pub ::std::os::raw::c_uint);
+impl switch_module_flag_enum_t {
+    pub const SMODF_NONE: switch_module_flag_enum_t = switch_module_flag_enum_t(0);
+}
+impl switch_module_flag_enum_t {
+    pub const SMODF_GLOBAL_SYMBOLS: switch_module_flag_enum_t = switch_module_flag_enum_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_module_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_module_flag_t = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -3398,34 +5505,71 @@ pub struct switch_live_array_s {
     _unused: [u8; 0],
 }
 pub type switch_live_array_t = switch_live_array_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_sdp_type_t {
-    SDP_TYPE_REQUEST = 0,
-    SDP_TYPE_RESPONSE = 1,
+impl switch_sdp_type_t {
+    pub const SDP_TYPE_REQUEST: switch_sdp_type_t = switch_sdp_type_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_crypto_key_type_t {
-    AEAD_AES_256_GCM_8 = 0,
-    AEAD_AES_256_GCM = 1,
-    AEAD_AES_128_GCM_8 = 2,
-    AEAD_AES_128_GCM = 3,
-    AES_CM_256_HMAC_SHA1_80 = 4,
-    AES_CM_192_HMAC_SHA1_80 = 5,
-    AES_CM_128_HMAC_SHA1_80 = 6,
-    AES_CM_256_HMAC_SHA1_32 = 7,
-    AES_CM_192_HMAC_SHA1_32 = 8,
-    AES_CM_128_HMAC_SHA1_32 = 9,
-    AES_CM_128_NULL_AUTH = 10,
-    CRYPTO_INVALID = 11,
+impl switch_sdp_type_t {
+    pub const SDP_TYPE_RESPONSE: switch_sdp_type_t = switch_sdp_type_t(1);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_crypto_key_param_method_type_t {
-    CRYPTO_KEY_PARAM_METHOD_INLINE = 0,
-    CRYPTO_KEY_PARAM_METHOD_INVALID = 1,
+pub struct switch_sdp_type_t(pub ::std::os::raw::c_uint);
+impl switch_rtp_crypto_key_type_t {
+    pub const AEAD_AES_256_GCM_8: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(0);
 }
+impl switch_rtp_crypto_key_type_t {
+    pub const AEAD_AES_256_GCM: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(1);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AEAD_AES_128_GCM_8: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(2);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AEAD_AES_128_GCM: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(3);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_256_HMAC_SHA1_80: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(4);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_192_HMAC_SHA1_80: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(5);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_128_HMAC_SHA1_80: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(6);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_256_HMAC_SHA1_32: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(7);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_192_HMAC_SHA1_32: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(8);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_128_HMAC_SHA1_32: switch_rtp_crypto_key_type_t =
+        switch_rtp_crypto_key_type_t(9);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const AES_CM_128_NULL_AUTH: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(10);
+}
+impl switch_rtp_crypto_key_type_t {
+    pub const CRYPTO_INVALID: switch_rtp_crypto_key_type_t = switch_rtp_crypto_key_type_t(11);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_crypto_key_type_t(pub ::std::os::raw::c_uint);
+impl switch_rtp_crypto_key_param_method_type_t {
+    pub const CRYPTO_KEY_PARAM_METHOD_INLINE: switch_rtp_crypto_key_param_method_type_t =
+        switch_rtp_crypto_key_param_method_type_t(0);
+}
+impl switch_rtp_crypto_key_param_method_type_t {
+    pub const CRYPTO_KEY_PARAM_METHOD_INVALID: switch_rtp_crypto_key_param_method_type_t =
+        switch_rtp_crypto_key_param_method_type_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_crypto_key_param_method_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct payload_map_s {
@@ -3455,35 +5599,66 @@ pub struct payload_map_s {
     pub next: *mut payload_map_s,
 }
 pub type payload_map_t = payload_map_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_media_flow_t {
-    SWITCH_MEDIA_FLOW_SENDRECV = 0,
-    SWITCH_MEDIA_FLOW_SENDONLY = 1,
-    SWITCH_MEDIA_FLOW_RECVONLY = 2,
-    SWITCH_MEDIA_FLOW_INACTIVE = 3,
-    SWITCH_MEDIA_FLOW_DISABLED = 4,
+impl switch_media_flow_t {
+    pub const SWITCH_MEDIA_FLOW_SENDRECV: switch_media_flow_t = switch_media_flow_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_ice_type_t {
-    ICE_GOOGLE_JINGLE = 1,
-    ICE_VANILLA = 2,
-    ICE_CONTROLLED = 4,
-    ICE_LITE = 8,
+impl switch_media_flow_t {
+    pub const SWITCH_MEDIA_FLOW_SENDONLY: switch_media_flow_t = switch_media_flow_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_poll_t {
-    SWITCH_POLL_READ = 1,
-    SWITCH_POLL_WRITE = 2,
-    SWITCH_POLL_ERROR = 4,
-    SWITCH_POLL_HUP = 8,
-    SWITCH_POLL_RDNORM = 16,
-    SWITCH_POLL_RDBAND = 32,
-    SWITCH_POLL_PRI = 64,
-    SWITCH_POLL_INVALID = 128,
+impl switch_media_flow_t {
+    pub const SWITCH_MEDIA_FLOW_RECVONLY: switch_media_flow_t = switch_media_flow_t(2);
 }
+impl switch_media_flow_t {
+    pub const SWITCH_MEDIA_FLOW_INACTIVE: switch_media_flow_t = switch_media_flow_t(3);
+}
+impl switch_media_flow_t {
+    pub const SWITCH_MEDIA_FLOW_DISABLED: switch_media_flow_t = switch_media_flow_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_media_flow_t(pub ::std::os::raw::c_uint);
+impl switch_core_media_ice_type_t {
+    pub const ICE_GOOGLE_JINGLE: switch_core_media_ice_type_t = switch_core_media_ice_type_t(1);
+}
+impl switch_core_media_ice_type_t {
+    pub const ICE_VANILLA: switch_core_media_ice_type_t = switch_core_media_ice_type_t(2);
+}
+impl switch_core_media_ice_type_t {
+    pub const ICE_CONTROLLED: switch_core_media_ice_type_t = switch_core_media_ice_type_t(4);
+}
+impl switch_core_media_ice_type_t {
+    pub const ICE_LITE: switch_core_media_ice_type_t = switch_core_media_ice_type_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_media_ice_type_t(pub ::std::os::raw::c_uint);
+impl switch_poll_t {
+    pub const SWITCH_POLL_READ: switch_poll_t = switch_poll_t(1);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_WRITE: switch_poll_t = switch_poll_t(2);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_ERROR: switch_poll_t = switch_poll_t(4);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_HUP: switch_poll_t = switch_poll_t(8);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_RDNORM: switch_poll_t = switch_poll_t(16);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_RDBAND: switch_poll_t = switch_poll_t(32);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_PRI: switch_poll_t = switch_poll_t(64);
+}
+impl switch_poll_t {
+    pub const SWITCH_POLL_INVALID: switch_poll_t = switch_poll_t(128);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_poll_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_waitlist_s {
@@ -3510,28 +5685,45 @@ pub struct switch_frame_buffer_s {
     _unused: [u8; 0],
 }
 pub type switch_frame_buffer_t = switch_frame_buffer_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_video_read_flag_t {
-    SVR_BLOCK = 1,
-    SVR_FLUSH = 2,
-    SVR_CHECK = 4,
+impl switch_video_read_flag_t {
+    pub const SVR_BLOCK: switch_video_read_flag_t = switch_video_read_flag_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_vid_spy_fmt_t {
-    SPY_LOWER_RIGHT_SMALL = 0,
-    SPY_LOWER_RIGHT_LARGE = 1,
-    SPY_DUAL_CROP = 2,
+impl switch_video_read_flag_t {
+    pub const SVR_FLUSH: switch_video_read_flag_t = switch_video_read_flag_t(2);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_file_command_t {
-    SCFC_FLUSH_AUDIO = 0,
-    SCFC_PAUSE_READ = 1,
-    SCFC_PAUSE_WRITE = 2,
-    SCFC_RESUME_WRITE = 3,
+impl switch_video_read_flag_t {
+    pub const SVR_CHECK: switch_video_read_flag_t = switch_video_read_flag_t(4);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_video_read_flag_t(pub ::std::os::raw::c_uint);
+impl switch_vid_spy_fmt_t {
+    pub const SPY_LOWER_RIGHT_SMALL: switch_vid_spy_fmt_t = switch_vid_spy_fmt_t(0);
+}
+impl switch_vid_spy_fmt_t {
+    pub const SPY_LOWER_RIGHT_LARGE: switch_vid_spy_fmt_t = switch_vid_spy_fmt_t(1);
+}
+impl switch_vid_spy_fmt_t {
+    pub const SPY_DUAL_CROP: switch_vid_spy_fmt_t = switch_vid_spy_fmt_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_vid_spy_fmt_t(pub ::std::os::raw::c_uint);
+impl switch_file_command_t {
+    pub const SCFC_FLUSH_AUDIO: switch_file_command_t = switch_file_command_t(0);
+}
+impl switch_file_command_t {
+    pub const SCFC_PAUSE_READ: switch_file_command_t = switch_file_command_t(1);
+}
+impl switch_file_command_t {
+    pub const SCFC_PAUSE_WRITE: switch_file_command_t = switch_file_command_t(2);
+}
+impl switch_file_command_t {
+    pub const SCFC_RESUME_WRITE: switch_file_command_t = switch_file_command_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_file_command_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_rtp_text_factory_s {
@@ -3551,23 +5743,36 @@ pub struct switch_chromakey_s {
 }
 pub type switch_chromakey_t = switch_chromakey_s;
 impl switch_video_encode_speed_t {
+    pub const SWITCH_VIDEO_ENCODE_SPEED_DEFAULT: switch_video_encode_speed_t =
+        switch_video_encode_speed_t(0);
+}
+impl switch_video_encode_speed_t {
     pub const SWITCH_VIDEO_ENCODE_SPEED_FAST: switch_video_encode_speed_t =
-        switch_video_encode_speed_t::SWITCH_VIDEO_ENCODE_SPEED_DEFAULT;
+        switch_video_encode_speed_t(0);
 }
-#[repr(u32)]
+impl switch_video_encode_speed_t {
+    pub const SWITCH_VIDEO_ENCODE_SPEED_MEDIUM: switch_video_encode_speed_t =
+        switch_video_encode_speed_t(1);
+}
+impl switch_video_encode_speed_t {
+    pub const SWITCH_VIDEO_ENCODE_SPEED_SLOW: switch_video_encode_speed_t =
+        switch_video_encode_speed_t(2);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_video_encode_speed_t {
-    SWITCH_VIDEO_ENCODE_SPEED_DEFAULT = 0,
-    SWITCH_VIDEO_ENCODE_SPEED_MEDIUM = 1,
-    SWITCH_VIDEO_ENCODE_SPEED_SLOW = 2,
+pub struct switch_video_encode_speed_t(pub ::std::os::raw::c_uint);
+impl switch_video_profile_t {
+    pub const SWITCH_VIDEO_PROFILE_BASELINE: switch_video_profile_t = switch_video_profile_t(0);
 }
-#[repr(u32)]
+impl switch_video_profile_t {
+    pub const SWITCH_VIDEO_PROFILE_MAIN: switch_video_profile_t = switch_video_profile_t(1);
+}
+impl switch_video_profile_t {
+    pub const SWITCH_VIDEO_PROFILE_HIGH: switch_video_profile_t = switch_video_profile_t(2);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_video_profile_t {
-    SWITCH_VIDEO_PROFILE_BASELINE = 0,
-    SWITCH_VIDEO_PROFILE_MAIN = 1,
-    SWITCH_VIDEO_PROFILE_HIGH = 2,
-}
+pub struct switch_video_profile_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_mm_s {
@@ -4200,13 +6405,18 @@ pub struct fspr_sockaddr_t {
     _unused: [u8; 0],
 }
 pub type switch_sockaddr_t = fspr_sockaddr_t;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_shutdown_how_e {
-    SWITCH_SHUTDOWN_READ = 0,
-    SWITCH_SHUTDOWN_WRITE = 1,
-    SWITCH_SHUTDOWN_READWRITE = 2,
+impl switch_shutdown_how_e {
+    pub const SWITCH_SHUTDOWN_READ: switch_shutdown_how_e = switch_shutdown_how_e(0);
 }
+impl switch_shutdown_how_e {
+    pub const SWITCH_SHUTDOWN_WRITE: switch_shutdown_how_e = switch_shutdown_how_e(1);
+}
+impl switch_shutdown_how_e {
+    pub const SWITCH_SHUTDOWN_READWRITE: switch_shutdown_how_e = switch_shutdown_how_e(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_shutdown_how_e(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_socket_create(
         new_sock: *mut *mut switch_socket_t,
@@ -4386,14 +6596,21 @@ extern "C" {
         iface: *mut switch_sockaddr_t,
     ) -> switch_status_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_pollset_type_t {
-    SWITCH_NO_DESC = 0,
-    SWITCH_POLL_SOCKET = 1,
-    SWITCH_POLL_FILE = 2,
-    SWITCH_POLL_LASTDESC = 3,
+impl switch_pollset_type_t {
+    pub const SWITCH_NO_DESC: switch_pollset_type_t = switch_pollset_type_t(0);
 }
+impl switch_pollset_type_t {
+    pub const SWITCH_POLL_SOCKET: switch_pollset_type_t = switch_pollset_type_t(1);
+}
+impl switch_pollset_type_t {
+    pub const SWITCH_POLL_FILE: switch_pollset_type_t = switch_pollset_type_t(2);
+}
+impl switch_pollset_type_t {
+    pub const SWITCH_POLL_LASTDESC: switch_pollset_type_t = switch_pollset_type_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_pollset_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_descriptor_t {
@@ -4969,24 +7186,42 @@ pub struct dtls_fp_s {
     pub str_: [::std::os::raw::c_char; 192usize],
 }
 pub type dtls_fingerprint_t = dtls_fp_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum dtls_type_t {
-    DTLS_TYPE_CLIENT = 1,
-    DTLS_TYPE_SERVER = 2,
-    DTLS_TYPE_RTP = 4,
-    DTLS_TYPE_RTCP = 8,
+impl dtls_type_t {
+    pub const DTLS_TYPE_CLIENT: dtls_type_t = dtls_type_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum dtls_state_t {
-    DS_OFF = 0,
-    DS_HANDSHAKE = 1,
-    DS_SETUP = 2,
-    DS_READY = 3,
-    DS_FAIL = 4,
-    DS_INVALID = 5,
+impl dtls_type_t {
+    pub const DTLS_TYPE_SERVER: dtls_type_t = dtls_type_t(2);
 }
+impl dtls_type_t {
+    pub const DTLS_TYPE_RTP: dtls_type_t = dtls_type_t(4);
+}
+impl dtls_type_t {
+    pub const DTLS_TYPE_RTCP: dtls_type_t = dtls_type_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct dtls_type_t(pub ::std::os::raw::c_uint);
+impl dtls_state_t {
+    pub const DS_OFF: dtls_state_t = dtls_state_t(0);
+}
+impl dtls_state_t {
+    pub const DS_HANDSHAKE: dtls_state_t = dtls_state_t(1);
+}
+impl dtls_state_t {
+    pub const DS_SETUP: dtls_state_t = dtls_state_t(2);
+}
+impl dtls_state_t {
+    pub const DS_READY: dtls_state_t = dtls_state_t(3);
+}
+impl dtls_state_t {
+    pub const DS_FAIL: dtls_state_t = dtls_state_t(4);
+}
+impl dtls_state_t {
+    pub const DS_INVALID: dtls_state_t = dtls_state_t(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct dtls_state_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_session_message {
@@ -5743,13 +7978,18 @@ extern "C" {
 extern "C" {
     pub fn switch_core_session_hupall(cause: switch_call_cause_t);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_hup_type_t {
-    SHT_NONE = 0,
-    SHT_UNANSWERED = 1,
-    SHT_ANSWERED = 2,
+impl switch_hup_type_t {
+    pub const SHT_NONE: switch_hup_type_t = switch_hup_type_t(0);
 }
+impl switch_hup_type_t {
+    pub const SHT_UNANSWERED: switch_hup_type_t = switch_hup_type_t(1);
+}
+impl switch_hup_type_t {
+    pub const SHT_ANSWERED: switch_hup_type_t = switch_hup_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_hup_type_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_core_session_hupall_matching_var_ans(
         var_name: *const ::std::os::raw::c_char,
@@ -7159,20 +9399,31 @@ pub type switch_core_db_event_callback_func_t = ::std::option::Option<
         event: *mut switch_event_t,
     ) -> ::std::os::raw::c_int,
 >;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum cache_db_flag_t {
-    CDF_INUSE = 1,
-    CDF_PRUNE = 2,
-    CDF_NONEXPIRING = 4,
+impl cache_db_flag_t {
+    pub const CDF_INUSE: cache_db_flag_t = cache_db_flag_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_cache_db_handle_type_t {
-    SCDB_TYPE_CORE_DB = 0,
-    SCDB_TYPE_ODBC = 1,
-    SCDB_TYPE_DATABASE_INTERFACE = 2,
+impl cache_db_flag_t {
+    pub const CDF_PRUNE: cache_db_flag_t = cache_db_flag_t(2);
 }
+impl cache_db_flag_t {
+    pub const CDF_NONEXPIRING: cache_db_flag_t = cache_db_flag_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct cache_db_flag_t(pub ::std::os::raw::c_uint);
+impl switch_cache_db_handle_type_t {
+    pub const SCDB_TYPE_CORE_DB: switch_cache_db_handle_type_t = switch_cache_db_handle_type_t(0);
+}
+impl switch_cache_db_handle_type_t {
+    pub const SCDB_TYPE_ODBC: switch_cache_db_handle_type_t = switch_cache_db_handle_type_t(1);
+}
+impl switch_cache_db_handle_type_t {
+    pub const SCDB_TYPE_DATABASE_INTERFACE: switch_cache_db_handle_type_t =
+        switch_cache_db_handle_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_cache_db_handle_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_cache_db_native_handle_t {
@@ -8000,22 +10251,49 @@ extern "C" {
 extern "C" {
     pub fn switch_agc_set_token(agc: *mut switch_agc_t, token: *const ::std::os::raw::c_char);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_state_handler_name_t {
-    SWITCH_SHN_ON_INIT = 0,
-    SWITCH_SHN_ON_ROUTING = 1,
-    SWITCH_SHN_ON_EXECUTE = 2,
-    SWITCH_SHN_ON_HANGUP = 3,
-    SWITCH_SHN_ON_EXCHANGE_MEDIA = 4,
-    SWITCH_SHN_ON_SOFT_EXECUTE = 5,
-    SWITCH_SHN_ON_CONSUME_MEDIA = 6,
-    SWITCH_SHN_ON_HIBERNATE = 7,
-    SWITCH_SHN_ON_RESET = 8,
-    SWITCH_SHN_ON_PARK = 9,
-    SWITCH_SHN_ON_REPORTING = 10,
-    SWITCH_SHN_ON_DESTROY = 11,
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_INIT: switch_state_handler_name_t = switch_state_handler_name_t(0);
 }
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_ROUTING: switch_state_handler_name_t = switch_state_handler_name_t(1);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_EXECUTE: switch_state_handler_name_t = switch_state_handler_name_t(2);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_HANGUP: switch_state_handler_name_t = switch_state_handler_name_t(3);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_EXCHANGE_MEDIA: switch_state_handler_name_t =
+        switch_state_handler_name_t(4);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_SOFT_EXECUTE: switch_state_handler_name_t =
+        switch_state_handler_name_t(5);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_CONSUME_MEDIA: switch_state_handler_name_t =
+        switch_state_handler_name_t(6);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_HIBERNATE: switch_state_handler_name_t = switch_state_handler_name_t(7);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_RESET: switch_state_handler_name_t = switch_state_handler_name_t(8);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_PARK: switch_state_handler_name_t = switch_state_handler_name_t(9);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_REPORTING: switch_state_handler_name_t =
+        switch_state_handler_name_t(10);
+}
+impl switch_state_handler_name_t {
+    pub const SWITCH_SHN_ON_DESTROY: switch_state_handler_name_t = switch_state_handler_name_t(11);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_state_handler_name_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_state_handler_table {
@@ -8143,23 +10421,48 @@ pub type switch_io_get_jb_t = ::std::option::Option<
         arg2: switch_media_type_t,
     ) -> *mut switch_jb_t,
 >;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_io_routine_name_t {
-    SWITCH_IO_OUTGOING_CHANNEL = 0,
-    SWITCH_IO_READ_FRAME = 1,
-    SWITCH_IO_WRITE_FRAME = 2,
-    SWITCH_IO_KILL_CHANNEL = 3,
-    SWITCH_IO_SEND_DTMF = 4,
-    SWITCH_IO_RECEIVE_MESSAGE = 5,
-    SWITCH_IO_RECEIVE_EVENT = 6,
-    SWITCH_IO_STATE_CHANGE = 7,
-    SWITCH_IO_READ_VIDEO_FRAME = 8,
-    SWITCH_IO_WRITE_VIDEO_FRAME = 9,
-    SWITCH_IO_READ_TEXT_FRAME = 10,
-    SWITCH_IO_WRITE_TEXT_FRAME = 11,
-    SWITCH_IO_GET_JB = 12,
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_OUTGOING_CHANNEL: switch_io_routine_name_t = switch_io_routine_name_t(0);
 }
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_READ_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(1);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_WRITE_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(2);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_KILL_CHANNEL: switch_io_routine_name_t = switch_io_routine_name_t(3);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_SEND_DTMF: switch_io_routine_name_t = switch_io_routine_name_t(4);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_RECEIVE_MESSAGE: switch_io_routine_name_t = switch_io_routine_name_t(5);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_RECEIVE_EVENT: switch_io_routine_name_t = switch_io_routine_name_t(6);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_STATE_CHANGE: switch_io_routine_name_t = switch_io_routine_name_t(7);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_READ_VIDEO_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(8);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_WRITE_VIDEO_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(9);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_READ_TEXT_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(10);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_WRITE_TEXT_FRAME: switch_io_routine_name_t = switch_io_routine_name_t(11);
+}
+impl switch_io_routine_name_t {
+    pub const SWITCH_IO_GET_JB: switch_io_routine_name_t = switch_io_routine_name_t(12);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_io_routine_name_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_routines {
@@ -8208,16 +10511,28 @@ pub struct switch_timer {
     pub start: switch_time_t,
     pub tick: u64,
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_timer_func_name_t {
-    SWITCH_TIMER_FUNC_TIMER_INIT = 0,
-    SWITCH_TIMER_FUNC_TIMER_NEXT = 1,
-    SWITCH_TIMER_FUNC_TIMER_STEP = 2,
-    SWITCH_TIMER_FUNC_TIMER_SYNC = 3,
-    SWITCH_TIMER_FUNC_TIMER_CHECK = 4,
-    SWITCH_TIMER_FUNC_TIMER_DESTROY = 5,
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_INIT: switch_timer_func_name_t = switch_timer_func_name_t(0);
 }
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_NEXT: switch_timer_func_name_t = switch_timer_func_name_t(1);
+}
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_STEP: switch_timer_func_name_t = switch_timer_func_name_t(2);
+}
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_SYNC: switch_timer_func_name_t = switch_timer_func_name_t(3);
+}
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_CHECK: switch_timer_func_name_t = switch_timer_func_name_t(4);
+}
+impl switch_timer_func_name_t {
+    pub const SWITCH_TIMER_FUNC_TIMER_DESTROY: switch_timer_func_name_t =
+        switch_timer_func_name_t(5);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_timer_func_name_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_timer_interface {
@@ -9022,13 +11337,21 @@ pub struct switch_slin_data {
     pub codec: switch_codec_t,
     pub frame_data: [::std::os::raw::c_char; 8192usize],
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_loadable_module_type_t {
-    SWITCH_LOADABLE_MODULE_TYPE_PRELOAD = 0,
-    SWITCH_LOADABLE_MODULE_TYPE_COMMON = 1,
-    SWITCH_LOADABLE_MODULE_TYPE_POSTLOAD = 2,
+impl switch_loadable_module_type_t {
+    pub const SWITCH_LOADABLE_MODULE_TYPE_PRELOAD: switch_loadable_module_type_t =
+        switch_loadable_module_type_t(0);
 }
+impl switch_loadable_module_type_t {
+    pub const SWITCH_LOADABLE_MODULE_TYPE_COMMON: switch_loadable_module_type_t =
+        switch_loadable_module_type_t(1);
+}
+impl switch_loadable_module_type_t {
+    pub const SWITCH_LOADABLE_MODULE_TYPE_POSTLOAD: switch_loadable_module_type_t =
+        switch_loadable_module_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_loadable_module_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_loadable_module_interface {
@@ -9571,13 +11894,18 @@ extern "C" {
 extern "C" {
     pub fn get_port(sa: *mut sockaddr) -> ::std::os::raw::c_ushort;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_uri_flags {
-    SWITCH_URI_NUMERIC_HOST = 1,
-    SWITCH_URI_NUMERIC_PORT = 2,
-    SWITCH_URI_NO_SCOPE = 4,
+impl switch_uri_flags {
+    pub const SWITCH_URI_NUMERIC_HOST: switch_uri_flags = switch_uri_flags(1);
 }
+impl switch_uri_flags {
+    pub const SWITCH_URI_NUMERIC_PORT: switch_uri_flags = switch_uri_flags(2);
+}
+impl switch_uri_flags {
+    pub const SWITCH_URI_NO_SCOPE: switch_uri_flags = switch_uri_flags(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_uri_flags(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_build_uri(
         uri: *mut ::std::os::raw::c_char,
@@ -11372,13 +13700,18 @@ pub struct switch_serial_event_header_s {
     pub value: *mut ::std::os::raw::c_char,
 }
 pub type switch_serial_event_header_t = switch_serial_event_header_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_event_flag_t {
-    EF_UNIQ_HEADERS = 1,
-    EF_NO_CHAT_EXEC = 2,
-    EF_DEFAULT_ALLOW = 4,
+impl switch_event_flag_t {
+    pub const EF_UNIQ_HEADERS: switch_event_flag_t = switch_event_flag_t(1);
 }
+impl switch_event_flag_t {
+    pub const EF_NO_CHAT_EXEC: switch_event_flag_t = switch_event_flag_t(2);
+}
+impl switch_event_flag_t {
+    pub const EF_DEFAULT_ALLOW: switch_event_flag_t = switch_event_flag_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_event_flag_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_event_init(pool: *mut switch_memory_pool_t) -> switch_status_t;
 }
@@ -11848,47 +14181,93 @@ extern "C" {
 extern "C" {
     pub fn switch_event_channel_permission_clear(cookie: *const ::std::os::raw::c_char);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_video_filter_t {
-    SCV_FILTER_GRAY_FG = 1,
-    SCV_FILTER_GRAY_BG = 2,
-    SCV_FILTER_SEPIA_FG = 4,
-    SCV_FILTER_SEPIA_BG = 8,
-    SCV_FILTER_8BIT_FG = 16,
+impl switch_core_video_filter_t {
+    pub const SCV_FILTER_GRAY_FG: switch_core_video_filter_t = switch_core_video_filter_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_shade_t {
-    SWITCH_SHADE_NONE = 0,
-    SWITCH_SHADE_RED = 1,
-    SWITCH_SHADE_GREEN = 2,
-    SWITCH_SHADE_BLUE = 3,
-    SWITCH_SHADE_AUTO = 4,
+impl switch_core_video_filter_t {
+    pub const SCV_FILTER_GRAY_BG: switch_core_video_filter_t = switch_core_video_filter_t(2);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_img_position_t {
-    POS_LEFT_TOP = 0,
-    POS_LEFT_MID = 1,
-    POS_LEFT_BOT = 2,
-    POS_CENTER_TOP = 3,
-    POS_CENTER_MID = 4,
-    POS_CENTER_BOT = 5,
-    POS_RIGHT_TOP = 6,
-    POS_RIGHT_MID = 7,
-    POS_RIGHT_BOT = 8,
-    POS_NONE = 9,
+impl switch_core_video_filter_t {
+    pub const SCV_FILTER_SEPIA_FG: switch_core_video_filter_t = switch_core_video_filter_t(4);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_img_fit_t {
-    SWITCH_FIT_SIZE = 0,
-    SWITCH_FIT_SCALE = 1,
-    SWITCH_FIT_SIZE_AND_SCALE = 2,
-    SWITCH_FIT_NECESSARY = 3,
-    SWITCH_FIT_NONE = 4,
+impl switch_core_video_filter_t {
+    pub const SCV_FILTER_SEPIA_BG: switch_core_video_filter_t = switch_core_video_filter_t(8);
 }
+impl switch_core_video_filter_t {
+    pub const SCV_FILTER_8BIT_FG: switch_core_video_filter_t = switch_core_video_filter_t(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_video_filter_t(pub ::std::os::raw::c_uint);
+impl switch_shade_t {
+    pub const SWITCH_SHADE_NONE: switch_shade_t = switch_shade_t(0);
+}
+impl switch_shade_t {
+    pub const SWITCH_SHADE_RED: switch_shade_t = switch_shade_t(1);
+}
+impl switch_shade_t {
+    pub const SWITCH_SHADE_GREEN: switch_shade_t = switch_shade_t(2);
+}
+impl switch_shade_t {
+    pub const SWITCH_SHADE_BLUE: switch_shade_t = switch_shade_t(3);
+}
+impl switch_shade_t {
+    pub const SWITCH_SHADE_AUTO: switch_shade_t = switch_shade_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_shade_t(pub ::std::os::raw::c_uint);
+impl switch_img_position_t {
+    pub const POS_LEFT_TOP: switch_img_position_t = switch_img_position_t(0);
+}
+impl switch_img_position_t {
+    pub const POS_LEFT_MID: switch_img_position_t = switch_img_position_t(1);
+}
+impl switch_img_position_t {
+    pub const POS_LEFT_BOT: switch_img_position_t = switch_img_position_t(2);
+}
+impl switch_img_position_t {
+    pub const POS_CENTER_TOP: switch_img_position_t = switch_img_position_t(3);
+}
+impl switch_img_position_t {
+    pub const POS_CENTER_MID: switch_img_position_t = switch_img_position_t(4);
+}
+impl switch_img_position_t {
+    pub const POS_CENTER_BOT: switch_img_position_t = switch_img_position_t(5);
+}
+impl switch_img_position_t {
+    pub const POS_RIGHT_TOP: switch_img_position_t = switch_img_position_t(6);
+}
+impl switch_img_position_t {
+    pub const POS_RIGHT_MID: switch_img_position_t = switch_img_position_t(7);
+}
+impl switch_img_position_t {
+    pub const POS_RIGHT_BOT: switch_img_position_t = switch_img_position_t(8);
+}
+impl switch_img_position_t {
+    pub const POS_NONE: switch_img_position_t = switch_img_position_t(9);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_img_position_t(pub ::std::os::raw::c_uint);
+impl switch_img_fit_t {
+    pub const SWITCH_FIT_SIZE: switch_img_fit_t = switch_img_fit_t(0);
+}
+impl switch_img_fit_t {
+    pub const SWITCH_FIT_SCALE: switch_img_fit_t = switch_img_fit_t(1);
+}
+impl switch_img_fit_t {
+    pub const SWITCH_FIT_SIZE_AND_SCALE: switch_img_fit_t = switch_img_fit_t(2);
+}
+impl switch_img_fit_t {
+    pub const SWITCH_FIT_NECESSARY: switch_img_fit_t = switch_img_fit_t(3);
+}
+impl switch_img_fit_t {
+    pub const SWITCH_FIT_NONE: switch_img_fit_t = switch_img_fit_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_img_fit_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_yuv_color_s {
@@ -11937,11 +14316,12 @@ pub struct switch_image_rect {
     pub h: ::std::os::raw::c_uint,
 }
 pub type switch_image_rect_t = switch_image_rect;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_convert_fmt_t {
-    SWITCH_CONVERT_FMT_YUYV = 0,
+impl switch_convert_fmt_t {
+    pub const SWITCH_CONVERT_FMT_YUYV: switch_convert_fmt_t = switch_convert_fmt_t(0);
 }
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_convert_fmt_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_png_opaque_s {
@@ -11956,14 +14336,21 @@ pub struct switch_png_s {
     pub h: ::std::os::raw::c_int,
 }
 pub type switch_png_t = switch_png_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_image_rotation_mode_t {
-    SRM_NONE = 0,
-    SRM_90 = 90,
-    SRM_180 = 180,
-    SRM_270 = 270,
+impl switch_image_rotation_mode_t {
+    pub const SRM_NONE: switch_image_rotation_mode_t = switch_image_rotation_mode_t(0);
 }
+impl switch_image_rotation_mode_t {
+    pub const SRM_90: switch_image_rotation_mode_t = switch_image_rotation_mode_t(90);
+}
+impl switch_image_rotation_mode_t {
+    pub const SRM_180: switch_image_rotation_mode_t = switch_image_rotation_mode_t(180);
+}
+impl switch_image_rotation_mode_t {
+    pub const SRM_270: switch_image_rotation_mode_t = switch_image_rotation_mode_t(270);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_image_rotation_mode_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_img_alloc(
         img: *mut switch_image_t,
@@ -13128,24 +15515,42 @@ extern "C" {
         digit: ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_ivr_menu_flags {
-    SWITCH_IVR_MENU_FLAG_FALLTOMAIN = 1,
-    SWITCH_IVR_MENU_FLAG_FREEPOOL = 2,
-    SWITCH_IVR_MENU_FLAG_STACK = 4,
+impl switch_ivr_menu_flags {
+    pub const SWITCH_IVR_MENU_FLAG_FALLTOMAIN: switch_ivr_menu_flags = switch_ivr_menu_flags(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_ivr_action_t {
-    SWITCH_IVR_ACTION_DIE = 0,
-    SWITCH_IVR_ACTION_EXECMENU = 1,
-    SWITCH_IVR_ACTION_EXECAPP = 2,
-    SWITCH_IVR_ACTION_PLAYSOUND = 3,
-    SWITCH_IVR_ACTION_BACK = 4,
-    SWITCH_IVR_ACTION_TOMAIN = 5,
-    SWITCH_IVR_ACTION_NOOP = 6,
+impl switch_ivr_menu_flags {
+    pub const SWITCH_IVR_MENU_FLAG_FREEPOOL: switch_ivr_menu_flags = switch_ivr_menu_flags(2);
 }
+impl switch_ivr_menu_flags {
+    pub const SWITCH_IVR_MENU_FLAG_STACK: switch_ivr_menu_flags = switch_ivr_menu_flags(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_ivr_menu_flags(pub ::std::os::raw::c_uint);
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_DIE: switch_ivr_action_t = switch_ivr_action_t(0);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_EXECMENU: switch_ivr_action_t = switch_ivr_action_t(1);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_EXECAPP: switch_ivr_action_t = switch_ivr_action_t(2);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_PLAYSOUND: switch_ivr_action_t = switch_ivr_action_t(3);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_BACK: switch_ivr_action_t = switch_ivr_action_t(4);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_TOMAIN: switch_ivr_action_t = switch_ivr_action_t(5);
+}
+impl switch_ivr_action_t {
+    pub const SWITCH_IVR_ACTION_NOOP: switch_ivr_action_t = switch_ivr_action_t(6);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_ivr_action_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_ivr_menu {
@@ -13823,15 +16228,29 @@ pub struct switch_rtp_packet_t {
     pub ext: *mut switch_rtp_hdr_ext_t,
     pub ebody: *mut ::std::os::raw::c_char,
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_rtp_crypto_direction_t {
-    SWITCH_RTP_CRYPTO_SEND = 0,
-    SWITCH_RTP_CRYPTO_RECV = 1,
-    SWITCH_RTP_CRYPTO_SEND_RTCP = 2,
-    SWITCH_RTP_CRYPTO_RECV_RTCP = 3,
-    SWITCH_RTP_CRYPTO_MAX = 4,
+impl switch_rtp_crypto_direction_t {
+    pub const SWITCH_RTP_CRYPTO_SEND: switch_rtp_crypto_direction_t =
+        switch_rtp_crypto_direction_t(0);
 }
+impl switch_rtp_crypto_direction_t {
+    pub const SWITCH_RTP_CRYPTO_RECV: switch_rtp_crypto_direction_t =
+        switch_rtp_crypto_direction_t(1);
+}
+impl switch_rtp_crypto_direction_t {
+    pub const SWITCH_RTP_CRYPTO_SEND_RTCP: switch_rtp_crypto_direction_t =
+        switch_rtp_crypto_direction_t(2);
+}
+impl switch_rtp_crypto_direction_t {
+    pub const SWITCH_RTP_CRYPTO_RECV_RTCP: switch_rtp_crypto_direction_t =
+        switch_rtp_crypto_direction_t(3);
+}
+impl switch_rtp_crypto_direction_t {
+    pub const SWITCH_RTP_CRYPTO_MAX: switch_rtp_crypto_direction_t =
+        switch_rtp_crypto_direction_t(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_rtp_crypto_direction_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_srtp_crypto_suite_s {
@@ -13852,12 +16271,15 @@ pub struct switch_rtp_crypto_key {
     pub next: *mut switch_rtp_crypto_key,
 }
 pub type switch_rtp_crypto_key_t = switch_rtp_crypto_key;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum ice_proto_t {
-    IPR_RTP = 0,
-    IPR_RTCP = 1,
+impl ice_proto_t {
+    pub const IPR_RTP: ice_proto_t = ice_proto_t(0);
 }
+impl ice_proto_t {
+    pub const IPR_RTCP: ice_proto_t = ice_proto_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct ice_proto_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct icand_s {
@@ -13886,64 +16308,144 @@ pub struct ice_s {
     pub options: *mut ::std::os::raw::c_char,
 }
 pub type ice_t = ice_s;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum rtcp_pt_t {
-    _RTCP_PT_FIR = 192,
-    _RTCP_PT_IJ = 195,
-    _RTCP_PT_SR = 200,
-    _RTCP_PT_RR = 201,
-    _RTCP_PT_SDES = 202,
-    _RTCP_PT_BYE = 203,
-    _RTCP_PT_APP = 204,
-    _RTCP_PT_RTPFB = 205,
-    _RTCP_PT_PSFB = 206,
-    _RTCP_PT_XR = 207,
-    _RTCP_PT_AVB = 208,
-    _RTCP_PT_RSI = 209,
-    _RTCP_PT_TOKEN = 210,
-    _RTCP_PT_IDMS = 211,
-    _RTCP_PT_LAST = 255,
+impl rtcp_pt_t {
+    pub const _RTCP_PT_FIR: rtcp_pt_t = rtcp_pt_t(192);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum rtcp_sdes_t {
-    _RTCP_SDES_END = 0,
-    _RTCP_SDES_CNAME = 1,
-    _RTCP_SDES_NAME = 2,
-    _RTCP_SDES_EMAIL = 3,
-    _RTCP_SDES_PHONE = 4,
-    _RTCP_SDES_LOC = 5,
-    _RTCP_SDES_TOOL = 6,
-    _RTCP_SDES_NOTE = 7,
-    _RTCP_SDES_PRIV = 8,
-    _RTCP_SDES_H323 = 9,
-    _RTCP_SDES_APSI = 10,
+impl rtcp_pt_t {
+    pub const _RTCP_PT_IJ: rtcp_pt_t = rtcp_pt_t(195);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum rtcp_rtpfb_t {
-    _RTCP_RTPFB_NACK = 1,
-    _RTCP_RTPFB_TMMBR = 3,
-    _RTCP_RTPFB_TMMBN = 4,
-    _RTCP_RTPFB_SR_REQ = 5,
-    _RTCP_RTPFB_RAMS = 6,
-    _RTCP_RTPFB_TLLEI = 7,
-    _RTCP_RTPFB_ECN_FB = 8,
+impl rtcp_pt_t {
+    pub const _RTCP_PT_SR: rtcp_pt_t = rtcp_pt_t(200);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum rtcp_psfb_t {
-    _RTCP_PSFB_PLI = 1,
-    _RTCP_PSFB_SLI = 2,
-    _RTCP_PSFB_RPSI = 3,
-    _RTCP_PSFB_FIR = 4,
-    _RTCP_PSFB_TSTR = 5,
-    _RTCP_PSFB_TSTN = 6,
-    _RTCP_PSFB_VBCM = 7,
-    _RTCP_PSFB_PSLEI = 8,
-    _RTCP_PSFB_AFB = 15,
+impl rtcp_pt_t {
+    pub const _RTCP_PT_RR: rtcp_pt_t = rtcp_pt_t(201);
 }
+impl rtcp_pt_t {
+    pub const _RTCP_PT_SDES: rtcp_pt_t = rtcp_pt_t(202);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_BYE: rtcp_pt_t = rtcp_pt_t(203);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_APP: rtcp_pt_t = rtcp_pt_t(204);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_RTPFB: rtcp_pt_t = rtcp_pt_t(205);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_PSFB: rtcp_pt_t = rtcp_pt_t(206);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_XR: rtcp_pt_t = rtcp_pt_t(207);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_AVB: rtcp_pt_t = rtcp_pt_t(208);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_RSI: rtcp_pt_t = rtcp_pt_t(209);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_TOKEN: rtcp_pt_t = rtcp_pt_t(210);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_IDMS: rtcp_pt_t = rtcp_pt_t(211);
+}
+impl rtcp_pt_t {
+    pub const _RTCP_PT_LAST: rtcp_pt_t = rtcp_pt_t(255);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct rtcp_pt_t(pub ::std::os::raw::c_uint);
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_END: rtcp_sdes_t = rtcp_sdes_t(0);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_CNAME: rtcp_sdes_t = rtcp_sdes_t(1);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_NAME: rtcp_sdes_t = rtcp_sdes_t(2);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_EMAIL: rtcp_sdes_t = rtcp_sdes_t(3);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_PHONE: rtcp_sdes_t = rtcp_sdes_t(4);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_LOC: rtcp_sdes_t = rtcp_sdes_t(5);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_TOOL: rtcp_sdes_t = rtcp_sdes_t(6);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_NOTE: rtcp_sdes_t = rtcp_sdes_t(7);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_PRIV: rtcp_sdes_t = rtcp_sdes_t(8);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_H323: rtcp_sdes_t = rtcp_sdes_t(9);
+}
+impl rtcp_sdes_t {
+    pub const _RTCP_SDES_APSI: rtcp_sdes_t = rtcp_sdes_t(10);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct rtcp_sdes_t(pub ::std::os::raw::c_uint);
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_NACK: rtcp_rtpfb_t = rtcp_rtpfb_t(1);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_TMMBR: rtcp_rtpfb_t = rtcp_rtpfb_t(3);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_TMMBN: rtcp_rtpfb_t = rtcp_rtpfb_t(4);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_SR_REQ: rtcp_rtpfb_t = rtcp_rtpfb_t(5);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_RAMS: rtcp_rtpfb_t = rtcp_rtpfb_t(6);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_TLLEI: rtcp_rtpfb_t = rtcp_rtpfb_t(7);
+}
+impl rtcp_rtpfb_t {
+    pub const _RTCP_RTPFB_ECN_FB: rtcp_rtpfb_t = rtcp_rtpfb_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct rtcp_rtpfb_t(pub ::std::os::raw::c_uint);
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_PLI: rtcp_psfb_t = rtcp_psfb_t(1);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_SLI: rtcp_psfb_t = rtcp_psfb_t(2);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_RPSI: rtcp_psfb_t = rtcp_psfb_t(3);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_FIR: rtcp_psfb_t = rtcp_psfb_t(4);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_TSTR: rtcp_psfb_t = rtcp_psfb_t(5);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_TSTN: rtcp_psfb_t = rtcp_psfb_t(6);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_VBCM: rtcp_psfb_t = rtcp_psfb_t(7);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_PSLEI: rtcp_psfb_t = rtcp_psfb_t(8);
+}
+impl rtcp_psfb_t {
+    pub const _RTCP_PSFB_AFB: rtcp_psfb_t = rtcp_psfb_t(15);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct rtcp_psfb_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_rtp_add_crypto_key(
         rtp_session: *mut switch_rtp_t,
@@ -14378,15 +16880,24 @@ extern "C" {
         rtp_session: *mut switch_rtp_t,
     ) -> *mut switch_core_session_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_xml_flag_t {
-    SWITCH_XML_ROOT = 1,
-    SWITCH_XML_NAMEM = 2,
-    SWITCH_XML_TXTM = 4,
-    SWITCH_XML_DUP = 8,
-    SWITCH_XML_CDATA = 16,
+impl switch_xml_flag_t {
+    pub const SWITCH_XML_ROOT: switch_xml_flag_t = switch_xml_flag_t(1);
 }
+impl switch_xml_flag_t {
+    pub const SWITCH_XML_NAMEM: switch_xml_flag_t = switch_xml_flag_t(2);
+}
+impl switch_xml_flag_t {
+    pub const SWITCH_XML_TXTM: switch_xml_flag_t = switch_xml_flag_t(4);
+}
+impl switch_xml_flag_t {
+    pub const SWITCH_XML_DUP: switch_xml_flag_t = switch_xml_flag_t(8);
+}
+impl switch_xml_flag_t {
+    pub const SWITCH_XML_CDATA: switch_xml_flag_t = switch_xml_flag_t(16);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_xml_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml {
@@ -14748,19 +17259,36 @@ extern "C" {
         str_language: *const ::std::os::raw::c_char,
     ) -> switch_status_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_xml_config_type_t {
-    SWITCH_CONFIG_INT = 0,
-    SWITCH_CONFIG_ATOMIC = 1,
-    SWITCH_CONFIG_STRING = 2,
-    SWITCH_CONFIG_BOOL = 3,
-    SWITCH_CONFIG_CUSTOM = 4,
-    SWITCH_CONFIG_ENUM = 5,
-    SWITCH_CONFIG_FLAG = 6,
-    SWITCH_CONFIG_FLAGARRAY = 7,
-    SWITCH_CONFIG_LAST = 8,
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_INT: switch_xml_config_type_t = switch_xml_config_type_t(0);
 }
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_ATOMIC: switch_xml_config_type_t = switch_xml_config_type_t(1);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_STRING: switch_xml_config_type_t = switch_xml_config_type_t(2);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_BOOL: switch_xml_config_type_t = switch_xml_config_type_t(3);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_CUSTOM: switch_xml_config_type_t = switch_xml_config_type_t(4);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_ENUM: switch_xml_config_type_t = switch_xml_config_type_t(5);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_FLAG: switch_xml_config_type_t = switch_xml_config_type_t(6);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_FLAGARRAY: switch_xml_config_type_t = switch_xml_config_type_t(7);
+}
+impl switch_xml_config_type_t {
+    pub const SWITCH_CONFIG_LAST: switch_xml_config_type_t = switch_xml_config_type_t(8);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_xml_config_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml_config_enum_item_t {
@@ -14794,19 +17322,27 @@ pub struct switch_xml_config_atomic_options_t {
     pub max: u32,
 }
 pub type switch_xml_config_item_t = switch_xml_config_item;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_config_callback_type_t {
-    CONFIG_LOAD = 0,
-    CONFIG_RELOAD = 1,
-    CONFIG_SHUTDOWN = 2,
+impl switch_config_callback_type_t {
+    pub const CONFIG_LOAD: switch_config_callback_type_t = switch_config_callback_type_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_config_flags_t {
-    CONFIG_RELOADABLE = 1,
-    CONFIG_REQUIRED = 2,
+impl switch_config_callback_type_t {
+    pub const CONFIG_RELOAD: switch_config_callback_type_t = switch_config_callback_type_t(1);
 }
+impl switch_config_callback_type_t {
+    pub const CONFIG_SHUTDOWN: switch_config_callback_type_t = switch_config_callback_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_config_callback_type_t(pub ::std::os::raw::c_uint);
+impl switch_config_flags_t {
+    pub const CONFIG_RELOADABLE: switch_config_flags_t = switch_config_flags_t(1);
+}
+impl switch_config_flags_t {
+    pub const CONFIG_REQUIRED: switch_config_flags_t = switch_config_flags_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_config_flags_t(pub ::std::os::raw::c_uint);
 pub type switch_xml_config_callback_t = ::std::option::Option<
     unsafe extern "C" fn(
         item: *mut switch_xml_config_item_t,
@@ -15357,18 +17893,35 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 pub type switch_packetizer_t = ::std::os::raw::c_void;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_packetizer_bitstream_t {
-    SPT_H264_BITSTREAM = 0,
-    SPT_H264_SIZED_BITSTREAM = 1,
-    SPT_H264_SIGNALE_NALU = 2,
-    SPT_VP8_BITSTREAM = 3,
-    SPT_VP9_BITSTREAM = 4,
-    SPT_H265_BITSTREAM = 5,
-    SPT_AV1 = 6,
-    SPT_INVALID_STREAM = 7,
+impl switch_packetizer_bitstream_t {
+    pub const SPT_H264_BITSTREAM: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(0);
 }
+impl switch_packetizer_bitstream_t {
+    pub const SPT_H264_SIZED_BITSTREAM: switch_packetizer_bitstream_t =
+        switch_packetizer_bitstream_t(1);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_H264_SIGNALE_NALU: switch_packetizer_bitstream_t =
+        switch_packetizer_bitstream_t(2);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_VP8_BITSTREAM: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(3);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_VP9_BITSTREAM: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(4);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_H265_BITSTREAM: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(5);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_AV1: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(6);
+}
+impl switch_packetizer_bitstream_t {
+    pub const SPT_INVALID_STREAM: switch_packetizer_bitstream_t = switch_packetizer_bitstream_t(7);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_packetizer_bitstream_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_packetizer_create(
         type_: switch_packetizer_bitstream_t,
@@ -15404,19 +17957,27 @@ extern "C" {
 extern "C" {
     pub fn switch_packetizer_close(packetizer: *mut *mut switch_packetizer_t);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_nat_type_t {
-    SWITCH_NAT_TYPE_NONE = 0,
-    SWITCH_NAT_TYPE_PMP = 1,
-    SWITCH_NAT_TYPE_UPNP = 2,
+impl switch_nat_type_t {
+    pub const SWITCH_NAT_TYPE_NONE: switch_nat_type_t = switch_nat_type_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_nat_ip_proto_t {
-    SWITCH_NAT_UDP = 0,
-    SWITCH_NAT_TCP = 1,
+impl switch_nat_type_t {
+    pub const SWITCH_NAT_TYPE_PMP: switch_nat_type_t = switch_nat_type_t(1);
 }
+impl switch_nat_type_t {
+    pub const SWITCH_NAT_TYPE_UPNP: switch_nat_type_t = switch_nat_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_nat_type_t(pub ::std::os::raw::c_uint);
+impl switch_nat_ip_proto_t {
+    pub const SWITCH_NAT_UDP: switch_nat_ip_proto_t = switch_nat_ip_proto_t(0);
+}
+impl switch_nat_ip_proto_t {
+    pub const SWITCH_NAT_TCP: switch_nat_ip_proto_t = switch_nat_ip_proto_t(1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_nat_ip_proto_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_nat_get_type() -> *const ::std::os::raw::c_char;
 }
@@ -15459,20 +18020,30 @@ extern "C" {
     ) -> switch_status_t;
 }
 pub type switch_odbc_statement_handle_t = *mut ::std::os::raw::c_void;
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_odbc_state_t {
-    SWITCH_ODBC_STATE_INIT = 0,
-    SWITCH_ODBC_STATE_DOWN = 1,
-    SWITCH_ODBC_STATE_CONNECTED = 2,
-    SWITCH_ODBC_STATE_ERROR = 3,
+impl switch_odbc_state_t {
+    pub const SWITCH_ODBC_STATE_INIT: switch_odbc_state_t = switch_odbc_state_t(0);
 }
-#[repr(i32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_odbc_status_t {
-    SWITCH_ODBC_SUCCESS = 0,
-    SWITCH_ODBC_FAIL = -1,
+impl switch_odbc_state_t {
+    pub const SWITCH_ODBC_STATE_DOWN: switch_odbc_state_t = switch_odbc_state_t(1);
 }
+impl switch_odbc_state_t {
+    pub const SWITCH_ODBC_STATE_CONNECTED: switch_odbc_state_t = switch_odbc_state_t(2);
+}
+impl switch_odbc_state_t {
+    pub const SWITCH_ODBC_STATE_ERROR: switch_odbc_state_t = switch_odbc_state_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_odbc_state_t(pub ::std::os::raw::c_uint);
+impl switch_odbc_status_t {
+    pub const SWITCH_ODBC_SUCCESS: switch_odbc_status_t = switch_odbc_status_t(0);
+}
+impl switch_odbc_status_t {
+    pub const SWITCH_ODBC_FAIL: switch_odbc_status_t = switch_odbc_status_t(-1);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_odbc_status_t(pub ::std::os::raw::c_int);
 extern "C" {
     pub fn switch_odbc_skip_autocommit_flip();
 }
@@ -15617,44 +18188,57 @@ extern "C" {
         backend: *const ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
 }
-pub const MSRP_ST_WAIT_HEADER: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_WAIT_HEADER;
-pub const MSRP_ST_PARSE_HEADER: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_PARSE_HEADER;
-pub const MSRP_ST_WAIT_BODY: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_WAIT_BODY;
-pub const MSRP_ST_DONE: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_DONE;
-pub const MSRP_ST_ERROR: _bindgen_ty_1 = _bindgen_ty_1::MSRP_ST_ERROR;
-pub const MSRP_METHOD_REPLY: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_REPLY;
-pub const MSRP_METHOD_SEND: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_SEND;
-pub const MSRP_METHOD_AUTH: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_AUTH;
-pub const MSRP_METHOD_REPORT: _bindgen_ty_1 = _bindgen_ty_1::MSRP_METHOD_REPORT;
-#[repr(u32)]
+pub const MSRP_ST_WAIT_HEADER: _bindgen_ty_1 = _bindgen_ty_1(0);
+pub const MSRP_ST_PARSE_HEADER: _bindgen_ty_1 = _bindgen_ty_1(1);
+pub const MSRP_ST_WAIT_BODY: _bindgen_ty_1 = _bindgen_ty_1(2);
+pub const MSRP_ST_DONE: _bindgen_ty_1 = _bindgen_ty_1(3);
+pub const MSRP_ST_ERROR: _bindgen_ty_1 = _bindgen_ty_1(4);
+pub const MSRP_METHOD_REPLY: _bindgen_ty_1 = _bindgen_ty_1(5);
+pub const MSRP_METHOD_SEND: _bindgen_ty_1 = _bindgen_ty_1(6);
+pub const MSRP_METHOD_AUTH: _bindgen_ty_1 = _bindgen_ty_1(7);
+pub const MSRP_METHOD_REPORT: _bindgen_ty_1 = _bindgen_ty_1(8);
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum _bindgen_ty_1 {
-    MSRP_ST_WAIT_HEADER = 0,
-    MSRP_ST_PARSE_HEADER = 1,
-    MSRP_ST_WAIT_BODY = 2,
-    MSRP_ST_DONE = 3,
-    MSRP_ST_ERROR = 4,
-    MSRP_METHOD_REPLY = 5,
-    MSRP_METHOD_SEND = 6,
-    MSRP_METHOD_AUTH = 7,
-    MSRP_METHOD_REPORT = 8,
+pub struct _bindgen_ty_1(pub ::std::os::raw::c_uint);
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_FROM_PATH: switch_msrp_header_type_t = switch_msrp_header_type_t(0);
 }
-#[repr(u32)]
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_TO_PATH: switch_msrp_header_type_t = switch_msrp_header_type_t(1);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_MESSAGE_ID: switch_msrp_header_type_t = switch_msrp_header_type_t(2);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_CONTENT_TYPE: switch_msrp_header_type_t = switch_msrp_header_type_t(3);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_SUCCESS_REPORT: switch_msrp_header_type_t = switch_msrp_header_type_t(4);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_FAILURE_REPORT: switch_msrp_header_type_t = switch_msrp_header_type_t(5);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_STATUS: switch_msrp_header_type_t = switch_msrp_header_type_t(6);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_KEEPALIVE: switch_msrp_header_type_t = switch_msrp_header_type_t(7);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_TRASACTION_ID: switch_msrp_header_type_t = switch_msrp_header_type_t(8);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_DELIMITER: switch_msrp_header_type_t = switch_msrp_header_type_t(9);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_CODE_DESCRIPTION: switch_msrp_header_type_t = switch_msrp_header_type_t(10);
+}
+impl switch_msrp_header_type_t {
+    pub const MSRP_H_UNKNOWN: switch_msrp_header_type_t = switch_msrp_header_type_t(11);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_msrp_header_type_t {
-    MSRP_H_FROM_PATH = 0,
-    MSRP_H_TO_PATH = 1,
-    MSRP_H_MESSAGE_ID = 2,
-    MSRP_H_CONTENT_TYPE = 3,
-    MSRP_H_SUCCESS_REPORT = 4,
-    MSRP_H_FAILURE_REPORT = 5,
-    MSRP_H_STATUS = 6,
-    MSRP_H_KEEPALIVE = 7,
-    MSRP_H_TRASACTION_ID = 8,
-    MSRP_H_DELIMITER = 9,
-    MSRP_H_CODE_DESCRIPTION = 10,
-    MSRP_H_UNKNOWN = 11,
-}
+pub struct switch_msrp_header_type_t(pub ::std::os::raw::c_uint);
 pub type switch_msrp_session_t = switch_msrp_session_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -15793,64 +18377,127 @@ extern "C" {
 extern "C" {
     pub fn switch_msrp_msg_dup(msg: *mut switch_msrp_msg_t) -> *mut switch_msrp_msg_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_dtmf_t {
-    DTMF_AUTO = 0,
-    DTMF_2833 = 1,
-    DTMF_INFO = 2,
-    DTMF_NONE = 3,
+impl switch_core_media_dtmf_t {
+    pub const DTMF_AUTO: switch_core_media_dtmf_t = switch_core_media_dtmf_t(0);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_avp_secure_t {
-    AVP_NO_SECURE = 0,
-    AVP_SECURE = 1,
-    AVP_UNDEFINED = 2,
+impl switch_core_media_dtmf_t {
+    pub const DTMF_2833: switch_core_media_dtmf_t = switch_core_media_dtmf_t(1);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_NDLB_t {
-    SM_NDLB_ALLOW_BAD_IANANAME = 1,
-    SM_NDLB_ALLOW_NONDUP_SDP = 2,
-    SM_NDLB_ALLOW_CRYPTO_IN_AVP = 4,
-    SM_NDLB_DISABLE_SRTP_AUTH = 8,
-    SM_NDLB_SENDRECV_IN_SESSION = 16,
-    SM_NDLB_NEVER_PATCH_REINVITE = 32,
+impl switch_core_media_dtmf_t {
+    pub const DTMF_INFO: switch_core_media_dtmf_t = switch_core_media_dtmf_t(2);
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_flag_t {
-    SCMF_RUNNING = 0,
-    SCMF_DISABLE_TRANSCODING = 1,
-    SCMF_AUTOFIX_TIMING = 2,
-    SCMF_CODEC_GREEDY = 3,
-    SCMF_CODEC_SCROOGE = 4,
-    SCMF_DISABLE_HOLD = 5,
-    SCMF_SUPPRESS_CNG = 6,
-    SCMF_DISABLE_RTP_AUTOADJ = 7,
-    SCMF_PASS_RFC2833 = 8,
-    SCMF_AUTOFLUSH = 9,
-    SCMF_REWRITE_TIMESTAMPS = 10,
-    SCMF_RTP_AUTOFLUSH_DURING_BRIDGE = 11,
-    SCMF_MULTI_ANSWER_AUDIO = 12,
-    SCMF_MULTI_ANSWER_VIDEO = 13,
-    SCMF_RECV_SDP = 14,
-    SCMF_MAX = 15,
+impl switch_core_media_dtmf_t {
+    pub const DTMF_NONE: switch_core_media_dtmf_t = switch_core_media_dtmf_t(3);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum STUNFLAGS {
-    STUN_FLAG_SET = 1,
-    STUN_FLAG_PING = 2,
-    STUN_FLAG_FUNNY = 4,
+pub struct switch_core_media_dtmf_t(pub ::std::os::raw::c_uint);
+impl switch_core_media_avp_secure_t {
+    pub const AVP_NO_SECURE: switch_core_media_avp_secure_t = switch_core_media_avp_secure_t(0);
 }
-#[repr(u32)]
+impl switch_core_media_avp_secure_t {
+    pub const AVP_SECURE: switch_core_media_avp_secure_t = switch_core_media_avp_secure_t(1);
+}
+impl switch_core_media_avp_secure_t {
+    pub const AVP_UNDEFINED: switch_core_media_avp_secure_t = switch_core_media_avp_secure_t(2);
+}
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_core_media_vflag_t {
-    VAD_IN = 1,
-    VAD_OUT = 2,
+pub struct switch_core_media_avp_secure_t(pub ::std::os::raw::c_uint);
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_ALLOW_BAD_IANANAME: switch_core_media_NDLB_t = switch_core_media_NDLB_t(1);
 }
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_ALLOW_NONDUP_SDP: switch_core_media_NDLB_t = switch_core_media_NDLB_t(2);
+}
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_ALLOW_CRYPTO_IN_AVP: switch_core_media_NDLB_t = switch_core_media_NDLB_t(4);
+}
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_DISABLE_SRTP_AUTH: switch_core_media_NDLB_t = switch_core_media_NDLB_t(8);
+}
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_SENDRECV_IN_SESSION: switch_core_media_NDLB_t = switch_core_media_NDLB_t(16);
+}
+impl switch_core_media_NDLB_t {
+    pub const SM_NDLB_NEVER_PATCH_REINVITE: switch_core_media_NDLB_t = switch_core_media_NDLB_t(32);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_media_NDLB_t(pub ::std::os::raw::c_uint);
+impl switch_core_media_flag_t {
+    pub const SCMF_RUNNING: switch_core_media_flag_t = switch_core_media_flag_t(0);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_DISABLE_TRANSCODING: switch_core_media_flag_t = switch_core_media_flag_t(1);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_AUTOFIX_TIMING: switch_core_media_flag_t = switch_core_media_flag_t(2);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_CODEC_GREEDY: switch_core_media_flag_t = switch_core_media_flag_t(3);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_CODEC_SCROOGE: switch_core_media_flag_t = switch_core_media_flag_t(4);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_DISABLE_HOLD: switch_core_media_flag_t = switch_core_media_flag_t(5);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_SUPPRESS_CNG: switch_core_media_flag_t = switch_core_media_flag_t(6);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_DISABLE_RTP_AUTOADJ: switch_core_media_flag_t = switch_core_media_flag_t(7);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_PASS_RFC2833: switch_core_media_flag_t = switch_core_media_flag_t(8);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_AUTOFLUSH: switch_core_media_flag_t = switch_core_media_flag_t(9);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_REWRITE_TIMESTAMPS: switch_core_media_flag_t = switch_core_media_flag_t(10);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_RTP_AUTOFLUSH_DURING_BRIDGE: switch_core_media_flag_t =
+        switch_core_media_flag_t(11);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_MULTI_ANSWER_AUDIO: switch_core_media_flag_t = switch_core_media_flag_t(12);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_MULTI_ANSWER_VIDEO: switch_core_media_flag_t = switch_core_media_flag_t(13);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_RECV_SDP: switch_core_media_flag_t = switch_core_media_flag_t(14);
+}
+impl switch_core_media_flag_t {
+    pub const SCMF_MAX: switch_core_media_flag_t = switch_core_media_flag_t(15);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_media_flag_t(pub ::std::os::raw::c_uint);
+impl STUNFLAGS {
+    pub const STUN_FLAG_SET: STUNFLAGS = STUNFLAGS(1);
+}
+impl STUNFLAGS {
+    pub const STUN_FLAG_PING: STUNFLAGS = STUNFLAGS(2);
+}
+impl STUNFLAGS {
+    pub const STUN_FLAG_FUNNY: STUNFLAGS = STUNFLAGS(4);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct STUNFLAGS(pub ::std::os::raw::c_uint);
+impl switch_core_media_vflag_t {
+    pub const VAD_IN: switch_core_media_vflag_t = switch_core_media_vflag_t(1);
+}
+impl switch_core_media_vflag_t {
+    pub const VAD_OUT: switch_core_media_vflag_t = switch_core_media_vflag_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_core_media_vflag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_media_params_s {
@@ -16652,18 +19299,24 @@ extern "C" {
         type_: switch_media_type_t,
     ) -> *mut switch_codec_t;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_jb_flag_t {
-    SJB_QUEUE_ONLY = 1,
+impl switch_jb_flag_t {
+    pub const SJB_QUEUE_ONLY: switch_jb_flag_t = switch_jb_flag_t(1);
 }
-#[repr(u32)]
+#[repr(transparent)]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum switch_jb_type_t {
-    SJB_VIDEO = 0,
-    SJB_AUDIO = 1,
-    SJB_TEXT = 2,
+pub struct switch_jb_flag_t(pub ::std::os::raw::c_uint);
+impl switch_jb_type_t {
+    pub const SJB_VIDEO: switch_jb_type_t = switch_jb_type_t(0);
 }
+impl switch_jb_type_t {
+    pub const SJB_AUDIO: switch_jb_type_t = switch_jb_type_t(1);
+}
+impl switch_jb_type_t {
+    pub const SJB_TEXT: switch_jb_type_t = switch_jb_type_t(2);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct switch_jb_type_t(pub ::std::os::raw::c_uint);
 extern "C" {
     pub fn switch_jb_create(
         jbp: *mut *mut switch_jb_t,
@@ -16957,14 +19610,21 @@ extern "C" {
         cmd: *const ::std::os::raw::c_char,
     ) -> ::std::os::raw::c_int;
 }
-#[repr(u32)]
-#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
-pub enum teletone_hit_type_t {
-    TT_HIT_NONE = 0,
-    TT_HIT_BEGIN = 1,
-    TT_HIT_MIDDLE = 2,
-    TT_HIT_END = 3,
+impl teletone_hit_type_t {
+    pub const TT_HIT_NONE: teletone_hit_type_t = teletone_hit_type_t(0);
 }
+impl teletone_hit_type_t {
+    pub const TT_HIT_BEGIN: teletone_hit_type_t = teletone_hit_type_t(1);
+}
+impl teletone_hit_type_t {
+    pub const TT_HIT_MIDDLE: teletone_hit_type_t = teletone_hit_type_t(2);
+}
+impl teletone_hit_type_t {
+    pub const TT_HIT_END: teletone_hit_type_t = teletone_hit_type_t(3);
+}
+#[repr(transparent)]
+#[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
+pub struct teletone_hit_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct teletone_goertzel_state_t {
