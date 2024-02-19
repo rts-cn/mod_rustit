@@ -1,15 +1,29 @@
-use std::sync::Mutex;
-use tokio::sync::broadcast;
-use tonic::{Request, Status};
-
 use fsr::*;
 use lazy_static::lazy_static;
 use md5;
+use std::sync::Mutex;
 use std::thread;
+use tokio::sync::broadcast;
+use tokio::sync::mpsc;
+use tonic::{Request, Response, Status};
 
 include!("pb.rs");
-pub mod event;
-pub mod service;
+include!("service.rs");
+
+impl Event {
+    pub fn from(e: &fsr::Event) -> Event {
+        Event {
+            event_id: e.event_id(),
+            priority: e.priority(),
+            owner: e.owner().to_string(),
+            subclass_name: e.subclass_name().to_string(),
+            key: e.key(),
+            flags: e.flags(),
+            headers: e.headers().clone(),
+            body: e.body().to_string(),
+        }
+    }
+}
 
 pub struct Server {
     pub bind_uri: String,
@@ -84,7 +98,7 @@ impl Zrs {
 
         G_ZRS.lock().unwrap().done = Some(tx.clone());
 
-        let service: service::Service = service::Service {
+        let service = Service {
             tx: G_ZRS.lock().unwrap().ev_tx.clone(),
         };
 
