@@ -105,6 +105,8 @@ service zrs {
     rpc Command(CommandRequest) returns (Reply);
     // SendMsg sends messages to FreeSWITCH and returns a response Event.
     rpc SendMsg(SendMsgRequest) returns (Reply);
+    // SendEvent sends event to FreeSWITCH
+    rpc SendEvent(SendEventRequest) returns (Reply);
     // Reload xml
     rpc ReloadXML(ReloadXMLRequest) returns (Reply);
     // Reload Acl
@@ -115,24 +117,6 @@ service zrs {
     rpc LoadMod(ModRequest) returns (Reply);
     // Unload mod
     rpc UnloadMod(ModRequest) returns (Reply);
-}
-
-service zrc {
-    // Register the FreeSWITCH node
-    rpc Register (RegisterRequest) returns (Reply);
-    // UnRegister the FreeSWITCH node
-    rpc UnRegister (UnRegisterRequest) returns (Reply);
-}
-
-message Info {
-    string uuid = 1;
-    string name = 2;
-    string uri = 3;
-    string ip = 4;
-}
-
-message RegisterRequest {
-    Info info = 1;
 }
 
 message ReloadXMLRequest {}
@@ -158,7 +142,7 @@ message UnRegisterReply {
 }
 
 message Topic{
-    EventTypes id = 1;
+    uint32 id = 1;
     string subclass = 2;
 }
 
@@ -178,15 +162,22 @@ message Event {
 }
 
 message EventReply {
-    uint64 seq = 1;
     Event event = 2;
 }
 
 message CommandRequest {
     string command = 1;
-    bool sync = 2;
+    string args = 2;
 }
 
 message SendMsgRequest {
-    map<string, string> msg  = 1;
+    string uuid = 1;
+    map<string, string> headers = 4;
+}
+
+message SendEventRequest {
+    uint32 event_id = 1;
+    string subclass_name = 2;
+    map<string, string> headers = 3;
+    string body = 4;
 }
