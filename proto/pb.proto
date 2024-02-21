@@ -143,7 +143,7 @@ message UnRegisterReply {
     string message = 2;
 }
 
-message Topic{
+message Topic {
     uint32 id = 1;
     string subclass = 2;
 }
