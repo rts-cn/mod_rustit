@@ -288,3 +288,115 @@ pub fn xml_unbind_search(binding: u64) {
         switch_xml_unbind_search_function((&mut binding) as *mut _ as *mut *mut switch_xml_binding);
     }
 }
+
+pub struct SytemStatus {
+    pub uptime: i64,
+    pub version: String,
+    pub ready: bool,
+    pub session_total: u64,
+    pub session_active: u32,
+    pub session_peak: i32,
+    pub session_peak_5min: i32,
+    pub session_limit: u32,
+    pub rate_current: i32,
+    pub rate_max: i32,
+    pub rate_peak: i32,
+    pub rate_peak_5min: i32,
+    pub idle_cpu_used: f64,
+    pub idle_cpu_allowed: f64,
+    pub stack_size_current: f32,
+    pub stack_size_max: f32,
+}
+
+impl Default for SytemStatus {
+    fn default() -> SytemStatus {
+        SytemStatus {
+            uptime: 0,
+            version: String::new(),
+            ready: false,
+            session_total: 0,
+            session_active: 0,
+            session_peak: 0,
+            session_peak_5min: 0,
+            session_limit: 0,
+            rate_current: 0,
+            rate_max: 0,
+            rate_peak: 0,
+            rate_peak_5min: 0,
+            idle_cpu_allowed: 0.0,
+            idle_cpu_used: 0.0,
+            stack_size_current: 0.0,
+            stack_size_max: 0.0,
+        }
+    }
+}
+
+pub fn status() -> SytemStatus {
+    unsafe {
+        let mut status = SytemStatus::default();
+
+        let mut sps = 0;
+        let mut last_sps = 0;
+        let mut max_sps = 0;
+        let mut max_sps_fivemin = 0;
+        let mut sessions_peak = 0;
+        let mut sessions_peak_fivemin = 0;
+        let mut cur: switch_size_t = 0;
+        let mut max: switch_size_t = 0;
+
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_SESSIONS_PEAK,
+            (&mut sessions_peak) as *mut _ as *mut c_void,
+        );
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_SESSIONS_PEAK_FIVEMIN,
+            (&mut sessions_peak_fivemin) as *mut _ as *mut c_void,
+        );
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_LAST_SPS,
+            (&mut last_sps) as *mut _ as *mut c_void,
+        );
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_SPS,
+            (&mut sps) as *mut _ as *mut c_void,
+        );
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_SPS_PEAK,
+            (&mut max_sps) as *mut _ as *mut c_void,
+        );
+        switch_core_session_ctl(
+            switch_session_ctl_t::SCSC_SPS_PEAK_FIVEMIN,
+            (&mut max_sps_fivemin) as *mut _ as *mut c_void,
+        );
+
+        if switch_core_ready() == switch_bool_t::SWITCH_TRUE {
+            status.ready = true;
+        }
+        status.uptime = switch_core_uptime();
+        status.version = to_string(switch_version_full());
+
+        status.session_total = (switch_core_session_id() - 1) as u64;
+        status.session_active = switch_core_session_count();
+        status.session_peak = sessions_peak;
+        status.session_peak_5min = sessions_peak_fivemin;
+        status.session_limit = switch_core_session_limit(0);
+
+        status.rate_current = last_sps;
+        status.rate_max = sps;
+        status.rate_peak = max_sps;
+        status.rate_peak_5min = max_sps_fivemin;
+
+        status.idle_cpu_used = switch_core_min_idle_cpu(-1.0);
+        status.idle_cpu_allowed = switch_core_idle_cpu();
+
+        if switch_core_get_stacksizes(
+            (&mut cur) as *mut _ as *mut usize,
+            (&mut max) as *mut _ as *mut usize,
+        ) == switch_status_t::SWITCH_STATUS_SUCCESS
+        {
+            status.stack_size_current = (cur / 1024) as f32;
+            status.stack_size_max = (max / 1024) as f32;
+        }
+        status
+    }
+}

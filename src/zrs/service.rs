@@ -69,10 +69,7 @@ impl zrs_server::Zrs for Service {
     }
 
     /// Command sends a single command to the server and returns a response Event.
-    async fn command(
-        &self,
-        request: Request<CommandRequest>,
-    ) -> Result<Response<Reply>, Status> {
+    async fn command(&self, request: Request<CommandRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
         let mut cmd = req.command;
         let mut args = req.args;
@@ -107,10 +104,7 @@ impl zrs_server::Zrs for Service {
     }
 
     /// SendMsg sends messages to FreeSWITCH and returns a response.
-    async fn send_msg(
-        &self,
-        request: Request<SendMsgRequest>,
-    ) -> Result<Response<Reply>, Status> {
+    async fn send_msg(&self, request: Request<SendMsgRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
         let ret: Result<String, String> = fsr::sendmsg(&req.uuid, req.headers);
         match ret {
@@ -159,9 +153,9 @@ impl zrs_server::Zrs for Service {
     /// reload xml
     async fn reload_xml(
         &self,
-        request: Request<ReloadXmlRequest>,
+        _request: Request<ReloadXmlRequest>,
     ) -> Result<Response<Reply>, Status> {
-        let _req: ReloadXmlRequest = request.into_inner();
+        // let _req: ReloadXmlRequest = request.into_inner();
         let ret = fsr::api_exec("reloadxml", "");
         match ret {
             Err(e) => {
@@ -184,9 +178,9 @@ impl zrs_server::Zrs for Service {
     /// Reload acl
     async fn reload_acl(
         &self,
-        request: Request<ReloadAclRequest>,
+        _request: Request<ReloadAclRequest>,
     ) -> Result<Response<Reply>, Status> {
-        let _req = request.into_inner();
+        // let _req = request.into_inner();
         let ret = fsr::api_exec("reloadacl", "");
         match ret {
             Err(e) => {
@@ -207,10 +201,7 @@ impl zrs_server::Zrs for Service {
     }
 
     /// Reload mod
-    async fn reload_mod(
-        &self,
-        request: Request<ModRequest>,
-    ) -> Result<Response<Reply>, Status> {
+    async fn reload_mod(&self, request: Request<ModRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
         let mut cmd = "reload";
         let mut args = req.mod_name;
@@ -240,10 +231,7 @@ impl zrs_server::Zrs for Service {
     }
 
     /// Load mod
-    async fn load_mod(
-        &self,
-        request: Request<ModRequest>,
-    ) -> Result<Response<Reply>, Status> {
+    async fn load_mod(&self, request: Request<ModRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
         let ret = fsr::api_exec("load", &req.mod_name);
         match ret {
@@ -265,10 +253,7 @@ impl zrs_server::Zrs for Service {
     }
 
     /// Unload mod
-    async fn unload_mod(
-        &self,
-        request: Request<ModRequest>,
-    ) -> Result<Response<Reply>, Status> {
+    async fn unload_mod(&self, request: Request<ModRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
         if req.mod_name.contains("mod_zrs") {
             let reply = Reply {
@@ -295,5 +280,20 @@ impl zrs_server::Zrs for Service {
                 Ok(Response::new(reply))
             }
         }
+    }
+
+    /// FreeSWITCH Status
+    async fn status(
+        &self,
+        _request: Request<StatusRequest>,
+    ) -> Result<Response<StatusReply>, Status> {
+        let status = fsr::status();
+        let status = SystemStatus::from(&status);
+        let reply = StatusReply {
+            code: 200,
+            message: String::from("OK"),
+            status: Some(status),
+        };
+        Ok(Response::new(reply))
     }
 }

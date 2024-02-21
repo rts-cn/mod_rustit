@@ -123,6 +123,58 @@ pub struct SendEventRequest {
     pub body: ::prost::alloc::string::String,
 }
 #[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SystemStatus {
+    #[prost(int64, tag = "1")]
+    pub uptime: i64,
+    #[prost(string, tag = "2")]
+    pub version: ::prost::alloc::string::String,
+    #[prost(bool, tag = "3")]
+    pub ready: bool,
+    #[prost(uint64, tag = "4")]
+    pub session_total: u64,
+    #[prost(uint32, tag = "5")]
+    pub session_active: u32,
+    #[prost(int32, tag = "6")]
+    pub session_peak: i32,
+    #[prost(int32, tag = "7")]
+    pub session_peak_5min: i32,
+    #[prost(uint32, tag = "8")]
+    pub session_limit: u32,
+    #[prost(int32, tag = "9")]
+    pub rate_current: i32,
+    #[prost(int32, tag = "10")]
+    pub rate_max: i32,
+    #[prost(int32, tag = "11")]
+    pub rate_peak: i32,
+    #[prost(int32, tag = "12")]
+    pub rate_peak_5min: i32,
+    #[prost(double, tag = "13")]
+    pub idle_cpu_used: f64,
+    #[prost(double, tag = "14")]
+    pub idle_cpu_allowed: f64,
+    #[prost(float, tag = "15")]
+    pub stack_size_current: f32,
+    #[prost(float, tag = "16")]
+    pub stack_size_max: f32,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StatusRequest {}
+#[derive(serde::Serialize, serde::Deserialize)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StatusReply {
+    #[prost(int32, tag = "1")]
+    pub code: i32,
+    #[prost(string, tag = "2")]
+    pub message: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub status: ::core::option::Option<SystemStatus>,
+}
+#[derive(serde::Serialize, serde::Deserialize)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum EventTypes {
@@ -722,6 +774,26 @@ pub mod zrs_client {
             req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "UnloadMod"));
             self.inner.unary(req, path, codec).await
         }
+        /// FreeSWITCH Status
+        pub async fn status(
+            &mut self,
+            request: impl tonic::IntoRequest<super::StatusRequest>,
+        ) -> std::result::Result<tonic::Response<super::StatusReply>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static("/pb.zrs/Status");
+            let mut req = request.into_request();
+            req.extensions_mut().insert(GrpcMethod::new("pb.zrs", "Status"));
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -782,6 +854,11 @@ pub mod zrs_server {
             &self,
             request: tonic::Request<super::ModRequest>,
         ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
+        /// FreeSWITCH Status
+        async fn status(
+            &self,
+            request: tonic::Request<super::StatusRequest>,
+        ) -> std::result::Result<tonic::Response<super::StatusReply>, tonic::Status>;
     }
     #[derive(Debug)]
     pub struct ZrsServer<T: Zrs> {
@@ -1246,6 +1323,50 @@ pub mod zrs_server {
                     let fut = async move {
                         let inner = inner.0;
                         let method = UnloadModSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/pb.zrs/Status" => {
+                    #[allow(non_camel_case_types)]
+                    struct StatusSvc<T: Zrs>(pub Arc<T>);
+                    impl<T: Zrs> tonic::server::UnaryService<super::StatusRequest>
+                    for StatusSvc<T> {
+                        type Response = super::StatusReply;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Zrs>::status(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let inner = inner.0;
+                        let method = StatusSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

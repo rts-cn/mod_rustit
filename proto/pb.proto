@@ -117,6 +117,8 @@ service zrs {
     rpc LoadMod(ModRequest) returns (Reply);
     // Unload mod
     rpc UnloadMod(ModRequest) returns (Reply);
+    // FreeSWITCH Status
+    rpc Status(StatusRequest) returns (StatusReply);
 }
 
 message ReloadXMLRequest {}
@@ -180,4 +182,30 @@ message SendEventRequest {
     string subclass_name = 2;
     map<string, string> headers = 3;
     string body = 4;
+}
+
+message SystemStatus {
+    int64 uptime = 1;
+    string version = 2;
+    bool ready = 3;
+    uint64 session_total = 4;
+    uint32 session_active= 5;
+    int32 session_peak= 6;
+    int32 session_peak_5min = 7;
+    uint32 session_limit = 8;
+    int32 rate_current = 9;
+    int32 rate_max = 10;
+    int32 rate_peak = 11;
+    int32 rate_peak_5min = 12;
+    double idle_cpu_used = 13;
+    double idle_cpu_allowed = 14;
+    float stack_size_current = 15;
+    float stack_size_max = 16;
+}
+
+message StatusRequest {}
+message StatusReply {
+   int32 code = 1;
+   string message = 2;
+   SystemStatus status = 3;
 }

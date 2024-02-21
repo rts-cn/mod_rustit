@@ -25,6 +25,29 @@ impl Event {
     }
 }
 
+impl SystemStatus {
+    pub fn from(s: &fsr::SytemStatus) -> SystemStatus {
+        SystemStatus {
+            uptime: s.uptime,
+            version: s.version.clone(),
+            ready: s.ready,
+            session_total: s.session_total,
+            session_active: s.session_active,
+            session_peak: s.session_peak,
+            session_peak_5min: s.session_peak_5min,
+            session_limit: s.session_limit,
+            rate_current: s.rate_current,
+            rate_max: s.rate_max,
+            rate_peak: s.rate_peak,
+            rate_peak_5min: s.rate_peak_5min,
+            idle_cpu_allowed: s.idle_cpu_allowed,
+            idle_cpu_used: s.idle_cpu_used,
+            stack_size_current: s.stack_size_current,
+            stack_size_max: s.stack_size_max,
+        }
+    }
+}
+
 pub struct Server {
     pub bind_uri: String,
     pub register_uri: String,
