@@ -1,34 +1,63 @@
-use lazy_static::lazy_static;
-use std::{ffi::CString, sync::Mutex};
-
 use fsr::*;
+use lazy_static::lazy_static;
+use reqwest::header::HeaderValue;
+use std::{ffi::CString, sync::Mutex, time::Duration};
 pub mod zrs;
 
-struct Global {
-    enode: Vec<u64>,
+#[derive(Debug, Clone)]
+struct Binding {
+    name: String,
+    url: String,
+    bindings: String,
+    timeout: u64,
+    client: reqwest::blocking::Client,
+    debug: bool,
+}
+
+impl Binding {
+    fn new() -> Binding {
+        Binding {
+            client: reqwest::blocking::Client::new(),
+            name: String::from(""),
+            url: String::from(""),
+            bindings: String::from(""),
+            timeout: 0,
+            debug: false,
+        }
+    }
+}
+
+struct ZrsModule {
+    event_bind_nodes: Vec<u64>,
+    xml_bind_node: u64,
     listen_ip: String,
     listen_port: u16,
     password: String,
     apply_inbound_acl: String,
+    bindings: Option<Binding>,
 }
 
-impl Global {
-    fn new() -> Global {
-        Global {
-            enode: Vec::new(),
+impl ZrsModule {
+    fn new() -> ZrsModule {
+        ZrsModule {
+            event_bind_nodes: Vec::new(),
             listen_ip: String::from("0.0.0.0"),
             listen_port: 8202,
             password: "".to_string(),
             apply_inbound_acl: "".to_string(),
+            xml_bind_node: 0,
+            bindings: None,
         }
     }
-    fn save_node(id: u64) {
-        GLOBALS.lock().unwrap().enode.push(id);
+    fn on_event_bind(id: u64) {
+        MODULE.lock().unwrap().event_bind_nodes.push(id);
     }
-
-    fn remove_node() {
+    fn on_xml_bind_search(id: u64) {
+        MODULE.lock().unwrap().xml_bind_node = id;
+    }
+    fn shutdown() {
         loop {
-            let id = GLOBALS.lock().unwrap().enode.pop();
+            let id = MODULE.lock().unwrap().event_bind_nodes.pop();
             let id = id.unwrap_or(0);
             if id > 0 {
                 fsr::event_unbind(id);
@@ -36,13 +65,18 @@ impl Global {
                 break;
             }
         }
+        let binging = MODULE.lock().unwrap().xml_bind_node;
+        if binging > 0 {
+            fsr::xml_unbind_search(binging);
+        }
+        zrs::shutdown();
     }
 }
 
 const MODULE_NAME: &str = "mod_zrs";
 
 lazy_static! {
-    static ref GLOBALS: Mutex<Global> = Mutex::new(Global::new());
+    static ref MODULE: Mutex<ZrsModule> = Mutex::new(ZrsModule::new());
 }
 
 fn on_event(e: fsr::Event) {
@@ -93,18 +127,121 @@ fn do_config() {
             let val = fsr::to_string(val);
 
             if var.eq_ignore_ascii_case("listen-ip") {
-                GLOBALS.lock().unwrap().listen_ip = val;
+                MODULE.lock().unwrap().listen_ip = val;
             } else if var.eq_ignore_ascii_case("listen-port") {
-                GLOBALS.lock().unwrap().listen_port = val.parse::<u16>().unwrap_or(8202);
+                MODULE.lock().unwrap().listen_port = val.parse::<u16>().unwrap_or(8202);
             } else if var.eq_ignore_ascii_case("password") {
-                GLOBALS.lock().unwrap().password = val;
+                MODULE.lock().unwrap().password = val;
             } else if var.eq_ignore_ascii_case("apply-inbound-acl") {
-                GLOBALS.lock().unwrap().apply_inbound_acl = val;
+                MODULE.lock().unwrap().apply_inbound_acl = val;
             }
             param = (*param).next;
         }
+
+        let tmp_str = CString::new("bindings").unwrap();
+        let bindings_tag = switch_xml_child(cfg, tmp_str.as_ptr());
+        if bindings_tag.is_null() {
+            error!("Missing <bindings> tag!\n");
+            fsr::switch_xml_free(xml);
+            return;
+        }
+
+        let mut binding: Binding = Binding::new();
+        let tmp_str = CString::new("binding").unwrap();
+        let mut binding_tag = fsr::switch_xml_child(bindings_tag, tmp_str.as_ptr());
+        while !binding_tag.is_null() {
+            let tmp_str = CString::new("name").unwrap();
+            let bname = switch_xml_attr_soft(binding_tag, tmp_str.as_ptr());
+            binding.name = to_string(bname);
+
+            let tmp_str = CString::new("param").unwrap();
+            let mut param = fsr::switch_xml_child(binding_tag, tmp_str.as_ptr());
+            while !param.is_null() {
+                let tmp_str = CString::new("name").unwrap();
+                let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let tmp_str = CString::new("value").unwrap();
+                let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+
+                let var = fsr::to_string(var);
+                let val = fsr::to_string(val);
+
+                if var.eq_ignore_ascii_case("gateway-url") {
+                    binding.url = val;
+                    let tmp_str = CString::new("bindings").unwrap();
+                    let bind_mask = switch_xml_attr_soft(param, tmp_str.as_ptr());
+                    binding.bindings = to_string(bind_mask);
+                } else if var.eq_ignore_ascii_case("timeout") {
+                    binding.timeout = val.parse::<u64>().unwrap_or(20);
+                    if binding.timeout < 20 {
+                        binding.timeout = 20;
+                    }
+                    if binding.timeout > 120 {
+                        binding.timeout = 60;
+                    }
+                } else if var.eq_ignore_ascii_case("debug") {
+                    if val.eq_ignore_ascii_case("on")
+                        || val.eq_ignore_ascii_case("yes")
+                        || val.eq_ignore_ascii_case("1")
+                    {
+                        binding.debug = true;
+                    } else {
+                        binding.debug = false;
+                    }
+                }
+                param = (*param).next;
+            }
+            binding_tag = (*binding_tag).next;
+        }
+
+        MODULE.lock().unwrap().bindings = Some(binding);
         fsr::switch_xml_free(xml);
     }
+}
+
+fn xml_fetch(data: String) -> String {
+    let binding = MODULE.lock().unwrap().bindings.clone();
+    match binding {
+        None => (),
+        Some(binding) => {
+            let response = binding
+                .client
+                .post(binding.url)
+                .header(
+                    reqwest::header::CONTENT_TYPE,
+                    HeaderValue::from_static("application/x-www-form-urlencoded"),
+                )
+                .timeout(Duration::from_secs(binding.timeout))
+                .body(data)
+                .send();
+            match response {
+                Ok(response) => {
+                    let text = response.text();
+                    match text {
+                        Ok(text) => {
+                            if binding.debug {
+                                debug!("{}", text);
+                            }
+                            return text;
+                        }
+                        Err(e) => {
+                            error!("{}", e);
+                        }
+                    }
+                }
+                Err(e) => {
+                    error!("{}", e);
+                }
+            }
+        }
+    }
+    String::from(
+        r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <document type="freeswitch/xml">
+      <section name="result">
+        <result status="not found"/>
+      </section>
+    </document>"#,
+    )
 }
 
 fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
@@ -118,13 +255,13 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
         on_event,
     );
 
-    Global::save_node(id);
+    ZrsModule::on_event_bind(id);
 
-    let listen_ip = GLOBALS.lock().unwrap().listen_ip.clone();
-    let listen_port = GLOBALS.lock().unwrap().listen_port;
+    let listen_ip = MODULE.lock().unwrap().listen_ip.clone();
+    let listen_port = MODULE.lock().unwrap().listen_port;
     let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
-    let password = GLOBALS.lock().unwrap().password.clone();
-    let acl = GLOBALS.lock().unwrap().apply_inbound_acl.clone();
+    let password = MODULE.lock().unwrap().password.clone();
+    let acl = MODULE.lock().unwrap().apply_inbound_acl.clone();
 
     zrs::serve(bind_uri, password, acl);
 
@@ -140,12 +277,25 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
         switch_application_flag_enum_t::SAF_NONE
     );
 
+    let binding = MODULE.lock().unwrap().bindings.clone();
+    match binding {
+        None => (),
+        Some(binding) => {
+            notice!(
+                "Binding [{}] XML Fetch Function [{}] [{}]\n",
+                binding.name,
+                binding.url,
+                binding.bindings
+            );
+            let binding = xml_bind_search(&binding.bindings, xml_fetch);
+            ZrsModule::on_xml_bind_search(binding);
+        }
+    }
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrs_mod_shutdown() -> switch_status_t {
-    Global::remove_node();
-    zrs::shutdown();
+    ZrsModule::shutdown();
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 

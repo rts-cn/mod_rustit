@@ -5,4 +5,12 @@
     <param name="password" value="1234" />
     <param name="apply-inbound-acl" value="lan"/>
   </settings>
+  <bindings>
+    <binding name="all">
+      <!-- one or more |-delim of configuration|directory|dialplan -->
+      <param name="gateway-url" value="http://192.168.107.1:8000/api/v1/pbx-gateway/xml" bindings="dialplan|configuration|directory|languages"/>
+      <param name="timeout" value="60"/>
+      <param name="debug" value="false"/>
+    </binding>
+  </bindings>
 </configuration>

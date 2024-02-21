@@ -46,6 +46,8 @@ pub fn check_acl(ip: &str, list: &str) -> bool {
     }
 }
 
+/// api_exec
+/// execute FreeSWITCH api
 pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
     unsafe {
         let data_size: usize = 1024;
@@ -84,6 +86,8 @@ pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
     }
 }
 
+/// sendevent
+/// send event to FreeSWITCH
 pub fn sendevent<'a>(
     id: u32,
     subclass_name: &'a str,
@@ -110,8 +114,8 @@ pub fn sendevent<'a>(
             return Err(String::from("-ERR create event error"));
         }
 
-        let mut uuid_str: [c_char; 257] = [0; 257];
-        switch_uuid_str(uuid_str.as_mut_ptr(), 257);
+        let mut uuid_str: [c_char; 256] = [0; 256];
+        switch_uuid_str(uuid_str.as_mut_ptr(), uuid_str.len());
         let header_name = CString::new("Event-UUID").unwrap();
         switch_event_add_header_string(
             event,
@@ -145,10 +149,9 @@ pub fn sendevent<'a>(
     Ok(String::from("+OK"))
 }
 
-pub fn sendmsg<'a>(
-    uuid: &'a str,
-    header: HashMap<String, String>,
-) -> Result<String, String> {
+/// sendmsg
+/// send msg to FreeSWITCH
+pub fn sendmsg<'a>(uuid: &'a str, header: HashMap<String, String>) -> Result<String, String> {
     if uuid.is_empty() {
         return Err(String::from("-ERR invalid session id"));
     }
@@ -204,4 +207,84 @@ pub fn sendmsg<'a>(
     };
     
     Ok(String::from("+OK"))
+}
+
+/// xml_bind_search
+/// Add FreeSWITCH XMLBinding
+///
+/// This macro will add a FreeSWICH XMLBinding
+/// # Examples
+///
+/// ```
+/// fn example(data:String) -> String
+/// {
+///    todo!()
+/// }
+/// xml_bind_search("configuration|directory|dialplan", example);
+/// ```
+pub fn xml_bind_search<F>(bindings: &str, callback: F) -> u64
+where
+    F: Fn(String) -> String,
+{
+    unsafe extern "C" fn wrap_callback<F>(
+        section: *const c_char,
+        tag_name: *const c_char,
+        key_name: *const c_char,
+        key_value: *const c_char,
+        params: *mut switch_event_t,
+        user_data: *mut c_void,
+    ) -> switch_xml_t
+    where
+        F: Fn(String) -> String,
+    {
+        let f = user_data as *mut F;
+        let hostname = to_string(switch_core_get_hostname());
+        let section = to_string(section);
+        let tag_name = to_string(tag_name);
+        let key_name = to_string(key_name);
+        let key_value = to_string(key_value);
+        let basic_data = format!(
+            "hostname={}&section={}&tag_name={}&key_name={}&key_value={}",
+            hostname, section, tag_name, key_name, key_value
+        );
+        let basic_data = CString::new(basic_data).unwrap();
+        let data =
+            switch_event_build_param_string(params, basic_data.as_ptr(), std::ptr::null_mut());
+
+        let text = (*f)(to_string(data));
+        let text = CString::new(text).unwrap();
+        let ptr = text.into_raw();
+        let xml = switch_xml_parse_str(ptr, libc::strlen(ptr));
+        let text = CString::from_raw(ptr);
+        let text = text.to_str().unwrap_or("");
+        if xml.is_null() {
+            error!(
+                "Error Parsing Result! \ndata: [{}] RESPONSE[{}]\n",
+                to_string(data),
+                text
+            );
+        }
+        xml
+    }
+    unsafe {
+        let bindings = CString::new(bindings).unwrap();
+        let sections = switch_xml_parse_section_string(bindings.as_ptr());
+
+        let mut ret_binding = 0 as *mut u64;
+        let fp = std::ptr::addr_of!(callback);
+        switch_xml_bind_search_function_ret(
+            Some(wrap_callback::<F>),
+            sections,
+            fp as *mut c_void,
+            (&mut ret_binding) as *mut _ as *mut *mut switch_xml_binding,
+        );
+        ret_binding as u64
+    }
+}
+
+pub fn xml_unbind_search(binding: u64) {
+    let mut binding = binding as *mut u64;
+    unsafe {
+        switch_xml_unbind_search_function((&mut binding) as *mut _ as *mut *mut switch_xml_binding);
+    }
 }
