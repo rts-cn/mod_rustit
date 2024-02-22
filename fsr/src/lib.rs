@@ -205,7 +205,7 @@ pub fn sendmsg<'a>(uuid: &'a str, header: HashMap<String, String>) -> Result<Str
             return Err(String::from(format!("-ERR invalid session id [{}]", uuid)));
         }
     };
-    
+
     Ok(String::from("+OK"))
 }
 
@@ -253,16 +253,10 @@ where
 
         let text = (*f)(to_string(data));
         let text = CString::new(text).unwrap();
-        let ptr = text.into_raw();
-        let xml = switch_xml_parse_str(ptr, libc::strlen(ptr));
-        let text = CString::from_raw(ptr);
-        let text = text.to_str().unwrap_or("");
+        let xml =
+            switch_xml_parse_str_dynamic(text.as_ptr() as *mut c_char, switch_bool_t::SWITCH_TRUE);
         if xml.is_null() {
-            error!(
-                "Error Parsing Result! \ndata: [{}] RESPONSE[{}]\n",
-                to_string(data),
-                text
-            );
+            error!("Error Parsing Result XML!\n");
         }
         xml
     }
