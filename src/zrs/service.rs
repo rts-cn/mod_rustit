@@ -296,4 +296,23 @@ impl zrs_server::Zrs for Service {
         };
         Ok(Response::new(reply))
     }
+
+    /// JSAPI
+    async fn jsapi(&self, request: Request<JsapiRequest>) -> Result<Response<Reply>, Status> {
+        let req = request.into_inner();
+        let ret = fsr::json_api_exec(&req.command);
+        match ret {
+            Err(e) => {
+                let reply = Reply {
+                    code: 500,
+                    message: e,
+                };
+                Ok(Response::new(reply))
+            }
+            Ok(message) => {
+                let reply = Reply { code: 500, message };
+                Ok(Response::new(reply))
+            }
+        }
+    }
 }

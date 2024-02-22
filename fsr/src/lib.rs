@@ -86,6 +86,40 @@ pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
     }
 }
 
+/// json_api_exec
+/// execute FreeSWITCH json api
+pub fn json_api_exec(cmd: &str) -> Result<String, String> {
+    unsafe {
+        let parse_error =
+            String::from(r#"{"status":"error","message":"Parse command error","response":null}"#);
+        if !cmd.starts_with("{") || !cmd.ends_with("}") {
+            return Err(parse_error);
+        }
+        let jcmd = CString::new(cmd).unwrap();
+        let jcmd = cJSON_Parse(jcmd.as_ptr());
+        if jcmd.is_null() {
+            return Err(parse_error);
+        }
+
+        switch_json_api_execute(
+            jcmd,
+            std::ptr::null_mut() as *mut switch_core_session_t,
+            std::ptr::null_mut() as *mut *mut cJSON,
+        );
+
+        let key: CString = CString::new("command").unwrap();
+        cJSON_DeleteItemFromObject(jcmd, key.as_ptr());
+        let key: CString = CString::new("data").unwrap();
+        cJSON_DeleteItemFromObject(jcmd, key.as_ptr());
+
+        let json_text = cJSON_PrintUnformatted(jcmd);
+        let response = to_string(json_text);
+        libc::free(json_text as *mut c_void);
+        cJSON_Delete(jcmd);
+        Ok(response)
+    }
+}
+
 /// sendevent
 /// send event to FreeSWITCH
 pub fn sendevent<'a>(
