@@ -138,7 +138,7 @@ impl Zrs {
                 info!("Running zrpc sever: {}", e);
             }
             Ok(_) => {
-                warn!("zrpc sever stoped");
+                notice!("zrpc sever stoped");
             }
         }
     }
