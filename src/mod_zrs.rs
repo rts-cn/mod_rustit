@@ -1,6 +1,5 @@
 use fsr::*;
 use lazy_static::lazy_static;
-use reqwest::header::HeaderValue;
 use std::{ffi::CString, sync::Mutex, time::Duration};
 pub mod zrs;
 
@@ -16,8 +15,15 @@ struct Binding {
 
 impl Binding {
     fn new() -> Binding {
+        let mut headers = reqwest::header::HeaderMap::new();
+        headers.insert(
+            reqwest::header::CONTENT_TYPE,
+            reqwest::header::HeaderValue::from_static("application/x-www-form-urlencoded"),
+        );
+        let build = reqwest::blocking::Client::builder().default_headers(headers);
+        let client = build.build().unwrap();
         Binding {
-            client: reqwest::blocking::Client::new(),
+            client,
             name: String::from(""),
             url: String::from(""),
             bindings: String::from(""),
@@ -181,7 +187,8 @@ fn do_config() {
                 } else if var.eq_ignore_ascii_case("debug") {
                     if val.eq_ignore_ascii_case("on")
                         || val.eq_ignore_ascii_case("yes")
-                        || val.eq_ignore_ascii_case("1")
+                        || !val.eq_ignore_ascii_case("0")
+                        || val.eq_ignore_ascii_case("true")
                     {
                         binding.debug = true;
                     } else {
@@ -203,13 +210,13 @@ fn xml_fetch(data: String) -> String {
     match binding {
         None => (),
         Some(binding) => {
+            let mut request = String::new();
+            if binding.debug {
+                request = data.clone();
+            }
             let response = binding
                 .client
                 .post(binding.url)
-                .header(
-                    reqwest::header::CONTENT_TYPE,
-                    HeaderValue::from_static("application/x-www-form-urlencoded"),
-                )
                 .timeout(Duration::from_secs(binding.timeout))
                 .body(data)
                 .send();
@@ -219,9 +226,12 @@ fn xml_fetch(data: String) -> String {
                     match text {
                         Ok(text) => {
                             if binding.debug {
-                                debug!("{}", text);
+                                debug!("XML Fetch:\n{}\n{}", request, text);
                             }
-                            return text;
+                            if !text.is_empty() {
+                                return text;
+                            }
+                            warn!("XML Fetch recv empty response!!!");
                         }
                         Err(e) => {
                             error!("{}", e);

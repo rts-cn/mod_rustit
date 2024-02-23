@@ -290,7 +290,7 @@ where
         let xml =
             switch_xml_parse_str_dynamic(text.as_ptr() as *mut c_char, switch_bool_t::SWITCH_TRUE);
         if xml.is_null() {
-            warn!("Error Parsing Result XML!");
+            warn!("Error Parsing XML:\n{}", text.to_string_lossy());
         }
         xml
     }
