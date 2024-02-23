@@ -67,7 +67,7 @@ impl Event {
                 switch_bool_t::SWITCH_FALSE,
             );
             let text = self::to_string(s);
-            libc::free(s as *mut c_void);
+            switch_safe_free(s as *mut c_void);
             text
         }
     }
@@ -76,7 +76,7 @@ impl Event {
             let mut s: *mut c_char = std::ptr::null_mut();
             switch_event_serialize_json(self.0, std::ptr::addr_of_mut!(s));
             let text = self::to_string(s);
-            libc::free(s as *mut c_void);
+            switch_safe_free(s as *mut c_void);
             text
         }
     }

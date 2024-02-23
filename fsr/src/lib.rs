@@ -13,6 +13,12 @@ include!("logs.rs");
 include!("module.rs");
 include!("event.rs");
 
+pub fn switch_safe_free(ptr: *mut c_void) {
+    if !ptr.is_null() {
+        unsafe { libc::free(ptr as *mut c_void) };
+    }
+}
+
 pub fn to_string<'a>(p: *const c_char) -> String {
     if p.is_null() {
         return String::from("");
@@ -77,7 +83,7 @@ pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
         );
 
         let ret: String = to_string((*stream).data as *const c_char);
-        libc::free((*stream).data);
+        switch_safe_free((*stream).data);
         if status == switch_status_t::SWITCH_STATUS_SUCCESS {
             Ok(ret)
         } else {
@@ -114,7 +120,7 @@ pub fn json_api_exec(cmd: &str) -> Result<String, String> {
 
         let json_text = cJSON_PrintUnformatted(jcmd);
         let response = to_string(json_text);
-        libc::free(json_text as *mut c_void);
+        switch_safe_free(json_text as *mut c_void);
         cJSON_Delete(jcmd);
         Ok(response)
     }
@@ -272,25 +278,30 @@ where
         F: Fn(String) -> String,
     {
         let f = user_data as *mut F;
-        let hostname = to_string(switch_core_get_hostname());
-        let section = to_string(section);
-        let tag_name = to_string(tag_name);
-        let key_name = to_string(key_name);
-        let key_value = to_string(key_value);
-        let basic_data = format!(
-            "hostname={}&section={}&tag_name={}&key_name={}&key_value={}",
-            hostname, section, tag_name, key_name, key_value
+        let fmt =
+            CString::new("hostname=%s&section=%s&tag_name=%s&key_name=%s&key_value=%s").unwrap();
+        let basic_data = switch_mprintf(
+            fmt.as_ptr(),
+            switch_core_get_hostname(),
+            section,
+            tag_name,
+            key_name,
+            key_value,
         );
-        let basic_data = CString::new(basic_data).unwrap();
-        let data =
-            switch_event_build_param_string(params, basic_data.as_ptr(), std::ptr::null_mut());
 
-        let text = (*f)(to_string(data));
-        let text = CString::new(text).unwrap();
-        let xml =
-            switch_xml_parse_str_dynamic(text.as_ptr() as *mut c_char, switch_bool_t::SWITCH_TRUE);
+        let params_str = switch_event_build_param_string(params, basic_data, std::ptr::null_mut());
+        let data = to_string(params_str);
+        switch_safe_free(basic_data as *mut c_void);
+        switch_safe_free(params_str as *mut c_void);
+
+        let response = (*f)(data);
+        let response = CString::new(response).unwrap();
+        let xml = switch_xml_parse_str_dynamic(
+            response.as_ptr() as *mut c_char,
+            switch_bool_t::SWITCH_TRUE,
+        );
         if xml.is_null() {
-            warn!("Error Parsing XML:\n{}", text.to_string_lossy());
+            warn!("Error Parsing XML:\n{}", response.to_string_lossy());
         }
         xml
     }
