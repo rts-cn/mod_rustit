@@ -187,7 +187,7 @@ fn do_config() {
                 } else if var.eq_ignore_ascii_case("debug") {
                     if val.eq_ignore_ascii_case("on")
                         || val.eq_ignore_ascii_case("yes")
-                        || !val.eq_ignore_ascii_case("0")
+                        || val.eq_ignore_ascii_case("1")
                         || val.eq_ignore_ascii_case("true")
                     {
                         binding.debug = true;
