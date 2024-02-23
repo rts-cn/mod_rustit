@@ -1,4 +1,4 @@
-#[cfg(target_os = "linux")]
+#[cfg(all(feature = "codegen"))]
 fn build() {
     let headers_path_str = "/usr/local/freeswitch/include/freeswitch/switch.h";
 
@@ -47,6 +47,6 @@ fn build() {
 }
 
 fn main() {
-    #[cfg(target_os = "linux")]
+    #[cfg(all(feature = "codegen"))]
     build();
 }

@@ -29,3 +29,6 @@ tonic-build = "0.10"
 crate-type = ["dylib"]
 name = "mod_zrs"
 path = "./src/mod_zrs.rs"
+
+[features]
+codegen = []

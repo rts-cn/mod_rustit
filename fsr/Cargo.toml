@@ -13,3 +13,6 @@ paste = { version = "1.0.14" }
 
 [build-dependencies]
 bindgen = {version = "0.69.1", default_features = true}
+
+[features]
+codegen = []
