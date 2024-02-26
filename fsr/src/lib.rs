@@ -439,3 +439,29 @@ pub fn status() -> SytemStatus {
         status
     }
 }
+
+///  Evaluate the truthfullness of a string expression
+///  param expr a string expression
+///  return true or false
+pub fn switch_true(str: &str) -> bool {
+    if str.eq_ignore_ascii_case("yes")
+        || str.eq_ignore_ascii_case("on")
+        || str.eq_ignore_ascii_case("true")
+        || str.eq_ignore_ascii_case("t")
+        || str.eq_ignore_ascii_case("enabled")
+        || str.eq_ignore_ascii_case("active")
+        || str.eq_ignore_ascii_case("allow")
+    {
+        return true;
+    }
+    let num = str.parse::<i32>();
+    match num {
+        Ok(n) => {
+            if n > 0 {
+                return true;
+            }
+        }
+        Err(_) => (),
+    }
+    false
+}
