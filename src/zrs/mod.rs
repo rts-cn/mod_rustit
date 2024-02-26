@@ -61,6 +61,7 @@ pub struct Zrs {
     done: Option<broadcast::Sender<u8>>,
     apply_inbound_acl: Option<String>,
     password: Option<String>,
+    threads: Vec<std::thread::JoinHandle<()>>,
 }
 
 impl Zrs {
@@ -72,6 +73,7 @@ impl Zrs {
             done: None,
             apply_inbound_acl: None,
             password: None,
+            threads: Vec::new(),
         }
     }
 
@@ -157,10 +159,16 @@ impl Zrs {
 
     fn done(&mut self) {
         let _ = self.done.clone().unwrap().send(1);
+        while let Some(handle) = self.threads.pop() {
+            let _ = handle.join();
+            debug!("zrs rpc service shutdown.");
+        }
     }
 
     fn serve(&mut self, addr: String, password: String, acl: String) {
-        thread::spawn(|| Self::tokio_main(addr, password, acl));
+        let h = thread::spawn(|| Self::tokio_main(addr, password, acl));
+        self.threads.push(h);
+        debug!("zrs rpc service running...");
     }
 }
 
