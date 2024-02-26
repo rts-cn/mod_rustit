@@ -13,4 +13,46 @@
       <param name="debug" value="false"/>
     </binding>
   </bindings>
+  <cdrs>
+    <cdr name="default">
+      <!-- the format json|xml of data to send, defaults to json -->
+      <param name="format" value="json"/>
+      <!-- the url to post to if blank web posting is disabled  -->
+      <param name="url" value="http://192.168.107.1:8000/api/v1/pbx-gateway/cdr"/>
+      <!-- the total number of retries (not counting the first 'try') to post to webserver incase of failure -->
+      <param name="retries" value="0"/>
+
+      <!-- delay between retries in seconds, default is 5 seconds -->
+      <param name="delay" value="5"/>
+
+      <!-- Log via http and on disk, default is false -->
+      <param name="log-http-and-disk" value="true"/>
+
+      <!-- Log error on disk, default is true -->
+      <param name="log-errors-to-disk" value="true"/>
+
+      <!-- optional: if not present we do not log every record to disk -->
+      <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank value will default to ${prefix}/logs/zrs_cdr -->
+      <param name="log-dir" value=""/>
+      <!-- template for the filename of the saved CDR -->
+      <param name="log-file" value="${uuid}.cdr.xml"/>
+
+      <!-- optional: if not present we do log the b leg -->
+      <!-- true or false if we should create a cdr for the b leg of a call-->
+      <param name="log-b-leg" value="false"/>
+
+      <!-- optional: if not present, all filenames are the uuid of the call -->
+      <!-- true or false if a leg files are prefixed "a_" -->
+      <param name="prefix-a-leg" value="true"/>
+
+      <!-- optional: full path to the error log dir for failed web posts if not specified its the same as log-dir -->
+      <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/zrs_cdr -->
+      <param name="err-log-dir" value=""/>
+
+      <param name="timeout" value="60"/>
+
+      <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->
+			<param name="encode-values" value="true"/>
+    </cdr>
+  </cdrs>
 </configuration>
