@@ -157,12 +157,12 @@ pub fn load_config(cfg: switch_xml_t) {
                         cdr_profile.retries = 3;
                     }
                 } else if var.eq_ignore_ascii_case("delay") {
-                    cdr_profile.delay = val.parse::<i32>().unwrap_or(5);
-                    if cdr_profile.delay < 1 {
-                        cdr_profile.delay = 1;
+                    cdr_profile.delay = val.parse::<i32>().unwrap_or(20);
+                    if cdr_profile.delay < 10 {
+                        cdr_profile.delay = 10;
                     }
-                    if cdr_profile.delay > 3 {
-                        cdr_profile.delay = 3;
+                    if cdr_profile.delay > 6000 {
+                        cdr_profile.delay = 6000;
                     }
                 } else if var.eq_ignore_ascii_case("log-http-and-disk") {
                     cdr_profile.log_http_and_disk = fsr::switch_true(&val);
@@ -184,11 +184,11 @@ pub fn load_config(cfg: switch_xml_t) {
                     }
                 } else if var.eq_ignore_ascii_case("timeout") {
                     cdr_profile.timeout = val.parse::<u64>().unwrap_or(20);
-                    if cdr_profile.timeout < 20 {
-                        cdr_profile.timeout = 20;
+                    if cdr_profile.timeout < 10 {
+                        cdr_profile.timeout = 10;
                     }
-                    if cdr_profile.timeout > 120 {
-                        cdr_profile.timeout = 60;
+                    if cdr_profile.timeout > 6000 {
+                        cdr_profile.timeout = 6000;
                     }
                 } else if var.eq_ignore_ascii_case("encode-values") {
                     cdr_profile.encode_values = switch_true(&val);
@@ -359,7 +359,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
 
     for cur_try in 0..profile.retries {
         if cur_try > 0 {
-            thread::sleep(Duration::from_secs(profile.delay as u64));
+            thread::sleep(Duration::from_millis(profile.delay as u64));
         }
         let mut context = "application/json";
         if cdr_data.fromat.eq_ignore_ascii_case("json") {
@@ -370,7 +370,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
             .client
             .post(url.clone())
             .header(reqwest::header::CONTENT_TYPE, context)
-            .timeout(Duration::from_secs(profile.timeout))
+            .timeout(Duration::from_millis(profile.timeout))
             .body(cdr_data.text.clone())
             .send();
         match response {

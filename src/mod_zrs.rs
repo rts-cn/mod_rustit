@@ -27,6 +27,8 @@ impl ZrsModule {
         MODULE.write().unwrap().event_bind_nodes.push(id);
     }
     fn shutdown() {
+        xml_fetch::shutdown();
+        cdr_post::shutdown();
         loop {
             let id = MODULE.write().unwrap().event_bind_nodes.pop();
             match id {
@@ -39,9 +41,6 @@ impl ZrsModule {
                 }
             }
         }
-
-        xml_fetch::shutdown();
-        cdr_post::shutdown();
         zrs::shutdown();
     }
 }

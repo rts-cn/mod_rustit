@@ -39,7 +39,9 @@ impl Binding {
             reqwest::header::CONTENT_TYPE,
             reqwest::header::HeaderValue::from_static("application/x-www-form-urlencoded"),
         );
-        let build = reqwest::blocking::Client::builder().default_headers(headers).use_rustls_tls();
+        let build = reqwest::blocking::Client::builder()
+            .default_headers(headers)
+            .use_rustls_tls();
         let client = build.build().unwrap();
         Binding {
             client,
@@ -53,6 +55,19 @@ impl Binding {
 }
 
 fn xml_fetch(data: String) -> String {
+    let error = String::from(
+        r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+    <document type="freeswitch/xml">
+      <section name="result">
+        <result status="not found"/>
+      </section>
+    </document>"#,
+    );
+
+    if GOLOBAS.read().unwrap().running == false {
+        return error;
+    }
+
     let binding = GOLOBAS.read().unwrap().bindings.clone();
     match binding {
         None => (),
@@ -64,7 +79,7 @@ fn xml_fetch(data: String) -> String {
             let response = binding
                 .client
                 .post(binding.url)
-                .timeout(Duration::from_secs(binding.timeout))
+                .timeout(Duration::from_millis(binding.timeout))
                 .body(data)
                 .send();
             match response {
@@ -91,14 +106,7 @@ fn xml_fetch(data: String) -> String {
             }
         }
     }
-    String::from(
-        r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <document type="freeswitch/xml">
-      <section name="result">
-        <result status="not found"/>
-      </section>
-    </document>"#,
-    )
+    error
 }
 
 pub fn start() {
@@ -153,11 +161,11 @@ pub fn load_config(cfg: switch_xml_t) {
                     binding.bindings = to_string(bind_mask);
                 } else if var.eq_ignore_ascii_case("timeout") {
                     binding.timeout = val.parse::<u64>().unwrap_or(20);
-                    if binding.timeout < 20 {
-                        binding.timeout = 20;
+                    if binding.timeout < 10 {
+                        binding.timeout = 10;
                     }
-                    if binding.timeout > 120 {
-                        binding.timeout = 60;
+                    if binding.timeout > 6000 {
+                        binding.timeout = 6000;
                     }
                 } else if var.eq_ignore_ascii_case("debug") {
                     binding.debug = fsr::switch_true(&val);
@@ -174,6 +182,7 @@ pub fn load_config(cfg: switch_xml_t) {
 }
 
 pub fn shutdown() {
+    GOLOBAS.write().unwrap().running = false;
     let binging = GOLOBAS.read().unwrap().bind_node;
     if binging > 0 {
         debug!("unbind xml search");
