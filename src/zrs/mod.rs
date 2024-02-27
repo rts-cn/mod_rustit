@@ -13,7 +13,8 @@ include!("service.rs");
 pub struct Zrs {
     _ev_rx: broadcast::Receiver<Event>,
     ev_tx: broadcast::Sender<Event>,
-    done: Option<broadcast::Sender<u8>>,
+    _done_rx: broadcast::Receiver<u8>,
+    done_tx: broadcast::Sender<u8>,
     apply_inbound_acl: Option<String>,
     password: Option<String>,
     threads: i32,
@@ -21,10 +22,13 @@ pub struct Zrs {
 impl Zrs {
     fn new() -> Zrs {
         let (tx, rx) = broadcast::channel::<Event>(16);
+        let (done_tx, done_rx) = broadcast::channel::<u8>(2);
+
         Zrs {
             ev_tx: tx,
             _ev_rx: rx,
-            done: None,
+            done_tx: done_tx,
+            _done_rx: done_rx,
             apply_inbound_acl: None,
             password: None,
             threads: 0,
@@ -112,13 +116,11 @@ async fn tokio_main(addr: String, password: String, acl: String) {
 
     G_ZRS.write().unwrap().password = Some(password);
     G_ZRS.write().unwrap().apply_inbound_acl = Some(acl);
-
-    let (tx, mut rx) = broadcast::channel::<u8>(1);
-    let f = async move {
+    let f = async {
+        let done = G_ZRS.read().unwrap().done_tx.clone();
+        let mut rx = done.subscribe();
         let _ = rx.recv().await;
     };
-
-    G_ZRS.write().unwrap().done = Some(tx.clone());
 
     let service = Service {
         tx: G_ZRS.read().unwrap().ev_tx.clone(),
@@ -154,7 +156,7 @@ pub fn broadcast(ev: Event) {
 }
 
 pub fn shutdown() {
-    let _ = G_ZRS.read().unwrap().done.clone().unwrap().send(1);
+    let _ = G_ZRS.read().unwrap().done_tx.send(1);
     for _ in 0..10 {
         if G_ZRS.read().unwrap().threads <= 0 {
             break;
