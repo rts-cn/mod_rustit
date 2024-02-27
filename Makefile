@@ -6,10 +6,11 @@ build:
 	cp ./target/debug/libmod_zrs.so ./target/mod_zrs.so
 
 install:
-	cp ./conf/autoload_configs/zrs.conf.xml $(FREESWITCH_DIR)/conf/autoload_configs
-	
 	install -s -p -D -m 0755 ./target/mod_zrs.so  $(FREESWITCH_MOD_DIR)/
 
+conf:
+	cp ./conf/autoload_configs/zrs.conf.xml $(FREESWITCH_DIR)/conf/autoload_configs
+	
 generate:
 	cargo build --features codegen
 
