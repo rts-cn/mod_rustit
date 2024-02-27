@@ -1,2 +1,2 @@
-[target.'cfg(target_env="musl")']
+[build]
 rustflags = ["-C", "target-feature=-crt-static"]
