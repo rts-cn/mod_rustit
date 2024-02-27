@@ -39,7 +39,7 @@ impl Binding {
             reqwest::header::CONTENT_TYPE,
             reqwest::header::HeaderValue::from_static("application/x-www-form-urlencoded"),
         );
-        let build = reqwest::blocking::Client::builder().default_headers(headers);
+        let build = reqwest::blocking::Client::builder().default_headers(headers).use_rustls_tls();
         let client = build.build().unwrap();
         Binding {
             client,

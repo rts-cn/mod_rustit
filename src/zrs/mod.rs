@@ -127,7 +127,7 @@ impl Zrs {
             tx: G_ZRS.lock().unwrap().ev_tx.clone(),
         };
 
-        notice!("Running zrpc sever on {}", addr);
+        debug!("Start zrs rpc service {}", addr);
         let ret = tonic::transport::Server::builder()
             .add_service(zrs_server::ZrsServer::with_interceptor(
                 service,
@@ -137,10 +137,10 @@ impl Zrs {
             .await;
         match ret {
             Err(e) => {
-                info!("Running zrpc sever: {}", e);
+                error!("Couldn't start zrpc sever, {}", e);
             }
             Ok(_) => {
-                notice!("zrpc sever stoped");
+                notice!("zrs rpc sever done");
             }
         }
     }
@@ -160,15 +160,20 @@ impl Zrs {
     fn done(&mut self) {
         let _ = self.done.clone().unwrap().send(1);
         while let Some(handle) = self.threads.pop() {
-            let _ = handle.join();
-            debug!("zrs rpc service shutdown.");
+            let r = handle.join();
+            match r {
+                Ok(_) => (),
+                Err(_) => {
+                    debug!("Couldn't join on the associated thread");
+                }
+            }
         }
+        debug!("zrs rpc service thread shutdown.");
     }
 
     fn serve(&mut self, addr: String, password: String, acl: String) {
         let h = thread::spawn(|| Self::tokio_main(addr, password, acl));
         self.threads.push(h);
-        debug!("zrs rpc service running...");
     }
 }
 

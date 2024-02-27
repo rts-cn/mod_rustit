@@ -29,7 +29,7 @@ pub struct Profile {
 }
 impl Profile {
     pub fn new() -> Profile {
-        let build = reqwest::blocking::Client::builder();
+        let build = reqwest::blocking::Client::builder().use_rustls_tls();
         let client = build.build().unwrap();
         Profile {
             client,
