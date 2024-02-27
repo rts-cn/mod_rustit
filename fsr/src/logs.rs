@@ -7,7 +7,7 @@ pub fn __log_printf_safe(
     s: *const u8,
 ) {
     unsafe {
-        let fmt = CString::new("%s").expect("CString::new");
+        let fmt = CString::new("%s\n").expect("CString::new");
         switch_log_printf(
             channel,
             file,
