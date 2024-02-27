@@ -176,6 +176,7 @@ pub fn load_config(cfg: switch_xml_t) {
 pub fn shutdown() {
     let binging = GOLOBAS.read().unwrap().bind_node;
     if binging > 0 {
+        debug!("unbind xml search");
         fsr::xml_unbind_search(binging);
     }
 }

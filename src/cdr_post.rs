@@ -111,6 +111,7 @@ pub fn start() {
 
 pub fn shutdown() {
     if GOLOBAS.read().unwrap().running {
+        debug!("remove cdr report state handler");
         unsafe { switch_core_remove_state_handler(&STATE_HANDLERS) };
     }
 }

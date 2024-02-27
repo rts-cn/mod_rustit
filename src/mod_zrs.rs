@@ -29,16 +29,20 @@ impl ZrsModule {
     fn shutdown() {
         loop {
             let id = MODULE.write().unwrap().event_bind_nodes.pop();
-            let id = id.unwrap_or(0);
-            if id > 0 {
-                fsr::event_unbind(id);
-            } else {
-                break;
+            match id {
+                Some(id) => {
+                    debug!("event unbind");
+                    fsr::event_unbind(id);
+                }
+                None => {
+                    break;
+                }
             }
         }
-        zrs::shutdown();
+
         xml_fetch::shutdown();
         cdr_post::shutdown();
+        zrs::shutdown();
     }
 }
 
