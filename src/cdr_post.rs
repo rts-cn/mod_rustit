@@ -98,7 +98,7 @@ pub fn start() {
         None => (),
         Some(cdr_profile) => {
             notice!(
-                "Add CDR handler [{}] [{}] [{}]\n",
+                "Add CDR handler [{}] [{}] [{}]",
                 cdr_profile.name,
                 cdr_profile.url,
                 cdr_profile.format
@@ -120,7 +120,7 @@ pub fn load_config(cfg: switch_xml_t) {
         let tmp_str = CString::new("cdrs").unwrap();
         let cdrs_tag = switch_xml_child(cfg, tmp_str.as_ptr());
         if cdrs_tag.is_null() {
-            warn!("Missing <cdrs> tag!\n");
+            warn!("Missing <cdrs> tag!");
             return;
         }
 
@@ -265,7 +265,7 @@ fn generate_cdr(
                 cJSON_Delete(json_cdr);
 
                 if cdr_text_ptr.is_null() {
-                    error!("Memory Error generating JSON!\n");
+                    error!("Memory Error generating JSON!");
                 }
                 cdr_text = to_string(cdr_text_ptr);
                 fsr::switch_safe_free(cdr_text_ptr as *mut c_void);
@@ -381,7 +381,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
                         url.clone()
                     );
                     if cur_try < profile.retries {
-                        warn!("Retry will be with url [{}]\n", profile.url);
+                        warn!("Retry will be with url [{}]", profile.url);
                     }
                 } else {
                     success = true;
@@ -396,7 +396,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
 
     if !success {
         error!(
-            "Unable to post cdr to web server [{}]\n",
+            "Unable to post cdr to web server [{}]",
             cdr_data.uuid.clone()
         );
 

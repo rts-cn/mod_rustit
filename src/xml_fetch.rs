@@ -107,7 +107,7 @@ pub fn start() {
         None => (),
         Some(binding) => {
             notice!(
-                "Binding [{}] XML Fetch Function [{}] [{}]\n",
+                "Binding [{}] XML Fetch Function [{}] [{}]",
                 binding.name,
                 binding.url,
                 binding.bindings
@@ -124,7 +124,7 @@ pub fn load_config(cfg: switch_xml_t) {
         let tmp_str = CString::new("bindings").unwrap();
         let bindings_tag = switch_xml_child(cfg, tmp_str.as_ptr());
         if bindings_tag.is_null() {
-            warn!("Missing <bindings> tag!\n");
+            warn!("Missing <bindings> tag!");
             return;
         }
         let mut binding: Binding = Binding::new();

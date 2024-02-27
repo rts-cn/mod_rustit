@@ -71,7 +71,7 @@ fn do_config() {
         let tmp_str = CString::new(cf).unwrap();
         let xml = fsr::switch_xml_open_cfg(tmp_str.as_ptr(), std::ptr::addr_of_mut!(cfg), event);
         if xml.is_null() {
-            error!("open of {} failed\n", cf);
+            error!("open of {} failed", cf);
             fsr::switch_xml_free(xml);
             return;
         }
