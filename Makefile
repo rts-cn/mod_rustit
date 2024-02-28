@@ -8,8 +8,8 @@ build:
 install:
 	install -s -p -D -m 0755 ./target/mod_zrs.so  $(FREESWITCH_MOD_DIR)/
 
-conf:
-	cp ./conf/autoload_configs/zrs.conf.xml $(FREESWITCH_DIR)/conf/autoload_configs
+config:
+	install -p -D -m 0755 ./conf/autoload_configs/zrs.conf.xml $(FREESWITCH_DIR)/conf/autoload_configs
 	
 generate:
 	cargo build --features codegen
