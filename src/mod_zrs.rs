@@ -1,6 +1,6 @@
 use fsr::*;
 use lazy_static::lazy_static;
-use std::{ffi::CString, sync::RwLock};
+use std::{ffi::CString, sync::RwLock, thread};
 pub mod cdr_post;
 pub mod xml_fetch;
 pub mod zrs;
@@ -165,6 +165,8 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
 
 fn zrs_mod_shutdown() -> switch_status_t {
     ZrsModule::shutdown();
+    // Wait for tokio runtime shutdown
+    thread::sleep(std::time::Duration::from_millis(200));
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
