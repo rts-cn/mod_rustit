@@ -93,15 +93,17 @@ fn do_config() {
                 let var = fsr::to_string(var);
                 let val = fsr::to_string(val);
 
+                let mut m = MODULE.write().unwrap();
                 if var.eq_ignore_ascii_case("listen-ip") {
-                    MODULE.write().unwrap().listen_ip = val;
+                    m.listen_ip = val;
                 } else if var.eq_ignore_ascii_case("listen-port") {
-                    MODULE.write().unwrap().listen_port = val.parse::<u16>().unwrap_or(8202);
+                    m.listen_port = val.parse::<u16>().unwrap_or(8202);
                 } else if var.eq_ignore_ascii_case("password") {
-                    MODULE.write().unwrap().password = val;
+                    m.password = val;
                 } else if var.eq_ignore_ascii_case("apply-inbound-acl") {
-                    MODULE.write().unwrap().apply_inbound_acl = val;
+                    m.apply_inbound_acl = val;
                 }
+                drop(m);
                 param = (*param).next;
             }
         }
@@ -125,11 +127,13 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
 
     ZrsModule::on_event_bind(id);
 
-    let listen_ip = MODULE.read().unwrap().listen_ip.clone();
-    let listen_port = MODULE.read().unwrap().listen_port;
+    let module = MODULE.read().unwrap();
+    let listen_ip = module.listen_ip.clone();
+    let listen_port = module.listen_port;
     let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
-    let password = MODULE.read().unwrap().password.clone();
-    let acl = MODULE.read().unwrap().apply_inbound_acl.clone();
+    let password = module.password.clone();
+    let acl = module.apply_inbound_acl.clone();
+    drop(module);
 
     zrs::serve(bind_uri, password, acl);
 

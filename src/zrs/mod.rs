@@ -17,7 +17,7 @@ pub struct Zrs {
     done_tx: broadcast::Sender<u8>,
     apply_inbound_acl: Option<String>,
     password: Option<String>,
-    threads: i32,
+    threads: Vec<thread::JoinHandle<()>>,
 }
 impl Zrs {
     fn new() -> Zrs {
@@ -27,11 +27,11 @@ impl Zrs {
         Zrs {
             ev_tx: tx,
             _ev_rx: rx,
-            done_tx: done_tx,
+            done_tx,
             _done_rx: done_rx,
             apply_inbound_acl: None,
             password: None,
-            threads: 0,
+            threads: vec![],
         }
     }
 }
@@ -107,8 +107,7 @@ fn check_auth(req: Request<()>) -> Result<Request<()>, Status> {
     }
 }
 
-#[tokio::main]
-async fn tokio_main(addr: String, password: String, acl: String) {
+fn tokio_main(addr: String, password: String, acl: String) {
     let addr = addr.clone();
     let addr = addr
         .parse::<std::net::SocketAddr>()
@@ -126,45 +125,50 @@ async fn tokio_main(addr: String, password: String, acl: String) {
         tx: G_ZRS.read().unwrap().ev_tx.clone(),
     };
 
-    debug!("Start zrs rpc service {}", addr);
-    G_ZRS.write().unwrap().threads += 1;
-    let ret = tonic::transport::Server::builder()
-        .add_service(zrs_server::ZrsServer::with_interceptor(service, check_auth))
-        .serve_with_shutdown(addr, f)
-        .await;
-    match ret {
-        Err(e) => {
-            error!("Couldn't start zrpc sever, {}", e);
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(async {
+        debug!("Start zrs rpc service {}", addr);
+        let ret = tonic::transport::Server::builder()
+            .add_service(zrs_server::ZrsServer::with_interceptor(service, check_auth))
+            .serve_with_shutdown(addr, f)
+            .await;
+        match ret {
+            Err(e) => {
+                error!("Couldn't start zrpc sever, {}", e);
+            }
+            Ok(_) => {
+                debug!("zrs rpc service thread shutdown.");
+            }
         }
-        Ok(_) => {
-            debug!("zrs rpc service thread shutdown.");
-        }
-    }
-    let _ = G_ZRS.write().unwrap().threads -= 1;
+    });
+    rt.shutdown_timeout(tokio::time::Duration::from_millis(100));
 }
 
 pub fn broadcast(ev: Event) {
     let ret = G_ZRS.read().unwrap().ev_tx.send(ev);
-    match ret {
-        Err(e) => {
-            error!("{}", e);
-        }
-        _ => {
-            // error!("{}", "Event broadcast OK");
-        }
+    if let Err(e) = ret {
+        error!("{}", e);
     }
 }
 
 pub fn shutdown() {
     let _ = G_ZRS.read().unwrap().done_tx.send(1);
-    for _ in 0..10 {
-        if G_ZRS.read().unwrap().threads <= 0 {
-            break;
+
+    let mut w = G_ZRS.write().unwrap();
+    loop {
+        let h = w.threads.pop();
+        match h {
+            None => {
+                break;
+            }
+            Some(h) => {
+                let _ = h.join();
+            }
         }
-        thread::sleep(std::time::Duration::from_millis(10));
     }
 }
 
 pub fn serve(addr: String, password: String, acl: String) {
-    thread::spawn(|| tokio_main(addr, password, acl));
+    let h: thread::JoinHandle<()> = thread::spawn(|| tokio_main(addr, password, acl));
+    G_ZRS.write().unwrap().threads.push(h);
 }
