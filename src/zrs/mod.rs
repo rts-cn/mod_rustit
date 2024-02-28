@@ -145,8 +145,6 @@ fn tokio_main(
             Ok(_) => {}
         }
     });
-
-    rt.shutdown_timeout(tokio::time::Duration::from_millis(1000));
 }
 
 pub fn broadcast(ev: Event) {
