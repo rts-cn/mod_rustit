@@ -11,6 +11,7 @@ struct ZrsModule {
     listen_port: u16,
     password: String,
     apply_inbound_acl: String,
+    enable: bool,
 }
 
 impl ZrsModule {
@@ -21,6 +22,7 @@ impl ZrsModule {
             listen_port: 8202,
             password: "".to_string(),
             apply_inbound_acl: "".to_string(),
+            enable: false,
         }
     }
     fn on_event_bind(id: u64) {
@@ -41,7 +43,9 @@ impl ZrsModule {
                 }
             }
         }
-        zrs::shutdown();
+        if MODULE.read().unwrap().enable {
+            zrs::shutdown();
+        }
     }
 }
 
@@ -79,7 +83,7 @@ fn do_config() {
             return;
         }
 
-        let tmp_str = CString::new("settings").unwrap();
+        let tmp_str = CString::new("grpc").unwrap();
         let settings_tag = fsr::switch_xml_child(cfg, tmp_str.as_ptr());
         if !settings_tag.is_null() {
             let tmp_str = CString::new("param").unwrap();
@@ -102,7 +106,10 @@ fn do_config() {
                     m.password = val;
                 } else if var.eq_ignore_ascii_case("apply-inbound-acl") {
                     m.apply_inbound_acl = val;
+                } else if var.eq_ignore_ascii_case("enable") {
+                    m.enable = switch_true(&val);
                 }
+
                 drop(m);
                 param = (*param).next;
             }
@@ -117,25 +124,26 @@ fn do_config() {
 fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
     do_config();
 
-    let id = fsr::event_bind(
-        m,
-        MODULE_NAME,
-        switch_event_types_t::SWITCH_EVENT_ALL,
-        None,
-        on_event,
-    );
+    if MODULE.read().unwrap().enable {
+        let id = fsr::event_bind(
+            m,
+            MODULE_NAME,
+            switch_event_types_t::SWITCH_EVENT_ALL,
+            None,
+            on_event,
+        );
 
-    ZrsModule::on_event_bind(id);
+        ZrsModule::on_event_bind(id);
 
-    let module = MODULE.read().unwrap();
-    let listen_ip = module.listen_ip.clone();
-    let listen_port = module.listen_port;
-    let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
-    let password = module.password.clone();
-    let acl = module.apply_inbound_acl.clone();
-    drop(module);
-
-    zrs::serve(bind_uri, password, acl);
+        let module = MODULE.read().unwrap();
+        let listen_ip = module.listen_ip.clone();
+        let listen_port = module.listen_port;
+        let bind_uri = format!("{}:{:?}", listen_ip, listen_port);
+        let password = module.password.clone();
+        let acl = module.apply_inbound_acl.clone();
+        drop(module);
+        zrs::serve(bind_uri, password, acl);
+    }
 
     fsr_api!(m, "zsr", "zsr desc", "zsr syntax", api_zsr);
 
