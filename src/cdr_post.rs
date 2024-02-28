@@ -117,6 +117,7 @@ pub fn shutdown() {
 }
 
 pub fn load_config(cfg: switch_xml_t) {
+    lazy_static::initialize(&GOLOBAS);
     unsafe {
         let tmp_str = CString::new("cdrs").unwrap();
         let cdrs_tag = switch_xml_child(cfg, tmp_str.as_ptr());

@@ -11,33 +11,21 @@ include!("pb.rs");
 include!("service.rs");
 
 pub struct Zrs {
-    _ev_rx: broadcast::Receiver<Event>,
     ev_tx: broadcast::Sender<Event>,
-    _done_rx: broadcast::Receiver<u8>,
-    done_tx: broadcast::Sender<u8>,
-    apply_inbound_acl: Option<String>,
-    password: Option<String>,
-    threads: Vec<thread::JoinHandle<()>>,
+    done: mpsc::Sender<u8>,
 }
-impl Zrs {
-    fn new() -> Zrs {
-        let (tx, rx) = broadcast::channel::<Event>(16);
-        let (done_tx, done_rx) = broadcast::channel::<u8>(2);
 
-        Zrs {
-            ev_tx: tx,
-            _ev_rx: rx,
-            done_tx,
-            _done_rx: done_rx,
-            apply_inbound_acl: None,
-            password: None,
-            threads: vec![],
-        }
+struct Global {
+    zrs: Option<Zrs>,
+}
+impl Global {
+    pub fn new() -> Global {
+        Global { zrs: None }
     }
 }
 
 lazy_static! {
-    static ref G_ZRS: RwLock<Zrs> = RwLock::new(Zrs::new());
+    static ref GOLOBAS: RwLock<Global> = RwLock::new(Global::new());
 }
 
 impl Event {
@@ -78,55 +66,69 @@ impl SystemStatus {
     }
 }
 
-fn check_auth(req: Request<()>) -> Result<Request<()>, Status> {
-    let remote_addr = req.remote_addr();
-    if let Some(remote_addr) = remote_addr {
-        let remote_addr_str = remote_addr.ip().to_string();
-        let apply_inbound_acl: Option<String> = G_ZRS.read().unwrap().apply_inbound_acl.clone();
-        if fsr::check_acl(&remote_addr_str, &apply_inbound_acl.unwrap()) {
-            return Ok(req);
-        }
-    }
-
-    let authorization = req.metadata().get("authorization");
-    match authorization {
-        Some(t) => {
-            let password = G_ZRS.read().unwrap().password.clone();
-            let password = password.unwrap();
-            let digest = format!("bearer {:x}", md5::compute(password));
-            let token = t.to_str().unwrap();
-            if digest.eq_ignore_ascii_case(token) {
-                Ok(req)
-            } else {
-                Err(Status::unauthenticated(
-                    "authentication failure wrong password",
-                ))
-            }
-        }
-        _ => Err(Status::unauthenticated("No valid auth token")),
-    }
-}
-
-fn tokio_main(addr: String, password: String, acl: String) {
+fn tokio_main(
+    addr: String,
+    password: String,
+    acl: String,
+    tx: broadcast::Sender<Event>,
+    mut rx: broadcast::Receiver<Event>,
+    mut done: mpsc::Receiver<u8>,
+) {
     let addr = addr.clone();
     let addr = addr
         .parse::<std::net::SocketAddr>()
         .expect("Unable to parse grpc socket address");
 
-    G_ZRS.write().unwrap().password = Some(password);
-    G_ZRS.write().unwrap().apply_inbound_acl = Some(acl);
     let f = async {
-        let done = G_ZRS.read().unwrap().done_tx.clone();
-        let mut rx = done.subscribe();
-        let _ = rx.recv().await;
+        let _ = done.recv().await;
+        done.close();
+        drop(done);
     };
 
-    let service = Service {
-        tx: G_ZRS.read().unwrap().ev_tx.clone(),
+    let check_auth = move |req: Request<()>| -> Result<Request<()>, Status> {
+        let remote_addr = req.remote_addr();
+        if let Some(remote_addr) = remote_addr {
+            let remote_addr_str = remote_addr.ip().to_string();
+            let apply_inbound_acl = acl.clone();
+            if fsr::check_acl(&remote_addr_str, &apply_inbound_acl) {
+                return Ok(req);
+            }
+        }
+
+        let authorization = req.metadata().get("authorization");
+        match authorization {
+            Some(t) => {
+                let password = password.clone();
+                let digest = format!("bearer {:x}", md5::compute(password));
+                let token = t.to_str().unwrap();
+                if digest.eq_ignore_ascii_case(token) {
+                    Ok(req)
+                } else {
+                    Err(Status::unauthenticated(
+                        "authentication failure wrong password",
+                    ))
+                }
+            }
+            _ => Err(Status::unauthenticated("No valid auth token")),
+        }
     };
 
     let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.spawn(async move {
+        loop {
+            let ret = rx.recv().await;
+            match ret {
+                Ok(_) => {}
+                Err(_) => {
+                    break;
+                }
+            }
+        }
+        drop(rx);
+    });
+
     rt.block_on(async {
+        let service = Service { tx };
         debug!("Start zrs rpc service {}", addr);
         let ret = tonic::transport::Server::builder()
             .add_service(zrs_server::ZrsServer::with_interceptor(service, check_auth))
@@ -136,39 +138,47 @@ fn tokio_main(addr: String, password: String, acl: String) {
             Err(e) => {
                 error!("Couldn't start zrpc sever, {}", e);
             }
-            Ok(_) => {
-                debug!("zrs rpc service thread shutdown.");
-            }
+            Ok(_) => {}
         }
     });
+
     rt.shutdown_timeout(tokio::time::Duration::from_millis(100));
+    debug!("zrs rpc service thread shutdown.");
 }
 
 pub fn broadcast(ev: Event) {
-    let ret = G_ZRS.read().unwrap().ev_tx.send(ev);
-    if let Err(e) = ret {
-        error!("{}", e);
+    let zrs = &GOLOBAS.read().unwrap().zrs;
+    if let Some(zrs) = zrs {
+        let ret = zrs.ev_tx.send(ev);
+        if let Err(e) = ret {
+            error!("{}", e);
+        }
     }
 }
 
 pub fn shutdown() {
-    let _ = G_ZRS.read().unwrap().done_tx.send(1);
-
-    let mut w = G_ZRS.write().unwrap();
-    loop {
-        let h = w.threads.pop();
-        match h {
-            None => {
-                break;
-            }
-            Some(h) => {
-                let _ = h.join();
-            }
-        }
+    let r = GOLOBAS.read().unwrap();
+    let zrs = &r.zrs;
+    if let Some(zrs) = zrs {
+        let ret = zrs.done.blocking_send(1);
+        if let Err(e) = ret {
+            error!("{}", e);
+        };
     }
+    drop(r);
+    GOLOBAS.write().unwrap().zrs = None;
 }
 
 pub fn serve(addr: String, password: String, acl: String) {
-    let h: thread::JoinHandle<()> = thread::spawn(|| tokio_main(addr, password, acl));
-    G_ZRS.write().unwrap().threads.push(h);
+    lazy_static::initialize(&GOLOBAS);
+    let (done_tx, done_rx) = mpsc::channel(1);
+    let (tx, rx) = broadcast::channel::<Event>(64);
+    let zrs = Zrs {
+        ev_tx: tx.clone(),
+        done: done_tx,
+    };
+    GOLOBAS.write().unwrap().zrs = Some(zrs);
+    thread::spawn(move || {
+        tokio_main(addr, password, acl, tx, rx, done_rx);
+    });
 }
