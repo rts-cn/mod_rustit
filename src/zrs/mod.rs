@@ -16,11 +16,15 @@ pub struct Zrs {
 }
 
 struct Global {
+    running: bool,
     zrs: Option<Zrs>,
 }
 impl Global {
     pub fn new() -> Global {
-        Global { zrs: None }
+        Global {
+            running: false,
+            zrs: None,
+        }
     }
 }
 
@@ -142,8 +146,7 @@ fn tokio_main(
         }
     });
 
-    rt.shutdown_timeout(tokio::time::Duration::from_millis(100));
-    debug!("zrs rpc service thread shutdown.");
+    rt.shutdown_timeout(tokio::time::Duration::from_millis(1000));
 }
 
 pub fn broadcast(ev: Event) {
@@ -166,6 +169,13 @@ pub fn shutdown() {
         };
     }
     drop(r);
+    
+    for _ in 1..20 {
+        thread::sleep(std::time::Duration::from_millis(200));
+        if GOLOBAS.read().unwrap().running == false {
+            break;
+        }
+    }
     GOLOBAS.write().unwrap().zrs = None;
 }
 
@@ -179,6 +189,9 @@ pub fn serve(addr: String, password: String, acl: String) {
     };
     GOLOBAS.write().unwrap().zrs = Some(zrs);
     thread::spawn(move || {
+        GOLOBAS.write().unwrap().running = true;
         tokio_main(addr, password, acl, tx, rx, done_rx);
+        GOLOBAS.write().unwrap().running = false;
+        debug!("zrs rpc service thread shutdown.");
     });
 }
