@@ -11,6 +11,7 @@
     <binding name="all">
       <!-- one or more |-delim of configuration|directory|dialplan -->
       <param name="gateway-url" value="http://192.168.107.1:8000/api/v1/pbx-gateway/xml" bindings="dialplan|configuration|directory|languages"/>
+      <!-- the http request timeout, default is 5000 millis -->
       <param name="timeout" value="5000"/>
       <param name="debug" value="false"/>
     </binding>
@@ -50,7 +51,8 @@
       <!-- optional: full path to the error log dir for failed web posts if not specified its the same as log-dir -->
       <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/zrs_cdr -->
       <param name="err-log-dir" value=""/>
-
+      
+      <!-- the http request timeout, default is 5000 millis -->
       <param name="timeout" value="5000"/>
 
       <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->

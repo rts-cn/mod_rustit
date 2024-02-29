@@ -161,12 +161,12 @@ pub fn load_config(cfg: switch_xml_t) {
                     let bind_mask = switch_xml_attr_soft(param, tmp_str.as_ptr());
                     binding.bindings = to_string(bind_mask);
                 } else if var.eq_ignore_ascii_case("timeout") {
-                    binding.timeout = val.parse::<u64>().unwrap_or(20);
-                    if binding.timeout < 10 {
-                        binding.timeout = 10;
+                    binding.timeout = val.parse::<u64>().unwrap_or(5000);
+                    if binding.timeout < 1000 {
+                        binding.timeout = 1000;
                     }
-                    if binding.timeout > 6000 {
-                        binding.timeout = 6000;
+                    if binding.timeout > 60000 {
+                        binding.timeout = 60000;
                     }
                 } else if var.eq_ignore_ascii_case("debug") {
                     binding.debug = fsr::switch_true(&val);
