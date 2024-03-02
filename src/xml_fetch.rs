@@ -11,6 +11,7 @@ pub struct Binding {
     pub timeout: u64,
     pub client: reqwest::blocking::Client,
     pub debug: bool,
+    re: regex::Regex,
 }
 
 struct Global {
@@ -45,6 +46,10 @@ impl Binding {
         let client = build.build().unwrap();
         Binding {
             client,
+            re: regex::Regex::new(
+                r#"(?i)<X-PRE-PROCESS\s+cmd\s*=\s*"(set|env\-set|exec\-set|stun\-set|include|exec)"\s+data\s*=\s*"(.+)"\s*/>"#,
+            )
+            .unwrap(),
             name: String::from(""),
             url: String::from(""),
             bindings: String::from(""),
@@ -54,59 +59,136 @@ impl Binding {
     }
 }
 
-fn xml_fetch(data: String) -> String {
-    let error = String::from(
+mod pre {
+    use fsr::*;
+    fn expand_vars(s: &str) -> String {
+        let mut expand = String::from(s);
+        for (pos, _) in s.match_indices("$${") {
+            let end = (s[pos..]).to_string().find("}");
+            if let Some(end) = end {
+                let vname = s[pos + 3..end + pos].to_string();
+                let val = fsr::get_variable(&vname);
+                expand = expand.replace(&format!("$${{{}}}", vname), &val);
+            }
+        }
+        expand
+    }
+
+    fn set(data: &str) {
+        let r = data.split_once("=");
+        match r {
+            Some((name, val)) => {
+                if !name.is_empty() && !val.is_empty() {
+                    fsr::set_variable(name, val);
+                }
+            }
+            None => {}
+        }
+    }
+
+    fn env_set(data: &str) {
+        let r = data.split_once("=");
+        match r {
+            Some((name, val)) => {
+                if !name.is_empty() && !val.is_empty() {
+                    info!("name { }, val {}", name, val);
+                }
+            }
+            None => {}
+        }
+    }
+
+    fn stun_set(data: &str) {
+        let r = data.split_once("=");
+        match r {
+            Some((name, val)) => {
+                if !name.is_empty() && !val.is_empty() {
+                    info!("name { }, val {}", name, val);
+                }
+            }
+            None => {}
+        }
+    }
+
+    pub fn process(re: regex::Regex, text: std::borrow::Cow<'_, str>) {
+        if text.contains("X-PRE-PROCESS") {
+            return;
+        }
+        for line in text.lines() {
+            for cap in re.captures_iter(&line) {
+                let (full, [cmd, data]) = cap.extract();
+                let expand = expand_vars(data);
+                if cmd.eq_ignore_ascii_case("set") {
+                    set(&expand)
+                } else if cmd.eq_ignore_ascii_case("stun-set") {
+                    stun_set(&expand)
+                } else if cmd.eq_ignore_ascii_case("env-set") {
+                    env_set(&expand)
+                } else {
+                    warn!("Unsupported pre process command {}", full);
+                }
+            }
+        }
+    }
+}
+
+fn xml_fetch(data: String) -> Vec<u8> {
+    let error = Vec::from(
         r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-    <document type="freeswitch/xml">
-      <section name="result">
-        <result status="not found"/>
-      </section>
-    </document>"#,
+<document type="freeswitch/xml">
+<section name="result">
+<result status="not found"/>
+</section>
+</document>"#,
     );
 
     if GOLOBAS.read().unwrap().running == false {
         return error;
     }
 
-    let binding = GOLOBAS.read().unwrap().bindings.clone();
-    match binding {
-        None => (),
-        Some(binding) => {
-            let mut request = String::new();
-            if binding.debug {
-                request = data.clone();
-            }
-            let response = binding
-                .client
-                .post(binding.url)
-                .timeout(Duration::from_millis(binding.timeout))
-                .body(data)
-                .send();
-            match response {
-                Ok(response) => {
-                    let text = response.text();
-                    match text {
-                        Ok(text) => {
-                            if binding.debug {
-                                debug!("XML Fetch:\n{}\n{}", request, text);
-                            }
-                            if !text.is_empty() {
-                                return text;
-                            }
-                            warn!("XML Fetch recv empty response!!!");
+    let binding = &GOLOBAS.read().unwrap().bindings;
+    if let Some(binding) = binding {
+        let mut request = "".to_string();
+        if binding.debug {
+            request = data.clone();
+        }
+        let client = binding.client.clone();
+        let response = client
+            .post(&binding.url)
+            .timeout(Duration::from_millis(binding.timeout))
+            .body(data)
+            .send();
+        match response {
+            Ok(response) => {
+                let body = response.bytes();
+                match body {
+                    Ok(body) => {
+                        let text: std::borrow::Cow<'_, str> =
+                            String::from_utf8_lossy(body.as_ref());
+
+                        if binding.debug {
+                            debug!("XML Fetch:\n{}\n{}", request, text);
                         }
-                        Err(e) => {
-                            error!("{}", e);
+
+                        pre::process(binding.re.clone(), text);
+
+                        if body.len() > 0 {
+                            return body.to_vec();
                         }
+                        warn!("XML Fetch recv empty response!!!");
+                    }
+                    Err(e) => {
+                        error!("{}", e);
                     }
                 }
-                Err(e) => {
-                    error!("{}", e);
-                }
+            }
+            Err(e) => {
+                error!("{}", e);
             }
         }
     }
-    error
+
+    return error;
 }
 
 pub fn start() {

@@ -33,6 +33,12 @@ pub fn get_variable(s: &str) -> String {
     to_string(val)
 }
 
+pub fn set_variable(name: &str, val: &str) {
+    let name = CString::new(name).unwrap();
+    let val = CString::new(val).unwrap();
+    unsafe { switch_core_set_variable(name.as_ptr(), val.as_ptr()) };
+}
+
 pub fn check_acl(ip: &str, list: &str) -> bool {
     let cstr_ip = CString::new(ip).unwrap();
     let cstr_list = CString::new(list).unwrap();
@@ -264,7 +270,7 @@ pub fn sendmsg<'a>(uuid: &'a str, header: HashMap<String, String>) -> Result<Str
 /// ```
 pub fn xml_bind_search<F>(bindings: &str, callback: F) -> u64
 where
-    F: Fn(String) -> String,
+    F: Fn(String) -> Vec<u8>,
 {
     unsafe extern "C" fn wrap_callback<F>(
         section: *const c_char,
@@ -275,7 +281,7 @@ where
         user_data: *mut c_void,
     ) -> switch_xml_t
     where
-        F: Fn(String) -> String,
+        F: Fn(String) -> Vec<u8>,
     {
         let f = user_data as *mut F;
         let fmt =
@@ -295,13 +301,20 @@ where
         switch_safe_free(params_str as *mut c_void);
 
         let response = (*f)(data);
-        let response = CString::new(response).unwrap();
         let xml = switch_xml_parse_str_dynamic(
             response.as_ptr() as *mut c_char,
             switch_bool_t::SWITCH_TRUE,
         );
         if xml.is_null() {
-            warn!("Error Parsing XML:\n{}", response.to_string_lossy());
+            let text = String::from_utf8(response);
+            match text {
+                Ok(text) => {
+                    warn!("Error Parsing XML:\n{}", text);
+                }
+                Err(e) => {
+                    warn!("Error Parsing XML:\n{}", e);
+                }
+            }
         }
         xml
     }

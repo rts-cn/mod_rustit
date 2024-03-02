@@ -22,6 +22,7 @@ paste = { version = "1.0.14" }
 md5 = "0.7.0"
 reqwest =  { version = "0.11.24", features=["rustls-tls","blocking", "gzip", "brotli", "deflate"], default-features = false}
 chrono = { version = "0.4.34" }
+regex = { version = "1" }
 
 [build-dependencies]
 tonic-build = "0.10"
