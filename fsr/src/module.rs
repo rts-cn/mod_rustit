@@ -58,7 +58,7 @@ impl Module {
         &mut *self.module
     }
 
-    pub unsafe fn pool(&self) -> *mut switch_memory_pool_t {
+    pub fn pool(&self) -> *mut switch_memory_pool_t {
         self.pool
     }
 
@@ -95,7 +95,8 @@ impl Module {
             let long_desc = strdup!(self.pool(), long_desc);
             let short_desc = strdup!(self.pool(), short_desc);
             let syntax = strdup!(self.pool(), syntax);
-            let app = self.create_interface(switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
+            let app = self
+                .create_interface(switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut switch_application_interface;
             assert!(!app.is_null());
             (*app).interface_name = name;
