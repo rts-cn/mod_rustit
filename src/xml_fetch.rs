@@ -110,8 +110,8 @@ mod pre {
         }
     }
 
-    pub fn process(re: regex::Regex, text: std::borrow::Cow<'_, str>) {
-        if text.contains("X-PRE-PROCESS") {
+    pub fn process(re: regex::Regex, text: &str) {
+        if !text.contains("X-PRE-PROCESS") {
             return;
         }
         for line in text.lines() {
@@ -132,8 +132,8 @@ mod pre {
     }
 }
 
-fn xml_fetch(data: String) -> Vec<u8> {
-    let error = Vec::from(
+fn xml_fetch(data: String) -> String {
+    let error = String::from(
         r#"<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="freeswitch/xml">
 <section name="result">
@@ -160,20 +160,17 @@ fn xml_fetch(data: String) -> Vec<u8> {
             .send();
         match response {
             Ok(response) => {
-                let body = response.bytes();
+                let body = response.text();
                 match body {
                     Ok(body) => {
-                        let text: std::borrow::Cow<'_, str> =
-                            String::from_utf8_lossy(body.as_ref());
-
                         if binding.debug {
-                            debug!("XML Fetch:\n{}\n{}", request, text);
+                            debug!("XML Fetch:\n{}\n{}", request, body);
                         }
 
-                        pre::process(binding.re.clone(), text);
+                        pre::process(binding.re.clone(), &body);
 
                         if body.len() > 0 {
-                            return body.to_vec();
+                            return body;
                         }
                         warn!("XML Fetch recv empty response!!!");
                     }

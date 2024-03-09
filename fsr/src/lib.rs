@@ -9,6 +9,7 @@ use std::os::raw::c_int;
 use std::os::raw::c_void;
 
 include!("fs.rs");
+include!("utils.rs");
 include!("logs.rs");
 include!("module.rs");
 include!("event.rs");
@@ -270,7 +271,7 @@ pub fn sendmsg<'a>(uuid: &'a str, header: HashMap<String, String>) -> Result<Str
 /// ```
 pub fn xml_bind_search<F>(bindings: &str, callback: F) -> u64
 where
-    F: Fn(String) -> Vec<u8>,
+    F: Fn(String) -> String,
 {
     unsafe extern "C" fn wrap_callback<F>(
         section: *const c_char,
@@ -281,7 +282,7 @@ where
         user_data: *mut c_void,
     ) -> switch_xml_t
     where
-        F: Fn(String) -> Vec<u8>,
+        F: Fn(String) -> String,
     {
         let f = user_data as *mut F;
         let fmt =
@@ -306,15 +307,7 @@ where
             switch_bool_t::SWITCH_TRUE,
         );
         if xml.is_null() {
-            let text = String::from_utf8(response);
-            match text {
-                Ok(text) => {
-                    warn!("Error Parsing XML:\n{}", text);
-                }
-                Err(e) => {
-                    warn!("Error Parsing XML:\n{}", e);
-                }
-            }
+            warn!("Error Parsing XML:\n{}", response);
         }
         xml
     }
