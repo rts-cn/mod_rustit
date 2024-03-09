@@ -4,6 +4,7 @@ use std::{ffi::CString, sync::RwLock, thread};
 use tokio::runtime::Runtime;
 pub mod cdr_post;
 pub mod xml_fetch;
+pub mod storage;
 pub mod zrs;
 
 struct ZrsModule {
@@ -32,6 +33,7 @@ impl ZrsModule {
     fn shutdown() {
         xml_fetch::shutdown();
         cdr_post::shutdown();
+        storage::shutdown();
         loop {
             let id = MODULE.write().unwrap().event_bind_nodes.pop();
             match id {
@@ -118,6 +120,7 @@ fn do_config() {
 
         xml_fetch::load_config(cfg);
         cdr_post::load_config(cfg);
+        storage::load_config(cfg);
         fsr::switch_xml_free(xml);
     }
 }
@@ -160,7 +163,7 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
 
     xml_fetch::start();
     cdr_post::start();
-
+    storage::start(m, MODULE_NAME);
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 

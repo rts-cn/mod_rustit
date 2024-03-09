@@ -7,6 +7,28 @@
     <param name="password" value="1234" />
     <param name="apply-inbound-acl" value="lan"/>
   </grpc>
+  <storages>
+    <storage name="s3">
+      <!-- storage server url -->
+      <param name="url" value="http://192.168.107.1:9000"/>
+      <!-- time to keep audio files when discoverd they were deleted from the http server -->
+      <param name="file-not-found-expires" value="300"/>
+      <!-- how often to re-check the server to make sure the remote file has not changed -->
+      <param name="file-cache-ttl" value="300"/>
+      <!-- either an absolute path, a relative path assuming ${storage_dir}/cache-dir or a blank value will default to ${storage_dir}/storage/$name_cache -->
+      <param name="cache-dir" value=""/>
+    </storage>
+    <storage name="hfs">
+      <!-- storage server url -->
+      <param name="url" value="http://192.168.107.1:9000"/>
+      <!-- time to keep audio files when discoverd they were deleted from the http server -->
+      <param name="file-not-found-expires" value="300"/>
+      <!-- how often to re-check the server to make sure the remote file has not changed -->
+      <param name="file-cache-ttl" value="300"/>
+      <!-- either an absolute path, a relative path assuming ${storage_dir}/cache-dir or a blank value will default to ${storage_dir}/storage/$name_cache -->
+      <param name="cache-dir" value=""/>
+    </storage>
+  </storages>
   <bindings>
     <binding name="all">
       <!-- one or more |-delim of configuration|directory|dialplan -->
@@ -51,12 +73,12 @@
       <!-- optional: full path to the error log dir for failed web posts if not specified its the same as log-dir -->
       <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/zrs_cdr -->
       <param name="err-log-dir" value=""/>
-      
+
       <!-- the http request timeout, default is 5000 millis -->
       <param name="timeout" value="5000"/>
 
       <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->
-			<param name="encode-values" value="true"/>
+      <param name="encode-values" value="true"/>
     </cdr>
   </cdrs>
 </configuration>
