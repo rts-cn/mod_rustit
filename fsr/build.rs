@@ -15,6 +15,7 @@ fn build() {
         .header(headers_path_str)
         .allowlist_file(".*freeswitch.*")
         .newtype_enum(".*")
+        .derive_default(true)
         .derive_hash(false)
         .generate_comments(false)
         .clang_arg("-I/usr/local/freeswitch/include/freeswitch")

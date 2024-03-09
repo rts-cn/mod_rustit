@@ -495,7 +495,7 @@ pub struct __pthread {
 }
 pub type pthread_t = *mut __pthread;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct timeval {
     pub tv_sec: time_t,
     pub tv_usec: suseconds_t,
@@ -503,7 +503,7 @@ pub struct timeval {
 pub type socklen_t = ::std::os::raw::c_uint;
 pub type sa_family_t = ::std::os::raw::c_ushort;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct sockaddr {
     pub sa_family: sa_family_t,
     pub sa_data: [::std::os::raw::c_char; 14usize],
@@ -521,6 +521,24 @@ pub union in6_addr__bindgen_ty_1 {
     pub __s6_addr16: [u16; 8usize],
     pub __s6_addr32: [u32; 4usize],
 }
+impl Default for in6_addr__bindgen_ty_1 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
+impl Default for in6_addr {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct sockaddr_in6 {
@@ -529,6 +547,15 @@ pub struct sockaddr_in6 {
     pub sin6_flowinfo: u32,
     pub sin6_addr: in6_addr,
     pub sin6_scope_id: u32,
+}
+impl Default for sockaddr_in6 {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_int32_t = i32;
 pub type switch_size_t = usize;
@@ -545,8 +572,17 @@ pub struct cJSON {
     pub valuedouble: f64,
     pub string: *mut ::std::os::raw::c_char,
 }
+impl Default for cJSON {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct cJSON_Hooks {
     pub malloc_fn:
         ::std::option::Option<unsafe extern "C" fn(sz: usize) -> *mut ::std::os::raw::c_void>,
@@ -1102,9 +1138,18 @@ pub struct vpx_image {
     pub self_allocd: ::std::os::raw::c_int,
     pub fb_priv: *mut ::std::os::raw::c_void,
 }
+impl Default for vpx_image {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type vpx_image_t = vpx_image;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct vpx_image_rect {
     pub x: ::std::os::raw::c_uint,
     pub y: ::std::os::raw::c_uint,
@@ -1204,6 +1249,15 @@ pub struct switch_dtmf_t {
     pub duration: u32,
     pub flags: i32,
     pub source: switch_dtmf_source_t,
+}
+impl Default for switch_dtmf_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 impl switch_call_direction_t {
     pub const SWITCH_CALL_DIRECTION_INBOUND: switch_call_direction_t = switch_call_direction_t(0);
@@ -1778,6 +1832,15 @@ pub struct switch_bitpack_t {
     pub over: switch_byte_t,
     pub mode: switch_bitpack_mode_t,
 }
+impl Default for switch_bitpack_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_directories {
@@ -1802,6 +1865,15 @@ pub struct switch_directories {
     pub data_dir: *mut ::std::os::raw::c_char,
     pub localstate_dir: *mut ::std::os::raw::c_char,
 }
+impl Default for switch_directories {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub static mut SWITCH_GLOBAL_dirs: switch_directories;
 }
@@ -1809,6 +1881,15 @@ extern "C" {
 #[derive(Debug, Copy, Clone)]
 pub struct switch_filenames {
     pub conf_name: *mut ::std::os::raw::c_char,
+}
+impl Default for switch_filenames {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub static mut SWITCH_GLOBAL_filenames: switch_filenames;
@@ -1973,6 +2054,15 @@ pub struct error_period {
     pub consecutive_flaws: u32,
     pub next: *mut error_period,
 }
+impl Default for error_period {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_error_period_t = error_period;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2009,8 +2099,17 @@ pub struct switch_rtp_numbers_t {
     pub mos: f64,
     pub error_log: *mut error_period,
 }
+impl Default for switch_rtp_numbers_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_numbers_t {
     pub packet_count: u32,
     pub octet_count: u32,
@@ -2036,7 +2135,7 @@ pub struct switch_rtcp_numbers_t {
     pub init: u32,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_video_counters_t {
     pub nack_count: u16,
     pub fir_count: u16,
@@ -2045,7 +2144,7 @@ pub struct switch_rtcp_video_counters_t {
     pub rr_count: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_video_stats_t {
     pub video_in: switch_rtcp_video_counters_t,
     pub video_out: switch_rtcp_video_counters_t,
@@ -2057,6 +2156,15 @@ pub struct switch_rtp_stats_t {
     pub outbound: switch_rtp_numbers_t,
     pub rtcp: switch_rtcp_numbers_t,
     pub read_count: u32,
+}
+impl Default for switch_rtp_stats_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 impl switch_rtp_flush_t {
     pub const SWITCH_RTP_FLUSH_ONCE: switch_rtp_flush_t = switch_rtp_flush_t(0);
@@ -2274,7 +2382,7 @@ impl switch_rtp_bug_flag_t {
 pub struct switch_rtp_bug_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
 #[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtp_hdr_t {
     pub _bitfield_align_1: [u32; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 12usize]>,
@@ -2433,7 +2541,7 @@ impl switch_rtp_hdr_t {
 }
 #[repr(C)]
 #[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtp_hdr_ext_t {
     pub _bitfield_align_1: [u16; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
@@ -2480,7 +2588,7 @@ impl switch_rtp_hdr_ext_t {
 }
 #[repr(C)]
 #[repr(align(4))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_hdr_s {
     pub _bitfield_align_1: [u16; 0],
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize]>,
@@ -2575,7 +2683,7 @@ impl switch_rtcp_hdr_s {
 }
 pub type switch_rtcp_hdr_t = switch_rtcp_hdr_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct audio_buffer_header_s {
     pub ts: u32,
     pub len: u32,
@@ -2875,6 +2983,15 @@ pub struct switch_t38_options_t {
     pub local_ip: *const ::std::os::raw::c_char,
     pub local_port: u16,
     pub sdp_o_line: *const ::std::os::raw::c_char,
+}
+impl Default for switch_t38_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 impl switch_stack_t {
     pub const SWITCH_STACK_BOTTOM: switch_stack_t = switch_stack_t(1);
@@ -3742,7 +3859,7 @@ impl switch_channel_flag_t {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct switch_channel_flag_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_vid_params_s {
     pub width: u32,
     pub height: u32,
@@ -3752,7 +3869,7 @@ pub struct switch_vid_params_s {
 }
 pub type switch_vid_params_t = switch_vid_params_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_fps_s {
     pub fps: f32,
     pub ms: ::std::os::raw::c_int,
@@ -5043,6 +5160,15 @@ pub struct switch_console_callback_match_node {
     pub val: *mut ::std::os::raw::c_char,
     pub next: *mut switch_console_callback_match_node,
 }
+impl Default for switch_console_callback_match_node {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_console_callback_match_node_t = switch_console_callback_match_node;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5051,6 +5177,15 @@ pub struct switch_console_callback_match {
     pub end: *mut switch_console_callback_match_node,
     pub count: ::std::os::raw::c_int,
     pub dynamic: ::std::os::raw::c_int,
+}
+impl Default for switch_console_callback_match {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_console_callback_match_t = switch_console_callback_match;
 pub type switch_media_bug_exec_cb_t = ::std::option::Option<
@@ -5332,6 +5467,15 @@ pub struct switch_ivr_dmachine_match {
     pub type_: dm_match_type_t,
     pub user_data: *mut ::std::os::raw::c_void,
 }
+impl Default for switch_ivr_dmachine_match {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_ivr_dmachine_match_t = switch_ivr_dmachine_match;
 pub type switch_ivr_dmachine_callback_t = ::std::option::Option<
     unsafe extern "C" fn(match_: *mut switch_ivr_dmachine_match_t) -> switch_status_t,
@@ -5347,6 +5491,15 @@ pub struct switch_input_args_t {
     pub dmachine: *mut switch_ivr_dmachine_t,
     pub loops: ::std::os::raw::c_int,
 }
+impl Default for switch_input_args_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_say_args_t {
@@ -5354,6 +5507,15 @@ pub struct switch_say_args_t {
     pub method: switch_say_method_t,
     pub gender: switch_say_gender_t,
     pub ext: *const ::std::os::raw::c_char,
+}
+impl Default for switch_say_args_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_say_callback_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -5457,7 +5619,7 @@ impl switch_module_flag_enum_t {
 pub struct switch_module_flag_enum_t(pub ::std::os::raw::c_uint);
 pub type switch_module_flag_t = u32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_loadable_module_function_table {
     pub switch_api_version: ::std::os::raw::c_int,
     pub load: switch_module_load_t,
@@ -5598,6 +5760,15 @@ pub struct payload_map_s {
     pub adv_channels: ::std::os::raw::c_int,
     pub next: *mut payload_map_s,
 }
+impl Default for payload_map_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type payload_map_t = payload_map_s;
 impl switch_media_flow_t {
     pub const SWITCH_MEDIA_FLOW_SENDRECV: switch_media_flow_t = switch_media_flow_t(0);
@@ -5660,7 +5831,7 @@ impl switch_poll_t {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct switch_poll_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_waitlist_s {
     pub sock: switch_os_socket_t,
     pub events: u32,
@@ -5797,6 +5968,15 @@ pub struct switch_mm_s {
     pub auth_username: *mut ::std::os::raw::c_char,
     pub auth_password: *mut ::std::os::raw::c_char,
 }
+impl Default for switch_mm_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_mm_t = switch_mm_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5808,6 +5988,15 @@ pub struct switch_crypto_key_material_s {
     pub mki_id: ::std::os::raw::c_uint,
     pub mki_size: ::std::os::raw::c_uint,
     pub next: *mut switch_crypto_key_material_s,
+}
+impl Default for switch_crypto_key_material_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_crypto_key_material_t = switch_crypto_key_material_s;
 #[repr(C)]
@@ -5823,6 +6012,15 @@ pub struct secure_settings_s {
     pub local_key_material_n: ::std::os::raw::c_ulong,
     pub remote_key_material_next: *mut switch_crypto_key_material_s,
     pub remote_key_material_n: ::std::os::raw::c_ulong,
+}
+impl Default for secure_settings_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_secure_settings_t = secure_settings_s;
 #[repr(C)]
@@ -5910,7 +6108,7 @@ extern "C" {
 pub type switch_time_t = i64;
 pub type switch_interval_time_t = i64;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_time_exp_t {
     pub tm_usec: i32,
     pub tm_sec: i32,
@@ -6111,7 +6309,7 @@ extern "C" {
     pub fn switch_thread_cond_destroy(cond: *mut switch_thread_cond_t) -> switch_status_t;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_uuid_t {
     pub data: [::std::os::raw::c_uchar; 16usize],
 }
@@ -6323,6 +6521,15 @@ pub struct switch_array_header_t {
     pub nelts: ::std::os::raw::c_int,
     pub nalloc: ::std::os::raw::c_int,
     pub elts: *mut ::std::os::raw::c_char,
+}
+impl Default for switch_array_header_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_dir_open(
@@ -6617,6 +6824,15 @@ pub union switch_descriptor_t {
     pub f: *mut switch_file_t,
     pub s: *mut switch_socket_t,
 }
+impl Default for switch_descriptor_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct switch_pollfd {
@@ -6626,6 +6842,15 @@ pub struct switch_pollfd {
     pub rtnevents: i16,
     pub desc: switch_descriptor_t,
     pub client_data: *mut ::std::os::raw::c_void,
+}
+impl Default for switch_pollfd {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_pollfd_t = switch_pollfd;
 #[repr(C)]
@@ -6806,6 +7031,15 @@ pub type switch_core_db_t = sqlite3;
 pub struct switch_coredb_handle {
     pub in_memory: switch_bool_t,
     pub handle: *mut switch_core_db_t,
+}
+impl Default for switch_coredb_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7064,7 +7298,7 @@ extern "C" {
     );
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_core_time_duration {
     pub mms: u32,
     pub ms: u32,
@@ -7082,6 +7316,15 @@ pub struct switch_app_log {
     pub stamp: switch_time_t,
     pub next: *mut switch_app_log,
 }
+impl Default for switch_app_log {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_thread_data_s {
@@ -7091,6 +7334,15 @@ pub struct switch_thread_data_s {
     pub running: ::std::os::raw::c_int,
     pub pool: *mut switch_memory_pool_t,
 }
+impl Default for switch_thread_data_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_thread_data_t = switch_thread_data_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -7099,6 +7351,15 @@ pub struct switch_hold_record_s {
     pub off: switch_time_t,
     pub uuid: *mut ::std::os::raw::c_char,
     pub next: *mut switch_hold_record_s,
+}
+impl Default for switch_hold_record_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_hold_record_t = switch_hold_record_s;
 #[repr(C)]
@@ -7114,9 +7375,18 @@ pub struct device_uuid_node_s {
     pub parent: *mut switch_device_record_s,
     pub next: *mut device_uuid_node_s,
 }
+impl Default for device_uuid_node_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_device_node_t = device_uuid_node_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_device_stats_s {
     pub total: u32,
     pub total_in: u32,
@@ -7169,6 +7439,15 @@ pub struct switch_device_record_s {
     pub pool: *mut switch_memory_pool_t,
     pub user_data: *mut ::std::os::raw::c_void,
 }
+impl Default for switch_device_record_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_device_record_t = switch_device_record_s;
 pub type switch_device_state_function_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -7184,6 +7463,15 @@ pub struct dtls_fp_s {
     pub data: [u8; 65usize],
     pub type_: *mut ::std::os::raw::c_char,
     pub str_: [::std::os::raw::c_char; 192usize],
+}
+impl Default for dtls_fp_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type dtls_fingerprint_t = dtls_fp_s;
 impl dtls_type_t {
@@ -7244,6 +7532,15 @@ pub struct switch_core_session_message {
     pub string_array_arg: [*const ::std::os::raw::c_char; 10usize],
     pub delivery_time: time_t,
 }
+impl Default for switch_core_session_message {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_core_thread_session {
@@ -7252,6 +7549,15 @@ pub struct switch_core_thread_session {
     pub objs: [*mut ::std::os::raw::c_void; 128usize],
     pub input_callback: switch_input_callback_function_t,
     pub pool: *mut switch_memory_pool_t,
+}
+impl Default for switch_core_thread_session {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -9431,11 +9737,29 @@ pub union switch_cache_db_native_handle_t {
     pub odbc_dbh: *mut switch_odbc_handle_t,
     pub database_interface_dbh: *mut switch_database_interface_handle_t,
 }
+impl Default for switch_cache_db_native_handle_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_cache_db_core_db_options_t {
     pub db_path: *mut ::std::os::raw::c_char,
     pub in_memory: switch_bool_t,
+}
+impl Default for switch_cache_db_core_db_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -9443,6 +9767,15 @@ pub struct switch_cache_db_odbc_options_t {
     pub dsn: *mut ::std::os::raw::c_char,
     pub user: *mut ::std::os::raw::c_char,
     pub pass: *mut ::std::os::raw::c_char,
+}
+impl Default for switch_cache_db_odbc_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -9453,12 +9786,30 @@ pub struct switch_cache_db_database_interface_options_t {
     pub database_interface: *mut switch_database_interface_t,
     pub make_module_no_unloadable: switch_bool_t,
 }
+impl Default for switch_cache_db_database_interface_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_cache_db_connection_options_t {
     pub core_db_options: switch_cache_db_core_db_options_t,
     pub odbc_options: switch_cache_db_odbc_options_t,
     pub database_interface_options: switch_cache_db_database_interface_options_t,
+}
+impl Default for switch_cache_db_connection_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -9986,11 +10337,29 @@ pub struct switch_log_node_t {
     pub sequence: i64,
     pub meta: *mut cJSON,
 }
+impl Default for switch_log_node_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_log_json_format_item_t {
     pub name: *const ::std::os::raw::c_char,
     pub value: *const ::std::os::raw::c_char,
+}
+impl Default for switch_log_json_format_item_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10010,6 +10379,15 @@ pub struct switch_log_json_format_t {
     pub custom_field_prefix: *const ::std::os::raw::c_char,
     pub timestamp_divisor: f64,
     pub sequence: switch_log_json_format_item_t,
+}
+impl Default for switch_log_json_format_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_log_function_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -10121,6 +10499,15 @@ pub struct switch_audio_resampler_t {
     pub to_len: u32,
     pub to_size: u32,
     pub channels: ::std::os::raw::c_int,
+}
+impl Default for switch_audio_resampler_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_resample_perform_create(
@@ -10312,6 +10699,15 @@ pub struct switch_state_handler_table {
     pub flags: ::std::os::raw::c_int,
     pub padding: [*mut ::std::os::raw::c_void; 10usize],
 }
+impl Default for switch_state_handler_table {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_stream_handle {
@@ -10325,6 +10721,15 @@ pub struct switch_stream_handle {
     pub alloc_len: switch_size_t,
     pub alloc_chunk: switch_size_t,
     pub param_event: *mut switch_event_t,
+}
+impl Default for switch_stream_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_io_outgoing_channel_t = ::std::option::Option<
     unsafe extern "C" fn(
@@ -10482,6 +10887,15 @@ pub struct switch_io_routines {
     pub get_jb: switch_io_get_jb_t,
     pub padding: [*mut ::std::os::raw::c_void; 10usize],
 }
+impl Default for switch_io_routines {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_endpoint_interface {
@@ -10495,6 +10909,15 @@ pub struct switch_endpoint_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_endpoint_interface,
     pub recover_callback: switch_core_recover_callback_t,
+}
+impl Default for switch_endpoint_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10510,6 +10933,15 @@ pub struct switch_timer {
     pub diff: switch_size_t,
     pub start: switch_time_t,
     pub tick: u64,
+}
+impl Default for switch_timer {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 impl switch_timer_func_name_t {
     pub const SWITCH_TIMER_FUNC_TIMER_INIT: switch_timer_func_name_t = switch_timer_func_name_t(0);
@@ -10556,6 +10988,15 @@ pub struct switch_timer_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_timer_interface,
 }
+impl Default for switch_timer_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_dialplan_interface {
@@ -10566,6 +11007,15 @@ pub struct switch_dialplan_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_dialplan_interface,
+}
+impl Default for switch_dialplan_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10648,6 +11098,15 @@ pub struct switch_file_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_file_interface,
 }
+impl Default for switch_file_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_file_handle {
@@ -10704,6 +11163,15 @@ pub struct switch_file_handle {
     pub vpos: i64,
     pub muxbuf: *mut ::std::os::raw::c_void,
     pub muxlen: switch_size_t,
+}
+impl Default for switch_file_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10823,6 +11291,15 @@ pub struct switch_asr_interface {
         ) -> switch_status_t,
     >,
 }
+impl Default for switch_asr_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_asr_handle {
@@ -10841,6 +11318,15 @@ pub struct switch_asr_handle {
     pub samplerate: u32,
     pub native_rate: u32,
     pub private_info: *mut ::std::os::raw::c_void,
+}
+impl Default for switch_asr_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10905,6 +11391,15 @@ pub struct switch_speech_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_speech_interface,
 }
+impl Default for switch_speech_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_speech_handle {
@@ -10928,6 +11423,15 @@ pub struct switch_speech_handle {
     pub native_rate: u32,
     pub private_info: *mut ::std::os::raw::c_void,
 }
+impl Default for switch_speech_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_say_interface {
@@ -10939,6 +11443,15 @@ pub struct switch_say_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_say_interface,
+}
+impl Default for switch_say_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10952,6 +11465,15 @@ pub struct switch_chat_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_chat_interface,
+}
+impl Default for switch_chat_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10970,6 +11492,15 @@ pub struct switch_management_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_management_interface,
+}
+impl Default for switch_management_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11012,6 +11543,15 @@ pub struct switch_limit_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_limit_interface,
 }
+impl Default for switch_limit_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_directory_interface {
@@ -11050,6 +11590,15 @@ pub struct switch_directory_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_directory_interface,
 }
+impl Default for switch_directory_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_directory_handle {
@@ -11057,6 +11606,15 @@ pub struct switch_directory_handle {
     pub flags: u32,
     pub memory_pool: *mut switch_memory_pool_t,
     pub private_info: *mut ::std::os::raw::c_void,
+}
+impl Default for switch_directory_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11131,14 +11689,32 @@ pub struct switch_database_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_database_interface,
 }
+impl Default for switch_database_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_database_interface_handle {
     pub connection_options: switch_cache_db_database_interface_options_t,
     pub handle: *mut ::std::os::raw::c_void,
 }
+impl Default for switch_database_interface_handle {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_audio_codec_settings {
     pub unused: ::std::os::raw::c_int,
 }
@@ -11152,11 +11728,29 @@ pub struct switch_video_codec_settings {
     pub fps: u8,
     pub config_profile_name: [::std::os::raw::c_char; 64usize],
 }
+impl Default for switch_video_codec_settings {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union switch_codec_settings {
     pub audio: switch_audio_codec_settings,
     pub video: switch_video_codec_settings,
+}
+impl Default for switch_codec_settings {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11170,6 +11764,15 @@ pub struct switch_codec_fmtp {
     pub sprop_stereo: ::std::os::raw::c_int,
     pub private_info: *mut ::std::os::raw::c_void,
 }
+impl Default for switch_codec_fmtp {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_picture {
@@ -11177,6 +11780,15 @@ pub struct switch_picture {
     pub height: u32,
     pub planes: [*mut u8; 4usize],
     pub stride: [u32; 4usize],
+}
+impl Default for switch_picture {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11193,6 +11805,15 @@ pub struct switch_codec {
     pub next: *mut switch_codec,
     pub session: *mut switch_core_session_t,
     pub cur_frame: *mut switch_frame_t,
+}
+impl Default for switch_codec {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11222,6 +11843,15 @@ pub struct switch_codec_implementation {
     pub modname: *mut ::std::os::raw::c_char,
     pub next: *mut switch_codec_implementation,
 }
+impl Default for switch_codec_implementation {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_codec_interface {
@@ -11235,6 +11865,15 @@ pub struct switch_codec_interface {
     pub modname: *mut ::std::os::raw::c_char,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_codec_interface,
+}
+impl Default for switch_codec_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11251,6 +11890,15 @@ pub struct switch_application_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_application_interface,
 }
+impl Default for switch_application_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_chat_application_interface {
@@ -11266,6 +11914,15 @@ pub struct switch_chat_application_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_chat_application_interface,
 }
+impl Default for switch_chat_application_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_api_interface {
@@ -11278,6 +11935,15 @@ pub struct switch_api_interface {
     pub reflock: *mut switch_mutex_t,
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_api_interface,
+}
+impl Default for switch_api_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -11292,8 +11958,17 @@ pub struct switch_json_api_interface {
     pub parent: *mut switch_loadable_module_interface_t,
     pub next: *mut switch_json_api_interface,
 }
+impl Default for switch_json_api_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_frame_geometry {
     pub w: i32,
     pub h: i32,
@@ -11329,6 +12004,15 @@ pub struct switch_frame {
     pub img: *mut switch_image_t,
     pub geometry: switch_frame_geometry,
 }
+impl Default for switch_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_slin_data {
@@ -11336,6 +12020,15 @@ pub struct switch_slin_data {
     pub write_frame: switch_frame_t,
     pub codec: switch_codec_t,
     pub frame_data: [::std::os::raw::c_char; 8192usize],
+}
+impl Default for switch_slin_data {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 impl switch_loadable_module_type_t {
     pub const SWITCH_LOADABLE_MODULE_TYPE_PRELOAD: switch_loadable_module_type_t =
@@ -11376,6 +12069,15 @@ pub struct switch_loadable_module_interface {
     pub rwlock: *mut switch_thread_rwlock_t,
     pub refs: ::std::os::raw::c_int,
     pub pool: *mut switch_memory_pool_t,
+}
+impl Default for switch_loadable_module_interface {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_loadable_module_init(autoload: switch_bool_t) -> switch_status_t;
@@ -11693,7 +12395,7 @@ extern "C" {
     ) -> switch_status_t;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_network_port_range {
     pub port: ::std::os::raw::c_int,
     pub ports: [::std::os::raw::c_int; 10usize],
@@ -11746,6 +12448,15 @@ extern "C" {
 pub union ip_t {
     pub v4: u32,
     pub v6: in6_addr,
+}
+impl Default for ip_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_testv6_subnet(_ip: ip_t, _net: ip_t, _mask: ip_t) -> switch_bool_t;
@@ -12333,6 +13044,15 @@ pub struct switch_http_request_s {
     pub _buffer: *mut ::std::os::raw::c_char,
     pub _destroy_headers: switch_bool_t,
 }
+impl Default for switch_http_request_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_http_request_t = switch_http_request_s;
 extern "C" {
     pub fn switch_http_parse_header(
@@ -12403,7 +13123,7 @@ extern "C" {
     pub fn switch_frame_buffer_size(fb: *mut switch_frame_buffer_t) -> ::std::os::raw::c_int;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_cputime {
     pub userms: i64,
     pub kernelms: i64,
@@ -12449,6 +13169,15 @@ pub struct profile_node_s {
     pub var: *mut ::std::os::raw::c_char,
     pub val: *mut ::std::os::raw::c_char,
     pub next: *mut profile_node_s,
+}
+impl Default for profile_node_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type profile_node_t = profile_node_s;
 #[repr(C)]
@@ -12497,6 +13226,15 @@ pub struct switch_caller_profile {
     pub clone_of: *mut ::std::os::raw::c_char,
     pub transfer_source: *mut ::std::os::raw::c_char,
 }
+impl Default for switch_caller_profile {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_caller_application {
@@ -12504,6 +13242,15 @@ pub struct switch_caller_application {
     pub application_data: *mut ::std::os::raw::c_char,
     pub application_function: switch_application_function_t,
     pub next: *mut switch_caller_application,
+}
+impl Default for switch_caller_application {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -12515,6 +13262,15 @@ pub struct switch_caller_extension {
     pub applications: *mut switch_caller_application_t,
     pub children: *mut switch_caller_profile,
     pub next: *mut switch_caller_extension,
+}
+impl Default for switch_caller_extension {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_caller_extension_new(
@@ -12589,7 +13345,7 @@ extern "C" {
     );
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_report_block_frame {
     pub ssrc: u32,
     pub fraction: u8,
@@ -12602,7 +13358,7 @@ pub struct switch_rtcp_report_block_frame {
     pub rtt_avg: f64,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rtcp_frame {
     pub report_count: u16,
     pub packet_type: u16,
@@ -12630,6 +13386,15 @@ pub struct switch_channel_timetable {
     pub last_hold: switch_time_t,
     pub hold_accum: switch_time_t,
     pub next: *mut switch_channel_timetable,
+}
+impl Default for switch_channel_timetable {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_channel_timetable_t = switch_channel_timetable;
 extern "C" {
@@ -13666,6 +14431,15 @@ pub struct switch_event_header {
     pub hash: ::std::os::raw::c_ulong,
     pub next: *mut switch_event_header,
 }
+impl Default for switch_event_header {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_event {
@@ -13682,6 +14456,15 @@ pub struct switch_event {
     pub next: *mut switch_event,
     pub flags: ::std::os::raw::c_int,
 }
+impl Default for switch_event {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_serial_event_s {
@@ -13692,12 +14475,30 @@ pub struct switch_serial_event_s {
     pub subclass_name: *mut ::std::os::raw::c_char,
     pub body: *mut ::std::os::raw::c_char,
 }
+impl Default for switch_serial_event_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_serial_event_t = switch_serial_event_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_serial_event_header_s {
     pub name: *mut ::std::os::raw::c_char,
     pub value: *mut ::std::os::raw::c_char,
+}
+impl Default for switch_serial_event_header_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_serial_event_header_t = switch_serial_event_header_s;
 impl switch_event_flag_t {
@@ -14269,7 +15070,7 @@ impl switch_img_fit_t {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct switch_img_fit_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_yuv_color_s {
     pub y: u8,
     pub u: u8,
@@ -14277,7 +15078,7 @@ pub struct switch_yuv_color_s {
 }
 pub type switch_yuv_color_t = switch_yuv_color_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_rgb_color_s {
     pub b: u8,
     pub g: u8,
@@ -14286,7 +15087,7 @@ pub struct switch_rgb_color_s {
 }
 pub type switch_rgb_color_t = switch_rgb_color_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_hsl_color_s {
     pub h: f64,
     pub s: f64,
@@ -14294,21 +15095,21 @@ pub struct switch_hsl_color_s {
 }
 pub type switch_hsl_color_t = switch_hsl_color_s;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_lab_color_t {
     pub l: f64,
     pub a: f64,
     pub b: f64,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_xyz_color_t {
     pub x: f64,
     pub y: f64,
     pub z: f64,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct switch_image_rect {
     pub x: ::std::os::raw::c_uint,
     pub y: ::std::os::raw::c_uint,
@@ -14334,6 +15135,15 @@ pub struct switch_png_s {
     pub pvt: *mut switch_png_opaque_t,
     pub w: ::std::os::raw::c_int,
     pub h: ::std::os::raw::c_int,
+}
+impl Default for switch_png_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_png_t = switch_png_s;
 impl switch_image_rotation_mode_t {
@@ -14848,6 +15658,15 @@ pub struct switch_unicast_conninfo {
     pub transport: ::std::os::raw::c_int,
     pub stream_id: ::std::os::raw::c_int,
     pub thread: *mut switch_thread_t,
+}
+impl Default for switch_unicast_conninfo {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_unicast_conninfo_t = switch_unicast_conninfo;
 extern "C" {
@@ -16228,6 +17047,15 @@ pub struct switch_rtp_packet_t {
     pub ext: *mut switch_rtp_hdr_ext_t,
     pub ebody: *mut ::std::os::raw::c_char,
 }
+impl Default for switch_rtp_packet_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 impl switch_rtp_crypto_direction_t {
     pub const SWITCH_RTP_CRYPTO_SEND: switch_rtp_crypto_direction_t =
         switch_rtp_crypto_direction_t(0);
@@ -16260,6 +17088,15 @@ pub struct switch_srtp_crypto_suite_s {
     pub keysalt_len: ::std::os::raw::c_int,
     pub salt_len: ::std::os::raw::c_int,
 }
+impl Default for switch_srtp_crypto_suite_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_srtp_crypto_suite_t = switch_srtp_crypto_suite_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16269,6 +17106,15 @@ pub struct switch_rtp_crypto_key {
     pub keysalt: [::std::os::raw::c_uchar; 64usize],
     pub keylen: switch_size_t,
     pub next: *mut switch_rtp_crypto_key,
+}
+impl Default for switch_rtp_crypto_key {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_rtp_crypto_key_t = switch_rtp_crypto_key;
 impl ice_proto_t {
@@ -16295,6 +17141,15 @@ pub struct icand_s {
     pub generation: *mut ::std::os::raw::c_char,
     pub ready: u8,
 }
+impl Default for icand_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type icand_t = icand_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -16306,6 +17161,15 @@ pub struct ice_s {
     pub ufrag: *mut ::std::os::raw::c_char,
     pub pwd: *mut ::std::os::raw::c_char,
     pub options: *mut ::std::os::raw::c_char,
+}
+impl Default for ice_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type ice_t = ice_s;
 impl rtcp_pt_t {
@@ -16917,6 +17781,15 @@ pub struct switch_xml {
     pub open: *const ::std::os::raw::c_char,
     pub close: *const ::std::os::raw::c_char,
 }
+impl Default for switch_xml {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn switch_xml_parse_str_dynamic(
         s: *mut ::std::os::raw::c_char,
@@ -17295,12 +18168,30 @@ pub struct switch_xml_config_enum_item_t {
     pub key: *mut ::std::os::raw::c_char,
     pub value: ::std::os::raw::c_int,
 }
+impl Default for switch_xml_config_enum_item_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml_config_string_options_t {
     pub pool: *mut switch_memory_pool_t,
     pub length: switch_size_t,
     pub validation_regex: *mut ::std::os::raw::c_char,
+}
+impl Default for switch_xml_config_string_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub static mut switch_config_string_strdup: switch_xml_config_string_options_t;
@@ -17313,6 +18204,15 @@ pub struct switch_xml_config_int_options_t {
     pub enforce_max: switch_bool_t,
     pub max: ::std::os::raw::c_int,
 }
+impl Default for switch_xml_config_int_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_xml_config_atomic_options_t {
@@ -17320,6 +18220,15 @@ pub struct switch_xml_config_atomic_options_t {
     pub min: u32,
     pub enforce_max: switch_bool_t,
     pub max: u32,
+}
+impl Default for switch_xml_config_atomic_options_t {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_xml_config_item_t = switch_xml_config_item;
 impl switch_config_callback_type_t {
@@ -17363,6 +18272,15 @@ pub struct switch_xml_config_item {
     pub function: switch_xml_config_callback_t,
     pub syntax: *const ::std::os::raw::c_char,
     pub helptext: *const ::std::os::raw::c_char,
+}
+impl Default for switch_xml_config_item {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_config_perform_set_item(
@@ -17546,11 +18464,29 @@ pub struct switch_io_event_hook_outgoing_channel {
     pub outgoing_channel: switch_outgoing_channel_hook_t,
     pub next: *mut switch_io_event_hook_outgoing_channel,
 }
+impl Default for switch_io_event_hook_outgoing_channel {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_receive_message {
     pub receive_message: switch_receive_message_hook_t,
     pub next: *mut switch_io_event_hook_receive_message,
+}
+impl Default for switch_io_event_hook_receive_message {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17558,11 +18494,29 @@ pub struct switch_io_event_hook_receive_event {
     pub receive_event: switch_receive_event_hook_t,
     pub next: *mut switch_io_event_hook_receive_event,
 }
+impl Default for switch_io_event_hook_receive_event {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_read_frame {
     pub read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_read_frame,
+}
+impl Default for switch_io_event_hook_read_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17570,11 +18524,29 @@ pub struct switch_io_event_hook_video_read_frame {
     pub video_read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_video_read_frame,
 }
+impl Default for switch_io_event_hook_video_read_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_write_frame {
     pub write_frame: switch_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_write_frame,
+}
+impl Default for switch_io_event_hook_write_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17582,11 +18554,29 @@ pub struct switch_io_event_hook_video_write_frame {
     pub video_write_frame: switch_video_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_video_write_frame,
 }
+impl Default for switch_io_event_hook_video_write_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_text_read_frame {
     pub text_read_frame: switch_read_frame_hook_t,
     pub next: *mut switch_io_event_hook_text_read_frame,
+}
+impl Default for switch_io_event_hook_text_read_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17594,11 +18584,29 @@ pub struct switch_io_event_hook_text_write_frame {
     pub text_write_frame: switch_video_write_frame_hook_t,
     pub next: *mut switch_io_event_hook_text_write_frame,
 }
+impl Default for switch_io_event_hook_text_write_frame {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_kill_channel {
     pub kill_channel: switch_kill_channel_hook_t,
     pub next: *mut switch_io_event_hook_kill_channel,
+}
+impl Default for switch_io_event_hook_kill_channel {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17606,11 +18614,29 @@ pub struct switch_io_event_hook_send_dtmf {
     pub send_dtmf: switch_send_dtmf_hook_t,
     pub next: *mut switch_io_event_hook_send_dtmf,
 }
+impl Default for switch_io_event_hook_send_dtmf {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_recv_dtmf {
     pub recv_dtmf: switch_recv_dtmf_hook_t,
     pub next: *mut switch_io_event_hook_recv_dtmf,
+}
+impl Default for switch_io_event_hook_recv_dtmf {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17618,11 +18644,29 @@ pub struct switch_io_event_hook_state_change {
     pub state_change: switch_state_change_hook_t,
     pub next: *mut switch_io_event_hook_state_change,
 }
+impl Default for switch_io_event_hook_state_change {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct switch_io_event_hook_state_run {
     pub state_run: switch_state_run_hook_t,
     pub next: *mut switch_io_event_hook_state_run,
+}
+impl Default for switch_io_event_hook_state_run {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -17641,6 +18685,15 @@ pub struct switch_io_event_hooks {
     pub recv_dtmf: *mut switch_io_event_hook_recv_dtmf_t,
     pub state_change: *mut switch_io_event_hook_state_change_t,
     pub state_run: *mut switch_io_event_hook_state_run_t,
+}
+impl Default for switch_io_event_hooks {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_core_session_get_event_hooks(
@@ -17827,6 +18880,15 @@ pub struct switch_scheduler_task {
     pub task_id: u32,
     pub hash: ::std::os::raw::c_ulong,
 }
+impl Default for switch_scheduler_task {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 extern "C" {
     pub fn switch_scheduler_add_task(
         task_runtime: time_t,
@@ -17875,6 +18937,15 @@ pub struct switch_config {
     pub catno: ::std::os::raw::c_int,
     pub sectno: ::std::os::raw::c_int,
     pub lockto: ::std::os::raw::c_int,
+}
+impl Default for switch_config {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_config_open_file(
@@ -18272,6 +19343,15 @@ pub struct msrp_msg_s {
     pub payload: *mut ::std::os::raw::c_char,
     pub next: *mut msrp_msg_s,
 }
+impl Default for msrp_msg_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
+}
 pub type switch_msrp_msg_t = msrp_msg_s;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -18303,6 +19383,15 @@ pub struct switch_msrp_session_s {
     pub running: ::std::os::raw::c_int,
     pub user_data: *mut ::std::os::raw::c_void,
     pub send_queue: *mut switch_queue_t,
+}
+impl Default for switch_msrp_session_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 extern "C" {
     pub fn switch_msrp_init() -> switch_status_t;
@@ -18551,6 +19640,15 @@ pub struct switch_core_media_params_s {
     pub video_key_freq: u32,
     pub video_key_first: u32,
     pub video_write_thread: *mut switch_thread_t,
+}
+impl Default for switch_core_media_params_s {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type switch_core_media_params_t = switch_core_media_params_s;
 extern "C" {
@@ -19421,7 +20519,7 @@ extern "C" {
     pub fn switch_jb_get_packets_per_frame(jb: *mut switch_jb_t) -> u32;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct kalman_estimator_s {
     pub val_estimate_last: f32,
     pub P_last: f32,
@@ -19433,7 +20531,7 @@ pub struct kalman_estimator_s {
     pub val_measured: f32,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct cusum_kalman_detector_s {
     pub val_estimate_last: f32,
     pub val_desired_last: f32,
@@ -19523,7 +20621,7 @@ extern "C" {
 }
 pub type teletone_process_t = f64;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_tone_map_t {
     pub freqs: [teletone_process_t; 18usize],
 }
@@ -19531,7 +20629,7 @@ extern "C" {
     pub fn powf(arg1: f32, arg2: f32) -> f32;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_dds_state {
     pub phase_rate: [u32; 4usize],
     pub scale_factor: u32,
@@ -19573,6 +20671,15 @@ pub struct teletone_generation_session {
     pub samples: ::std::os::raw::c_int,
     pub dynamic: ::std::os::raw::c_int,
     pub handler: tone_handler,
+}
+impl Default for teletone_generation_session {
+    fn default() -> Self {
+        let mut s = ::std::mem::MaybeUninit::<Self>::uninit();
+        unsafe {
+            ::std::ptr::write_bytes(s.as_mut_ptr(), 0, 1);
+            s.assume_init()
+        }
+    }
 }
 pub type teletone_generation_session_t = teletone_generation_session;
 extern "C" {
@@ -19626,14 +20733,14 @@ impl teletone_hit_type_t {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct teletone_hit_type_t(pub ::std::os::raw::c_uint);
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_goertzel_state_t {
     pub v2: f32,
     pub v3: f32,
     pub fac: f64,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_dtmf_detect_state_t {
     pub hit1: ::std::os::raw::c_int,
     pub hit2: ::std::os::raw::c_int,
@@ -19655,12 +20762,12 @@ pub struct teletone_dtmf_detect_state_t {
     pub digit_hits: [::std::os::raw::c_int; 16usize],
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_detection_descriptor_t {
     pub fac: f32,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Default, Copy, Clone)]
 pub struct teletone_multi_tone_t {
     pub sample_rate: ::std::os::raw::c_int,
     pub tdd: [teletone_detection_descriptor_t; 18usize],
