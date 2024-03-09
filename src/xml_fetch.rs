@@ -61,7 +61,7 @@ impl Binding {
 
 mod pre {
     use fsr::*;
-    fn expand_vars(s: &str) -> String {
+    pub fn expand_vars(s: &str) -> String {
         let mut expand = String::from(s);
         for (pos, _) in s.match_indices("$${") {
             let end = (s[pos..]).to_string().find("}");
@@ -117,13 +117,12 @@ mod pre {
         for line in text.lines() {
             for cap in re.captures_iter(&line) {
                 let (full, [cmd, data]) = cap.extract();
-                let expand = expand_vars(data);
                 if cmd.eq_ignore_ascii_case("set") {
-                    set(&expand)
+                    set(&data)
                 } else if cmd.eq_ignore_ascii_case("stun-set") {
-                    stun_set(&expand)
+                    stun_set(&data)
                 } else if cmd.eq_ignore_ascii_case("env-set") {
-                    env_set(&expand)
+                    env_set(&data)
                 } else {
                     warn!("Unsupported pre process command {}", full);
                 }
@@ -166,11 +165,10 @@ fn xml_fetch(data: String) -> String {
                         if binding.debug {
                             debug!("XML Fetch:\n{}\n{}", request, body);
                         }
-
-                        pre::process(binding.re.clone(), &body);
-
-                        if body.len() > 0 {
-                            return body;
+                        let text = pre::expand_vars(&body);
+                        pre::process(binding.re.clone(), &text);
+                        if text.len() > 0 {
+                            return text;
                         }
                         warn!("XML Fetch recv empty response!!!");
                     }
