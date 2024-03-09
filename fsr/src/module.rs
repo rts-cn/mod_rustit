@@ -62,8 +62,8 @@ impl Module {
         self.pool
     }
 
-    unsafe fn create_int(&self, iname: switch_module_interface_name_t) -> *mut c_void {
-        switch_loadable_module_create_interface((*self).module, iname)
+    pub fn create_interface(&self, iname: switch_module_interface_name_t) -> *mut c_void {
+        unsafe { switch_loadable_module_create_interface((*self).module, iname) }
     }
 
     pub fn add_api(&self, name: &str, desc: &str, syntax: &str, func: switch_api_function_t) {
@@ -71,7 +71,7 @@ impl Module {
             let name = strdup!(self.pool(), name);
             let desc = strdup!(self.pool(), desc);
             let syntax = strdup!(self.pool(), syntax);
-            let api = self.create_int(switch_module_interface_name_t::SWITCH_API_INTERFACE)
+            let api = self.create_interface(switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut switch_api_interface_t;
             assert!(!api.is_null());
             (*api).interface_name = name;
@@ -95,7 +95,7 @@ impl Module {
             let long_desc = strdup!(self.pool(), long_desc);
             let short_desc = strdup!(self.pool(), short_desc);
             let syntax = strdup!(self.pool(), syntax);
-            let app = self.create_int(switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
+            let app = self.create_interface(switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut switch_application_interface;
             assert!(!app.is_null());
             (*app).interface_name = name;
