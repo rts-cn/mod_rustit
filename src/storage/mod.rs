@@ -1,9 +1,4 @@
-use std::{
-    ffi::CString,
-    fs,
-    path::Path,
-    sync::{Arc, Mutex},
-};
+use std::{ffi::CString, fs, path::Path, sync::Mutex};
 
 use fsr::*;
 use lazy_static::lazy_static;
@@ -25,7 +20,7 @@ pub struct Profile {
     /// cache temp files path
     pub cache_dir: String,
     /// http cache
-    cached: Option<Arc<Mutex<Cache>>>,
+    cached: Option<Cache>,
 }
 
 impl Profile {
@@ -158,15 +153,10 @@ pub fn load_config(cfg: switch_xml_t) {
             }
 
             if profile.url.starts_with("http://") || profile.url.starts_with("https://") {
-                let client = reqwest::blocking::Client::builder()
-                    .use_rustls_tls()
-                    .build()
-                    .unwrap();
-                let cached_path = Path::new(&profile.cache_dir);
-                let cached = cache::Cache::new(cached_path.to_path_buf(), client);
+                let cached = cache::Cache::new(&profile.cache_dir);
                 match cached {
                     Ok(cached) => {
-                        profile.cached = Some(Arc::new(Mutex::new(cached)));
+                        profile.cached = Some(cached);
                         GOLOBAS.lock().unwrap().profiles.push(profile);
                     }
                     Err(e) => {
@@ -228,7 +218,7 @@ unsafe extern "C" fn vfs_file_open(
                 (*fh).prefix = (*handle).prefix;
             } else {
                 if let Some(cached) = profile.cached {
-                    context.cache_file = cached.lock().unwrap().load_cache_file(&context.file_url);
+                    context.cache_file = cached.load_cache_file(&context.file_url);
                 }
                 if context.cache_file.is_empty() {
                     return switch_status_t::SWITCH_STATUS_FALSE;

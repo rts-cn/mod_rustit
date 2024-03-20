@@ -1,15 +1,17 @@
+use std::collections::HashMap;
 use std::error;
 use std::fs;
 use std::io;
 use std::path;
 use std::path::Path;
 use std::path::PathBuf;
+use std::sync::Arc;
+use std::sync::Mutex;
 
 use fsr::*;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use redb::{ReadableTable, TableDefinition};
-use reqwest::blocking::Client;
 use reqwest::header as rh;
 use serde::{Deserialize, Serialize};
 
@@ -82,7 +84,7 @@ fn canonicalize_db_path(path: path::PathBuf) -> Result<path::PathBuf, Box<dyn er
 /// Represents the database that describes the contents of the cache.
 pub struct CacheDB {
     path: path::PathBuf,
-    db: redb::Database,
+    db: Mutex<redb::Database>,
 }
 
 const TABLE: TableDefinition<&str, CacheRecord> = TableDefinition::new("urls");
@@ -95,15 +97,18 @@ impl CacheDB {
         let db = redb::Database::create(path.clone())?;
         // Package up the return value first, so we can use .query()
         // instead of wrangling sqlite directly.
-        let res = CacheDB { path, db };
+        let res = CacheDB {
+            path,
+            db: Mutex::new(db),
+        };
         Ok(res)
     }
 
     /// Return what the DB knows about a URL, if anything.
     pub fn get(&self, mut url: reqwest::Url) -> Result<CacheRecord, Box<dyn error::Error>> {
         url.set_fragment(None);
-
-        let read_txn = self.db.begin_read()?;
+        let db = self.db.lock().unwrap();
+        let read_txn = db.begin_read()?;
         let table = read_txn.open_table(TABLE)?;
         let key = url.as_str();
         let value = table.get(key)?.unwrap().value();
@@ -112,18 +117,20 @@ impl CacheDB {
 
     /// Record information about this information in the database.
     pub fn set(
-        &mut self,
+        &self,
         mut url: reqwest::Url,
         record: CacheRecord,
-    ) -> Result<redb::WriteTransaction, Box<dyn error::Error>> {
+    ) -> Result<(), Box<dyn error::Error>> {
         url.set_fragment(None);
 
-        let write_txn = self.db.begin_write()?;
+        let db = self.db.lock().unwrap();
+        let write_txn = db.begin_write()?;
         {
             let mut table = write_txn.open_table(TABLE)?;
             table.insert(url.as_str(), &record)?;
         }
-        Ok(write_txn)
+        write_txn.commit()?;
+        Ok(())
     }
 }
 
@@ -187,11 +194,12 @@ fn header_as_string(headers: &rh::HeaderMap, key: &rh::HeaderName) -> Option<Str
 /// See [an example](index.html#first-example).
 ///
 /// [`Cache`]: struct.Cache.html
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Cache {
     root: path::PathBuf,
-    db: CacheDB,
+    db: Arc<CacheDB>,
     client: reqwest::blocking::Client,
+    file_lock: Arc<Mutex<HashMap<String, bool>>>,
 }
 
 impl Cache {
@@ -238,19 +246,48 @@ impl Cache {
     /// In all cases, it should be safe to blow away the entire directory
     /// and start from scratch.
     /// It's only cached data, after all.
-    pub fn new(root: path::PathBuf, client: Client) -> Result<Cache, Box<dyn error::Error>> {
+    pub fn new(root: &str) -> Result<Cache, Box<dyn error::Error>> {
+        let root = Path::new(root).to_path_buf();
+
         fs::DirBuilder::new().recursive(true).create(&root)?;
 
         let db = CacheDB::new(root.join("cache.db"))?;
 
-        Ok(Cache { root, db, client })
+        let client = reqwest::blocking::Client::builder()
+            .use_rustls_tls()
+            .build()
+            .unwrap();
+
+        Ok(Cache {
+            root,
+            db: Arc::new(db),
+            client,
+            file_lock: Arc::new(Mutex::new(HashMap::new())),
+        })
+    }
+
+    fn lock_file(&self, uri: &str, lock: bool) {
+        if lock {
+            loop {
+                let lock = self.file_lock.lock().unwrap();
+                let state = lock.get(uri);
+                if state.is_none() {
+                    break;
+                }
+                drop(lock);
+                std::thread::sleep(std::time::Duration::from_millis(1000));
+            }
+            self.file_lock.lock().unwrap().insert(uri.to_string(), true);
+        } else {
+            self.file_lock.lock().unwrap().remove(uri);
+        }
     }
 
     fn record_response(
-        &mut self,
+        &self,
         url: reqwest::Url,
-        response: &reqwest::blocking::Response,
-    ) -> Result<(fs::File, path::PathBuf, redb::WriteTransaction), Box<dyn error::Error>> {
+        mut response: reqwest::blocking::Response,
+    ) -> Result<PathBuf, Box<dyn error::Error>> {
         let content_dir = self.root.join("content");
         fs::DirBuilder::new().recursive(true).create(&content_dir)?;
 
@@ -263,27 +300,30 @@ impl Cache {
             }
         }
 
-        let (handle, path) = make_random_file(&content_dir, extension)?;
-        let trans = {
-            // We can be sure the relative path is valid UTF-8, because
-            // make_random_file() just generated it from ASCII.
-            let path = path.strip_prefix(&self.root)?.to_str().unwrap().into();
+        let (mut handle, file_path) = make_random_file(&content_dir, extension)?;
 
-            let last_modified = header_as_string(response.headers(), &rh::LAST_MODIFIED);
+        // We can be sure the relative path is valid UTF-8, because
+        // make_random_file() just generated it from ASCII.
+        let path = file_path.strip_prefix(&self.root)?.to_str().unwrap().into();
 
-            let etag = header_as_string(response.headers(), &rh::ETAG);
+        let last_modified = header_as_string(response.headers(), &rh::LAST_MODIFIED);
 
-            self.db.set(
-                url,
-                CacheRecord {
-                    path,
-                    last_modified,
-                    etag,
-                },
-            )?
-        };
+        let etag = header_as_string(response.headers(), &rh::ETAG);
 
-        Ok((handle, path, trans))
+        let count = io::copy(&mut response, &mut handle)?;
+
+        debug!("Downloaded {} bytes", count);
+
+        self.db.set(
+            url,
+            CacheRecord {
+                path,
+                last_modified,
+                etag,
+            },
+        )?;
+
+        Ok(file_path)
     }
 
     /// Retrieve the content of the given URL.
@@ -337,12 +377,12 @@ impl Cache {
     /// the on-disk storage *should* be OK,
     /// so you might want to destroy this `Cache` instance
     /// and create a new one pointing at the same location.
-    pub fn get(&mut self, mut url: reqwest::Url) -> Result<PathBuf, Box<dyn error::Error>> {
+    pub fn get(&self, mut url: reqwest::Url) -> Result<PathBuf, Box<dyn error::Error>> {
         use reqwest::StatusCode;
 
         url.set_fragment(None);
 
-        let mut response = match self.db.get(url.clone()) {
+        let response = match self.db.get(url.clone()) {
             Ok(CacheRecord {
                 path: p,
                 last_modified: lm,
@@ -364,7 +404,7 @@ impl Cache {
                         .append(rh::IF_NONE_MATCH, rh::HeaderValue::from_str(&etag)?);
                 }
 
-                info!("Sending HTTP request: {:?}", request);
+                debug!("Sending HTTP request: {:?}", request);
 
                 let maybe_validation = self
                     .client
@@ -373,7 +413,7 @@ impl Cache {
 
                 match maybe_validation {
                     Ok(new_response) => {
-                        info!("Got HTTP response: {:?}", new_response);
+                        debug!("Got HTTP response: {:?}", new_response);
 
                         // If our existing cached data is still fresh...
                         if new_response.status() == StatusCode::NOT_MODIFIED {
@@ -402,25 +442,20 @@ impl Cache {
             }
         };
 
-        let (mut handle, path, trans) = self.record_response(url.clone(), &response)?;
-
-        let count = io::copy(&mut response, &mut handle)?;
-
-        debug!("Downloaded {} bytes", count);
-
-        trans.commit()?;
-
+        let path = self.record_response(url.clone(), response)?;
         Ok(path)
     }
 
-    pub fn load_cache_file(&mut self, url: &str) -> String {
-        let url = reqwest::Url::parse(url);
+    pub fn load_cache_file(&self, uri: &str) -> String {
+        let mut cache_file = String::new();
+        self.lock_file(uri, true);
+        let url = reqwest::Url::parse(uri);
         match url {
             Ok(url) => {
                 let response = self.get(url);
                 match response {
                     Ok(response) => {
-                        return response.to_str().unwrap_or_default().to_string();
+                        cache_file = response.to_str().unwrap_or_default().to_string();
                     }
                     Err(e) => {
                         error!("{}", e);
@@ -431,6 +466,7 @@ impl Cache {
                 error!("{}", e);
             }
         }
-        "".to_string()
+        self.lock_file(uri, false);
+        cache_file
     }
 }
