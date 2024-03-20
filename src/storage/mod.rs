@@ -1,10 +1,19 @@
-use std::{ffi::CString, fs, path::Path, sync::RwLock};
+use std::{
+    ffi::CString,
+    fs,
+    path::Path,
+    sync::{Arc, Mutex},
+};
 
 use fsr::*;
 use lazy_static::lazy_static;
 use libc::c_char;
 
-#[derive(Debug, Clone, Default)]
+use self::cache::Cache;
+
+pub mod cache;
+
+#[derive(Debug, Clone)]
 pub struct Profile {
     pub name: String,
     /// time to keep files when discoverd they were deleted from the http server
@@ -15,11 +24,14 @@ pub struct Profile {
     pub url: String,
     /// cache temp files path
     pub cache_dir: String,
+    /// http cache
+    cached: Option<Arc<Mutex<Cache>>>,
 }
 
 impl Profile {
     pub fn new() -> Profile {
         Profile {
+            cached: None,
             name: "".to_string(),
             file_not_found_expires: 1,
             file_cache_ttl: 1,
@@ -39,7 +51,7 @@ impl Global {
         }
     }
     pub fn get(name: &str) -> Option<Profile> {
-        for profile in &GOLOBAS.read().unwrap().profiles {
+        for profile in &GOLOBAS.lock().unwrap().profiles {
             if profile.name.eq_ignore_ascii_case(name) {
                 return Some(profile.clone());
             }
@@ -49,11 +61,12 @@ impl Global {
 }
 
 lazy_static! {
-    static ref GOLOBAS: RwLock<Global> = RwLock::new(Global::new());
+    static ref GOLOBAS: Mutex<Global> = Mutex::new(Global::new());
 }
 
 #[derive(Debug, Clone)]
 struct FileContext {
+    pub file_url: String,
     pub file_path: String,
     pub stream: String,
     pub cache_file: String,
@@ -64,6 +77,7 @@ struct FileContext {
 impl FileContext {
     pub fn new() -> FileContext {
         FileContext {
+            file_url: "".to_string(),
             stream: "".to_string(),
             file_path: "".to_string(),
             cache_file: "".to_string(),
@@ -144,7 +158,21 @@ pub fn load_config(cfg: switch_xml_t) {
             }
 
             if profile.url.starts_with("http://") || profile.url.starts_with("https://") {
-                GOLOBAS.write().unwrap().profiles.push(profile);
+                let client = reqwest::blocking::Client::builder()
+                    .use_rustls_tls()
+                    .build()
+                    .unwrap();
+                let cached_path = Path::new(&profile.cache_dir);
+                let cached = cache::Cache::new(cached_path.to_path_buf(), client);
+                match cached {
+                    Ok(cached) => {
+                        profile.cached = Some(Arc::new(Mutex::new(cached)));
+                        GOLOBAS.lock().unwrap().profiles.push(profile);
+                    }
+                    Err(e) => {
+                        error!("Failed to create cache {}", e);
+                    }
+                }
             }
             storage_tag = (*storage_tag).next;
         }
@@ -158,76 +186,98 @@ unsafe extern "C" fn vfs_file_open(
     let stream_name = to_string((*handle).stream_name);
     let file_path = to_string(file_path);
     let mut cache_file = "".to_string();
-
     let profile = Global::get(&stream_name);
-    if let Some(profile) = profile {
-        let cache_dir = profile.cache_dir.clone();
-        let path = Path::new(&cache_dir);
-        let path = path.join(&file_path);
-        let path = path.to_str();
-        if let Some(path) = path {
-            cache_file = path.to_string();
+    match profile {
+        None => {
+            return switch_status_t::SWITCH_STATUS_FALSE;
+        }
+        Some(profile) => {
+            let cache_dir = profile.cache_dir.clone();
+            let path = Path::new(&cache_dir);
+            let path = path.join(&file_path);
+            let path = path.to_str();
+            if let Some(path) = path {
+                cache_file = path.to_string();
+            }
+
+            let mut context = Box::new(FileContext::new());
+            context.file_url = format!("{}/{}", profile.url, file_path);
+            context.file_path = file_path;
+            context.stream = stream_name;
+
+            let fh = context.file_ptr();
+            if ((*handle).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_WRITE.0) != 0 {
+                // allocate local file in cache
+                let cached_path = Path::new(&cache_file).parent().unwrap();
+                if !cached_path.exists() {
+                    match fs::create_dir_all(&cached_path) {
+                        Ok(_) => {
+                            debug!("Cached directory created.");
+                        }
+                        Err(e) => {
+                            debug!("Error creating directory: {}", e);
+                            return switch_status_t::SWITCH_STATUS_FALSE;
+                        }
+                    }
+                }
+                context.cache_file = cache_file.clone();
+                (*fh).channels = (*handle).channels;
+                (*fh).native_rate = (*handle).native_rate;
+                (*fh).samples = (*handle).samples;
+                (*fh).samplerate = (*handle).samplerate;
+                (*fh).prefix = (*handle).prefix;
+            } else {
+                if let Some(cached) = profile.cached {
+                    context.cache_file = cached.lock().unwrap().load_cache_file(&context.file_url);
+                }
+                if context.cache_file.is_empty() {
+                    return switch_status_t::SWITCH_STATUS_FALSE;
+                }
+            }
+
+            let cache_file = CString::new(context.cache_file.clone()).unwrap();
+            let status = switch_core_perform_file_open(
+                concat!(file!(), '\0').as_ptr() as *const c_char,
+                std::ptr::null_mut(),
+                line!() as libc::c_int,
+                fh,
+                cache_file.as_ptr(),
+                (*handle).channels,
+                (*handle).samplerate,
+                (*handle).flags,
+                std::ptr::null_mut(),
+            );
+
+            if status != switch_status_t::SWITCH_STATUS_SUCCESS {
+                error!("Invalid cache file {}.", context.cache_file);
+                return status;
+            }
+
+            if ((*fh).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0) != 0 {
+                (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0;
+            } else {
+                (*handle).flags &= !switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0;
+            }
+
+            (*handle).private_info = Box::leak(context) as *mut _ as *mut std::ffi::c_void;
+            (*handle).samples = (*fh).samples;
+            (*handle).format = (*fh).format;
+            (*handle).sections = (*fh).sections;
+            (*handle).seekable = (*fh).seekable;
+            (*handle).speed = (*fh).speed;
+            (*handle).interval = (*fh).interval;
+            (*handle).channels = (*fh).channels;
+            (*handle).cur_channels = (*fh).cur_channels;
+            (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_NOMUX.0;
+
+            if ((*fh).flags & switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0) != 0 {
+                (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0;
+            } else {
+                (*handle).flags &= !switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0;
+            }
+            status
         }
     }
-
-    let mut context = Box::new(FileContext::new());
-
-    context.file_path = file_path;
-    context.stream = stream_name;
-    context.cache_file = cache_file;
-
-    let cache_file = CString::new(context.cache_file.clone()).unwrap();
-
-    let fh = context.file_ptr();
-
-    if ((*handle).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_WRITE.0) != 0 {
-        (*fh).channels = (*handle).channels;
-        (*fh).native_rate = (*handle).native_rate;
-        (*fh).samples = (*handle).samples;
-        (*fh).samplerate = (*handle).samplerate;
-        (*fh).prefix = (*handle).prefix;
-    }
-
-    let status = switch_core_perform_file_open(
-        concat!(file!(), '\0').as_ptr() as *const c_char,
-        std::ptr::null_mut(),
-        line!() as libc::c_int,
-        fh,
-        cache_file.as_ptr(),
-        (*handle).channels,
-        (*handle).samplerate,
-        (*handle).flags,
-        std::ptr::null_mut(),
-    );
-
-    if status != switch_status_t::SWITCH_STATUS_SUCCESS {
-        error!("Invalid cache file {}.", context.cache_file);
-        return status;
-    }
-
-    if ((*fh).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0) != 0 {
-        (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0;
-    } else {
-        (*handle).flags &= !switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0;
-    }
-
-    (*handle).private_info = Box::leak(context) as *mut _ as *mut std::ffi::c_void;
-    (*handle).samples = (*fh).samples;
-    (*handle).format = (*fh).format;
-    (*handle).sections = (*fh).sections;
-    (*handle).seekable = (*fh).seekable;
-    (*handle).speed = (*fh).speed;
-    (*handle).interval = (*fh).interval;
-    (*handle).channels = (*fh).channels;
-    (*handle).cur_channels = (*fh).cur_channels;
-    (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_NOMUX.0;
-
-    if ((*fh).flags & switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0) != 0 {
-        (*handle).flags |= switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0;
-    } else {
-        (*handle).flags &= !switch_file_flag_enum_t::SWITCH_FILE_NATIVE.0;
-    }
-    status
 }
 
 unsafe extern "C" fn vfs_file_close(handle: *mut switch_file_handle_t) -> switch_status_t {
@@ -308,11 +358,11 @@ unsafe extern "C" fn vfs_file_write_video(
 }
 
 pub fn shutdown() {
-    GOLOBAS.write().unwrap().profiles.clear();
+    GOLOBAS.lock().unwrap().profiles.clear();
 }
 
 pub fn start(m: &fsr::Module, name: &str) {
-    let profiles = &GOLOBAS.read().unwrap().profiles;
+    let profiles = &GOLOBAS.lock().unwrap().profiles;
 
     for profile in profiles {
         notice!(
@@ -320,19 +370,6 @@ pub fn start(m: &fsr::Module, name: &str) {
             profile.name,
             profile.url
         );
-
-        // build cached dir
-        let cached_patch = Path::new(&profile.cache_dir);
-        if !cached_patch.exists() {
-            match fs::create_dir_all(&cached_patch) {
-                Ok(_) => {
-                    debug!("Cached directory created.");
-                }
-                Err(e) => {
-                    debug!("Error creating directory: {}", e);
-                }
-            }
-        }
 
         unsafe {
             let extens = switch_alloc!(
