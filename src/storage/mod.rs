@@ -182,8 +182,7 @@ unsafe extern "C" fn vfs_file_open(
             return switch_status_t::SWITCH_STATUS_FALSE;
         }
         Some(profile) => {
-            let cache_dir = profile.cache_dir.clone();
-            let path = Path::new(&cache_dir);
+            let path = Path::new(&profile.cache_dir);
             let path = path.join(&file_path);
             let path = path.to_str();
             if let Some(path) = path {
@@ -210,7 +209,7 @@ unsafe extern "C" fn vfs_file_open(
                         }
                     }
                 }
-                context.cache_file = cache_file.clone();
+                context.cache_file = cache_file;
                 (*fh).channels = (*handle).channels;
                 (*fh).native_rate = (*handle).native_rate;
                 (*fh).samples = (*handle).samples;

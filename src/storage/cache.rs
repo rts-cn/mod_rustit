@@ -94,7 +94,7 @@ impl CacheDB {
     pub fn new(path: path::PathBuf) -> Result<CacheDB, Box<dyn error::Error>> {
         let path = canonicalize_db_path(path)?;
         debug!("Creating cache metadata in {:?}", path);
-        let db = redb::Database::create(path.clone())?;
+        let db = redb::Database::create(&path)?;
         // Package up the return value first, so we can use .query()
         // instead of wrangling sqlite directly.
         let res = CacheDB {

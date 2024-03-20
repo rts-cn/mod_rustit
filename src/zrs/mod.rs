@@ -93,8 +93,7 @@ fn tokio_main(
         let remote_addr = req.remote_addr();
         if let Some(remote_addr) = remote_addr {
             let remote_addr_str = remote_addr.ip().to_string();
-            let apply_inbound_acl = acl.clone();
-            if fsr::check_acl(&remote_addr_str, &apply_inbound_acl) {
+            if fsr::check_acl(&remote_addr_str, &acl) {
                 return Ok(req);
             }
         }
@@ -102,8 +101,7 @@ fn tokio_main(
         let authorization = req.metadata().get("authorization");
         match authorization {
             Some(t) => {
-                let password = password.clone();
-                let digest = format!("bearer {:x}", md5::compute(password));
+                let digest = format!("bearer {:x}", md5::compute(&password));
                 let token = t.to_str().unwrap();
                 if digest.eq_ignore_ascii_case(token) {
                     Ok(req)

@@ -94,18 +94,15 @@ lazy_static! {
 
 pub fn start() {
     let cdr_profile = GOLOBAS.read().unwrap().profile.clone();
-    match cdr_profile {
-        None => (),
-        Some(cdr_profile) => {
-            notice!(
-                "Add CDR handler [{}] [{}] [{}]",
-                cdr_profile.name,
-                cdr_profile.url,
-                cdr_profile.format
-            );
-            unsafe { switch_core_add_state_handler(&STATE_HANDLERS) };
-            GOLOBAS.write().unwrap().running = true;
-        }
+    if let Some(cdr_profile) = cdr_profile {
+        notice!(
+            "Add CDR handler [{}] [{}] [{}]",
+            cdr_profile.name,
+            cdr_profile.url,
+            cdr_profile.format
+        );
+        unsafe { switch_core_add_state_handler(&STATE_HANDLERS) };
+        GOLOBAS.write().unwrap().running = true;
     }
 }
 
@@ -312,7 +309,7 @@ fn generate_cdr(
     }
 
     let uuid = unsafe { to_string(switch_core_session_get_uuid(session)) };
-    let filename = format!("{}{}.cdr.{}", a_prefix, uuid, profile.format.clone());
+    let filename = format!("{}{}.cdr.{}", a_prefix, uuid, profile.format);
     let cdr_data = CdrData {
         fromat: profile.format.clone(),
         filename,
@@ -324,7 +321,6 @@ fn generate_cdr(
 }
 
 fn process_cdr(profile: Profile, cdr_data: CdrData) {
-    let url = profile.url.clone();
     let mut success = false;
 
     if profile.log_http_and_disk {
@@ -334,7 +330,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
         let path = path.join(now.format("%m%d").to_string());
         let mut ok = false;
         if !path.exists() {
-            let ret = fs::create_dir_all(path.clone());
+            let ret = fs::create_dir_all(path.as_path());
             match ret {
                 Ok(()) => {
                     ok = true;
@@ -347,8 +343,8 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
             ok = false;
         }
         if ok {
-            let path = path.join(cdr_data.filename.clone());
-            let r = fs::write(path, cdr_data.text.clone());
+            let path = path.join(&cdr_data.filename);
+            let r = fs::write(path, &cdr_data.text);
             match r {
                 Ok(_) => {}
                 Err(e) => {
@@ -366,10 +362,9 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
         if cdr_data.fromat.eq_ignore_ascii_case("json") {
             context = "text/xml";
         }
-
         let response = profile
             .client
-            .post(url.clone())
+            .post(profile.url.as_str())
             .header(reqwest::header::CONTENT_TYPE, context)
             .timeout(Duration::from_millis(profile.timeout))
             .body(cdr_data.text.clone())
@@ -380,7 +375,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
                     error!(
                         "Got error [{}] posting to web server [{}]",
                         response.status().as_str(),
-                        url.clone()
+                        profile.url
                     );
                     if cur_try < profile.retries {
                         warn!("Retry will be with url [{}]", profile.url);
@@ -397,11 +392,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
     }
 
     if !success {
-        error!(
-            "Unable to post cdr to web server [{}]",
-            cdr_data.uuid.clone()
-        );
-
+        error!("Unable to post cdr to web server [{}]", &cdr_data.uuid);
         if profile.log_errors_to_disk {
             let path = Path::new(&profile.err_log_dir);
             let now = chrono::Local::now();
@@ -409,7 +400,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
             let path = path.join(now.format("%m%d").to_string());
             let mut ok = false;
             if !path.exists() {
-                let ret = fs::create_dir_all(path.clone());
+                let ret = fs::create_dir_all(path.as_path());
                 match ret {
                     Ok(()) => ok = true,
                     Err(e) => {
@@ -421,7 +412,7 @@ fn process_cdr(profile: Profile, cdr_data: CdrData) {
             }
 
             if ok {
-                let path = path.join(cdr_data.filename.clone());
+                let path = path.join(&cdr_data.filename);
                 let r = fs::write(path, cdr_data.text);
                 match r {
                     Ok(_) => {}
