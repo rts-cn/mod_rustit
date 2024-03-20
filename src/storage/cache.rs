@@ -421,6 +421,9 @@ impl Cache {
                             return Ok(self.root.join(p));
                         }
 
+                        // Remove expired cache files
+                        fs::remove_file(p)?;
+
                         // Otherwise, we got a new response we need to cache.
                         new_response
                     }
