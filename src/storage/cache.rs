@@ -15,21 +15,24 @@ use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use redb::{ReadableTable, TableDefinition};
 use reqwest::header as rh;
-use serde::{Deserialize, Serialize};
 use tokio::sync::mpsc;
 use tokio_util::codec::BytesCodec;
 use tokio_util::codec::FramedRead;
 
 /// All the information we have about a given URL.
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, prost::Message)]
 pub struct CacheRecord {
     /// The path to the cached response body on disk.
+    #[prost(string, tag = "1")]
     pub path: String,
     /// The value of the Last-Modified header in the original response.
+    #[prost(string, optional, tag = "2")]
     pub last_modified: Option<String>,
     /// The value of the Etag header in the original response.
+    #[prost(string, optional, tag = "3")]
     pub etag: Option<String>,
     /// The value of the whether it has been uploaded to the server
+    #[prost(bool, tag = "4")]
     pub synchronized: bool,
 }
 
@@ -57,7 +60,7 @@ impl redb::RedbValue for CacheRecord {
     where
         Self: 'a,
     {
-        let record: Result<CacheRecord, serde_json::Error> = serde_json::from_slice(data);
+        let record = prost::Message::decode(data);
         match record {
             Ok(record) => record,
             Err(_) => CacheRecord {
@@ -74,7 +77,7 @@ impl redb::RedbValue for CacheRecord {
         Self: 'a,
         Self: 'b,
     {
-        serde_json::to_vec(value).unwrap_or_default()
+        prost::Message::encode_to_vec(value)
     }
 
     fn type_name() -> redb::TypeName {
