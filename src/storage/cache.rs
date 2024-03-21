@@ -57,9 +57,7 @@ impl redb::RedbValue for CacheRecord {
     where
         Self: 'a,
     {
-        let json = String::from_utf8(data.to_vec()).unwrap_or_default();
-        let record: Result<CacheRecord, serde_json::Error> = serde_json::from_str(&json);
-
+        let record: Result<CacheRecord, serde_json::Error> = serde_json::from_slice(data);
         match record {
             Ok(record) => record,
             Err(_) => CacheRecord {
