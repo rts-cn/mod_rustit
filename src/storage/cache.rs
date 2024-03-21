@@ -131,13 +131,22 @@ impl CacheDB {
 
     /// Record information about this information in the database.
     pub fn set(&self, url: &str, record: CacheRecord) -> Result<(), Box<dyn error::Error>> {
+        let mut old_file = String::new();
         let db = self.db.lock().unwrap();
         let write_txn = db.begin_write()?;
         {
             let mut table = write_txn.open_table(TABLE)?;
-            table.insert(url, &record)?;
+            let old_value = table.insert(url, &record)?;
+            if let Some(old_value) = old_value {
+                old_file = old_value.value().path;
+            }
         }
         write_txn.commit()?;
+
+        if !old_file.is_empty() && !old_file.eq(&record.path) {
+            // Remove expired cache files
+            let _ = fs::remove_file(old_file);
+        }
         Ok(())
     }
 }
@@ -495,9 +504,6 @@ impl Cache {
                             debug!("Hit cache, using the local cache data");
                             return Ok(self.root.join(p));
                         }
-
-                        // Remove expired cache files
-                        fs::remove_file(p)?;
 
                         // Otherwise, we got a new response we need to cache.
                         debug!("Cache expires, remove expired cache files, refresh cache!");
