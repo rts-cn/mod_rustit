@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use std::error;
+use std::error::Error;
 use std::fs;
 use std::io;
 use std::path;
@@ -7,6 +8,7 @@ use std::path::Path;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::Mutex;
+use std::thread;
 
 use fsr::*;
 use rand::distributions::Alphanumeric;
@@ -14,6 +16,9 @@ use rand::{thread_rng, Rng};
 use redb::{ReadableTable, TableDefinition};
 use reqwest::header as rh;
 use serde::{Deserialize, Serialize};
+use tokio::sync::mpsc;
+use tokio_util::codec::BytesCodec;
+use tokio_util::codec::FramedRead;
 
 /// All the information we have about a given URL.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -26,6 +31,14 @@ pub struct CacheRecord {
     pub etag: Option<String>,
     /// The value of the whether it has been uploaded to the server
     pub synchronized: bool,
+}
+
+pub struct Event {
+    pub done: bool,
+    /// The path to the cached file on disk.
+    pub path: String,
+    /// The url to update
+    pub url: String,
 }
 
 impl redb::RedbValue for CacheRecord {
@@ -193,6 +206,7 @@ pub struct Cache {
     db: Arc<CacheDB>,
     client: reqwest::blocking::Client,
     file_lock: Arc<Mutex<HashMap<String, bool>>>,
+    event: tokio::sync::mpsc::Sender<Event>,
 }
 
 impl Cache {
@@ -257,12 +271,114 @@ impl Cache {
         let content_dir = root.join("upload");
         fs::DirBuilder::new().recursive(true).create(&content_dir)?;
 
-        Ok(Cache {
+        let (tx, rx) = mpsc::channel::<Event>(10);
+
+        let cached = Cache {
             root,
             db: Arc::new(db),
             client,
             file_lock: Arc::new(Mutex::new(HashMap::new())),
-        })
+            event: tx,
+        };
+
+        let worker = cached.clone();
+        thread::spawn(move || {
+            worker.worker_thread(rx);
+        });
+        Ok(cached)
+    }
+
+    pub fn close(&self) {
+        let event = Event {
+            done: true,
+            path: "".to_string(),
+            url: "".to_string(),
+        };
+
+        let result = self.event.blocking_send(event);
+        match result {
+            Ok(_) => (),
+            Err(e) => {
+                error!("{}", e);
+            }
+        }
+    }
+
+    async fn reqwest_multipart_form(
+        &self,
+        client: reqwest::Client,
+        file: &str,
+        url: &str,
+    ) -> Result<reqwest::Response, Box<dyn Error>> {
+        let file_path = self.root.join(file);
+
+        let file = tokio::fs::File::open(&file_path).await?;
+
+        // read file body stream
+        let stream = FramedRead::new(file, BytesCodec::new());
+        let file_body = reqwest::Body::wrap_stream(stream);
+
+        let mut file_name = "record.wav";
+        if let Some(name) = file_path.file_name() {
+            let name = name.to_str().unwrap_or_default();
+            file_name = name;
+        }
+
+        // make form part of file
+        let part = reqwest::multipart::Part::stream(file_body)
+            .file_name(file_name.to_string())
+            .mime_str("application/octet-stream")?;
+
+        // create the multipart form
+        let form = reqwest::multipart::Form::new().part("file", part);
+
+        // send request
+        let response = client.post(url).multipart(form).send().await?;
+        Ok(response)
+    }
+
+    fn worker_thread(&self, mut rx: mpsc::Receiver<Event>) {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        let client = reqwest::Client::builder().use_rustls_tls().build().unwrap();
+        rt.block_on(async {
+            loop {
+                let recv = rx.recv().await;
+                match recv {
+                    Some(recv) => {
+                        if recv.done {
+                            info!("shutdown");
+                            break;
+                        }
+                        let response = self
+                            .reqwest_multipart_form(client.clone(), &recv.path, &recv.url)
+                            .await;
+                        match response {
+                            Ok(response) => {
+                                info!("result: {:?}", response);
+                                let last_modified =
+                                    header_as_string(response.headers(), &rh::LAST_MODIFIED);
+                                let etag = header_as_string(response.headers(), &rh::ETAG);
+                                let _ = self.db.set(
+                                    &recv.url,
+                                    CacheRecord {
+                                        path: recv.path,
+                                        last_modified,
+                                        etag,
+                                        synchronized: true,
+                                    },
+                                );
+                            }
+                            Err(e) => {
+                                error!("{}", e);
+                            }
+                        }
+                    }
+                    None => {
+                        break;
+                    }
+                }
+            }
+        });
     }
 
     fn lock_file(&self, uri: &str, lock: bool) {
@@ -360,7 +476,7 @@ impl Cache {
                         .append(rh::IF_NONE_MATCH, rh::HeaderValue::from_str(&etag)?);
                 }
 
-                // debug!("Sending HTTP request: {:?}", request);
+                debug!("Sending HTTP request: {:?}", request);
 
                 debug!("validation file {} {:?}", url.path(), request.headers());
 
@@ -371,7 +487,7 @@ impl Cache {
 
                 match maybe_validation {
                     Ok(new_response) => {
-                        // debug!("Got HTTP response: {:?}", new_response);
+                        debug!("Got HTTP response: {:?}", new_response);
 
                         // If our existing cached data is still fresh...
                         if new_response.status() == StatusCode::NOT_MODIFIED {
@@ -508,8 +624,8 @@ impl Cache {
         }
     }
 
-    pub fn close_cached_file(&self, url: &str, path: &str) {
-        let respone =  self.db.set(
+    pub fn close_cached_file(&self, url: &str, path: &str) -> Result<(), Box<dyn Error>> {
+        self.db.set(
             url,
             CacheRecord {
                 path: path.to_string(),
@@ -517,15 +633,15 @@ impl Cache {
                 etag: None,
                 synchronized: false,
             },
-        );
-        
-        match respone {
-            Ok(_) => {
-                info!("update to files server");
-            },
-            Err(e) => {
-                error!("{}", e);
-            },
-        }
+        )?;
+
+        let ev = Event {
+            done: false,
+            path: path.to_string(),
+            url: url.to_string(),
+        };
+
+        self.event.blocking_send(ev)?;
+        Ok(())
     }
 }

@@ -260,7 +260,13 @@ unsafe extern "C" fn vfs_file_close(handle: *mut switch_file_handle_t) -> switch
 
     if ((*handle).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_WRITE.0) != 0 {
         if let Some(cached) = &context.cached {
-           cached.close_cached_file(&context.file_url, &context.cache_file);
+            let resonse = cached.close_cached_file(&context.file_url, &context.cache_file);
+            match resonse {
+                Ok(()) => (),
+                Err(e) => {
+                    error!("{}", e);
+                }
+            }
         }
     }
     switch_status_t::SWITCH_STATUS_SUCCESS
@@ -335,7 +341,19 @@ unsafe extern "C" fn vfs_file_write_video(
 }
 
 pub fn shutdown() {
-    GOLOBAS.lock().unwrap().profiles.clear();
+    loop {
+        let profile = GOLOBAS.lock().unwrap().profiles.pop();
+        match profile {
+            Some(profile) => {
+                if let Some(cached) = profile.cached {
+                    cached.close();
+                }
+            }
+            None => {
+                break;
+            }
+        }
+    }
 }
 
 pub fn start(m: &fsr::Module, name: &str) {
