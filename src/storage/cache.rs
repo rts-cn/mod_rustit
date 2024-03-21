@@ -87,7 +87,7 @@ pub struct CacheDB {
     db: Mutex<redb::Database>,
 }
 
-const TABLE: TableDefinition<&str, CacheRecord> = TableDefinition::new("urls");
+const TABLE: TableDefinition<&str, CacheRecord> = TableDefinition::new("cached");
 
 impl CacheDB {
     /// Create a cache database in the given file.
