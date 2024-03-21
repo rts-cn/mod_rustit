@@ -24,6 +24,8 @@ pub struct CacheRecord {
     pub last_modified: Option<String>,
     /// The value of the Etag header in the original response.
     pub etag: Option<String>,
+    /// The value of the whether it has been uploaded to the server
+    pub synchronized: bool,
 }
 
 impl redb::RedbValue for CacheRecord {
@@ -51,6 +53,7 @@ impl redb::RedbValue for CacheRecord {
                 path: "".to_string(),
                 last_modified: None,
                 etag: None,
+                synchronized: false,
             },
         }
     }
@@ -105,29 +108,21 @@ impl CacheDB {
     }
 
     /// Return what the DB knows about a URL, if anything.
-    pub fn get(&self, mut url: reqwest::Url) -> Result<CacheRecord, Box<dyn error::Error>> {
-        url.set_fragment(None);
+    pub fn get(&self, url: &str) -> Result<CacheRecord, Box<dyn error::Error>> {
         let db = self.db.lock().unwrap();
         let read_txn = db.begin_read()?;
         let table = read_txn.open_table(TABLE)?;
-        let key = url.as_str();
-        let value = table.get(key)?.unwrap().value();
+        let value = table.get(url)?.unwrap().value();
         Ok(value)
     }
 
     /// Record information about this information in the database.
-    pub fn set(
-        &self,
-        mut url: reqwest::Url,
-        record: CacheRecord,
-    ) -> Result<(), Box<dyn error::Error>> {
-        url.set_fragment(None);
-
+    pub fn set(&self, url: &str, record: CacheRecord) -> Result<(), Box<dyn error::Error>> {
         let db = self.db.lock().unwrap();
         let write_txn = db.begin_write()?;
         {
             let mut table = write_txn.open_table(TABLE)?;
-            table.insert(url.as_str(), &record)?;
+            table.insert(url, &record)?;
         }
         write_txn.commit()?;
         Ok(())
@@ -191,8 +186,6 @@ fn header_as_string(headers: &rh::HeaderMap, key: &rh::HeaderName) -> Option<Str
 /// Otherwise,
 /// it will download the new version and use that instead.
 ///
-/// See [an example](index.html#first-example).
-///
 /// [`Cache`]: struct.Cache.html
 #[derive(Debug, Clone)]
 pub struct Cache {
@@ -228,7 +221,6 @@ impl Cache {
     ///     # fn get_my_resource() -> Result<(), Box<dyn Error>> {
     ///     let mut cache = Cache::new(
     ///         PathBuf::from("my_cache_directory"),
-    ///         reqwest::blocking::Client::new(),
     ///     )?;
     ///     # Ok(())
     ///     # }
@@ -255,8 +247,15 @@ impl Cache {
 
         let client = reqwest::blocking::Client::builder()
             .use_rustls_tls()
-            .build()
-            .unwrap();
+            .build()?;
+
+        // Create content download dir
+        let content_dir = root.join("download");
+        fs::DirBuilder::new().recursive(true).create(&content_dir)?;
+
+        // Create content upload dir
+        let content_dir = root.join("upload");
+        fs::DirBuilder::new().recursive(true).create(&content_dir)?;
 
         Ok(Cache {
             root,
@@ -285,14 +284,13 @@ impl Cache {
 
     fn record_response(
         &self,
-        url: reqwest::Url,
+        url: &str,
         mut response: reqwest::blocking::Response,
     ) -> Result<PathBuf, Box<dyn error::Error>> {
-        let content_dir = self.root.join("content");
-        fs::DirBuilder::new().recursive(true).create(&content_dir)?;
+        let content_dir = self.root.join("download");
 
         let mut extension = "wav";
-        let ext = Path::new(url.path()).extension();
+        let ext = Path::new(url).extension();
         if let Some(ext) = ext {
             let ext = ext.to_str();
             if let Some(ext) = ext {
@@ -320,10 +318,93 @@ impl Cache {
                 path,
                 last_modified,
                 etag,
+                synchronized: true,
             },
         )?;
 
         Ok(file_path)
+    }
+
+    fn load_cache(&self, mut url: reqwest::Url) -> Result<PathBuf, Box<dyn error::Error>> {
+        use reqwest::StatusCode;
+
+        url.set_fragment(None);
+
+        let response = match self.db.get(url.as_str()) {
+            Ok(CacheRecord {
+                path: p,
+                last_modified: lm,
+                etag: et,
+                synchronized: sync,
+            }) => {
+                // We have a locally-cached copy
+
+                // The file is not synchronized, using the local cache
+                if !sync {
+                    debug!("Unsynchronized caches, using the local cache");
+                    return Ok(self.root.join(p));
+                }
+
+                // let's check whether the copy on the server has changed.
+                let mut request =
+                    reqwest::blocking::Request::new(reqwest::Method::GET, url.clone());
+                if let Some(timestamp) = lm {
+                    request.headers_mut().append(
+                        rh::IF_MODIFIED_SINCE,
+                        rh::HeaderValue::from_str(&timestamp)?,
+                    );
+                }
+                if let Some(etag) = et {
+                    request
+                        .headers_mut()
+                        .append(rh::IF_NONE_MATCH, rh::HeaderValue::from_str(&etag)?);
+                }
+
+                // debug!("Sending HTTP request: {:?}", request);
+
+                debug!("validation file {} {:?}", url.path(), request.headers());
+
+                let maybe_validation = self
+                    .client
+                    .execute(request)
+                    .and_then(|resp| resp.error_for_status());
+
+                match maybe_validation {
+                    Ok(new_response) => {
+                        // debug!("Got HTTP response: {:?}", new_response);
+
+                        // If our existing cached data is still fresh...
+                        if new_response.status() == StatusCode::NOT_MODIFIED {
+                            // ... let's use it as is.
+                            debug!("Hit cache, using the local cache data");
+                            return Ok(self.root.join(p));
+                        }
+
+                        // Remove expired cache files
+                        fs::remove_file(p)?;
+
+                        // Otherwise, we got a new response we need to cache.
+                        debug!("Cache expires, remove expired cache files, refresh cache!");
+                        new_response
+                    }
+                    Err(e) => {
+                        warn!("Could not validate cached response: {}", e);
+                        // Let's just use the existing data we have.
+                        return Ok(self.root.join(p));
+                    }
+                }
+            }
+            Err(_) => {
+                // This URL isn't in the cache, or we otherwise can't find it.
+                self.client
+                    .execute(reqwest::blocking::Request::new(
+                        reqwest::Method::GET,
+                        url.clone(),
+                    ))?
+                    .error_for_status()?
+            }
+        };
+        self.record_response(url.as_str(), response)
     }
 
     /// Retrieve the content of the given URL.
@@ -354,7 +435,6 @@ impl Cache {
     ///     # fn get_my_resource() -> Result<(), Box<dyn Error>> {
     ///     # let mut cache = Cache::new(
     ///     #     PathBuf::from("my_cache_directory"),
-    ///     #     reqwest::blocking::Client::new(),
     ///     # )?;
     ///     let file = cache.get(reqwest::Url::parse("http://example.com/some-resource")?)?;
     ///     # Ok(())
@@ -377,84 +457,13 @@ impl Cache {
     /// the on-disk storage *should* be OK,
     /// so you might want to destroy this `Cache` instance
     /// and create a new one pointing at the same location.
-    pub fn get(&self, mut url: reqwest::Url) -> Result<PathBuf, Box<dyn error::Error>> {
-        use reqwest::StatusCode;
-
-        url.set_fragment(None);
-
-        let response = match self.db.get(url.clone()) {
-            Ok(CacheRecord {
-                path: p,
-                last_modified: lm,
-                etag: et,
-            }) => {
-                // We have a locally-cached copy, let's check whether the
-                // copy on the server has changed.
-                let mut request =
-                    reqwest::blocking::Request::new(reqwest::Method::GET, url.clone());
-                if let Some(timestamp) = lm {
-                    request.headers_mut().append(
-                        rh::IF_MODIFIED_SINCE,
-                        rh::HeaderValue::from_str(&timestamp)?,
-                    );
-                }
-                if let Some(etag) = et {
-                    request
-                        .headers_mut()
-                        .append(rh::IF_NONE_MATCH, rh::HeaderValue::from_str(&etag)?);
-                }
-
-                debug!("Sending HTTP request: {:?}", request);
-
-                let maybe_validation = self
-                    .client
-                    .execute(request)
-                    .and_then(|resp| resp.error_for_status());
-
-                match maybe_validation {
-                    Ok(new_response) => {
-                        debug!("Got HTTP response: {:?}", new_response);
-
-                        // If our existing cached data is still fresh...
-                        if new_response.status() == StatusCode::NOT_MODIFIED {
-                            // ... let's use it as is.
-                            return Ok(self.root.join(p));
-                        }
-
-                        // Remove expired cache files
-                        fs::remove_file(p)?;
-
-                        // Otherwise, we got a new response we need to cache.
-                        new_response
-                    }
-                    Err(e) => {
-                        warn!("Could not validate cached response: {}", e);
-                        // Let's just use the existing data we have.
-                        return Ok(self.root.join(p));
-                    }
-                }
-            }
-            Err(_) => {
-                // This URL isn't in the cache, or we otherwise can't find it.
-                self.client
-                    .execute(reqwest::blocking::Request::new(
-                        reqwest::Method::GET,
-                        url.clone(),
-                    ))?
-                    .error_for_status()?
-            }
-        };
-
-        self.record_response(url.clone(), response)
-    }
-
-    pub fn load_cache_file(&self, uri: &str) -> String {
+    pub fn get(&self, uri: &str) -> String {
         let mut cache_file = String::new();
         self.lock_file(uri, true);
         let url = reqwest::Url::parse(uri);
         match url {
             Ok(url) => {
-                let response = self.get(url);
+                let response = self.load_cache(url);
                 match response {
                     Ok(response) => {
                         cache_file = response.display().to_string();
@@ -470,5 +479,53 @@ impl Cache {
         }
         self.lock_file(uri, false);
         cache_file
+    }
+
+    pub fn create_cached_file(&self, file_path: &str) -> String {
+        let mut rng = thread_rng();
+        let content_dir = self.root.join("upload");
+        loop {
+            let mut new_path = content_dir.join(
+                (0..20)
+                    .map(|_| rng.sample(Alphanumeric) as char)
+                    .collect::<String>(),
+            );
+
+            let mut extension = "wav";
+            let ext = path::Path::new(file_path).extension();
+            if let Some(ext) = ext {
+                let ext = ext.to_str();
+                if let Some(ext) = ext {
+                    extension = ext;
+                }
+            }
+
+            new_path.set_extension(extension);
+
+            if !new_path.exists() {
+                return new_path.display().to_string();
+            }
+        }
+    }
+
+    pub fn close_cached_file(&self, url: &str, path: &str) {
+        let respone =  self.db.set(
+            url,
+            CacheRecord {
+                path: path.to_string(),
+                last_modified: None,
+                etag: None,
+                synchronized: false,
+            },
+        );
+        
+        match respone {
+            Ok(_) => {
+                info!("update to files server");
+            },
+            Err(e) => {
+                error!("{}", e);
+            },
+        }
     }
 }

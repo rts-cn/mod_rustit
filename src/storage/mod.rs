@@ -1,10 +1,8 @@
-use std::{ffi::CString, fs, path::Path, sync::Mutex};
+use std::{ffi::CString, sync::Mutex};
 
 use fsr::*;
 use lazy_static::lazy_static;
 use libc::c_char;
-
-use self::cache::Cache;
 
 pub mod cache;
 
@@ -20,7 +18,7 @@ pub struct Profile {
     /// cache temp files path
     pub cache_dir: String,
     /// http cache
-    cached: Option<Cache>,
+    cached: Option<cache::Cache>,
 }
 
 impl Profile {
@@ -67,6 +65,7 @@ struct FileContext {
     pub cache_file: String,
     pub samples: u32,
     fh: switch_file_handle_t,
+    cached: Option<cache::Cache>,
 }
 
 impl FileContext {
@@ -78,6 +77,7 @@ impl FileContext {
             cache_file: "".to_string(),
             samples: 10,
             fh: Default::default(),
+            cached: None,
         }
     }
     pub fn file_ptr(&mut self) -> *mut switch_file_handle_t {
@@ -144,7 +144,7 @@ pub fn load_config(cfg: switch_xml_t) {
 
                 if profile.cache_dir.is_empty() {
                     let storage_dir = get_variable("storage_dir");
-                    let path = Path::new(&storage_dir);
+                    let path = std::path::Path::new(&storage_dir);
                     let path = path.join(format!("{}_cache", profile.name));
                     profile.cache_dir = path.to_str().unwrap_or_default().to_string();
                 }
@@ -175,55 +175,36 @@ unsafe extern "C" fn vfs_file_open(
 ) -> switch_status_t {
     let stream_name = to_string((*handle).stream_name);
     let file_path = to_string(file_path);
-    let mut cache_file = "".to_string();
     let profile = Global::get(&stream_name);
     match profile {
         None => {
             return switch_status_t::SWITCH_STATUS_FALSE;
         }
         Some(profile) => {
-            let path = Path::new(&profile.cache_dir);
-            let path = path.join(&file_path);
-            let path = path.to_str();
-            if let Some(path) = path {
-                cache_file = path.to_string();
-            }
-
             let mut context = Box::new(FileContext::new());
             context.file_url = format!("{}/{}", profile.url, file_path);
-            context.file_path = file_path;
-            context.stream = stream_name;
-
             let fh = context.file_ptr();
             if ((*handle).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_WRITE.0) != 0 {
-                // allocate local file in cache
-                let cached_path = Path::new(&cache_file).parent().unwrap();
-                if !cached_path.exists() {
-                    match fs::create_dir_all(&cached_path) {
-                        Ok(_) => {
-                            debug!("Cached directory created.");
-                        }
-                        Err(e) => {
-                            debug!("Error creating directory: {}", e);
-                            return switch_status_t::SWITCH_STATUS_FALSE;
-                        }
-                    }
+                if let Some(cached) = &profile.cached {
+                    context.cache_file = cached.create_cached_file(&file_path);
                 }
-                context.cache_file = cache_file;
                 (*fh).channels = (*handle).channels;
                 (*fh).native_rate = (*handle).native_rate;
                 (*fh).samples = (*handle).samples;
                 (*fh).samplerate = (*handle).samplerate;
                 (*fh).prefix = (*handle).prefix;
             } else {
-                if let Some(cached) = profile.cached {
-                    context.cache_file = cached.load_cache_file(&context.file_url);
-                }
-                if context.cache_file.is_empty() {
-                    return switch_status_t::SWITCH_STATUS_FALSE;
+                if let Some(cached) = &profile.cached {
+                    context.cache_file = cached.get(&context.file_url);
                 }
             }
 
+            if context.cache_file.is_empty() {
+                return switch_status_t::SWITCH_STATUS_FALSE;
+            }
+
+            context.file_path = file_path;
+            context.stream = stream_name;
             let cache_file = CString::new(context.cache_file.clone()).unwrap();
             let status = switch_core_perform_file_open(
                 concat!(file!(), '\0').as_ptr() as *const c_char,
@@ -248,6 +229,7 @@ unsafe extern "C" fn vfs_file_open(
                 (*handle).flags &= !switch_file_flag_enum_t::SWITCH_FILE_FLAG_VIDEO.0;
             }
 
+            context.cached = profile.cached;
             (*handle).private_info = Box::leak(context) as *mut _ as *mut std::ffi::c_void;
             (*handle).samples = (*fh).samples;
             (*handle).format = (*fh).format;
@@ -274,6 +256,12 @@ unsafe extern "C" fn vfs_file_close(handle: *mut switch_file_handle_t) -> switch
     let fh = context.file_ptr();
     if ((*fh).flags & switch_file_flag_enum_t::SWITCH_FILE_OPEN.0) != 0 {
         switch_core_file_close(fh);
+    }
+
+    if ((*handle).flags & switch_file_flag_enum_t::SWITCH_FILE_FLAG_WRITE.0) != 0 {
+        if let Some(cached) = &context.cached {
+           cached.close_cached_file(&context.file_url, &context.cache_file);
+        }
     }
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
