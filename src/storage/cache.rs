@@ -445,8 +445,7 @@ impl Cache {
             }
         };
 
-        let path = self.record_response(url.clone(), response)?;
-        Ok(path)
+        self.record_response(url.clone(), response)
     }
 
     pub fn load_cache_file(&self, uri: &str) -> String {
@@ -458,15 +457,15 @@ impl Cache {
                 let response = self.get(url);
                 match response {
                     Ok(response) => {
-                        cache_file = response.to_str().unwrap_or_default().to_string();
+                        cache_file = response.display().to_string();
                     }
                     Err(e) => {
-                        error!("{}", e);
+                        error!("Fetch file {}", e);
                     }
                 }
             }
             Err(e) => {
-                error!("{}", e);
+                error!("Bad Url: {}, {}", uri, e);
             }
         }
         self.lock_file(uri, false);
