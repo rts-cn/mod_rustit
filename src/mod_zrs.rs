@@ -5,7 +5,7 @@ use tokio::runtime::Runtime;
 pub mod cdr;
 pub mod xml;
 pub mod storage;
-pub mod zrs;
+pub mod grpc;
 
 struct ZrsModule {
     event_bind_nodes: Vec<u64>,
@@ -47,7 +47,7 @@ impl ZrsModule {
             }
         }
         if MODULE.read().unwrap().enable {
-            zrs::shutdown();
+            grpc::shutdown();
         }
     }
 }
@@ -59,8 +59,7 @@ lazy_static! {
 }
 
 fn on_event(e: fsr::Event) {
-    let event = zrs::Event::from(&e);
-    let _ = zrs::broadcast(event);
+    let _ = grpc::broadcast(e);
 }
 
 fn api_zsr(_session: &fsr::Session, cmd: String, stream: &fsr::Stream) -> fsr::switch_status_t {
@@ -146,7 +145,7 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
         let password = module.password.clone();
         let acl = module.apply_inbound_acl.clone();
         drop(module);
-        zrs::serve(bind_uri, password, acl);
+        grpc::serve(bind_uri, password, acl);
     }
 
     fsr_api!(m, "zsr", "zsr desc", "zsr syntax", api_zsr);

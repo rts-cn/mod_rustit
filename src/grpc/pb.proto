@@ -1,0 +1,104 @@
+syntax = "proto3";
+package pb;
+option go_package = "app/gateway/switch";
+
+service switch {
+  // Subscribe the events
+  rpc Subscribe(SubscribeRequest) returns (stream Event);
+  // Command sends a single command to the server and returns a response Event.
+  rpc Command(CommandRequest) returns (Reply);
+  // SendMsg sends messages and returns a response Event.
+  rpc SendMsg(SendMsgRequest) returns (Reply);
+  // SendEvent sends event
+  rpc SendEvent(SendEventRequest) returns (Reply);
+  // Reload xml
+  rpc ReloadXML(ReloadXMLRequest) returns (Reply);
+  // Reload Acl
+  rpc ReloadAcl(ReloadACLRequest) returns (Reply);
+  // Reload mod
+  rpc ReloadMod(ModRequest) returns (Reply);
+  // Load mod
+  rpc LoadMod(ModRequest) returns (Reply);
+  // Unload mod
+  rpc UnloadMod(ModRequest) returns (Reply);
+  // JSAPI
+  rpc JSAPI(JSAPIRequest) returns (Reply);
+}
+
+message ReloadXMLRequest {}
+
+message ReloadACLRequest {}
+
+message ModRequest { string mod_name = 1; }
+
+message Reply {
+  int32 code = 1;
+  string message = 2;
+}
+
+message UnRegisterRequest { string uuid = 1; }
+
+message Topic {
+  string event_name = 1;
+  string subclass = 2;
+}
+
+message SubscribeRequest { repeated Topic topics = 1; }
+
+message Event {
+  uint32 event_id = 1;
+  uint32 priority = 2;
+  string owner = 3;
+  string subclass_name = 4;
+  uint64 key = 5;
+  int32 flags = 6;
+  map<string, string> headers = 7;
+  string body = 8;
+}
+
+message CommandRequest {
+  string command = 1;
+  string args = 2;
+}
+
+message SendMsgRequest {
+  string uuid = 1;
+  map<string, string> headers = 4;
+}
+
+message SendEventRequest {
+  uint32 event_id = 1;
+  string subclass_name = 2;
+  map<string, string> headers = 3;
+  string body = 4;
+}
+
+message SystemStatus {
+  int64 uptime = 1;
+  string version = 2;
+  bool ready = 3;
+  uint64 session_total = 4;
+  uint32 session_active = 5;
+  int32 session_peak = 6;
+  int32 session_peak_5min = 7;
+  uint32 session_limit = 8;
+  int32 rate_current = 9;
+  int32 rate_max = 10;
+  int32 rate_peak = 11;
+  int32 rate_peak_5min = 12;
+  double idle_cpu_used = 13;
+  double idle_cpu_allowed = 14;
+  float stack_size_current = 15;
+  float stack_size_max = 16;
+}
+
+message StatusRequest {}
+message StatusReply {
+  int32 code = 1;
+  string message = 2;
+  SystemStatus status = 3;
+}
+
+message JSAPIRequest {
+  string command = 1;
+}

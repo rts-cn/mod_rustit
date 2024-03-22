@@ -1,18 +1,28 @@
+use fsr::*;
+use tokio::sync::{broadcast, mpsc};
 use tokio_stream::wrappers::ReceiverStream;
+use tonic::{Request, Response, Status};
+
+use super::pb::*;
 
 pub struct Service {
-    pub tx: broadcast::Sender<Event>,
+    pub tx: broadcast::Sender<super::pb::Event>,
+}
+
+struct Topics {
+    id: u32,
+    subclass_name: String,
 }
 
 #[tonic::async_trait]
-impl zrs_server::Zrs for Service {
-    type EventStream = ReceiverStream<Result<EventReply, Status>>;
+impl super::pb::switch_server::Switch for Service {
+    type SubscribeStream = ReceiverStream<Result<super::pb::Event, Status>>;
 
     /// Event Stream
-    async fn event(
+    async fn subscribe(
         &self,
-        request: Request<EventRequest>,
-    ) -> Result<Response<Self::EventStream>, Status> {
+        request: Request<SubscribeRequest>,
+    ) -> Result<Response<Self::SubscribeStream>, Status> {
         let mut remote_addr_str = String::from("");
         let remote_addr = request.remote_addr();
 
@@ -21,7 +31,17 @@ impl zrs_server::Zrs for Service {
         }
 
         info!("Got a subscriber from {}", remote_addr_str);
-        let topics = request.into_inner().topics;
+        let mut topics: Vec<Topics> = Vec::new();
+        for topic in request.into_inner().topics {
+            let name = topic.event_name.to_ascii_uppercase();
+            let id = super::event::EventTypes::from_str_name(&name);
+            if let Some(id) = id {
+                topics.push(Topics {
+                    id: id as u32,
+                    subclass_name: topic.subclass,
+                });
+            }
+        }
 
         let (tx, rx) = mpsc::channel(10);
         let mut sub_rx = self.tx.subscribe();
@@ -36,21 +56,21 @@ impl zrs_server::Zrs for Service {
                     Ok(e) => {
                         let mut pass = false;
                         for topic in &topics {
-                            if topic.id == EventTypes::SwitchEventAll as u32 {
+                            if topic.id == fsr::switch_event_types_t::SWITCH_EVENT_ALL.0 {
                                 pass = true;
                                 break;
-                            } else if (topic.id == EventTypes::SwitchEventCustom as u32)
-                                && (topic.subclass == e.subclass_name)
+                            } else if (topic.id == fsr::switch_event_types_t::SWITCH_EVENT_CUSTOM.0)
+                                && (topic.subclass_name == e.subclass_name)
                             {
                                 pass = true;
                                 break;
-                            } else if topic.id == e.event_id as u32 {
+                            } else if topic.id == e.event_id {
                                 pass = true;
                                 break;
                             }
                         }
                         if pass {
-                            let send = tx.send(Ok(EventReply { event: Some(e) })).await;
+                            let send = tx.send(Ok(e)).await;
 
                             match send {
                                 Err(_) => {

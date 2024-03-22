@@ -5,13 +5,14 @@ use std::sync::RwLock;
 use std::thread;
 use tokio::sync::broadcast;
 use tokio::sync::mpsc;
-use tonic::{Request, Response, Status};
+use tonic::{Request, Status};
 
-include!("pb.rs");
-include!("service.rs");
+pub mod event;
+pub mod pb;
+pub mod service;
 
 pub struct Zrs {
-    ev_tx: broadcast::Sender<Event>,
+    ev_tx: broadcast::Sender<pb::Event>,
     done: mpsc::Sender<u8>,
 }
 
@@ -32,50 +33,12 @@ lazy_static! {
     static ref GOLOBAS: RwLock<Global> = RwLock::new(Global::new());
 }
 
-impl Event {
-    pub fn from(e: &fsr::Event) -> Event {
-        Event {
-            event_id: e.event_id(),
-            priority: e.priority(),
-            owner: e.owner().to_string(),
-            subclass_name: e.subclass_name().to_string(),
-            key: e.key(),
-            flags: e.flags(),
-            headers: e.headers().clone(),
-            body: e.body().to_string(),
-        }
-    }
-}
-
-impl SystemStatus {
-    pub fn from(s: &fsr::SytemStatus) -> SystemStatus {
-        SystemStatus {
-            uptime: s.uptime,
-            version: s.version.clone(),
-            ready: s.ready,
-            session_total: s.session_total,
-            session_active: s.session_active,
-            session_peak: s.session_peak,
-            session_peak_5min: s.session_peak_5min,
-            session_limit: s.session_limit,
-            rate_current: s.rate_current,
-            rate_max: s.rate_max,
-            rate_peak: s.rate_peak,
-            rate_peak_5min: s.rate_peak_5min,
-            idle_cpu_allowed: s.idle_cpu_allowed,
-            idle_cpu_used: s.idle_cpu_used,
-            stack_size_current: s.stack_size_current,
-            stack_size_max: s.stack_size_max,
-        }
-    }
-}
-
 fn tokio_main(
     addr: String,
     password: String,
     acl: String,
-    tx: broadcast::Sender<Event>,
-    mut rx: broadcast::Receiver<Event>,
+    tx: broadcast::Sender<pb::Event>,
+    mut rx: broadcast::Receiver<pb::Event>,
     mut done: mpsc::Receiver<u8>,
 ) {
     let addr = addr.clone();
@@ -130,10 +93,12 @@ fn tokio_main(
     });
 
     rt.block_on(async {
-        let service = Service { tx };
+        let service = service::Service { tx };
         debug!("Start zrs rpc service {}", addr);
         let ret = tonic::transport::Server::builder()
-            .add_service(zrs_server::ZrsServer::with_interceptor(service, check_auth))
+            .add_service(pb::switch_server::SwitchServer::with_interceptor(
+                service, check_auth,
+            ))
             .serve_with_shutdown(addr, f)
             .await;
         match ret {
@@ -145,10 +110,10 @@ fn tokio_main(
     });
 }
 
-pub fn broadcast(ev: Event) {
+pub fn broadcast(ev: fsr::Event) {
     let zrs = &GOLOBAS.read().unwrap().zrs;
     if let Some(zrs) = zrs {
-        let ret = zrs.ev_tx.send(ev);
+        let ret = zrs.ev_tx.send(pb::Event::from(&ev));
         if let Err(e) = ret {
             error!("{}", e);
         }
@@ -165,7 +130,7 @@ pub fn shutdown() {
         };
     }
     drop(r);
-    
+
     for _ in 1..20 {
         thread::sleep(std::time::Duration::from_millis(200));
         if GOLOBAS.read().unwrap().running == false {
@@ -178,7 +143,7 @@ pub fn shutdown() {
 pub fn serve(addr: String, password: String, acl: String) {
     lazy_static::initialize(&GOLOBAS);
     let (done_tx, done_rx) = mpsc::channel(1);
-    let (tx, rx) = broadcast::channel::<Event>(64);
+    let (tx, rx) = broadcast::channel::<pb::Event>(64);
     let zrs = Zrs {
         ev_tx: tx.clone(),
         done: done_tx,
