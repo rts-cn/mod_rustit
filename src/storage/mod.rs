@@ -4,7 +4,7 @@ use fsr::*;
 use lazy_static::lazy_static;
 use libc::c_char;
 
-pub mod cache;
+mod cache;
 
 #[derive(Debug, Clone)]
 pub struct Profile {

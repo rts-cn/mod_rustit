@@ -2,8 +2,8 @@ use fsr::*;
 use lazy_static::lazy_static;
 use std::{ffi::CString, sync::RwLock, thread};
 use tokio::runtime::Runtime;
-pub mod cdr_post;
-pub mod xml_fetch;
+pub mod cdr;
+pub mod xml;
 pub mod storage;
 pub mod zrs;
 
@@ -31,8 +31,8 @@ impl ZrsModule {
         MODULE.write().unwrap().event_bind_nodes.push(id);
     }
     fn shutdown() {
-        xml_fetch::shutdown();
-        cdr_post::shutdown();
+        xml::shutdown();
+        cdr::shutdown();
         storage::shutdown();
         loop {
             let id = MODULE.write().unwrap().event_bind_nodes.pop();
@@ -118,8 +118,8 @@ fn do_config() {
             }
         }
 
-        xml_fetch::load_config(cfg);
-        cdr_post::load_config(cfg);
+        xml::load_config(cfg);
+        cdr::load_config(cfg);
         storage::load_config(cfg);
         fsr::switch_xml_free(xml);
     }
@@ -161,8 +161,8 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
         switch_application_flag_enum_t::SAF_NONE
     );
 
-    xml_fetch::start();
-    cdr_post::start();
+    xml::start();
+    cdr::start();
     storage::start(m, MODULE_NAME);
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
