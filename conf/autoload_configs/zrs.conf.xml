@@ -9,7 +9,7 @@
   <storages>
     <storage name="hfs">
       <!-- storage server url -->
-      <param name="url" value="http://192.168.107.1:8000/api/v1/hfs"/>
+      <param name="url" value="http://192.168.107.1:8000/api/v1/storage"/>
       <!-- time to keep audio files when discoverd they were deleted from the http server -->
       <param name="file-not-found-expires" value="300"/>
       <!-- how often to re-check the server to make sure the remote file has not changed -->
