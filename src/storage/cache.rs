@@ -81,7 +81,7 @@ impl redb::RedbValue for CacheRecord {
     }
 
     fn type_name() -> redb::TypeName {
-        redb::TypeName::new("name")
+        redb::TypeName::new("cached")
     }
 }
 
