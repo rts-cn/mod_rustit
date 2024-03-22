@@ -117,8 +117,6 @@ service zrs {
   rpc LoadMod(ModRequest) returns (Reply);
   // Unload mod
   rpc UnloadMod(ModRequest) returns (Reply);
-  // FreeSWITCH Status
-  rpc Status(StatusRequest) returns (StatusReply);
   // JSAPI
   rpc JSAPI(JSAPIRequest) returns (Reply);
 }

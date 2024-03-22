@@ -282,21 +282,6 @@ impl zrs_server::Zrs for Service {
         }
     }
 
-    /// FreeSWITCH Status
-    async fn status(
-        &self,
-        _request: Request<StatusRequest>,
-    ) -> Result<Response<StatusReply>, Status> {
-        let status = fsr::status();
-        let status = SystemStatus::from(&status);
-        let reply = StatusReply {
-            code: 200,
-            message: String::from("OK"),
-            status: Some(status),
-        };
-        Ok(Response::new(reply))
-    }
-
     /// JSAPI
     async fn jsapi(&self, request: Request<JsapiRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
