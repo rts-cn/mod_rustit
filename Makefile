@@ -10,7 +10,10 @@ install:
 
 config:
 	install -p -D -m 0755 ./conf/autoload_configs/zrs.conf.xml $(FREESWITCH_DIR)/conf/autoload_configs
-	
+
+proto:
+	cargo build --features proto
+
 generate:
 	cargo build --features codegen
 
