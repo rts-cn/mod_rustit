@@ -15,7 +15,7 @@ struct Topics {
 }
 
 #[tonic::async_trait]
-impl super::pb::switch_server::Switch for Service {
+impl super::pb::fs_server::Fs for Service {
     type SubscribeStream = ReceiverStream<Result<super::pb::Event, Status>>;
 
     /// Event Stream

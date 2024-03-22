@@ -150,303 +150,13 @@ pub struct JsapiRequest {
     #[prost(string, tag = "1")]
     pub command: ::prost::alloc::string::String,
 }
-/// Generated client implementations.
-pub mod switch_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    #[derive(Debug, Clone)]
-    pub struct SwitchClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl SwitchClient<tonic::transport::Channel> {
-        /// Attempt to create a new client by connecting to a given endpoint.
-        pub async fn connect<D>(dst: D) -> Result<Self, tonic::transport::Error>
-        where
-            D: TryInto<tonic::transport::Endpoint>,
-            D::Error: Into<StdError>,
-        {
-            let conn = tonic::transport::Endpoint::new(dst)?.connect().await?;
-            Ok(Self::new(conn))
-        }
-    }
-    impl<T> SwitchClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> SwitchClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
-        {
-            SwitchClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Subscribe the events
-        pub async fn subscribe(
-            &mut self,
-            request: impl tonic::IntoRequest<super::SubscribeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<tonic::codec::Streaming<super::Event>>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/Subscribe");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "Subscribe"));
-            self.inner.server_streaming(req, path, codec).await
-        }
-        /// Command sends a single command to the server and returns a response Event.
-        pub async fn command(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CommandRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/Command");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "Command"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// SendMsg sends messages and returns a response Event.
-        pub async fn send_msg(
-            &mut self,
-            request: impl tonic::IntoRequest<super::SendMsgRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/SendMsg");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "SendMsg"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// SendEvent sends event
-        pub async fn send_event(
-            &mut self,
-            request: impl tonic::IntoRequest<super::SendEventRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/SendEvent");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "SendEvent"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Reload xml
-        pub async fn reload_xml(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ReloadXmlRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/ReloadXML");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "ReloadXML"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Reload Acl
-        pub async fn reload_acl(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ReloadAclRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/ReloadAcl");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "ReloadAcl"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Reload mod
-        pub async fn reload_mod(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ModRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/ReloadMod");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "ReloadMod"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Load mod
-        pub async fn load_mod(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ModRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/LoadMod");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "LoadMod"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// Unload mod
-        pub async fn unload_mod(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ModRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/UnloadMod");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "UnloadMod"));
-            self.inner.unary(req, path, codec).await
-        }
-        /// JSAPI
-        pub async fn jsapi(
-            &mut self,
-            request: impl tonic::IntoRequest<super::JsapiRequest>,
-        ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static("/pb.switch/JSAPI");
-            let mut req = request.into_request();
-            req.extensions_mut().insert(GrpcMethod::new("pb.switch", "JSAPI"));
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
 /// Generated server implementations.
-pub mod switch_server {
+pub mod fs_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with SwitchServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with FsServer.
     #[async_trait]
-    pub trait Switch: Send + Sync + 'static {
+    pub trait Fs: Send + Sync + 'static {
         /// Server streaming response type for the Subscribe method.
         type SubscribeStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<super::Event, tonic::Status>,
@@ -505,7 +215,7 @@ pub mod switch_server {
         ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct SwitchServer<T: Switch> {
+    pub struct FsServer<T: Fs> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
@@ -513,7 +223,7 @@ pub mod switch_server {
         max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: Switch> SwitchServer<T> {
+    impl<T: Fs> FsServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -565,9 +275,9 @@ pub mod switch_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for SwitchServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for FsServer<T>
     where
-        T: Switch,
+        T: Fs,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -583,11 +293,11 @@ pub mod switch_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/pb.switch/Subscribe" => {
+                "/pb.fs/Subscribe" => {
                     #[allow(non_camel_case_types)]
-                    struct SubscribeSvc<T: Switch>(pub Arc<T>);
+                    struct SubscribeSvc<T: Fs>(pub Arc<T>);
                     impl<
-                        T: Switch,
+                        T: Fs,
                     > tonic::server::ServerStreamingService<super::SubscribeRequest>
                     for SubscribeSvc<T> {
                         type Response = super::Event;
@@ -602,7 +312,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::subscribe(&inner, request).await
+                                <T as Fs>::subscribe(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -630,10 +340,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/Command" => {
+                "/pb.fs/Command" => {
                     #[allow(non_camel_case_types)]
-                    struct CommandSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::CommandRequest>
+                    struct CommandSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::CommandRequest>
                     for CommandSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -646,7 +356,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::command(&inner, request).await
+                                <T as Fs>::command(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -674,10 +384,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/SendMsg" => {
+                "/pb.fs/SendMsg" => {
                     #[allow(non_camel_case_types)]
-                    struct SendMsgSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::SendMsgRequest>
+                    struct SendMsgSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::SendMsgRequest>
                     for SendMsgSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -690,7 +400,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::send_msg(&inner, request).await
+                                <T as Fs>::send_msg(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -718,10 +428,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/SendEvent" => {
+                "/pb.fs/SendEvent" => {
                     #[allow(non_camel_case_types)]
-                    struct SendEventSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::SendEventRequest>
+                    struct SendEventSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::SendEventRequest>
                     for SendEventSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -734,7 +444,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::send_event(&inner, request).await
+                                <T as Fs>::send_event(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -762,10 +472,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/ReloadXML" => {
+                "/pb.fs/ReloadXML" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadXMLSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::ReloadXmlRequest>
+                    struct ReloadXMLSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::ReloadXmlRequest>
                     for ReloadXMLSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -778,7 +488,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::reload_xml(&inner, request).await
+                                <T as Fs>::reload_xml(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -806,10 +516,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/ReloadAcl" => {
+                "/pb.fs/ReloadAcl" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadAclSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::ReloadAclRequest>
+                    struct ReloadAclSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::ReloadAclRequest>
                     for ReloadAclSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -822,7 +532,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::reload_acl(&inner, request).await
+                                <T as Fs>::reload_acl(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -850,10 +560,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/ReloadMod" => {
+                "/pb.fs/ReloadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadModSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::ModRequest>
+                    struct ReloadModSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
                     for ReloadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -866,7 +576,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::reload_mod(&inner, request).await
+                                <T as Fs>::reload_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -894,10 +604,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/LoadMod" => {
+                "/pb.fs/LoadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct LoadModSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::ModRequest>
+                    struct LoadModSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
                     for LoadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -910,7 +620,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::load_mod(&inner, request).await
+                                <T as Fs>::load_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -938,10 +648,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/UnloadMod" => {
+                "/pb.fs/UnloadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct UnloadModSvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::ModRequest>
+                    struct UnloadModSvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
                     for UnloadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -954,7 +664,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::unload_mod(&inner, request).await
+                                <T as Fs>::unload_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -982,10 +692,10 @@ pub mod switch_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.switch/JSAPI" => {
+                "/pb.fs/JSAPI" => {
                     #[allow(non_camel_case_types)]
-                    struct JSAPISvc<T: Switch>(pub Arc<T>);
-                    impl<T: Switch> tonic::server::UnaryService<super::JsapiRequest>
+                    struct JSAPISvc<T: Fs>(pub Arc<T>);
+                    impl<T: Fs> tonic::server::UnaryService<super::JsapiRequest>
                     for JSAPISvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -998,7 +708,7 @@ pub mod switch_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Switch>::jsapi(&inner, request).await
+                                <T as Fs>::jsapi(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -1041,7 +751,7 @@ pub mod switch_server {
             }
         }
     }
-    impl<T: Switch> Clone for SwitchServer<T> {
+    impl<T: Fs> Clone for FsServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -1053,7 +763,7 @@ pub mod switch_server {
             }
         }
     }
-    impl<T: Switch> Clone for _Inner<T> {
+    impl<T: Fs> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(Arc::clone(&self.0))
         }
@@ -1063,7 +773,7 @@ pub mod switch_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: Switch> tonic::server::NamedService for SwitchServer<T> {
-        const NAME: &'static str = "pb.switch";
+    impl<T: Fs> tonic::server::NamedService for FsServer<T> {
+        const NAME: &'static str = "pb.fs";
     }
 }

@@ -1,8 +1,8 @@
 syntax = "proto3";
 package pb;
-option go_package = "app/gateway/switch";
+option go_package = "app/gateway/fs";
 
-service switch {
+service fs {
   // Subscribe the events
   rpc Subscribe(SubscribeRequest) returns (stream Event);
   // Command sends a single command to the server and returns a response Event.
