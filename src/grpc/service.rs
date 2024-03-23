@@ -104,8 +104,10 @@ impl super::pb::fs_server::Fs for Service {
             return Ok(Response::new(reply));
         }
 
-        let ret = fsr::api_exec(&cmd, &args);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || fsr::api_exec(&cmd, &args));
+
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -126,8 +128,9 @@ impl super::pb::fs_server::Fs for Service {
     /// SendMsg sends messages to FreeSWITCH and returns a response.
     async fn send_msg(&self, request: Request<SendMsgRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
-        let ret: Result<String, String> = fsr::sendmsg(&req.uuid, req.headers);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || fsr::sendmsg(&req.uuid, req.headers));
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -151,8 +154,11 @@ impl super::pb::fs_server::Fs for Service {
         request: Request<SendEventRequest>,
     ) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
-        let ret = fsr::sendevent(req.event_id, &req.subclass_name, req.headers, &req.body);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || {
+            fsr::sendevent(req.event_id, &req.subclass_name, req.headers, &req.body)
+        });
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -176,8 +182,9 @@ impl super::pb::fs_server::Fs for Service {
         _request: Request<ReloadXmlRequest>,
     ) -> Result<Response<Reply>, Status> {
         // let _req: ReloadXmlRequest = request.into_inner();
-        let ret = fsr::api_exec("reloadxml", "");
-        match ret {
+        let handle = tokio::task::spawn_blocking(|| fsr::api_exec("reloadxml", ""));
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -201,8 +208,9 @@ impl super::pb::fs_server::Fs for Service {
         _request: Request<ReloadAclRequest>,
     ) -> Result<Response<Reply>, Status> {
         // let _req = request.into_inner();
-        let ret = fsr::api_exec("reloadacl", "");
-        match ret {
+        let handle = tokio::task::spawn_blocking(|| fsr::api_exec("reloadacl", ""));
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -231,8 +239,9 @@ impl super::pb::fs_server::Fs for Service {
             args = String::from("reload mod_zrs");
         }
 
-        let ret = fsr::api_exec(cmd, &args);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || fsr::api_exec(cmd, &args));
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -253,8 +262,9 @@ impl super::pb::fs_server::Fs for Service {
     /// Load mod
     async fn load_mod(&self, request: Request<ModRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
-        let ret = fsr::api_exec("load", &req.mod_name);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || fsr::api_exec("load", &req.mod_name));
+        let res = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -283,8 +293,9 @@ impl super::pb::fs_server::Fs for Service {
             return Ok(Response::new(reply));
         }
 
-        let ret = fsr::api_exec("unload", &req.mod_name);
-        match ret {
+        let handle = tokio::task::spawn_blocking(move || fsr::api_exec("unload", &req.mod_name));
+        let res: Result<String, String> = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
@@ -305,8 +316,11 @@ impl super::pb::fs_server::Fs for Service {
     /// JSAPI
     async fn jsapi(&self, request: Request<JsapiRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
-        let ret = fsr::json_api_exec(&req.command);
-        match ret {
+
+        let handle = tokio::task::spawn_blocking(move || fsr::json_api_exec(&req.command));
+
+        let res: Result<String, String> = handle.await.unwrap();
+        match res {
             Err(e) => {
                 let reply = Reply {
                     code: 500,
