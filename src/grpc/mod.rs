@@ -58,7 +58,8 @@ lazy_static! {
     static ref GOLOBAS: Arc<Global> = Arc::new(Global::new());
 }
 
-fn tokio_main(addr: String, password: String, acl: String) {
+#[tokio::main]
+async fn tokio_main(addr: String, password: String, acl: String) {
     let addr = addr.clone();
     let addr = addr
         .parse::<std::net::SocketAddr>()
@@ -100,8 +101,7 @@ fn tokio_main(addr: String, password: String, acl: String) {
         }
     };
 
-    let rt = tokio::runtime::Runtime::new().unwrap();
-    rt.spawn(async move {
+    tokio::spawn(async move {
         loop {
             let ret = rx.recv().await;
             match ret {
@@ -114,22 +114,20 @@ fn tokio_main(addr: String, password: String, acl: String) {
         }
     });
 
-    rt.block_on(async {
-        let service = service::Service { tx };
-        debug!("Start zrs rpc service {}", addr);
-        let ret = tonic::transport::Server::builder()
-            .add_service(pb::fs_server::FsServer::with_interceptor(
-                service, check_auth,
-            ))
-            .serve_with_shutdown(addr, f)
-            .await;
-        match ret {
-            Err(e) => {
-                error!("Couldn't start zrpc sever, {}", e);
-            }
-            Ok(_) => {}
+    let service = service::Service { tx };
+    debug!("Start zrs rpc service {}", addr);
+    let ret = tonic::transport::Server::builder()
+        .add_service(pb::fs_server::FsServer::with_interceptor(
+            service, check_auth,
+        ))
+        .serve_with_shutdown(addr, f)
+        .await;
+    match ret {
+        Err(e) => {
+            error!("Couldn't start zrpc sever, {}", e);
         }
-    });
+        Ok(_) => {}
+    }
 }
 
 pub fn shutdown() {
