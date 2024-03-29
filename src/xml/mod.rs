@@ -92,11 +92,11 @@ fn xml_fetch(data: String) -> String {
                 let body = response.text();
                 match body {
                     Ok(body) => {
-                        if binding.debug {
-                            debug!("XML Fetch:\n{}\n{}", request, body);
-                        }
                         let text = preprocess::expand_vars(&body);
                         preprocess::process(binding.re.clone(), &text);
+                        if binding.debug {
+                            debug!("XML Fetch:\n{}\n{}", request, text);
+                        }
                         if text.len() > 0 {
                             return text;
                         }
