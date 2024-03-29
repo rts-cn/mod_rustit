@@ -47,11 +47,13 @@ impl Profile {
 
 struct Global {
     running: bool,
+    state_handlers: usize,
     profile: Option<Profile>,
 }
 impl Global {
     pub fn new() -> Global {
         Global {
+            state_handlers: 0,
             running: false,
             profile: None,
         }
@@ -75,23 +77,6 @@ unsafe extern "C" fn on_reporting(session: *mut switch_core_session_t) -> switch
     }
 }
 
-static mut STATE_HANDLERS: switch_state_handler_table_t = switch_state_handler_table_t {
-    on_init: None,
-    on_routing: None,
-    on_execute: None,
-    on_hangup: None,
-    on_exchange_media: None,
-    on_soft_execute: None,
-    on_consume_media: None,
-    on_hibernate: None,
-    on_reset: None,
-    on_park: None,
-    on_reporting: Some(on_reporting),
-    on_destroy: None,
-    flags: 0,
-    padding: [std::ptr::null_mut(); 10],
-};
-
 lazy_static! {
     static ref GOLOBAS: RwLock<Global> = RwLock::new(Global::new());
 }
@@ -105,15 +90,28 @@ pub fn start() {
             cdr_profile.url,
             cdr_profile.format
         );
-        unsafe { switch_core_add_state_handler(&STATE_HANDLERS) };
+
+        let mut state_handlers = Box::new(switch_state_handler_table_t::default());
+        state_handlers.on_reporting = Some(on_reporting);
+        let state_handlers_ptr = Box::leak(state_handlers) as *const switch_state_handler_table_t;
+        unsafe { switch_core_add_state_handler(state_handlers_ptr) };
         GOLOBAS.write().unwrap().running = true;
+        GOLOBAS.write().unwrap().state_handlers =
+            state_handlers_ptr as *const _ as *const usize as usize;
     }
 }
 
 pub fn shutdown() {
-    if GOLOBAS.read().unwrap().running {
+    let running = GOLOBAS.read().unwrap().running;
+    if running {
         debug!("remove cdr report state handler");
-        unsafe { switch_core_remove_state_handler(&STATE_HANDLERS) };
+        let state_handlers = GOLOBAS.read().unwrap().state_handlers;
+        let state_handlers = state_handlers as *mut usize;
+        let state_handlers = state_handlers as *mut _ as *mut switch_state_handler_table_t;
+        unsafe {
+            switch_core_remove_state_handler(state_handlers);
+            let _ = Box::from_raw(state_handlers);
+        };
     }
 }
 
