@@ -316,9 +316,9 @@ impl super::pb::fs_server::Fs for Service {
     /// JSAPI
     async fn jsapi(&self, request: Request<JsapiRequest>) -> Result<Response<Reply>, Status> {
         let req = request.into_inner();
-
-        let handle = tokio::task::spawn_blocking(move || fsr::json_api_exec(&req.command));
-
+        
+        let  cmd = format!(r#"{{"command":"{}","data":{}}}"#, req.command, req.data);
+        let handle = tokio::task::spawn_blocking(move || fsr::json_api_exec(&cmd));
         let res: Result<String, String> = handle.await.unwrap();
         match res {
             Err(e) => {

@@ -101,4 +101,5 @@ message StatusReply {
 
 message JSAPIRequest {
   string command = 1;
+  string data  = 2;
 }

@@ -149,6 +149,8 @@ pub struct StatusReply {
 pub struct JsapiRequest {
     #[prost(string, tag = "1")]
     pub command: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub data: ::prost::alloc::string::String,
 }
 /// Generated server implementations.
 pub mod fs_server {
