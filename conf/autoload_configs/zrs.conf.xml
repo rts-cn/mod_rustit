@@ -9,7 +9,7 @@
   <storages>
     <storage name="hfs">
       <!-- storage server url -->
-      <param name="url" value="http://198.19.249.3:8000/api/v1/storage"/>
+      <param name="url" value="$${pbx_gateway_url}/storage"/>
       <!-- time to keep audio files when discoverd they were deleted from the http server -->
       <param name="file-not-found-expires" value="300"/>
       <!-- how often to re-check the server to make sure the remote file has not changed -->
@@ -21,10 +21,10 @@
   <bindings>
     <binding name="all">
       <!-- one or more |-delim of configuration|directory|dialplan -->
-      <param name="gateway-url" value="http://198.19.249.3:8000/api/v1/pbx-gateway/xml" bindings="dialplan|configuration|directory|languages"/>
+      <param name="gateway-url" value="$${pbx_gateway_url}/xml" bindings="dialplan|configuration|directory|languages"/>
       <!-- the http request timeout, default is 5000 millis -->
       <param name="timeout" value="5000"/>
-      <param name="debug" value="false"/>
+      <param name="debug" value="true"/>
     </binding>
   </bindings>
   <cdrs>
@@ -32,7 +32,7 @@
       <!-- the format json|xml of data to send, defaults to json -->
       <param name="format" value="json"/>
       <!-- the url to post to if blank web posting is disabled  -->
-      <param name="url" value="http://198.19.249.3:8000/api/v1/pbx-gateway/cdr"/>
+      <param name="url" value="$${pbx_gateway_url}/cdr"/>
       <!-- the total number of retries (not counting the first 'try') to post to webserver incase of failure -->
       <param name="retries" value="0"/>
 
