@@ -22,8 +22,8 @@
     <binding name="all">
       <!-- one or more |-delim of configuration|directory|dialplan -->
       <param name="gateway-url" value="$${pbx_gateway_url}/xml" bindings="dialplan|configuration|directory|languages"/>
-      <!-- the http request timeout, default is 5000 millis -->
-      <param name="timeout" value="5000"/>
+      <!-- the http request timeout, default is 500 millis -->
+      <param name="timeout" value="500"/>
       <param name="debug" value="true"/>
     </binding>
   </bindings>
@@ -63,8 +63,8 @@
       <!-- either an absolute path, a relative path assuming ${prefix}/logs or a blank or omitted value will default to ${prefix}/logs/zrs_cdr -->
       <param name="err-log-dir" value=""/>
 
-      <!-- the http request timeout, default is 5000 millis -->
-      <param name="timeout" value="5000"/>
+      <!-- the http request timeout, default is 500 millis -->
+      <param name="timeout" value="500"/>
 
       <!-- Whether to URL encode the individual JSON values. Defaults to true, set to false for standard JSON. -->
       <param name="encode-values" value="true"/>
