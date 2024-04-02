@@ -17,6 +17,8 @@ pub struct Reply {
     pub code: i32,
     #[prost(string, tag = "2")]
     pub message: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "3")]
+    pub data: ::core::option::Option<::prost_types::Value>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -97,60 +99,11 @@ pub struct SendEventRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SystemStatus {
-    #[prost(int64, tag = "1")]
-    pub uptime: i64,
-    #[prost(string, tag = "2")]
-    pub version: ::prost::alloc::string::String,
-    #[prost(bool, tag = "3")]
-    pub ready: bool,
-    #[prost(uint64, tag = "4")]
-    pub session_total: u64,
-    #[prost(uint32, tag = "5")]
-    pub session_active: u32,
-    #[prost(int32, tag = "6")]
-    pub session_peak: i32,
-    #[prost(int32, tag = "7")]
-    pub session_peak_5min: i32,
-    #[prost(uint32, tag = "8")]
-    pub session_limit: u32,
-    #[prost(int32, tag = "9")]
-    pub rate_current: i32,
-    #[prost(int32, tag = "10")]
-    pub rate_max: i32,
-    #[prost(int32, tag = "11")]
-    pub rate_peak: i32,
-    #[prost(int32, tag = "12")]
-    pub rate_peak_5min: i32,
-    #[prost(double, tag = "13")]
-    pub idle_cpu_used: f64,
-    #[prost(double, tag = "14")]
-    pub idle_cpu_allowed: f64,
-    #[prost(float, tag = "15")]
-    pub stack_size_current: f32,
-    #[prost(float, tag = "16")]
-    pub stack_size_max: f32,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StatusRequest {}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StatusReply {
-    #[prost(int32, tag = "1")]
-    pub code: i32,
-    #[prost(string, tag = "2")]
-    pub message: ::prost::alloc::string::String,
-    #[prost(message, optional, tag = "3")]
-    pub status: ::core::option::Option<SystemStatus>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct JsapiRequest {
     #[prost(string, tag = "1")]
     pub command: ::prost::alloc::string::String,
-    #[prost(string, tag = "2")]
-    pub data: ::prost::alloc::string::String,
+    #[prost(message, optional, tag = "2")]
+    pub args: ::core::option::Option<::prost_types::Value>,
 }
 /// Generated server implementations.
 pub mod fs_server {

@@ -26,6 +26,7 @@ chrono = { version = "0.4.34" }
 regex = { version = "1" }
 rand = "0.8.5"
 redb = "1.5.1"
+prost-types = "0.12.3"
 
 [build-dependencies]
 tonic-build = "0.10"
