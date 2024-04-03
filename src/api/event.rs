@@ -1,7 +1,8 @@
-use super::pb;
-impl pb::Event {
-    pub fn from(e: &fsr::Event) -> pb::Event {
-        pb::Event {
+use super::zrapi;
+
+impl zrapi::Event {
+    pub fn from(e: &fsr::Event) -> zrapi::Event {
+        zrapi::Event {
             event_id: e.event_id(),
             priority: e.priority(),
             owner: e.owner().to_string(),

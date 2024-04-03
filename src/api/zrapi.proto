@@ -1,10 +1,11 @@
 syntax = "proto3";
-package pb;
-option go_package = "app/gateway/fs";
+package zrapi;
+
+option go_package = "app/zrapi/service";
 
 import "google/protobuf/struct.proto";
 
-service fs {
+service Base {
   // Subscribe the events
   rpc Subscribe(SubscribeRequest) returns (stream Event);
   // Command sends a single command to the server and returns a response Event.

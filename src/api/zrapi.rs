@@ -106,12 +106,12 @@ pub struct JsapiRequest {
     pub args: ::core::option::Option<::prost_types::Value>,
 }
 /// Generated server implementations.
-pub mod fs_server {
+pub mod base_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    /// Generated trait containing gRPC methods that should be implemented for use with FsServer.
+    /// Generated trait containing gRPC methods that should be implemented for use with BaseServer.
     #[async_trait]
-    pub trait Fs: Send + Sync + 'static {
+    pub trait Base: Send + Sync + 'static {
         /// Server streaming response type for the Subscribe method.
         type SubscribeStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<super::Event, tonic::Status>,
@@ -170,7 +170,7 @@ pub mod fs_server {
         ) -> std::result::Result<tonic::Response<super::Reply>, tonic::Status>;
     }
     #[derive(Debug)]
-    pub struct FsServer<T: Fs> {
+    pub struct BaseServer<T: Base> {
         inner: _Inner<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
@@ -178,7 +178,7 @@ pub mod fs_server {
         max_encoding_message_size: Option<usize>,
     }
     struct _Inner<T>(Arc<T>);
-    impl<T: Fs> FsServer<T> {
+    impl<T: Base> BaseServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -230,9 +230,9 @@ pub mod fs_server {
             self
         }
     }
-    impl<T, B> tonic::codegen::Service<http::Request<B>> for FsServer<T>
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BaseServer<T>
     where
-        T: Fs,
+        T: Base,
         B: Body + Send + 'static,
         B::Error: Into<StdError> + Send + 'static,
     {
@@ -248,11 +248,11 @@ pub mod fs_server {
         fn call(&mut self, req: http::Request<B>) -> Self::Future {
             let inner = self.inner.clone();
             match req.uri().path() {
-                "/pb.fs/Subscribe" => {
+                "/zrapi.Base/Subscribe" => {
                     #[allow(non_camel_case_types)]
-                    struct SubscribeSvc<T: Fs>(pub Arc<T>);
+                    struct SubscribeSvc<T: Base>(pub Arc<T>);
                     impl<
-                        T: Fs,
+                        T: Base,
                     > tonic::server::ServerStreamingService<super::SubscribeRequest>
                     for SubscribeSvc<T> {
                         type Response = super::Event;
@@ -267,7 +267,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::subscribe(&inner, request).await
+                                <T as Base>::subscribe(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -295,10 +295,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/Command" => {
+                "/zrapi.Base/Command" => {
                     #[allow(non_camel_case_types)]
-                    struct CommandSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::CommandRequest>
+                    struct CommandSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::CommandRequest>
                     for CommandSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -311,7 +311,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::command(&inner, request).await
+                                <T as Base>::command(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -339,10 +339,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/SendMsg" => {
+                "/zrapi.Base/SendMsg" => {
                     #[allow(non_camel_case_types)]
-                    struct SendMsgSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::SendMsgRequest>
+                    struct SendMsgSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::SendMsgRequest>
                     for SendMsgSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -355,7 +355,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::send_msg(&inner, request).await
+                                <T as Base>::send_msg(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -383,10 +383,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/SendEvent" => {
+                "/zrapi.Base/SendEvent" => {
                     #[allow(non_camel_case_types)]
-                    struct SendEventSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::SendEventRequest>
+                    struct SendEventSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::SendEventRequest>
                     for SendEventSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -399,7 +399,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::send_event(&inner, request).await
+                                <T as Base>::send_event(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -427,10 +427,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/ReloadXML" => {
+                "/zrapi.Base/ReloadXML" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadXMLSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::ReloadXmlRequest>
+                    struct ReloadXMLSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::ReloadXmlRequest>
                     for ReloadXMLSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -443,7 +443,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::reload_xml(&inner, request).await
+                                <T as Base>::reload_xml(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -471,10 +471,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/ReloadAcl" => {
+                "/zrapi.Base/ReloadAcl" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadAclSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::ReloadAclRequest>
+                    struct ReloadAclSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::ReloadAclRequest>
                     for ReloadAclSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -487,7 +487,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::reload_acl(&inner, request).await
+                                <T as Base>::reload_acl(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -515,10 +515,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/ReloadMod" => {
+                "/zrapi.Base/ReloadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct ReloadModSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
+                    struct ReloadModSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::ModRequest>
                     for ReloadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -531,7 +531,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::reload_mod(&inner, request).await
+                                <T as Base>::reload_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -559,10 +559,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/LoadMod" => {
+                "/zrapi.Base/LoadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct LoadModSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
+                    struct LoadModSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::ModRequest>
                     for LoadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -575,7 +575,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::load_mod(&inner, request).await
+                                <T as Base>::load_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -603,10 +603,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/UnloadMod" => {
+                "/zrapi.Base/UnloadMod" => {
                     #[allow(non_camel_case_types)]
-                    struct UnloadModSvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::ModRequest>
+                    struct UnloadModSvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::ModRequest>
                     for UnloadModSvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -619,7 +619,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::unload_mod(&inner, request).await
+                                <T as Base>::unload_mod(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -647,10 +647,10 @@ pub mod fs_server {
                     };
                     Box::pin(fut)
                 }
-                "/pb.fs/JSAPI" => {
+                "/zrapi.Base/JSAPI" => {
                     #[allow(non_camel_case_types)]
-                    struct JSAPISvc<T: Fs>(pub Arc<T>);
-                    impl<T: Fs> tonic::server::UnaryService<super::JsapiRequest>
+                    struct JSAPISvc<T: Base>(pub Arc<T>);
+                    impl<T: Base> tonic::server::UnaryService<super::JsapiRequest>
                     for JSAPISvc<T> {
                         type Response = super::Reply;
                         type Future = BoxFuture<
@@ -663,7 +663,7 @@ pub mod fs_server {
                         ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
-                                <T as Fs>::jsapi(&inner, request).await
+                                <T as Base>::jsapi(&inner, request).await
                             };
                             Box::pin(fut)
                         }
@@ -706,7 +706,7 @@ pub mod fs_server {
             }
         }
     }
-    impl<T: Fs> Clone for FsServer<T> {
+    impl<T: Base> Clone for BaseServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -718,7 +718,7 @@ pub mod fs_server {
             }
         }
     }
-    impl<T: Fs> Clone for _Inner<T> {
+    impl<T: Base> Clone for _Inner<T> {
         fn clone(&self) -> Self {
             Self(Arc::clone(&self.0))
         }
@@ -728,7 +728,7 @@ pub mod fs_server {
             write!(f, "{:?}", self.0)
         }
     }
-    impl<T: Fs> tonic::server::NamedService for FsServer<T> {
-        const NAME: &'static str = "pb.fs";
+    impl<T: Base> tonic::server::NamedService for BaseServer<T> {
+        const NAME: &'static str = "zrapi.Base";
     }
 }

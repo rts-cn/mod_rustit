@@ -10,7 +10,7 @@ use tokio::sync::mpsc;
 use tonic::{Request, Status};
 
 pub mod event;
-pub mod pb;
+pub mod zrapi;
 pub mod service;
 
 #[derive(Debug, Clone)]
@@ -39,7 +39,7 @@ impl Profile {
 struct Global {
     running: Mutex<bool>,
     profile: Mutex<Profile>,
-    ev_tx: Mutex<Option<broadcast::Sender<pb::Event>>>,
+    ev_tx: Mutex<Option<broadcast::Sender<zrapi::Event>>>,
     done_tx: Mutex<Option<mpsc::Sender<u8>>>,
 }
 
@@ -65,7 +65,7 @@ async fn tokio_main(addr: String, password: String, acl: String) {
         .parse::<std::net::SocketAddr>()
         .expect("Unable to parse grpc socket address");
 
-    let (tx, mut rx) = broadcast::channel::<pb::Event>(64);
+    let (tx, mut rx) = broadcast::channel::<zrapi::Event>(64);
     let (done_tx, mut done_rx) = mpsc::channel(1);
 
     *GOLOBAS.done_tx.lock().unwrap() = Some(done_tx);
@@ -117,7 +117,7 @@ async fn tokio_main(addr: String, password: String, acl: String) {
     let service = service::Service { tx };
     debug!("Start zrs rpc service {}", addr);
     let ret = tonic::transport::Server::builder()
-        .add_service(pb::fs_server::FsServer::with_interceptor(
+        .add_service(zrapi::base_server::BaseServer::with_interceptor(
             service, check_auth,
         ))
         .serve_with_shutdown(addr, f)
@@ -154,7 +154,7 @@ pub fn shutdown() {
 
 pub fn load_config(cfg: switch_xml_t) {
     unsafe {
-        let tmp_str = CString::new("grpc").unwrap();
+        let tmp_str = CString::new("api").unwrap();
         let settings_tag = fsr::switch_xml_child(cfg, tmp_str.as_ptr());
         if !settings_tag.is_null() {
             let tmp_str = CString::new("param").unwrap();
@@ -190,7 +190,7 @@ pub fn load_config(cfg: switch_xml_t) {
 fn on_event(ev: fsr::Event) {
     let tx = GOLOBAS.ev_tx.lock().unwrap().clone();
     if tx.is_some() {
-        let ret = tx.unwrap().send(pb::Event::from(&ev));
+        let ret = tx.unwrap().send(zrapi::Event::from(&ev));
         if let Err(e) = ret {
             error!("{}", e);
         }

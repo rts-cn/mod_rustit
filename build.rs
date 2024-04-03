@@ -3,8 +3,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         .build_server(true)
         .build_client(false)
-        .out_dir("src/grpc/")
-        .compile(&["src/grpc/pb.proto"], &["proto"])
+        .out_dir("src/api/")
+        .compile(&["src/api/zrapi.proto"], &["src/api"])
         .unwrap();
     Ok(())
 }

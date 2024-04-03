@@ -2,7 +2,7 @@ use fsr::*;
 use std::{ffi::CString, thread};
 use tokio::runtime::Runtime;
 pub mod cdr;
-pub mod grpc;
+pub mod api;
 pub mod storage;
 pub mod xml;
 
@@ -30,7 +30,7 @@ fn do_config() {
             fsr::switch_xml_free(xml);
             return;
         }
-        grpc::load_config(cfg);
+        api::load_config(cfg);
         xml::load_config(cfg);
         cdr::load_config(cfg);
         storage::load_config(cfg);
@@ -55,12 +55,12 @@ fn zrs_mod_load(m: &fsr::Module) -> switch_status_t {
     xml::start();
     cdr::start();
     storage::start(m, MODULE_NAME);
-    grpc::start(m, MODULE_NAME);
+    api::start(m, MODULE_NAME);
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrs_mod_shutdown() -> switch_status_t {
-    grpc::shutdown();
+    api::shutdown();
     xml::shutdown();
     cdr::shutdown();
     storage::shutdown();

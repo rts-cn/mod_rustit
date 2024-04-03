@@ -1,11 +1,11 @@
 <configuration name="zrs.conf" description="zrs server">
-  <grpc>
+  <api>
     <param name="enable" value="true"/>
     <param name="listen-ip" value="0.0.0.0"/>
     <param name="listen-port" value="8202"/>
     <param name="password" value="1234" />
     <param name="apply-inbound-acl" value="lan"/>
-  </grpc>
+  </api>
   <storages>
     <storage name="hfs">
       <!-- storage server url -->
