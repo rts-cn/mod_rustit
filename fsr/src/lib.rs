@@ -302,12 +302,13 @@ where
         switch_safe_free(params_str as *mut c_void);
 
         let response = (*f)(data);
+        let response = CString::new(response).unwrap();
         let xml = switch_xml_parse_str_dynamic(
             response.as_ptr() as *mut c_char,
             switch_bool_t::SWITCH_TRUE,
         );
         if xml.is_null() {
-            warn!("Error Parsing XML:\n{}", response);
+            warn!("Error Parsing XML:\n{:?}", response);
         }
         xml
     }
