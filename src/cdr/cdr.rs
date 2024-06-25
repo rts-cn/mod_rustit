@@ -168,7 +168,7 @@ pub fn process_cdr(profile: super::Profile, cdr_data: CdrData) {
             std::thread::sleep(std::time::Duration::from_secs(profile.delay as u64));
         }
         let mut context = "application/json";
-        if cdr_data.fromat.eq_ignore_ascii_case("json") {
+        if !cdr_data.fromat.eq_ignore_ascii_case("json") {
             context = "text/xml";
         }
         let response = profile
