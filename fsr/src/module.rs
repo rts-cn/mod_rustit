@@ -140,6 +140,7 @@ macro_rules! fsr_mod {
 
         #[no_mangle]
         pub extern "C" fn _mod_runtime() -> switch_status_t {
+            std::thread::yield_now();
             $runtime()
         }
 

@@ -72,6 +72,7 @@ fn zrs_mod_shutdown() -> switch_status_t {
 }
 
 fn zrs_mod_runtime() -> switch_status_t {
+    thread::sleep(std::time::Duration::from_secs(300));
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
