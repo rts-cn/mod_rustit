@@ -1,4 +1,4 @@
-use fsr::*;
+use switch_sys::*;
 use lazy_static::lazy_static;
 use std::{ffi::CString, sync::RwLock};
 use tokio::time::Duration;
@@ -145,28 +145,28 @@ pub fn load_config(cfg: switch_xml_t) {
         }
         let mut binding: Binding = Binding::new();
         let tmp_str = CString::new("binding").unwrap();
-        let mut binding_tag = fsr::switch_xml_child(bindings_tag, tmp_str.as_ptr());
+        let mut binding_tag = switch_sys::switch_xml_child(bindings_tag, tmp_str.as_ptr());
         while !binding_tag.is_null() {
             let tmp_str = CString::new("name").unwrap();
             let bname = switch_xml_attr_soft(binding_tag, tmp_str.as_ptr());
-            binding.name = to_string(bname);
+            binding.name = switch_to_string(bname);
 
             let tmp_str = CString::new("param").unwrap();
-            let mut param = fsr::switch_xml_child(binding_tag, tmp_str.as_ptr());
+            let mut param = switch_sys::switch_xml_child(binding_tag, tmp_str.as_ptr());
             while !param.is_null() {
                 let tmp_str = CString::new("name").unwrap();
-                let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let var = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
                 let tmp_str = CString::new("value").unwrap();
-                let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let val = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
 
-                let var = fsr::to_string(var);
-                let val = fsr::to_string(val);
+                let var = switch_sys::switch_to_string(var);
+                let val = switch_sys::switch_to_string(val);
 
                 if var.eq_ignore_ascii_case("gateway-url") {
                     binding.url = val;
                     let tmp_str = CString::new("bindings").unwrap();
                     let bind_mask = switch_xml_attr_soft(param, tmp_str.as_ptr());
-                    binding.bindings = to_string(bind_mask);
+                    binding.bindings = switch_to_string(bind_mask);
                 } else if var.eq_ignore_ascii_case("timeout") {
                     binding.timeout = val.parse::<u64>().unwrap_or(5000);
                     if binding.timeout < 1000 {
@@ -176,7 +176,7 @@ pub fn load_config(cfg: switch_xml_t) {
                         binding.timeout = 60000;
                     }
                 } else if var.eq_ignore_ascii_case("debug") {
-                    binding.debug = fsr::switch_true(&val);
+                    binding.debug = switch_sys::switch_true(&val);
                 }
                 param = (*param).next;
             }
@@ -194,6 +194,6 @@ pub fn shutdown() {
     let binging = GOLOBAS.read().unwrap().bind_node;
     if binging > 0 {
         debug!("unbind xml search");
-        fsr::xml_unbind_search(binging);
+        switch_sys::xml_unbind_search(binging);
     }
 }

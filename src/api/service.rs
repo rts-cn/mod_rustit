@@ -1,4 +1,4 @@
-use fsr::*;
+use switch_sys::*;
 use tokio::sync::{broadcast, mpsc};
 use tokio_stream::wrappers::ReceiverStream;
 use tonic::{Request, Response, Status};
@@ -101,10 +101,10 @@ impl super::zrapi::base_server::Base for Service {
                     Ok(e) => {
                         let mut pass = false;
                         for topic in &topics {
-                            if topic.id == fsr::switch_event_types_t::SWITCH_EVENT_ALL.0 {
+                            if topic.id == switch_sys::switch_event_types_t::SWITCH_EVENT_ALL.0 {
                                 pass = true;
                                 break;
-                            } else if (topic.id == fsr::switch_event_types_t::SWITCH_EVENT_CUSTOM.0)
+                            } else if (topic.id == switch_sys::switch_event_types_t::SWITCH_EVENT_CUSTOM.0)
                                 && (topic.subclass_name == e.subclass_name)
                             {
                                 pass = true;
@@ -156,7 +156,7 @@ impl super::zrapi::base_server::Base for Service {
             return Ok(Response::new(reply));
         }
 
-        let handle = tokio::task::spawn_blocking(move || fsr::api_exec(&cmd, &args));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::api_exec(&cmd, &args));
 
         let res = handle.await.unwrap();
         match res {
@@ -197,7 +197,7 @@ impl super::zrapi::base_server::Base for Service {
     /// SendMsg sends messages to FreeSWITCH and returns a response.
     async fn send_msg(&self, request: Request<super::zrapi::SendMsgRequest>) -> Result<Response<super::zrapi::Reply>, Status> {
         let req = request.into_inner();
-        let handle = tokio::task::spawn_blocking(move || fsr::sendmsg(&req.uuid, req.headers));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::sendmsg(&req.uuid, req.headers));
         let res = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -226,7 +226,7 @@ impl super::zrapi::base_server::Base for Service {
     ) -> Result<Response<super::zrapi::Reply>, Status> {
         let req = request.into_inner();
         let handle = tokio::task::spawn_blocking(move || {
-            fsr::sendevent(req.event_id, &req.subclass_name, req.headers, &req.body)
+            switch_sys::sendevent(req.event_id, &req.subclass_name, req.headers, &req.body)
         });
         let res = handle.await.unwrap();
         match res {
@@ -255,7 +255,7 @@ impl super::zrapi::base_server::Base for Service {
         _request: Request<super::zrapi::ReloadXmlRequest>,
     ) -> Result<Response<super::zrapi::Reply>, Status> {
         // let _req: ReloadXmlRequest = request.into_inner();
-        let handle = tokio::task::spawn_blocking(|| fsr::api_exec("reloadxml", ""));
+        let handle = tokio::task::spawn_blocking(|| switch_sys::api_exec("reloadxml", ""));
         let res = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -283,7 +283,7 @@ impl super::zrapi::base_server::Base for Service {
         _request: Request<super::zrapi::ReloadAclRequest>,
     ) -> Result<Response<super::zrapi::Reply>, Status> {
         // let _req = request.into_inner();
-        let handle = tokio::task::spawn_blocking(|| fsr::api_exec("reloadacl", ""));
+        let handle = tokio::task::spawn_blocking(|| switch_sys::api_exec("reloadacl", ""));
         let res = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -316,7 +316,7 @@ impl super::zrapi::base_server::Base for Service {
             args = String::from("reload mod_zrs");
         }
 
-        let handle = tokio::task::spawn_blocking(move || fsr::api_exec(cmd, &args));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::api_exec(cmd, &args));
         let res = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -341,7 +341,7 @@ impl super::zrapi::base_server::Base for Service {
     /// Load mod
     async fn load_mod(&self, request: Request<super::zrapi::ModRequest>) -> Result<Response<super::zrapi::Reply>, Status> {
         let req = request.into_inner();
-        let handle = tokio::task::spawn_blocking(move || fsr::api_exec("load", &req.mod_name));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::api_exec("load", &req.mod_name));
         let res = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -375,7 +375,7 @@ impl super::zrapi::base_server::Base for Service {
             return Ok(Response::new(reply));
         }
 
-        let handle = tokio::task::spawn_blocking(move || fsr::api_exec("unload", &req.mod_name));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::api_exec("unload", &req.mod_name));
         let res: Result<String, String> = handle.await.unwrap();
         match res {
             Err(e) => {
@@ -412,7 +412,7 @@ impl super::zrapi::base_server::Base for Service {
             json_format = true;
         }
 
-        let handle = tokio::task::spawn_blocking(move || fsr::json_api_exec(&cmd));
+        let handle = tokio::task::spawn_blocking(move || switch_sys::json_api_exec(&cmd));
         let res: Result<String, String> = handle.await.unwrap();
         match res {
             Err(e) => {

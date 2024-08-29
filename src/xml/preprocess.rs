@@ -1,12 +1,12 @@
 
-use fsr::*;
+use switch_sys::*;
 pub fn expand_vars(s: &str) -> String {
     let mut expand = String::from(s);
     for (pos, _) in s.match_indices("$${") {
         let end = (s[pos..]).to_string().find("}");
         if let Some(end) = end {
             let vname = s[pos + 3..end + pos].to_string();
-            let val = fsr::get_variable(&vname);
+            let val = switch_sys::get_variable(&vname);
             expand = expand.replace(&format!("$${{{}}}", vname), &val);
         }
     }
@@ -18,7 +18,7 @@ fn set(data: &str) {
     match r {
         Some((name, val)) => {
             if !name.is_empty() && !val.is_empty() {
-                fsr::set_variable(name, val);
+                switch_sys::set_variable(name, val);
             }
         }
         None => {}

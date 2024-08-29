@@ -1,6 +1,6 @@
 use std::{ffi::CString, sync::Mutex};
 
-use fsr::*;
+use switch_sys::*;
 use lazy_static::lazy_static;
 use libc::c_char;
 
@@ -96,11 +96,11 @@ pub fn load_config(cfg: switch_xml_t) {
         }
 
         let tmp_str = CString::new("storage").unwrap();
-        let mut storage_tag = fsr::switch_xml_child(storages_tag, tmp_str.as_ptr());
+        let mut storage_tag = switch_sys::switch_xml_child(storages_tag, tmp_str.as_ptr());
         while !storage_tag.is_null() {
             let tmp_str = CString::new("name").unwrap();
             let bname = switch_xml_attr_soft(storage_tag, tmp_str.as_ptr());
-            let name = to_string(bname);
+            let name = switch_to_string(bname);
             if !name.eq_ignore_ascii_case("hfs") && !name.eq_ignore_ascii_case("s3") {
                 storage_tag = (*storage_tag).next;
                 continue;
@@ -108,15 +108,15 @@ pub fn load_config(cfg: switch_xml_t) {
             let mut profile = Profile::new();
             profile.name = name;
             let tmp_str = CString::new("param").unwrap();
-            let mut param = fsr::switch_xml_child(storage_tag, tmp_str.as_ptr());
+            let mut param = switch_sys::switch_xml_child(storage_tag, tmp_str.as_ptr());
             while !param.is_null() {
                 let tmp_str = CString::new("name").unwrap();
-                let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let var = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
                 let tmp_str = CString::new("value").unwrap();
-                let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let val = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
 
-                let var = fsr::to_string(var);
-                let val = fsr::to_string(val);
+                let var = switch_sys::switch_to_string(var);
+                let val = switch_sys::switch_to_string(val);
 
                 if var.eq_ignore_ascii_case("url") {
                     profile.url = val;
@@ -173,8 +173,8 @@ unsafe extern "C" fn vfs_file_open(
     handle: *mut switch_file_handle_t,
     file_path: *const ::std::os::raw::c_char,
 ) -> switch_status_t {
-    let stream_name = to_string((*handle).stream_name);
-    let file_path = to_string(file_path);
+    let stream_name = switch_to_string((*handle).stream_name);
+    let file_path = switch_to_string(file_path);
     let profile = Global::get(&stream_name);
     match profile {
         None => {
@@ -356,7 +356,7 @@ pub fn shutdown() {
     }
 }
 
-pub fn start(m: &fsr::Module, name: &str) {
+pub fn start(m: &switch_sys::Module, name: &str) {
     let profiles = &GOLOBAS.lock().unwrap().profiles;
 
     for profile in profiles {
@@ -372,13 +372,13 @@ pub fn start(m: &fsr::Module, name: &str) {
                 std::mem::size_of::<*const c_char>() * SWITCH_MAX_CODECS as usize
             ) as *mut *mut c_char;
 
-            (*extens) = strdup!(m.pool(), &profile.name);
+            (*extens) = switch_core_strdup!(m.pool(), &profile.name);
 
             let fi: *mut switch_file_interface_t = m
                 .create_interface(switch_module_interface_name_t::SWITCH_FILE_INTERFACE)
                 as *mut switch_file_interface_t;
             (*fi).extens = extens;
-            (*fi).interface_name = strdup!(m.pool(), name);
+            (*fi).interface_name = switch_core_strdup!(m.pool(), name);
             (*fi).file_open = Some(vfs_file_open);
             (*fi).file_close = Some(vfs_file_close);
             (*fi).file_read = Some(vfs_file_read);

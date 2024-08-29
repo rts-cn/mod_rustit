@@ -10,7 +10,7 @@ use std::sync::Arc;
 use std::sync::Mutex;
 use std::thread;
 
-use fsr::*;
+use switch_sys::*;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use redb::{ReadableTable, TableDefinition};

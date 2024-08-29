@@ -1,6 +1,6 @@
 use std::ffi::CString;
 
-use fsr::*;
+use switch_sys::*;
 use libc::c_void;
 
 #[derive(Debug, Clone)]
@@ -31,7 +31,7 @@ pub fn generate_cdr(
                 switch_bool_t::SWITCH_TRUE,
                 -1,
             );
-            if !switch_true(&to_string(force_cdr)) {
+            if !switch_true(&switch_to_string(force_cdr)) {
                 return Err(switch_status_t::SWITCH_STATUS_SUCCESS);
             }
         }
@@ -75,8 +75,8 @@ pub fn generate_cdr(
                 if cdr_text_ptr.is_null() {
                     error!("Memory Error generating JSON!");
                 }
-                cdr_text = to_string(cdr_text_ptr);
-                fsr::switch_safe_free(cdr_text_ptr as *mut std::os::raw::c_void);
+                cdr_text = switch_to_string(cdr_text_ptr);
+                switch_sys::switch_safe_free(cdr_text_ptr as *mut std::os::raw::c_void);
             }
         } else {
             let mut xml_cdr = std::ptr::null_mut() as *mut switch_xml;
@@ -111,13 +111,13 @@ pub fn generate_cdr(
                     error!("Memory Error generating JSON!");
                 }
 
-                cdr_text = to_string(cdr_text_ptr);
-                fsr::switch_safe_free(cdr_text_ptr as *mut c_void);
+                cdr_text = switch_to_string(cdr_text_ptr);
+                switch_sys::switch_safe_free(cdr_text_ptr as *mut c_void);
             }
         }
     }
 
-    let uuid = unsafe { to_string(switch_core_session_get_uuid(session)) };
+    let uuid = unsafe { switch_to_string(switch_core_session_get_uuid(session)) };
     let filename = format!("{}{}.cdr.{}", a_prefix, uuid, profile.format);
     let cdr_data = CdrData {
         fromat: profile.format.clone(),

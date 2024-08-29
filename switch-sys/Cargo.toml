@@ -1,5 +1,5 @@
 [package]
-name = "fsr"
+name = "switch-sys"
 version = "0.1.0"
 edition = "2021"
 publish = ["rsproxy"]
@@ -12,7 +12,7 @@ libc = "0.2.151"
 paste = { version = "1.0.14" }
 
 [build-dependencies]
-bindgen = {version = "0.69.1", default_features = true}
+bindgen = {version = "0.69.1", default-features = true}
 
 [features]
 codegen = []

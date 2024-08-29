@@ -1,4 +1,4 @@
-use fsr::*;
+use switch_sys::*;
 use lazy_static::lazy_static;
 
 mod cdr;
@@ -127,22 +127,22 @@ pub fn load_config(cfg: switch_xml_t) {
 
         let mut cdr_profile = Profile::new();
         let tmp_str = CString::new("cdr").unwrap();
-        let mut cdr_tag = fsr::switch_xml_child(cdrs_tag, tmp_str.as_ptr());
+        let mut cdr_tag = switch_sys::switch_xml_child(cdrs_tag, tmp_str.as_ptr());
         while !cdr_tag.is_null() {
             let tmp_str = CString::new("name").unwrap();
             let bname = switch_xml_attr_soft(cdr_tag, tmp_str.as_ptr());
-            cdr_profile.name = to_string(bname);
+            cdr_profile.name = switch_to_string(bname);
 
             let tmp_str = CString::new("param").unwrap();
-            let mut param = fsr::switch_xml_child(cdr_tag, tmp_str.as_ptr());
+            let mut param = switch_sys::switch_xml_child(cdr_tag, tmp_str.as_ptr());
             while !param.is_null() {
                 let tmp_str = CString::new("name").unwrap();
-                let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let var = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
                 let tmp_str = CString::new("value").unwrap();
-                let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let val = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
 
-                let var = fsr::to_string(var);
-                let val = fsr::to_string(val);
+                let var = switch_sys::switch_to_string(var);
+                let val = switch_sys::switch_to_string(val);
 
                 if var.eq_ignore_ascii_case("url") {
                     cdr_profile.url = val;
@@ -165,7 +165,7 @@ pub fn load_config(cfg: switch_xml_t) {
                         cdr_profile.delay = 120;
                     }
                 } else if var.eq_ignore_ascii_case("log-http-and-disk") {
-                    cdr_profile.log_http_and_disk = fsr::switch_true(&val);
+                    cdr_profile.log_http_and_disk = switch_sys::switch_true(&val);
                 } else if var.eq_ignore_ascii_case("log-dir") {
                     if val.is_empty() {
                         cdr_profile.log_dir = format!("{}/zrs_cdr", get_variable("log_dir"));
@@ -173,9 +173,9 @@ pub fn load_config(cfg: switch_xml_t) {
                         cdr_profile.log_dir = val;
                     }
                 } else if var.eq_ignore_ascii_case("log-b-leg") {
-                    cdr_profile.log_b_leg = fsr::switch_true(&val);
+                    cdr_profile.log_b_leg = switch_sys::switch_true(&val);
                 } else if var.eq_ignore_ascii_case("prefix-a-leg") {
-                    cdr_profile.prefix_a_leg = fsr::switch_true(&val);
+                    cdr_profile.prefix_a_leg = switch_sys::switch_true(&val);
                 } else if var.eq_ignore_ascii_case("err-log-dir") {
                     if val.is_empty() {
                         cdr_profile.err_log_dir = format!("{}/zrs_cdr", get_variable("log_dir"));

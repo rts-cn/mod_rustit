@@ -13,7 +13,7 @@ pub fn __strdup_safe(
 }
 
 #[macro_export]
-macro_rules! strdup {
+macro_rules! switch_core_strdup {
     ($pool:expr, $todup:expr) => {
         __strdup_safe(
             $pool,
@@ -46,4 +46,18 @@ macro_rules! switch_alloc {
             line!() as std::os::raw::c_int,
         )
     };
+}
+
+pub fn switch_safe_free(ptr: *mut c_void) {
+    if !ptr.is_null() {
+        unsafe { libc::free(ptr as *mut c_void) };
+    }
+}
+
+pub fn switch_to_string<'a>(p: *const c_char) -> String {
+    if p.is_null() {
+        return String::from("");
+    }
+    let cstr = unsafe { std::ffi::CStr::from_ptr(p) };
+    String::from_utf8_lossy(cstr.to_bytes()).to_string()
 }

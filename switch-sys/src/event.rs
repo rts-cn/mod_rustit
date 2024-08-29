@@ -23,13 +23,13 @@ impl Event {
         unsafe { (*self.0).priority.0 }
     }
     pub fn owner(&self) -> String {
-        unsafe { self::to_string((*self.0).owner) }
+        unsafe { switch_to_string((*self.0).owner) }
     }
     pub fn subclass_name(&self) -> String {
-        unsafe { self::to_string((*self.0).subclass_name) }
+        unsafe { switch_to_string((*self.0).subclass_name) }
     }
     pub fn body(&self) -> String {
-        unsafe { self::to_string((*self.0).body) }
+        unsafe { switch_to_string((*self.0).body) }
     }
     pub fn key(&self) -> u64 {
         unsafe { (*self.0).key as u64 }
@@ -41,7 +41,7 @@ impl Event {
         unsafe {
             let hname: CString = CString::new(name).expect("CString::new");
             let v = switch_event_get_header_idx(self.0, hname.as_ptr(), -1);
-            self::to_string(v)
+            self::switch_to_string(v)
         }
     }
     pub fn headers(&self) -> HashMap<String, String> {
@@ -52,7 +52,7 @@ impl Event {
                 if hp.is_null() {
                     break;
                 }
-                headers.insert(to_string((*hp).name), to_string((*hp).value));
+                headers.insert(switch_to_string((*hp).name), switch_to_string((*hp).value));
                 hp = (*hp).next;
             }
         }
@@ -66,7 +66,7 @@ impl Event {
                 std::ptr::addr_of_mut!(s),
                 switch_bool_t::SWITCH_FALSE,
             );
-            let text = self::to_string(s);
+            let text = switch_to_string(s);
             switch_safe_free(s as *mut c_void);
             text
         }
@@ -75,7 +75,7 @@ impl Event {
         unsafe {
             let mut s: *mut c_char = std::ptr::null_mut();
             switch_event_serialize_json(self.0, std::ptr::addr_of_mut!(s));
-            let text = self::to_string(s);
+            let text = switch_to_string(s);
             switch_safe_free(s as *mut c_void);
             text
         }
@@ -104,8 +104,8 @@ where
     }
     let fp = std::ptr::addr_of!(callback);
     unsafe {
-        let id = strdup!(m.pool(), id);
-        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| strdup!(m.pool(), x));
+        let id = switch_core_strdup!(m.pool(), id);
+        let subclass_name = subclass_name.map_or(std::ptr::null(), |x| switch_core_strdup!(m.pool(), x));
         let mut enode = 0 as *mut u64;
         switch_event_bind_removable(
             id,

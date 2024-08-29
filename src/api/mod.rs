@@ -1,4 +1,4 @@
-use fsr::*;
+use switch_sys::*;
 use lazy_static::lazy_static;
 use md5;
 use std::ffi::CString;
@@ -79,7 +79,7 @@ async fn tokio_main(addr: String, password: String, acl: String) {
         let remote_addr = req.remote_addr();
         if let Some(remote_addr) = remote_addr {
             let remote_addr_str = remote_addr.ip().to_string();
-            if fsr::check_acl(&remote_addr_str, &acl) {
+            if switch_sys::check_acl(&remote_addr_str, &acl) {
                 return Ok(req);
             }
         }
@@ -133,7 +133,7 @@ async fn tokio_main(addr: String, password: String, acl: String) {
 pub fn shutdown() {
     let id = GOLOBAS.profile.lock().unwrap().event_bind_node;
     if id > 0 {
-        fsr::event_unbind(id);
+        switch_sys::event_unbind(id);
     }
 
     let tx = GOLOBAS.done_tx.lock().unwrap().clone();
@@ -155,18 +155,18 @@ pub fn shutdown() {
 pub fn load_config(cfg: switch_xml_t) {
     unsafe {
         let tmp_str = CString::new("api").unwrap();
-        let settings_tag = fsr::switch_xml_child(cfg, tmp_str.as_ptr());
+        let settings_tag = switch_sys::switch_xml_child(cfg, tmp_str.as_ptr());
         if !settings_tag.is_null() {
             let tmp_str = CString::new("param").unwrap();
-            let mut param = fsr::switch_xml_child(settings_tag, tmp_str.as_ptr());
+            let mut param = switch_sys::switch_xml_child(settings_tag, tmp_str.as_ptr());
             while !param.is_null() {
                 let tmp_str = CString::new("name").unwrap();
-                let var = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let var = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
                 let tmp_str = CString::new("value").unwrap();
-                let val = fsr::switch_xml_attr_soft(param, tmp_str.as_ptr());
+                let val = switch_sys::switch_xml_attr_soft(param, tmp_str.as_ptr());
 
-                let var = fsr::to_string(var);
-                let val = fsr::to_string(val);
+                let var = switch_sys::switch_to_string(var);
+                let val = switch_sys::switch_to_string(val);
 
                 if var.eq_ignore_ascii_case("listen-ip") {
                     GOLOBAS.profile.lock().unwrap().listen_ip = val;
@@ -187,7 +187,7 @@ pub fn load_config(cfg: switch_xml_t) {
     }
 }
 
-fn on_event(ev: fsr::Event) {
+fn on_event(ev: switch_sys::Event) {
     let tx = GOLOBAS.ev_tx.lock().unwrap().clone();
     if tx.is_some() {
         let ret = tx.unwrap().send(zrapi::Event::from(&ev));
@@ -197,7 +197,7 @@ fn on_event(ev: fsr::Event) {
     }
 }
 
-pub fn start(m: &fsr::Module, name: &str) {
+pub fn start(m: &switch_sys::Module, name: &str) {
     let profile = GOLOBAS.profile.lock().unwrap().clone();
     if profile.enable {
         let bind_uri = format!("{}:{:?}", profile.listen_ip, profile.listen_port);
@@ -212,7 +212,7 @@ pub fn start(m: &fsr::Module, name: &str) {
 
         thread::sleep(std::time::Duration::from_millis(200));
 
-        let evnode = fsr::event_bind(
+        let evnode = switch_sys::event_bind(
             m,
             name,
             switch_event_types_t::SWITCH_EVENT_ALL,

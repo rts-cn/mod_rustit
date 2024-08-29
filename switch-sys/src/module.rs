@@ -68,9 +68,9 @@ impl Module {
 
     pub fn add_api(&self, name: &str, desc: &str, syntax: &str, func: switch_api_function_t) {
         unsafe {
-            let name = strdup!(self.pool(), name);
-            let desc = strdup!(self.pool(), desc);
-            let syntax = strdup!(self.pool(), syntax);
+            let name = switch_core_strdup!(self.pool(), name);
+            let desc = switch_core_strdup!(self.pool(), desc);
+            let syntax = switch_core_strdup!(self.pool(), syntax);
             let api = self.create_interface(switch_module_interface_name_t::SWITCH_API_INTERFACE)
                 as *mut switch_api_interface_t;
             assert!(!api.is_null());
@@ -91,10 +91,10 @@ impl Module {
         flags: switch_application_flag_enum_t,
     ) {
         unsafe {
-            let name = strdup!(self.pool(), name);
-            let long_desc = strdup!(self.pool(), long_desc);
-            let short_desc = strdup!(self.pool(), short_desc);
-            let syntax = strdup!(self.pool(), syntax);
+            let name = switch_core_strdup!(self.pool(), name);
+            let long_desc = switch_core_strdup!(self.pool(), long_desc);
+            let short_desc = switch_core_strdup!(self.pool(), short_desc);
+            let syntax = switch_core_strdup!(self.pool(), syntax);
             let app = self
                 .create_interface(switch_module_interface_name_t::SWITCH_APPLICATION_INTERFACE)
                 as *mut switch_application_interface;
@@ -113,8 +113,8 @@ impl Module {
 ///
 /// # Examples
 /// ```
-/// use fsr::switch_status_t;
-/// fn examples_mod_load(m: &fsr::Module) -> switch_status_t { SWITCH_STATUS_SUCCESS }
+/// use switch_sys::switch_status_t;
+/// fn examples_mod_load(m: &switch_sys::Module) -> switch_status_t { SWITCH_STATUS_SUCCESS }
 /// fn examples_mod_runtime() -> switch_status_t { SWITCH_STATUS_SUCCESS }
 /// fn examples_mod_shutdown() -> switch_status_t { SWITCH_STATUS_SUCCESS }
 /// fsr_mod!("mod_examples", examples_mod_load, examples_mod_runtime, examples_mod_shutdown);
@@ -129,7 +129,7 @@ macro_rules! fsr_mod {
             mod_int: *mut *mut switch_loadable_module_interface,
             mem_pool: *mut switch_memory_pool_t,
         ) -> switch_status_t {
-            let name = strdup!(mem_pool, $name);
+            let name = switch_core_strdup!(mem_pool, $name);
             *mod_int = switch_loadable_module_create_module_interface(mem_pool, name);
             if (*mod_int).is_null() {
                 return switch_status_t::SWITCH_STATUS_MEMERR;
@@ -169,8 +169,8 @@ macro_rules! fsr_mod {
 /// # Examples
 ///
 /// ```
-/// use fsr::switch_application_flag_enum_t;
-/// fn examples(session &fsr::session, cmd String)
+/// use switch_sys::switch_application_flag_enum_t;
+/// fn examples(session &switch_sys::session, cmd String)
 /// {
 ///     info!({}, cmd);
 /// }
@@ -184,8 +184,8 @@ macro_rules! fsr_app {
                 session: *mut switch_core_session_t,
                 cmd: *const ::std::os::raw::c_char
             ) {
-                let session = &fsr::Session::from_ptr(session);
-                $callback(session, to_string(cmd));
+                let session = &switch_sys::Session::from_ptr(session);
+                $callback(session, switch_to_string(cmd));
             }
 
             $module.add_application($name, $short_desc, $long_desc, $syntax, Some([<_app_wrap_ $callback>]), $flag);
@@ -199,7 +199,7 @@ macro_rules! fsr_app {
 /// # Examples
 ///
 /// ```
-/// fn examples(session &fsr::Session, cmd String, stream &fsr::Stream) -> fsr::switch_status_t
+/// fn examples(session &switch_sys::Session, cmd String, stream &switch_sys::Stream) -> switch_sys::switch_status_t
 /// {
 ///    info!({}, cmd);
 //     stream.write("OK");
@@ -213,12 +213,12 @@ macro_rules! fsr_api {
         paste::paste! {
                 unsafe extern "C" fn [<_api_wrap_ $callback>](
                     cmd: *const std::os::raw::c_char,
-                    session: *mut fsr::switch_core_session,
-                    stream: *mut fsr::switch_stream_handle_t,
+                    session: *mut switch_sys::switch_core_session,
+                    stream: *mut switch_sys::switch_stream_handle_t,
                 ) -> switch_status_t {
-                    let session = &fsr::Session::from_ptr(session);
-                    let stream = &fsr::Stream::from_ptr(stream);
-                    $callback(session, to_string(cmd), stream)
+                    let session = &switch_sys::Session::from_ptr(session);
+                    let stream = &switch_sys::Stream::from_ptr(stream);
+                    $callback(session, switch_to_string(cmd), stream)
                 }
             $module.add_api($name, $desc, $syntax, Some([<_api_wrap_ $callback>]));
         }

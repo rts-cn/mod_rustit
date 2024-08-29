@@ -3,7 +3,7 @@ FREESWITCH_MOD_DIR ?= $(FREESWITCH_DIR)/mod
 
 build:
 	cargo build
-	cp ./target/debug/libmod_zrs.so ./target/mod_zrs.so
+	cp ./target/debug/libmod_rustit.so ./target/mod_rustit.so
 
 install:
 	install -s -p -D -m 0755 ./target/mod_zrs.so  $(FREESWITCH_MOD_DIR)/
@@ -19,4 +19,4 @@ generate:
 
 release:
 	cargo build --release 
-	cp ./target/release/libmod_zrs.so ./target/mod_zrs.so
+	cp ./target/release/libmod_rustit.so ./target/mod_rustit.so

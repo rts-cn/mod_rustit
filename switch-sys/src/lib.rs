@@ -8,30 +8,16 @@ use std::os::raw::c_char;
 use std::os::raw::c_int;
 use std::os::raw::c_void;
 
-include!("fs.rs");
+include!("base.rs");
 include!("utils.rs");
 include!("logs.rs");
 include!("module.rs");
 include!("event.rs");
 
-pub fn switch_safe_free(ptr: *mut c_void) {
-    if !ptr.is_null() {
-        unsafe { libc::free(ptr as *mut c_void) };
-    }
-}
-
-pub fn to_string<'a>(p: *const c_char) -> String {
-    if p.is_null() {
-        return String::from("");
-    }
-    let cstr = unsafe { std::ffi::CStr::from_ptr(p) };
-    String::from_utf8_lossy(cstr.to_bytes()).to_string()
-}
-
 pub fn get_variable(s: &str) -> String {
     let tmp_str = CString::new(s).unwrap();
     let val = unsafe { switch_core_get_variable(tmp_str.as_ptr()) };
-    to_string(val)
+    switch_to_string(val)
 }
 
 pub fn set_variable(name: &str, val: &str) {
@@ -89,7 +75,7 @@ pub fn api_exec(cmd: &str, arg: &str) -> Result<String, String> {
             stream as *mut switch_stream_handle_t,
         );
 
-        let ret: String = to_string((*stream).data as *const c_char);
+        let ret: String = switch_to_string((*stream).data as *const c_char);
         switch_safe_free((*stream).data);
         if status == switch_status_t::SWITCH_STATUS_SUCCESS {
             Ok(ret)
@@ -126,7 +112,7 @@ pub fn json_api_exec(cmd: &str) -> Result<String, String> {
         cJSON_DeleteItemFromObject(jcmd, key.as_ptr());
 
         let json_text = cJSON_PrintUnformatted(jcmd);
-        let response = to_string(json_text);
+        let response = switch_to_string(json_text);
         switch_safe_free(json_text as *mut c_void);
         cJSON_Delete(jcmd);
         Ok(response)
@@ -297,7 +283,7 @@ where
         );
 
         let params_str = switch_event_build_param_string(params, basic_data, std::ptr::null_mut());
-        let data = to_string(params_str);
+        let data = switch_to_string(params_str);
         switch_safe_free(basic_data as *mut c_void);
         switch_safe_free(params_str as *mut c_void);
 
@@ -419,7 +405,7 @@ pub fn status() -> SytemStatus {
             status.ready = true;
         }
         status.uptime = switch_core_uptime();
-        status.version = to_string(switch_version_full());
+        status.version = switch_to_string(switch_version_full());
 
         status.session_total = (switch_core_session_id() - 1) as u64;
         status.session_active = switch_core_session_count();

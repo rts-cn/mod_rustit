@@ -1,7 +1,7 @@
 use super::zrapi;
 
 impl zrapi::Event {
-    pub fn from(e: &fsr::Event) -> zrapi::Event {
+    pub fn from(e: &switch_sys::Event) -> zrapi::Event {
         zrapi::Event {
             event_id: e.event_id(),
             priority: e.priority(),
