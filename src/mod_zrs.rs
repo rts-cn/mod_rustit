@@ -67,13 +67,12 @@ fn zrs_mod_shutdown() -> switch_status_t {
 
     let rt = Runtime::new().unwrap();
     rt.shutdown_timeout(tokio::time::Duration::from_millis(1000));
-    thread::sleep(std::time::Duration::from_millis(200));
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrs_mod_runtime() -> switch_status_t {
-    thread::sleep(std::time::Duration::from_secs(300));
-    switch_status_t::SWITCH_STATUS_SUCCESS
+    thread::sleep(std::time::Duration::from_millis(1));
+    switch_status_t::SWITCH_STATUS_TERM
 }
 
 fsr_mod!("mod_zrs", zrs_mod_load, zrs_mod_runtime, zrs_mod_shutdown);

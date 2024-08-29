@@ -122,7 +122,7 @@ impl Module {
 /// ```
 #[macro_export]
 macro_rules! fsr_mod {
-    ($name:expr,$load:expr,$runtime:expr,$shutdown:expr) => {
+    ($name:expr,$load:ident,$runtime:ident,$shutdown:ident) => {
         paste::paste! {
         #[no_mangle]
         pub unsafe extern "C" fn _mod_load(
@@ -140,7 +140,6 @@ macro_rules! fsr_mod {
 
         #[no_mangle]
         pub extern "C" fn _mod_runtime() -> switch_status_t {
-            std::thread::yield_now();
             $runtime()
         }
 
