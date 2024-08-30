@@ -1,7 +1,7 @@
 workspace = {members = ["switch-sys"]}
 
 [package]
-name = "mod_zrs"
+name = "mod_rustit"
 version = "0.1.0"
 edition = "2021"
 publish = ["rsproxy"]
@@ -27,6 +27,7 @@ regex = { version = "1" }
 rand = "0.8.5"
 redb = "1.5.1"
 prost-types = "0.12.3"
+axum = "0.7.5"
 
 [build-dependencies]
 tonic-build = "0.10"
