@@ -5,17 +5,18 @@ pub mod cdr;
 pub mod api;
 pub mod storage;
 pub mod xml;
+pub mod jsapi;
 
 const MODULE_NAME: &str = "mod_rustit";
 
 fn api_rustit(_session: &switch_sys::Session, cmd: String, stream: &switch_sys::Stream) -> switch_sys::switch_status_t {
-    debug!("api zsr:{}", cmd);
+    debug!("api rustit:{}", cmd);
     stream.write("OK");
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn app_rustit(_session: &switch_sys::Session, cmd: String) {
-    debug!("api zsr:{}", cmd);
+    debug!("api rustit:{}", cmd);
 }
 
 fn do_config() {
@@ -40,13 +41,13 @@ fn do_config() {
 
 fn zrs_mod_load(m: &switch_sys::Module) -> switch_status_t {
     do_config();
-    fsr_api!(m, "zsr", "zsr desc", "zsr syntax", api_rustit);
+    fsr_api!(m, "rustit", "rustit desc", "rustit syntax", api_rustit);
     fsr_app!(
         m,
-        "zsr",
-        "zsr short desc",
-        "zsr long desc",
-        "zsr syntax",
+        "rustit",
+        "rustit short desc",
+        "rustit long desc",
+        "rustit syntax",
         app_rustit,
         switch_application_flag_enum_t::SAF_NONE
     );
@@ -55,6 +56,7 @@ fn zrs_mod_load(m: &switch_sys::Module) -> switch_status_t {
     cdr::start();
     storage::start(m, MODULE_NAME);
     api::start(m, MODULE_NAME);
+    jsapi::start(m, MODULE_NAME);
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
@@ -63,6 +65,7 @@ fn zrs_mod_shutdown() -> switch_status_t {
     xml::shutdown();
     cdr::shutdown();
     storage::shutdown();
+    jsapi::shutdown();
 
     let rt = Runtime::new().unwrap();
     rt.shutdown_timeout(tokio::time::Duration::from_millis(1000));
