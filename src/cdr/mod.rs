@@ -93,7 +93,7 @@ pub fn start() {
 
         let mut state_handlers = Box::new(switch_state_handler_table_t::default());
         state_handlers.on_reporting = Some(on_reporting);
-        let state_handlers_ptr = Box::leak(state_handlers) as *const switch_state_handler_table_t;
+        let state_handlers_ptr = Box::into_raw(state_handlers) as *const switch_state_handler_table_t;
         unsafe { switch_core_add_state_handler(state_handlers_ptr) };
         GOLOBAS.write().unwrap().running = true;
         GOLOBAS.write().unwrap().state_handlers =

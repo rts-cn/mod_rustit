@@ -230,7 +230,7 @@ unsafe extern "C" fn vfs_file_open(
             }
 
             context.cached = profile.cached;
-            (*handle).private_info = Box::leak(context) as *mut _ as *mut std::ffi::c_void;
+            (*handle).private_info = Box::into_raw(context) as *mut _ as *mut std::ffi::c_void;
             (*handle).samples = (*fh).samples;
             (*handle).format = (*fh).format;
             (*handle).sections = (*fh).sections;
