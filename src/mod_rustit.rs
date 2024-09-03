@@ -2,10 +2,10 @@ use switch_sys::*;
 use std::{ffi::CString, thread};
 use tokio::runtime::Runtime;
 pub mod cdr;
-pub mod api;
+pub mod grcp;
 pub mod storage;
 pub mod xml;
-pub mod jsapi;
+pub mod api;
 
 const MODULE_NAME: &str = "mod_rustit";
 
@@ -31,10 +31,11 @@ fn do_config() {
             switch_sys::switch_xml_free(xml);
             return;
         }
-        api::load_config(cfg);
+        grcp::load_config(cfg);
         xml::load_config(cfg);
         cdr::load_config(cfg);
         storage::load_config(cfg);
+        api::load_config(cfg);
         switch_sys::switch_xml_free(xml);
     }
 }
@@ -55,17 +56,17 @@ fn zrs_mod_load(m: &switch_sys::Module) -> switch_status_t {
     xml::start();
     cdr::start();
     storage::start(m, MODULE_NAME);
+    grcp::start(m, MODULE_NAME);
     api::start(m, MODULE_NAME);
-    jsapi::start(m, MODULE_NAME);
     switch_status_t::SWITCH_STATUS_SUCCESS
 }
 
 fn zrs_mod_shutdown() -> switch_status_t {
-    api::shutdown();
+    grcp::shutdown();
     xml::shutdown();
     cdr::shutdown();
     storage::shutdown();
-    jsapi::shutdown();
+    api::shutdown();
 
     let rt = Runtime::new().unwrap();
     rt.shutdown_timeout(tokio::time::Duration::from_millis(1000));

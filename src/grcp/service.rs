@@ -2,6 +2,7 @@ use switch_sys::*;
 use tokio::sync::{broadcast, mpsc};
 use tokio_stream::wrappers::ReceiverStream;
 use tonic::{Request, Response, Status};
+use super::zrapi;
 
 fn to_struct(json: serde_json::Map<String, serde_json::Value>) -> prost_types::Struct {
     prost_types::Struct {
@@ -51,7 +52,7 @@ fn prost_to_serde_json(x: prost_types::Value) -> serde_json::Value {
 }
 
 pub struct Service {
-    pub tx: broadcast::Sender<super::zrapi::Event>,
+    pub tx: broadcast::Sender<zrapi::Event>,
 }
 
 struct Topics {
@@ -79,10 +80,10 @@ impl super::zrapi::base_server::Base for Service {
         let mut topics: Vec<Topics> = Vec::new();
         for topic in request.into_inner().topics {
             let name = topic.event_name.to_ascii_uppercase();
-            let id = super::event::EventTypes::from_str_name(&name);
+            let id = switch_sys::switch_event_types_t::from_str(&name);
             if let Some(id) = id {
                 topics.push(Topics {
-                    id: id as u32,
+                    id: id.0,
                     subclass_name: topic.subclass,
                 });
             }
@@ -144,13 +145,13 @@ impl super::zrapi::base_server::Base for Service {
             json_format = true;
         }
 
-        if cmd.contains("reload") && args.contains("mod_zrs") {
+        if cmd.contains("reload") && args.contains("mod_rustit") {
             cmd = String::from("bgapi");
-            args = String::from("reload mod_zrs");
-        } else if cmd.contains("unload") && args.contains("mod_zrs") {
+            args = String::from("reload mod_rustit");
+        } else if cmd.contains("unload") && args.contains("mod_rustit") {
             let reply = super::zrapi::Reply {
                 code: 501,
-                message: String::from("Module mod_zrs is in use, cannot unload"),
+                message: String::from("Module mod_rustit is in use, cannot unload"),
                 data: None,
             };
             return Ok(Response::new(reply));
@@ -311,9 +312,9 @@ impl super::zrapi::base_server::Base for Service {
         let mut cmd = "reload";
         let mut args = req.mod_name;
 
-        if args.contains("mod_zrs") {
+        if args.contains("mod_rustit") {
             cmd = "bgapi";
-            args = String::from("reload mod_zrs");
+            args = String::from("reload mod_rustit");
         }
 
         let handle = tokio::task::spawn_blocking(move || switch_sys::api_exec(cmd, &args));
@@ -366,10 +367,10 @@ impl super::zrapi::base_server::Base for Service {
     /// Unload mod
     async fn unload_mod(&self, request: Request<super::zrapi::ModRequest>) -> Result<Response<super::zrapi::Reply>, Status> {
         let req = request.into_inner();
-        if req.mod_name.contains("mod_zrs") {
+        if req.mod_name.contains("mod_rustit") {
             let reply = super::zrapi::Reply {
                 code: 501,
-                message: String::from("-ERR Module mod_zrs is in use, cannot unload"),
+                message: String::from("-ERR Module mod_rustit is in use, cannot unload"),
                 data: None,
             };
             return Ok(Response::new(reply));

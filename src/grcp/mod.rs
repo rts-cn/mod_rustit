@@ -1,5 +1,5 @@
-use axum::{routing::get, Router};
 use lazy_static::lazy_static;
+use md5;
 use std::ffi::CString;
 use std::sync::Arc;
 use std::sync::Mutex;
@@ -7,6 +7,10 @@ use std::thread;
 use switch_sys::*;
 use tokio::sync::broadcast;
 use tokio::sync::mpsc;
+use tonic::{Request, Status};
+
+pub mod service;
+pub mod zrapi;
 
 #[derive(Debug, Clone)]
 struct Profile {
@@ -34,7 +38,7 @@ impl Profile {
 struct Global {
     running: Mutex<bool>,
     profile: Mutex<Profile>,
-    ev_tx: Mutex<Option<broadcast::Sender<String>>>,
+    ev_tx: Mutex<Option<broadcast::Sender<zrapi::Event>>>,
     done_tx: Mutex<Option<mpsc::Sender<u8>>>,
 }
 
@@ -53,9 +57,76 @@ lazy_static! {
     static ref GOLOBAS: Arc<Global> = Arc::new(Global::new());
 }
 
-// basic handler that responds with a static string
-async fn root() -> &'static str {
-    "Hello, World!"
+#[tokio::main]
+async fn tokio_main(addr: String, password: String, acl: String) {
+    let addr = addr.clone();
+    let addr = addr
+        .parse::<std::net::SocketAddr>()
+        .expect("Unable to parse grpc socket address");
+
+    let (tx, mut rx) = broadcast::channel::<zrapi::Event>(64);
+    let (done_tx, mut done_rx) = mpsc::channel(1);
+
+    *GOLOBAS.done_tx.lock().unwrap() = Some(done_tx);
+    *GOLOBAS.ev_tx.lock().unwrap() = Some(tx.clone());
+
+    let f = async {
+        let _ = done_rx.recv().await;
+    };
+
+    let check_auth = move |req: Request<()>| -> Result<Request<()>, Status> {
+        let remote_addr = req.remote_addr();
+        if let Some(remote_addr) = remote_addr {
+            let remote_addr_str = remote_addr.ip().to_string();
+            if switch_sys::check_acl(&remote_addr_str, &acl) {
+                return Ok(req);
+            }
+        }
+
+        let authorization = req.metadata().get("authorization");
+        match authorization {
+            Some(t) => {
+                let digest = format!("bearer {:x}", md5::compute(&password));
+                let token = t.to_str().unwrap();
+                if digest.eq_ignore_ascii_case(token) {
+                    Ok(req)
+                } else {
+                    Err(Status::unauthenticated(
+                        "authentication failure wrong password",
+                    ))
+                }
+            }
+            _ => Err(Status::unauthenticated("No valid auth token")),
+        }
+    };
+
+    tokio::spawn(async move {
+        loop {
+            let ret = rx.recv().await;
+            match ret {
+                Ok(_) => {}
+                Err(e) => {
+                    error!("{}", e);
+                    break;
+                }
+            }
+        }
+    });
+
+    let service = service::Service { tx };
+    debug!("Start GRPC service {}", addr);
+    let ret = tonic::transport::Server::builder()
+        .add_service(zrapi::base_server::BaseServer::with_interceptor(
+            service, check_auth,
+        ))
+        .serve_with_shutdown(addr, f)
+        .await;
+    match ret {
+        Err(e) => {
+            error!("Couldn't start grpc sever, {}", e);
+        }
+        Ok(_) => {}
+    }
 }
 
 pub fn shutdown() {
@@ -75,9 +146,6 @@ pub fn shutdown() {
     for _ in 1..20 {
         thread::sleep(std::time::Duration::from_millis(200));
         if *GOLOBAS.running.lock().unwrap() == false {
-            debug!("jsapi server shutdown");
-            *GOLOBAS.done_tx.lock().unwrap() = None;
-            *GOLOBAS.ev_tx.lock().unwrap() = None;
             break;
         }
     }
@@ -85,7 +153,7 @@ pub fn shutdown() {
 
 pub fn load_config(cfg: switch_xml_t) {
     unsafe {
-        let tmp_str = CString::new("jsapi").unwrap();
+        let tmp_str = CString::new("grpc").unwrap();
         let settings_tag = switch_sys::switch_xml_child(cfg, tmp_str.as_ptr());
         if !settings_tag.is_null() {
             let tmp_str = CString::new("param").unwrap();
@@ -103,17 +171,31 @@ pub fn load_config(cfg: switch_xml_t) {
                     GOLOBAS.profile.lock().unwrap().listen_ip = val;
                 } else if var.eq_ignore_ascii_case("listen-port") {
                     GOLOBAS.profile.lock().unwrap().listen_port =
-                        val.parse::<u16>().unwrap_or(8202);
+                        val.parse::<u16>().unwrap_or(8203);
                 } else if var.eq_ignore_ascii_case("password") {
                     GOLOBAS.profile.lock().unwrap().password = val;
                 } else if var.eq_ignore_ascii_case("apply-inbound-acl") {
                     GOLOBAS.profile.lock().unwrap().apply_inbound_acl = val;
                 } else if var.eq_ignore_ascii_case("enable") {
                     GOLOBAS.profile.lock().unwrap().enable = switch_true(&val);
-                }
-
+                } 
                 param = (*param).next;
             }
+        }
+    }
+}
+
+impl zrapi::Event {
+    pub fn from(e: switch_sys::Event) -> zrapi::Event {
+        zrapi::Event {
+            event_id: e.event_id,
+            priority: e.priority,
+            owner: e.owner,
+            subclass_name: e.subclass_name,
+            key: e.key,
+            flags: e.flags,
+            headers: e.headers,
+            body: e.body,
         }
     }
 }
@@ -121,62 +203,28 @@ pub fn load_config(cfg: switch_xml_t) {
 fn on_event(ev: switch_sys::Event) {
     let tx = GOLOBAS.ev_tx.lock().unwrap().clone();
     if tx.is_some() {
-        let ret = tx.unwrap().send(ev.string());
+        let ret = tx.unwrap().send(zrapi::Event::from(ev));
         if let Err(e) = ret {
             error!("{}", e);
         }
     }
 }
 
-#[tokio::main]
-async fn tokio_main(address: String) {
-    let (tx, mut rx) = broadcast::channel::<String>(64);
-    let (done_tx, mut done_rx) = mpsc::channel(1);
-
-    *GOLOBAS.done_tx.lock().unwrap() = Some(done_tx);
-    *GOLOBAS.ev_tx.lock().unwrap() = Some(tx.clone());
-
-    let f = async move {
-        let _ = done_rx.recv().await;
-        debug!("jsapi server shutdown");
-    };
-
-    tokio::spawn(async move {
-        loop {
-            let ret = rx.recv().await;
-            match ret {
-                Ok(_) => {}
-                Err(e) => {
-                    error!("{}", e);
-                    break;
-                }
-            }
-        }
-    });
-    debug!("Start jsapi service {}", address);
-    // build our application with a route
-    let app = Router::new()
-        // `GET /` goes to `root`
-        .route("/", get(root));
-    // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind(address).await.unwrap();
-    axum::serve(listener, app)
-        .with_graceful_shutdown(f)
-        .await
-        .unwrap();
-}
-
 pub fn start(m: &switch_sys::Module, name: &str) {
     let profile = GOLOBAS.profile.lock().unwrap().clone();
     if profile.enable {
         let bind_uri = format!("{}:{:?}", profile.listen_ip, profile.listen_port);
+        let password = profile.password.clone();
+        let acl = profile.apply_inbound_acl.clone();
         thread::spawn(move || {
             *GOLOBAS.running.lock().unwrap() = true;
-            tokio_main(bind_uri);
+            tokio_main(bind_uri, password, acl);
             *GOLOBAS.running.lock().unwrap() = false;
-            debug!("jsapi service thread shutdown.");
+            debug!("Rustit GRPC service thread shutdown.");
         });
+
         thread::sleep(std::time::Duration::from_millis(200));
+
         let evnode = switch_sys::event_bind(
             m,
             name,
